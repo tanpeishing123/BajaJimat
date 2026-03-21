@@ -29,9 +29,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
 
         <div className="relative h-full flex items-end pb-14 md:pb-16 px-6 md:px-12">
           <div className="max-w-6xl mx-auto w-full">
-            <span className="inline-block text-accent font-body font-semibold text-[11px] uppercase tracking-[0.22em] mb-2">
-              {t(lang, 'Smart Agriculture', 'Pertanian Pintar')}
-            </span>
             <h1
               className="text-3xl md:text-5xl lg:text-[3.6rem] font-serif-display font-bold text-white leading-[1.06] tracking-tight max-w-xl"
               style={{ textShadow: '0 2px 16px rgba(0,0,0,0.25)' }}
