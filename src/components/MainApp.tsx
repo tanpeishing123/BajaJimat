@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { SpeakerButton } from './SpeakerButton';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
 import { LeafPhotoTab } from './tabs/LeafPhotoTab';
 import { ResultsDashboard } from './ResultsDashboard';
+import { Sprout } from 'lucide-react';
 import leafSketch from '@/assets/leaf-sketch.png';
 
 interface UserProfile {
@@ -15,30 +16,22 @@ interface UserProfile {
   lang: 'en' | 'bm';
 }
 
-const cropNames: Record<string, Record<'en' | 'bm', string>> = {
-  musang_king: { en: 'Musang King', bm: 'Musang King' },
-  oil_palm: { en: 'Oil Palm', bm: 'Kelapa Sawit' },
-  paddy: { en: 'Paddy', bm: 'Padi' },
-  vegetables: { en: 'Vegetables', bm: 'Sayuran' },
-  rubber: { en: 'Rubber', bm: 'Getah' },
-};
-
 type TabKey = 'soil' | 'testkit' | 'leaf';
 
-export function MainApp({ profile, onLogout }: { profile: UserProfile; onLogout: () => void }) {
-  const { t, lang } = useLanguage();
+export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
+  const lang = externalLang;
+  const t = (en: string, bm: string) => lang === 'bm' ? bm : en;
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
   const [showResults, setShowResults] = useState(false);
   const [npkLevels, setNpkLevels] = useState<{ n: number; p: number; k: number } | null>(null);
 
-  const cropName = cropNames[profile.crop]?.[lang] || profile.crop;
-  const greeting = `${t('welcome')}, ${profile.name}!`;
-  const farmInfo = t('your_farm', { crop: cropName, size: profile.farmSize });
+  const greeting = `${t('Welcome', 'Selamat Datang')}, ${profile.name}!`;
+  const farmInfo = `${profile.crop}, ${profile.farmSize} ha`;
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
-    { key: 'soil', label: t('soil_report'), icon: <FileText size={18} /> },
-    { key: 'testkit', label: t('test_kit'), icon: <TestTubes size={18} /> },
-    { key: 'leaf', label: t('leaf_photo'), icon: <Leaf size={18} /> },
+    { key: 'soil', label: t('Soil Report', 'Laporan Tanah'), icon: <FileText size={18} /> },
+    { key: 'testkit', label: t('Test Kit', 'Kit Ujian'), icon: <TestTubes size={18} /> },
+    { key: 'leaf', label: t('Leaf Photo', 'Foto Daun'), icon: <Leaf size={18} /> },
   ];
 
   const handleTestKitSubmit = (n: number, p: number, k: number) => {
@@ -63,29 +56,36 @@ export function MainApp({ profile, onLogout }: { profile: UserProfile; onLogout:
 
   return (
     <div className="min-h-screen bg-cream-brand relative overflow-hidden">
-      {/* Decorative sketch */}
-      <img
-        src={leafSketch}
-        alt=""
-        className="absolute top-20 right-0 w-48 opacity-[0.04] pointer-events-none"
-      />
+      <img src={leafSketch} alt="" className="absolute top-20 right-0 w-48 opacity-[0.04] pointer-events-none" />
 
-      {/* Header */}
-      <header className="bg-card border-b border-border px-4 py-5 shadow-sm">
+      {/* Navbar */}
+      <header className="bg-card/80 backdrop-blur-md border-b border-border px-4 py-4 sticky top-0 z-50">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-serif-display font-bold text-brown-brand">{greeting}</h1>
-              <SpeakerButton text={`${greeting} ${farmInfo}`} lang={lang} />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
+              <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <p className="text-sm text-muted-foreground font-body mt-0.5">{farmInfo}</p>
+            <div>
+              <h1 className="text-base font-serif-display font-bold text-brown-brand leading-tight">{greeting}</h1>
+              <p className="text-xs text-muted-foreground font-body">{farmInfo}</p>
+            </div>
+            <SpeakerButton text={`${greeting} ${farmInfo}`} lang={lang} size="sm" />
           </div>
-          <button
-            onClick={onLogout}
-            className="text-xs text-muted-foreground hover:text-foreground font-body transition-colors"
-          >
-            ↺ Reset
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onToggleLang}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-border text-xs font-body font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95"
+            >
+              <Globe size={12} />
+              {lang === 'en' ? 'BM' : 'EN'}
+            </button>
+            <button
+              onClick={onLogout}
+              className="text-xs text-muted-foreground hover:text-foreground font-body transition-colors"
+            >
+              ↺ {t('Reset', 'Set Semula')}
+            </button>
+          </div>
         </div>
       </header>
 
