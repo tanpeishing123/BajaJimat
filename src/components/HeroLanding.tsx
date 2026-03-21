@@ -27,7 +27,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         {/* Clean gradient — not foggy */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
 
-        <div className="relative h-full flex items-end pb-10 md:pb-12 pt-20 px-6 md:px-12">
+        <div className="relative h-full flex items-end pb-10 md:pb-12 pt-24 md:pt-28 px-6 md:px-12">
           <div className="max-w-6xl mx-auto w-full">
             <h1
               className="text-3xl md:text-5xl lg:text-[3.6rem] font-serif-display font-bold text-white leading-[1.06] tracking-tight max-w-xl"

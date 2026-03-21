@@ -96,7 +96,7 @@ export function ResultsDashboard({ lang, result, onBack }: Props) {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      <div className="flex-1 overflow-y-auto max-w-2xl mx-auto w-full px-4 py-4 space-y-4">
 
         {/* 1. Voice Summary — large speaker */}
         <motion.div

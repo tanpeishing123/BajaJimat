@@ -98,7 +98,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             <div className="flex items-center gap-1.5 flex-wrap">
               {row.levels.map((level, i) => {
                 const isSelected = selected[row.key] === level.value;
-                const isLightColor = ['#fefae0', '#faedcd', '#e9c46a', '#f5c6aa', '#99d98c', '#ffb703', '#f4a261', '#c9b458', '#a7c957'].includes(level.color);
+                const isLightColor = ['#f0e68c', '#fffacd', '#eee8aa', '#f5deb3', '#deb887', '#daa520', '#f4a460', '#bdb76b', '#9acd32', '#f08080', '#e9967a', '#cd5c5c', '#bc8f8f', '#a9a9a9'].includes(level.color);
                 return (
                   <button
                     key={i}
