@@ -83,7 +83,7 @@ export function ResultsDashboard({ lang, result, onBack }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-cream-brand relative">
+    <div className="h-screen bg-cream-brand relative flex flex-col">
       {/* Header */}
       <header className="border-b border-border/50 px-4 py-3.5 bg-cream-brand/90 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
