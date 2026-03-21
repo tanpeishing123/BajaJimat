@@ -75,6 +75,9 @@ export default {
         cream: {
           brand: "hsl(var(--cream))",
         },
+        lavender: {
+          brand: "hsl(var(--lavender))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
