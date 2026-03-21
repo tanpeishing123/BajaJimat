@@ -63,6 +63,13 @@ export function LoginPage({ lang, onLogin, onSignup, onBack }: LoginPageProps) {
 
       {/* Right — Form */}
       <div className="w-full md:w-1/2 bg-cream-brand flex items-center justify-center p-6 md:p-12 relative">
+        <button
+          onClick={onBack}
+          className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-1.5 text-sm font-body text-muted-foreground hover:text-brown-brand transition-colors z-10"
+        >
+          <ArrowLeft size={16} />
+          {t(lang, 'Home', 'Utama')}
+        </button>
         <div className="absolute top-12 right-10 opacity-[0.04] pointer-events-none">
           <Leaf size={120} className="text-primary rotate-12" />
         </div>
