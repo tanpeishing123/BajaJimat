@@ -131,18 +131,18 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
 
       {/* Result Summary */}
       {(selected.ph !== null || selected.n !== null || selected.p !== null || selected.k !== null) && (
-        <div className="mt-7 bg-muted/60 rounded-2xl p-5 border border-border animate-in fade-in duration-300">
-          <h3 className="font-serif-display text-sm font-semibold text-brown-brand mb-3">
+        <div className="mt-4 bg-muted/50 rounded-xl p-3 border border-border/60 animate-in fade-in duration-300">
+          <h3 className="font-serif-display text-xs font-semibold text-brown-brand mb-2">
             {t(lang, 'Result Summary', 'Ringkasan Keputusan')}
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-2">
             {rows.map(row => (
               <div key={row.key} className="text-center">
-                <p className="text-[10px] text-muted-foreground font-body uppercase tracking-wide">{row.label[lang]}</p>
-                <p className="text-lg font-body font-bold text-foreground mt-0.5">
+                <p className="text-[9px] text-muted-foreground font-body uppercase tracking-wide">{row.label[lang]}</p>
+                <p className="text-sm font-body font-bold text-foreground mt-0.5">
                   {selected[row.key] !== null ? `${selected[row.key]}` : '—'}
                 </p>
-                {row.unit && <p className="text-[10px] text-muted-foreground font-body">{row.unit}</p>}
+                {row.unit && <p className="text-[9px] text-muted-foreground font-body">{row.unit}</p>}
               </div>
             ))}
           </div>
@@ -152,7 +152,8 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
       <button
         disabled={!canSubmit}
         onClick={() => canSubmit && onSubmit(selected.n!, selected.p!, selected.k!, selected.ph!)}
-        className="w-full mt-6 bg-primary text-primary-foreground rounded-2xl py-4 font-body font-semibold text-base transition-all duration-200 hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed shadow-luxe"
+        className="w-full mt-4 rounded-xl py-3 font-body font-semibold text-sm transition-all duration-200 hover:brightness-105 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
+        style={{ backgroundColor: '#faedcd', color: '#2d1a12' }}
       >
         {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
       </button>
