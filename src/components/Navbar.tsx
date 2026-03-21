@@ -10,7 +10,7 @@ interface NavbarProps {
 
 export function Navbar({ lang, onToggleLang, onLogin, onSignup, showAuth = true }: NavbarProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-3">
