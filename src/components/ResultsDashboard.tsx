@@ -289,8 +289,7 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
         <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center gap-3 pb-3">
           <button
             onClick={onBack}
-            className="flex-1 py-2 font-body font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-all duration-200 hover:brightness-95 active:scale-[0.97]"
-            style={{ backgroundColor: '#faedcd', color: '#2d1a12', borderRadius: '1rem 1.6rem 0.8rem 1.4rem' }}
+            className="flex-1 py-2 rounded-xl font-body font-semibold text-[11px] flex items-center justify-center gap-1.5 btn-secondary-outline"
           >
             <ArrowLeft size={12} />
             {t(lang, 'Re-analyze', 'Analisis Semula')}
