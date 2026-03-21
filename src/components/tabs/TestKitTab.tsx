@@ -87,15 +87,15 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
         <SpeakerButton text={t(lang, 'Select the color that matches your soil test kit for each nutrient row', 'Pilih warna yang sepadan dengan kit ujian tanah anda untuk setiap baris nutrien')} lang={lang} />
       </div>
 
-      <div className="space-y-7">
+      <div className="space-y-4">
         {rows.map(row => (
           <div key={row.key}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="font-body font-semibold text-foreground text-sm">{row.label[lang]}</span>
-              {row.unit && <span className="text-xs text-muted-foreground font-body">({row.unit})</span>}
+            <div className="flex items-center gap-1.5 mb-2">
+              <span className="font-body font-semibold text-foreground text-xs">{row.label[lang]}</span>
+              {row.unit && <span className="text-[10px] text-muted-foreground font-body">({row.unit})</span>}
               <SpeakerButton text={row.label[lang]} lang={lang} size="sm" />
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
               {row.levels.map((level, i) => {
                 const isSelected = selected[row.key] === level.value;
                 const isLightColor = ['#fefae0', '#faedcd', '#e9c46a', '#f5c6aa', '#99d98c', '#ffb703', '#f4a261', '#c9b458', '#a7c957'].includes(level.color);
@@ -103,17 +103,17 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
                   <button
                     key={i}
                     onClick={() => setSelected(prev => ({ ...prev, [row.key]: level.value }))}
-                    className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl transition-all duration-200 active:scale-90 flex items-center justify-center ${
+                    className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg transition-all duration-200 active:scale-90 flex items-center justify-center ${
                       isSelected
-                        ? 'ring-[3px] ring-primary ring-offset-2 scale-105'
-                        : 'hover:scale-105 hover:shadow-md'
+                        ? 'ring-[3px] ring-primary ring-offset-1 scale-105'
+                        : 'hover:scale-105 hover:shadow-sm'
                     }`}
                     style={{ backgroundColor: level.color }}
                     aria-label={`${row.label[lang]} ${level.label[lang]}`}
                     title={`${level.label[lang]}${row.unit ? ' ' + row.unit : ''}`}
                   >
                     {isSelected && (
-                      <Check size={18} className={isLightColor ? 'text-foreground' : 'text-white'} strokeWidth={3} />
+                      <Check size={14} className={isLightColor ? 'text-foreground' : 'text-white'} strokeWidth={3} />
                     )}
                   </button>
                 );
