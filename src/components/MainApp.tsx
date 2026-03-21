@@ -64,8 +64,6 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
         result={mockResult}
         onBack={() => setShowResults(false)}
       />
-        onBack={() => setShowResults(false)}
-      />
     );
   }
 
