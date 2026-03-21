@@ -166,8 +166,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
             </p>
             <button
               onClick={handleLeafCalculate}
-              className="w-full py-2.5 font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 hover:brightness-95 active:scale-[0.97]"
-              style={{ backgroundColor: '#faedcd', color: '#2d1a12', borderRadius: '1rem 1.6rem 0.8rem 1.4rem' }}
+              className="w-full py-2.5 rounded-xl font-body font-semibold text-sm flex items-center justify-center gap-2 btn-gradient-primary"
             >
               <Zap size={14} />
               {t('Calculate Prescription', 'Kira Preskripsi')}

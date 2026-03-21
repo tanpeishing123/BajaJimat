@@ -266,8 +266,8 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
         {/* Savings Banner */}
         <motion.div
           custom={2.2} variants={fadeUp} initial="hidden" animate="visible"
-          className="w-full px-5 py-2.5 shadow-luxe relative overflow-hidden flex items-center justify-between mb-2"
-          style={{ backgroundColor: '#065f46', borderRadius: '1.4rem 2rem 1rem 2.2rem' }}
+          className="w-full px-5 py-2.5 shadow-luxe relative overflow-hidden flex items-center justify-between mb-2 btn-gradient-primary"
+          style={{ borderRadius: '1.4rem 2rem 1rem 2.2rem' }}
         >
           <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-15 -translate-y-8 translate-x-8" style={{ background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)' }} />
           <div>
@@ -289,8 +289,7 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
         <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center gap-3 pb-3">
           <button
             onClick={onBack}
-            className="flex-1 py-2 font-body font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-all duration-200 hover:brightness-95 active:scale-[0.97]"
-            style={{ backgroundColor: '#faedcd', color: '#2d1a12', borderRadius: '1rem 1.6rem 0.8rem 1.4rem' }}
+            className="flex-1 py-2 rounded-xl font-body font-semibold text-[11px] flex items-center justify-center gap-1.5 btn-secondary-outline"
           >
             <ArrowLeft size={12} />
             {t(lang, 'Re-analyze', 'Analisis Semula')}

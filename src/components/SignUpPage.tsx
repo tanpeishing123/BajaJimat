@@ -157,11 +157,7 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
             <button
               disabled={!canSubmit}
               onClick={() => canSubmit && onComplete({ name, crop, farmSize, lang })}
-              className={`w-full mt-6 rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-luxe active:scale-[0.97] ${
-                canSubmit
-                  ? 'bg-primary text-primary-foreground hover:brightness-110 opacity-100 scale-100'
-                  : 'bg-primary/30 text-primary-foreground/60 opacity-50 cursor-not-allowed'
-              }`}
+              className="w-full mt-6 rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 btn-gradient-primary"
             >
               {t(lang, 'Get Started', 'Mulakan')}
               <ArrowRight size={18} />

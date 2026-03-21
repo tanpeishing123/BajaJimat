@@ -43,7 +43,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             <div className="mt-4">
               <button
                 onClick={onGetStarted}
-                className="px-6 py-2.5 bg-primary text-primary-foreground rounded-full font-body font-semibold text-sm flex items-center gap-2 shadow-luxe hover:shadow-luxe-hover hover:brightness-110 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.97]"
+                className="px-6 py-2.5 rounded-full btn-gradient-primary font-body font-semibold text-sm flex items-center gap-2"
               >
                 {t(lang, 'Get Started', 'Mulakan')}
                 <ArrowRight size={15} />

@@ -113,11 +113,7 @@ export function LoginPage({ lang, onLogin, onSignup }: LoginPageProps) {
             <button
               disabled={!canSubmit}
               onClick={() => canSubmit && onLogin()}
-              className={`w-full mt-7 rounded-2xl py-3.5 font-body font-semibold text-[15px] flex items-center justify-center gap-2 transition-all duration-300 active:scale-[0.97] shadow-luxe ${
-                canSubmit
-                  ? 'bg-primary text-primary-foreground hover:brightness-110 opacity-100 scale-100'
-                  : 'bg-primary/30 text-primary-foreground/60 opacity-50 cursor-not-allowed'
-              }`}
+              className="w-full mt-7 rounded-2xl py-3.5 font-body font-semibold text-[15px] flex items-center justify-center gap-2 btn-gradient-primary"
             >
               {t(lang, 'Log In', 'Log Masuk')}
               <ArrowRight size={18} />
