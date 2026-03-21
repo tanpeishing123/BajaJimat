@@ -75,33 +75,34 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
   const lightColors = ['#f0e68c', '#fffacd', '#eee8aa', '#f5deb3', '#deb887', '#daa520', '#f4a460', '#bdb76b', '#9acd32', '#f08080', '#e9967a', '#cd5c5c', '#bc8f8f', '#a9a9a9'];
 
   return (
-    <div className="bg-white rounded-2xl border border-border/50 p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-3">
+      <div className="flex items-center justify-between mb-2">
         <div>
-          <h2 className="text-lg font-sans font-bold text-foreground">
+          <h2 className="text-sm font-sans font-bold text-foreground">
             {t(lang, 'Rapid Test Kit', 'Kit Ujian Pantas')}
           </h2>
-          <p className="text-sm text-muted-foreground font-sans mt-0.5">
+          <p className="text-xs text-muted-foreground font-sans">
             {t(lang, 'Match the colors from your soil test kit', 'Padankan warna dari kit ujian tanah anda')}
           </p>
         </div>
         <SpeakerButton text={t(lang, 'Select the color that matches your soil test kit for each nutrient row', 'Pilih warna yang sepadan dengan kit ujian tanah anda untuk setiap baris nutrien')} lang={lang} size="sm" />
       </div>
 
-      <div className="space-y-3">
+      {/* Compact nutrient rows - 2x2 grid on desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {rows.map(row => (
-          <div key={row.key} className="bg-muted/30 rounded-xl p-4 border border-border/30">
-            <div className="flex items-center gap-2 mb-2.5">
-              <span className="font-sans font-semibold text-foreground text-sm">{row.label[lang]}</span>
-              {row.unit && <span className="text-xs text-muted-foreground font-sans">({row.unit})</span>}
+          <div key={row.key} className="bg-muted/30 rounded-lg px-3 py-2 border border-border/30">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className="font-sans font-semibold text-foreground text-xs">{row.label[lang]}</span>
+              {row.unit && <span className="text-[10px] text-muted-foreground font-sans">({row.unit})</span>}
               <SpeakerButton text={row.label[lang]} lang={lang} size="sm" />
               {selected[row.key] !== null && (
-                <span className="ml-auto px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold">
+                <span className="ml-auto px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold">
                   {selected[row.key]}{row.unit ? ` ${row.unit}` : ''}
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
               {row.levels.map((level, i) => {
                 const isSelected = selected[row.key] === level.value;
                 const isLight = lightColors.includes(level.color);
@@ -109,9 +110,9 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
                   <button
                     key={i}
                     onClick={() => setSelected(prev => ({ ...prev, [row.key]: level.value }))}
-                    className={`relative w-9 h-9 rounded-xl transition-all duration-200 active:scale-90 flex items-center justify-center ${
+                    className={`relative w-7 h-7 rounded-lg transition-all duration-200 active:scale-90 flex items-center justify-center ${
                       isSelected
-                        ? 'ring-[3px] ring-primary ring-offset-2 scale-110 shadow-md'
+                        ? 'ring-2 ring-primary ring-offset-1 scale-110 shadow-md'
                         : 'hover:scale-105 hover:shadow-sm'
                     }`}
                     style={{ backgroundColor: level.color }}
@@ -119,7 +120,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
                     title={`${level.label[lang]}${row.unit ? ' ' + row.unit : ''}`}
                   >
                     {isSelected && (
-                      <Check size={14} className={isLight ? 'text-foreground' : 'text-white'} strokeWidth={3} />
+                      <Check size={11} className={isLight ? 'text-foreground' : 'text-white'} strokeWidth={3} />
                     )}
                   </button>
                 );
@@ -129,17 +130,17 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
         ))}
       </div>
 
-      {/* Summary */}
+      {/* Compact inline summary */}
       {(selected.ph !== null || selected.n !== null || selected.p !== null || selected.k !== null) && (
-        <div className="mt-4 bg-primary/5 rounded-xl p-4 border border-primary/10">
-          <h3 className="font-sans text-sm font-semibold text-foreground mb-2">
-            {t(lang, 'Selected Values', 'Nilai Dipilih')}
-          </h3>
-          <div className="grid grid-cols-4 gap-3">
+        <div className="mt-2 bg-primary/5 rounded-lg px-3 py-2 border border-primary/10 flex items-center gap-4">
+          <span className="font-sans text-xs font-semibold text-foreground shrink-0">
+            {t(lang, 'Selected:', 'Dipilih:')}
+          </span>
+          <div className="flex gap-4 flex-1">
             {rows.map(row => (
               <div key={row.key} className="text-center">
-                <p className="text-xs text-muted-foreground font-sans">{row.key.toUpperCase()}</p>
-                <p className="text-base font-sans font-bold text-foreground mt-0.5 tabular-nums">
+                <p className="text-[10px] text-muted-foreground font-sans">{row.key.toUpperCase()}</p>
+                <p className="text-xs font-sans font-bold text-foreground tabular-nums">
                   {selected[row.key] !== null ? `${selected[row.key]}` : '—'}
                 </p>
               </div>
@@ -151,7 +152,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
       <button
         disabled={!canSubmit}
         onClick={() => canSubmit && onSubmit(selected.n!, selected.p!, selected.k!, selected.ph!)}
-        className="w-full mt-5 rounded-full py-3 font-sans font-semibold text-sm btn-gradient-primary"
+        className="w-full mt-2 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
       >
         {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
       </button>

@@ -236,7 +236,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 font-sans text-sm font-medium transition-all duration-200 rounded-xl active:scale-[0.97] ${
+                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2 font-sans text-xs font-medium transition-all duration-200 rounded-lg active:scale-[0.97] ${
                     isActive
                       ? 'bg-white text-foreground shadow-sm'
                       : 'text-muted-foreground hover:text-foreground'

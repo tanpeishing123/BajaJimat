@@ -15,31 +15,31 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   };
 
   return (
-    <div className="space-y-4">
-      {/* AI Disclaimer */}
-      <div className="rounded-xl p-4 flex items-start gap-3 bg-amber-50 border border-amber-200/60">
-        <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-          <AlertTriangle size={16} className="text-amber-600" />
+    <div className="space-y-2">
+      {/* AI Disclaimer - compact */}
+      <div className="rounded-lg px-3 py-2 flex items-center gap-2 bg-amber-50 border border-amber-200/60">
+        <div className="w-6 h-6 rounded-md bg-amber-100 flex items-center justify-center shrink-0">
+          <AlertTriangle size={12} className="text-amber-600" />
         </div>
-        <div className="flex-1">
-          <p className="text-sm font-sans font-medium text-amber-800">
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-sans font-medium text-amber-800">
             {t(lang, 'AI Visual Analysis', 'Analisis Visual AI')}
-          </p>
-          <p className="text-xs font-sans text-amber-600 mt-0.5">
-            {t(lang, 'Results are estimates only — field verification recommended', 'Keputusan hanya anggaran — disyorkan verifikasi lapangan')}
+            <span className="font-normal text-amber-600 ml-1">
+              — {t(lang, 'estimates only, field verification recommended', 'anggaran sahaja, verifikasi lapangan disyorkan')}
+            </span>
           </p>
         </div>
         <SpeakerButton text={t(lang, 'AI visual analysis disclaimer', 'Penafian analisis visual AI')} lang={lang} size="sm" />
       </div>
 
-      {/* Upload Card */}
-      <div className="bg-white rounded-2xl border border-border/50 p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
+      {/* Upload Card - compact */}
+      <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-3">
+        <div className="flex items-center justify-between mb-2">
           <div>
-            <h2 className="text-lg font-sans font-bold text-foreground">
+            <h2 className="text-sm font-sans font-bold text-foreground">
               {t(lang, 'Leaf Photo Analysis', 'Analisis Foto Daun')}
             </h2>
-            <p className="text-sm text-muted-foreground font-sans mt-0.5">
+            <p className="text-xs text-muted-foreground font-sans">
               {t(lang, 'Take or upload a photo of your crop leaf', 'Ambil atau muat naik foto daun tanaman anda')}
             </p>
           </div>
@@ -48,7 +48,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
         <div
           onClick={() => inputRef.current?.click()}
-          className="border-2 border-dashed border-border rounded-2xl p-10 text-center cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02]"
+          className="border-2 border-dashed border-border rounded-xl p-4 text-center cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02]"
         >
           <input
             ref={inputRef}
@@ -59,17 +59,17 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
             onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
           />
           {preview ? (
-            <img src={preview} alt="Leaf preview" className="max-h-40 mx-auto rounded-xl object-contain" />
+            <img src={preview} alt="Leaf preview" className="max-h-20 mx-auto rounded-lg object-contain" />
           ) : (
-            <div className="flex flex-col items-center gap-3 text-muted-foreground">
-              <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center">
-                <Camera size={24} className="text-muted-foreground" />
+            <div className="flex items-center gap-3 justify-center text-muted-foreground">
+              <div className="w-8 h-8 rounded-xl bg-muted/60 flex items-center justify-center shrink-0">
+                <Camera size={16} className="text-muted-foreground" />
               </div>
-              <div>
-                <p className="font-sans text-sm font-medium text-foreground">
+              <div className="text-left">
+                <p className="font-sans text-xs font-medium text-foreground">
                   {t(lang, 'Take a photo or upload from gallery', 'Ambil foto atau muat naik dari galeri')}
                 </p>
-                <p className="font-sans text-xs text-muted-foreground mt-1">
+                <p className="font-sans text-[10px] text-muted-foreground">
                   {t(lang, 'Clear, close-up photos work best', 'Foto yang jelas dan dekat memberi hasil terbaik')}
                 </p>
               </div>
@@ -80,7 +80,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         <button
           disabled={!preview}
           onClick={onSubmit}
-          className="w-full mt-5 rounded-full py-3 font-sans font-semibold text-sm btn-gradient-primary"
+          className="w-full mt-3 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
         >
           {t(lang, 'Analyze Leaf', 'Analisis Daun')}
         </button>

@@ -116,11 +116,11 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
             {/* Compact voice summary */}
             <button
               onClick={() => speak(result.voice_summary)}
-              className={`flex items-center gap-3 bg-primary rounded-2xl px-5 py-3 transition-all duration-300 active:scale-97 shrink-0 ${isSpeaking ? 'animate-pulse-ring' : 'hover:brightness-110'}`}
+              className={`flex items-center gap-3 btn-gradient-primary rounded-2xl px-5 py-3 transition-all duration-300 active:scale-97 shrink-0 ${isSpeaking ? 'animate-pulse-ring' : ''}`}
               aria-label="Hear summary"
             >
-              <Volume2 size={18} className="text-primary-foreground shrink-0" />
-              <span className="font-sans text-sm font-semibold text-primary-foreground">
+              <Volume2 size={18} className="text-white shrink-0" />
+              <span className="font-sans text-sm font-semibold text-white">
                 {t(lang, 'Hear Summary', 'Dengar Ringkasan')}
               </span>
             </button>
