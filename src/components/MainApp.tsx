@@ -229,7 +229,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-2 mb-5 bg-muted/50 p-1.5 rounded-2xl">
+          <div className="flex gap-1.5 mb-3 bg-muted/50 p-1 rounded-xl">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
