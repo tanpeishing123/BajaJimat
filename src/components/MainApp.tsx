@@ -122,6 +122,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
         lang={lang}
         result={resultData}
         onBack={() => { setShowResults(false); setResultData(null); }}
+        onToggleLang={onToggleLang}
       />
     );
   }
