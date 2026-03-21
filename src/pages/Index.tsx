@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroLanding } from '@/components/HeroLanding';
-import { OnboardingScreen } from '@/components/OnboardingScreen';
+import { SignUpPage } from '@/components/SignUpPage';
 import { MainApp } from '@/components/MainApp';
 
 interface UserProfile {
@@ -11,7 +11,7 @@ interface UserProfile {
   lang: 'en' | 'bm';
 }
 
-type View = 'landing' | 'onboarding' | 'app';
+type View = 'landing' | 'signup' | 'app';
 
 const Index = () => {
   const [view, setView] = useState<View>('landing');
@@ -37,7 +37,7 @@ const Index = () => {
     localStorage.setItem('baja_lang', next);
   };
 
-  const handleOnboardingComplete = (data: UserProfile) => {
+  const handleSignUpComplete = (data: UserProfile) => {
     const profileWithLang = { ...data, lang };
     localStorage.setItem('baja_profile', JSON.stringify(profileWithLang));
     localStorage.setItem('onboarding_complete', 'true');
@@ -54,22 +54,25 @@ const Index = () => {
 
   return (
     <>
-      {view !== 'app' && (
-        <Navbar
-          lang={lang}
-          onToggleLang={toggleLang}
-          onLogin={() => setView('onboarding')}
-          onSignup={() => setView('onboarding')}
-          showAuth={view === 'landing'}
-        />
-      )}
-
       {view === 'landing' && (
-        <HeroLanding lang={lang} onGetStarted={() => setView('onboarding')} />
+        <>
+          <Navbar
+            lang={lang}
+            onToggleLang={toggleLang}
+            onLogin={() => setView('signup')}
+            onSignup={() => setView('signup')}
+            showAuth
+          />
+          <HeroLanding lang={lang} onGetStarted={() => setView('signup')} />
+        </>
       )}
 
-      {view === 'onboarding' && (
-        <OnboardingScreen lang={lang} onComplete={handleOnboardingComplete} onBack={() => setView('landing')} />
+      {view === 'signup' && (
+        <SignUpPage
+          lang={lang}
+          onComplete={handleSignUpComplete}
+          onLogin={() => setView('signup')}
+        />
       )}
 
       {view === 'app' && profile && (
