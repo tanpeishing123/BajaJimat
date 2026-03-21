@@ -50,16 +50,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 onClick={onGetStarted}
                 className="px-7 py-3 bg-primary text-primary-foreground rounded-2xl font-body font-semibold text-sm flex items-center gap-2 shadow-luxe hover:brightness-110 transition-all duration-200 active:scale-[0.97]"
               >
-                {t(lang, 'Get Started Free', 'Mulakan Percuma')}
+                {t(lang, 'Get Started', 'Mulakan')}
                 <ArrowRight size={16} />
-              </button>
-              {/* Scroll down indicator */}
-              <button
-                onClick={scrollToMission}
-                className="flex items-center gap-1.5 text-white/70 hover:text-white font-body text-sm transition-colors duration-200"
-              >
-                <ChevronDown size={16} className="animate-bounce" />
-                {t(lang, 'Scroll down', 'Tatal ke bawah')}
               </button>
             </div>
           </div>
