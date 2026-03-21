@@ -27,8 +27,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         {/* Clean gradient — not foggy */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
 
-        <div className="relative h-full flex items-end pb-10 md:pb-12 pt-24 md:pt-28 px-6 md:px-12">
-          <div className="max-w-6xl mx-auto w-full">
+        <div className="relative h-full flex items-end pb-10 md:pb-12 pt-24 md:pt-28 px-4 md:px-6">
+          <div className="w-full">
             <h1
               className="text-3xl md:text-5xl lg:text-[3.6rem] font-serif-display font-bold text-white leading-[1.06] tracking-tight max-w-xl"
               style={{ textShadow: '0 2px 16px rgba(0,0,0,0.25)' }}
@@ -66,7 +66,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Asymmetrical Storytelling Section ── */}
-      <section id="mission-section" className="relative bg-cream-brand pb-6 pt-2 md:pt-4 px-6 md:px-12">
+      <section id="mission-section" className="relative bg-cream-brand pb-6 pt-2 md:pt-4 px-4 md:px-6">
         {/* Subtle decorative leaves */}
         <div className="absolute top-4 left-6 opacity-[0.04] pointer-events-none">
           <Leaf size={64} className="text-primary -rotate-12" />
@@ -75,7 +75,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           <Leaf size={80} className="text-primary rotate-45" />
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
             {/* Left — Text */}
             <div className="md:w-[42%] pt-2 md:pt-4">
@@ -133,7 +133,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
 
         {/* Footer */}
-        <div className="max-w-6xl mx-auto mt-4 pt-2 border-t border-border/40 flex items-center justify-between">
+        <div className="w-full mt-4 pt-2 border-t border-border/40 flex items-center justify-between">
           <div>
             <p className="text-muted-foreground font-body text-xs">
               {t(lang, 'Join thousands of Malaysian farmers already saving on fertilizer costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
