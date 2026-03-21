@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Upload, FileImage } from 'lucide-react';
+import { Sprout, FileImage } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -19,12 +19,12 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
   };
 
   return (
-    <div className="bg-card rounded-3xl p-6 shadow-luxe border border-border animate-in fade-in slide-in-from-bottom-3 duration-500">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-serif-display font-semibold text-brown-brand">
-          {t(lang, 'Soil Report', 'Laporan Tanah')}
+    <div className="animate-in fade-in slide-in-from-bottom-2 duration-400">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-serif-display font-semibold text-brown-brand">
+          {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
         </h2>
-        <SpeakerButton text={t(lang, 'Upload your DOA soil report here', 'Muat naik laporan tanah DOA anda di sini')} lang={lang} />
+        <SpeakerButton text={t(lang, 'Upload your DOA soil report here', 'Muat naik laporan tanah DOA anda di sini')} lang={lang} size="sm" />
       </div>
 
       <div
@@ -36,7 +36,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
           e.currentTarget.classList.remove('border-primary');
           if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         }}
-        className="border-2 border-dashed border-border rounded-2xl p-10 text-center cursor-pointer transition-colors hover:border-primary/50 hover:bg-muted/30"
+        className="border-2 border-dashed border-border rounded-2xl p-8 text-center cursor-pointer transition-colors hover:border-primary/50 hover:bg-muted/20 bg-cream-brand"
       >
         <input
           ref={inputRef}
@@ -46,15 +46,15 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
           onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
         />
         {preview ? (
-          <img src={preview} alt="Preview" className="max-h-48 mx-auto rounded-xl object-contain" />
+          <img src={preview} alt="Preview" className="max-h-40 mx-auto rounded-xl object-contain" />
         ) : file ? (
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
-            <FileImage size={40} className="text-primary" />
+            <FileImage size={32} className="text-primary" />
             <p className="font-body text-sm">{file.name}</p>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-3 text-muted-foreground">
-            <Upload size={40} className="text-primary/60" />
+          <div className="flex flex-col items-center gap-2 text-muted-foreground">
+            <Sprout size={32} className="text-primary/50" />
             <p className="font-body text-sm">{t(lang, 'Drag DOA report here or click to upload', 'Seret laporan DOA ke sini atau klik untuk muat naik')}</p>
           </div>
         )}
@@ -63,7 +63,8 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
       <button
         disabled={!file}
         onClick={onSubmit}
-        className="w-full mt-5 bg-primary text-primary-foreground rounded-2xl py-3.5 font-body font-semibold transition-all duration-200 hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full mt-4 rounded-xl py-2.5 font-body font-semibold text-sm transition-all duration-200 hover:brightness-105 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
+        style={{ backgroundColor: '#faedcd', color: '#2d1a12' }}
       >
         {t(lang, 'Submit', 'Hantar')}
       </button>

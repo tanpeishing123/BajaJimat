@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroLanding } from '@/components/HeroLanding';
 import { SignUpPage } from '@/components/SignUpPage';
+import { LoginPage } from '@/components/LoginPage';
 import { MainApp } from '@/components/MainApp';
 
 interface UserProfile {
@@ -11,7 +12,7 @@ interface UserProfile {
   lang: 'en' | 'bm';
 }
 
-type View = 'landing' | 'signup' | 'app';
+type View = 'landing' | 'signup' | 'login' | 'app';
 
 const Index = () => {
   const [view, setView] = useState<View>('landing');
@@ -59,7 +60,7 @@ const Index = () => {
           <Navbar
             lang={lang}
             onToggleLang={toggleLang}
-            onLogin={() => setView('signup')}
+            onLogin={() => setView('login')}
             onSignup={() => setView('signup')}
             showAuth
           />
@@ -67,11 +68,19 @@ const Index = () => {
         </>
       )}
 
+      {view === 'login' && (
+        <LoginPage
+          lang={lang}
+          onLogin={() => setView('signup')}
+          onSignup={() => setView('signup')}
+        />
+      )}
+
       {view === 'signup' && (
         <SignUpPage
           lang={lang}
           onComplete={handleSignUpComplete}
-          onLogin={() => setView('signup')}
+          onLogin={() => setView('login')}
         />
       )}
 
