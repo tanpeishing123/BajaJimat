@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Leaf } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Leaf } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import signupFarm from '@/assets/signup-farm.jpg';
 
