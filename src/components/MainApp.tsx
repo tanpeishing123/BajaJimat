@@ -102,7 +102,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
 
       {/* Emerald Frame Container */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-4 py-4">
+        <div className="w-full px-4 md:px-6 py-4">
           <div className="rounded-3xl border-2 border-primary/20 bg-cream-brand p-4 shadow-luxe relative overflow-visible">
             {/* Gold accent line */}
             <div className="absolute top-0 left-8 right-8 h-[2px] bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
