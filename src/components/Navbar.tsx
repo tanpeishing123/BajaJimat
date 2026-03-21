@@ -43,7 +43,7 @@ export function Navbar({ lang, onToggleLang, onLogin, onSignup, showAuth = true 
               </button>
               <button
                 onClick={onSignup}
-                className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm shadow-luxe hover:brightness-110 transition-all duration-200 active:scale-[0.97]"
+                className="px-5 py-2 rounded-full btn-gradient-primary font-body font-semibold text-sm"
               >
                 {lang === 'en' ? 'Sign Up' : 'Daftar'}
               </button>

@@ -107,6 +107,37 @@
   .shadow-luxe-hover {
     box-shadow: 0 8px 12px -2px rgba(0,0,0,0.06), 0 16px 40px -5px rgba(0,0,0,0.1), 0 24px 70px -10px rgba(0,0,0,0.07);
   }
+  .btn-gradient-primary {
+    background: linear-gradient(135deg, #E3EF26 0%, #076653 45%, #0C342C 100%);
+    color: #ffffff;
+    filter: drop-shadow(0 4px 12px rgba(12, 52, 44, 0.3));
+    transition: all 0.2s ease-out;
+  }
+  .btn-gradient-primary:hover {
+    filter: brightness(1.1) drop-shadow(0 6px 16px rgba(12, 52, 44, 0.35));
+    transform: scale(1.03);
+  }
+  .btn-gradient-primary:active {
+    transform: scale(0.97);
+  }
+  .btn-gradient-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    filter: saturate(0.5) drop-shadow(0 2px 8px rgba(12, 52, 44, 0.15));
+  }
+  .btn-secondary-outline {
+    background: transparent;
+    border: 1.5px solid #076653;
+    color: #076653;
+    transition: all 0.2s ease-out;
+  }
+  .btn-secondary-outline:hover {
+    background: rgba(7, 102, 83, 0.06);
+  }
+  .btn-secondary-outline:active {
+    transform: scale(0.97);
+  }
 }
 
 @keyframes pulse-ring {
