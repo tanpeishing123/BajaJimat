@@ -73,6 +73,7 @@ const Index = () => {
           lang={lang}
           onLogin={() => setView('signup')}
           onSignup={() => setView('signup')}
+          onBack={() => setView('landing')}
         />
       )}
 
@@ -81,6 +82,7 @@ const Index = () => {
           lang={lang}
           onComplete={handleSignUpComplete}
           onLogin={() => setView('login')}
+          onBack={() => setView('landing')}
         />
       )}
 
