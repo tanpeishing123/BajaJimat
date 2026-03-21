@@ -214,29 +214,29 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           <path d="M30 90 C40 60, 70 30, 90 30" stroke="#c5a35a" strokeWidth="0.8" opacity="0.6" />
         </svg>
 
-        <div className="w-full px-6 md:px-20 py-6">
+        <div className="w-full px-6 md:px-20 py-4">
           {/* Page Title */}
-          <div className="mb-5">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold mb-2">
+          <div className="mb-3">
+            <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold mb-1">
               {t('Soil Analysis', 'Analisis Tanah')}
             </span>
-            <h1 className="font-sans text-2xl font-bold text-foreground leading-tight">
+            <h1 className="font-sans text-lg font-bold text-foreground leading-tight">
               {t('Choose Your Input Method', 'Pilih Kaedah Input Anda')}
             </h1>
-            <p className="text-sm text-muted-foreground font-sans mt-1">
+            <p className="text-xs text-muted-foreground font-sans mt-0.5">
               {t('Select how you want to analyze your soil nutrients', 'Pilih cara anda ingin menganalisis nutrien tanah')}
             </p>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-2 mb-5 bg-muted/50 p-1.5 rounded-2xl">
+          <div className="flex gap-1.5 mb-3 bg-muted/50 p-1 rounded-xl">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 font-sans text-sm font-medium transition-all duration-200 rounded-xl active:scale-[0.97] ${
+                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2 font-sans text-xs font-medium transition-all duration-200 rounded-lg active:scale-[0.97] ${
                     isActive
                       ? 'bg-white text-foreground shadow-sm'
                       : 'text-muted-foreground hover:text-foreground'
