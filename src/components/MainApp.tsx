@@ -71,7 +71,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     <div className="h-screen bg-cream-brand relative overflow-hidden flex flex-col">
       {/* Navbar */}
       <header className="border-b border-border/60 px-4 py-3.5 sticky top-0 z-50 bg-cream-brand/90 backdrop-blur-sm">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
+        <div className="w-full px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={16} />
