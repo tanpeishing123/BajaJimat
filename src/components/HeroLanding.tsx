@@ -119,18 +119,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 />
               </div>
 
-              {/* "Smart Optimization" help card */}
-              <div className="absolute bottom-0 left-[8%] z-30 bg-card rounded-2xl p-3.5 shadow-luxe border border-border/60 max-w-[190px]">
-                <div className="flex items-center gap-2 mb-1">
-                  <Zap size={14} className="text-accent" />
-                  <span className="font-serif-display text-xs font-semibold text-brown-brand">
-                    {t(lang, 'Smart Optimization', 'Pengoptimuman Pintar')}
-                  </span>
-                </div>
-                <p className="text-muted-foreground font-body text-[10px] leading-relaxed">
-                  {t(lang, 'Find the cheapest local fertilizer combination for your deficits.', 'Cari kombinasi baja tempatan termurah untuk kekurangan anda.')}
-                </p>
-              </div>
 
               {/* Tractor sketch */}
               <svg className="absolute -bottom-2 right-4 w-12 h-8 opacity-[0.06] pointer-events-none" viewBox="0 0 56 40" fill="none">
