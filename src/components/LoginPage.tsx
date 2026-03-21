@@ -6,6 +6,7 @@ interface LoginPageProps {
   lang: 'en' | 'bm';
   onLogin: () => void;
   onSignup: () => void;
+  onBack: () => void;
 }
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
