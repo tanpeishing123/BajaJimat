@@ -74,13 +74,13 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
   const canSubmit = selected.n !== null && selected.p !== null && selected.k !== null && selected.ph !== null;
 
   return (
-    <div className="bg-card rounded-3xl p-6 md:p-8 shadow-luxe border border-border animate-in fade-in slide-in-from-bottom-3 duration-500">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-card rounded-2xl p-4 md:p-5 shadow-luxe border border-border/60 animate-in fade-in slide-in-from-bottom-3 duration-500">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-xl font-serif-display font-semibold text-brown-brand">
+          <h2 className="text-base font-serif-display font-semibold text-brown-brand">
             {t(lang, 'Rapid Test Kit', 'Kit Ujian Pantas')}
           </h2>
-          <p className="text-sm text-muted-foreground font-body mt-1">
+          <p className="text-xs text-muted-foreground font-body mt-0.5">
             {t(lang, 'Match the colors from your soil test kit', 'Padankan warna dari kit ujian tanah anda')}
           </p>
         </div>
