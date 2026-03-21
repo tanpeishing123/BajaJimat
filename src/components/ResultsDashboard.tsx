@@ -83,7 +83,7 @@ export function ResultsDashboard({ lang, result, onBack }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-cream-brand relative">
+    <div className="h-screen bg-cream-brand relative flex flex-col">
       {/* Header */}
       <header className="border-b border-border/50 px-4 py-3.5 bg-cream-brand/90 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
@@ -96,7 +96,7 @@ export function ResultsDashboard({ lang, result, onBack }: Props) {
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      <div className="flex-1 overflow-y-auto max-w-2xl mx-auto w-full px-4 py-4 space-y-4">
 
         {/* 1. Voice Summary — large speaker */}
         <motion.div

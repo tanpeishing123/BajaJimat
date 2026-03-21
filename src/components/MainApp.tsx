@@ -68,7 +68,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   }
 
   return (
-    <div className="min-h-screen bg-cream-brand relative overflow-hidden">
+    <div className="h-screen bg-cream-brand relative overflow-hidden flex flex-col">
       {/* Navbar */}
       <header className="border-b border-border/60 px-4 py-3.5 sticky top-0 z-50 bg-cream-brand/90 backdrop-blur-sm">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
@@ -101,34 +101,36 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       </header>
 
       {/* Emerald Frame Container */}
-      <div className="max-w-2xl mx-auto px-4 mt-6 mb-8">
-        <div className="rounded-3xl border-2 border-primary/20 bg-cream-brand p-4 md:p-6 shadow-luxe relative overflow-visible">
-          {/* Gold accent line */}
-          <div className="absolute top-0 left-8 right-8 h-[2px] bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-4 py-4">
+          <div className="rounded-3xl border-2 border-primary/20 bg-cream-brand p-4 shadow-luxe relative overflow-visible">
+            {/* Gold accent line */}
+            <div className="absolute top-0 left-8 right-8 h-[2px] bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
 
-          {/* Custom Tab Navigation */}
-          <div className="flex gap-2 mb-5">
-            {tabs.map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => { setActiveTab(tab.key); setShowResults(false); }}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-2xl font-body text-xs font-semibold transition-all duration-300 active:scale-[0.97] border ${
-                  activeTab === tab.key
-                    ? 'bg-primary text-primary-foreground border-primary shadow-md'
-                    : 'bg-beige-brand text-primary border-primary/20 hover:border-primary/40'
-                }`}
-              >
-                {tab.icon}
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+            {/* Custom Tab Navigation */}
+            <div className="flex gap-2 mb-4">
+              {tabs.map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => { setActiveTab(tab.key); setShowResults(false); }}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-2xl font-body text-xs font-semibold transition-all duration-300 active:scale-[0.97] border ${
+                    activeTab === tab.key
+                      ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                      : 'bg-beige-brand text-primary border-primary/20 hover:border-primary/40'
+                  }`}
+                >
+                  {tab.icon}
+                  <span className="hidden sm:inline">{tab.label}</span>
+                </button>
+              ))}
+            </div>
 
-          {/* Tab Content */}
-          <div>
-            {activeTab === 'soil' && <SoilReportTab lang={lang} onSubmit={handleSubmit} />}
-            {activeTab === 'testkit' && <TestKitTab lang={lang} onSubmit={handleTestKitSubmit} />}
-            {activeTab === 'leaf' && <LeafPhotoTab lang={lang} onSubmit={handleSubmit} />}
+            {/* Tab Content */}
+            <div>
+              {activeTab === 'soil' && <SoilReportTab lang={lang} onSubmit={handleSubmit} />}
+              {activeTab === 'testkit' && <TestKitTab lang={lang} onSubmit={handleTestKitSubmit} />}
+              {activeTab === 'leaf' && <LeafPhotoTab lang={lang} onSubmit={handleSubmit} />}
+            </div>
           </div>
         </div>
       </div>

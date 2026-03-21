@@ -11,40 +11,40 @@ interface ColorLevel {
 }
 
 const phLevels: ColorLevel[] = [
-  { color: '#e63946', value: 4.0, label: { en: 'pH 4.0', bm: 'pH 4.0' } },
-  { color: '#f4a261', value: 5.0, label: { en: 'pH 5.0', bm: 'pH 5.0' } },
-  { color: '#ffb703', value: 6.0, label: { en: 'pH 6.0', bm: 'pH 6.0' } },
-  { color: '#99d98c', value: 7.0, label: { en: 'pH 7.0', bm: 'pH 7.0' } },
-  { color: '#52b788', value: 8.0, label: { en: 'pH 8.0', bm: 'pH 8.0' } },
-  { color: '#2d6a4f', value: 9.0, label: { en: 'pH 9.0', bm: 'pH 9.0' } },
-  { color: '#1b4332', value: 10.0, label: { en: 'pH 10', bm: 'pH 10' } },
+  { color: '#b22222', value: 4.0, label: { en: 'pH 4.0', bm: 'pH 4.0' } },
+  { color: '#cd5c5c', value: 5.0, label: { en: 'pH 5.0', bm: 'pH 5.0' } },
+  { color: '#f08080', value: 6.0, label: { en: 'pH 6.0', bm: 'pH 6.0' } },
+  { color: '#e9967a', value: 7.0, label: { en: 'pH 7.0', bm: 'pH 7.0' } },
+  { color: '#daa520', value: 8.0, label: { en: 'pH 8.0', bm: 'pH 8.0' } },
+  { color: '#9acd32', value: 9.0, label: { en: 'pH 9.0', bm: 'pH 9.0' } },
+  { color: '#6b8e23', value: 10.0, label: { en: 'pH 10', bm: 'pH 10' } },
 ];
 
 const nLevels: ColorLevel[] = [
-  { color: '#fefae0', value: 0, label: { en: '0', bm: '0' } },
-  { color: '#a7c957', value: 10, label: { en: '10', bm: '10' } },
-  { color: '#6a994e', value: 50, label: { en: '50', bm: '50' } },
-  { color: '#386641', value: 100, label: { en: '100', bm: '100' } },
-  { color: '#1b4332', value: 120, label: { en: '120', bm: '120' } },
-  { color: '#004b23', value: 500, label: { en: '500', bm: '500' } },
+  { color: '#f0e68c', value: 0, label: { en: '0', bm: '0' } },
+  { color: '#9acd32', value: 10, label: { en: '10', bm: '10' } },
+  { color: '#556b2f', value: 50, label: { en: '50', bm: '50' } },
+  { color: '#228b22', value: 100, label: { en: '100', bm: '100' } },
+  { color: '#006400', value: 120, label: { en: '120', bm: '120' } },
+  { color: '#004d00', value: 500, label: { en: '500', bm: '500' } },
 ];
 
 const pLevels: ColorLevel[] = [
-  { color: '#faedcd', value: 0, label: { en: '0', bm: '0' } },
-  { color: '#f5c6aa', value: 20, label: { en: '20', bm: '20' } },
-  { color: '#e07a5f', value: 50, label: { en: '50', bm: '50' } },
-  { color: '#c1587b', value: 80, label: { en: '80', bm: '80' } },
-  { color: '#9b5de5', value: 120, label: { en: '120', bm: '120' } },
-  { color: '#8338ec', value: 240, label: { en: '240', bm: '240' } },
+  { color: '#fffacd', value: 0, label: { en: '0', bm: '0' } },
+  { color: '#eee8aa', value: 10, label: { en: '10', bm: '10' } },
+  { color: '#f5deb3', value: 50, label: { en: '50', bm: '50' } },
+  { color: '#deb887', value: 80, label: { en: '80', bm: '80' } },
+  { color: '#bc8f8f', value: 120, label: { en: '120', bm: '120' } },
+  { color: '#8b008b', value: 240, label: { en: '240', bm: '240' } },
 ];
 
 const kLevels: ColorLevel[] = [
-  { color: '#e9c46a', value: 0, label: { en: '0', bm: '0' } },
-  { color: '#c9b458', value: 20, label: { en: '20', bm: '20' } },
-  { color: '#a8a050', value: 50, label: { en: '50', bm: '50' } },
-  { color: '#8f9a56', value: 80, label: { en: '80', bm: '80' } },
-  { color: '#7f8c6d', value: 120, label: { en: '120', bm: '120' } },
-  { color: '#7f8c8d', value: 240, label: { en: '240', bm: '240' } },
+  { color: '#daa520', value: 0, label: { en: '0', bm: '0' } },
+  { color: '#f4a460', value: 10, label: { en: '10', bm: '10' } },
+  { color: '#8b864e', value: 50, label: { en: '50', bm: '50' } },
+  { color: '#bdb76b', value: 80, label: { en: '80', bm: '80' } },
+  { color: '#a9a9a9', value: 120, label: { en: '120', bm: '120' } },
+  { color: '#708090', value: 240, label: { en: '240', bm: '240' } },
 ];
 
 interface NutrientRow {
@@ -98,7 +98,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             <div className="flex items-center gap-1.5 flex-wrap">
               {row.levels.map((level, i) => {
                 const isSelected = selected[row.key] === level.value;
-                const isLightColor = ['#fefae0', '#faedcd', '#e9c46a', '#f5c6aa', '#99d98c', '#ffb703', '#f4a261', '#c9b458', '#a7c957'].includes(level.color);
+                const isLightColor = ['#f0e68c', '#fffacd', '#eee8aa', '#f5deb3', '#deb887', '#daa520', '#f4a460', '#bdb76b', '#9acd32', '#f08080', '#e9967a', '#cd5c5c', '#bc8f8f', '#a9a9a9'].includes(level.color);
                 return (
                   <button
                     key={i}
