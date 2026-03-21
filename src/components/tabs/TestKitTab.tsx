@@ -74,28 +74,28 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
   const canSubmit = selected.n !== null && selected.p !== null && selected.k !== null && selected.ph !== null;
 
   return (
-    <div className="bg-card rounded-3xl p-6 md:p-8 shadow-luxe border border-border animate-in fade-in slide-in-from-bottom-3 duration-500">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-card rounded-2xl p-4 md:p-5 shadow-luxe border border-border/60 animate-in fade-in slide-in-from-bottom-3 duration-500">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-xl font-serif-display font-semibold text-brown-brand">
+          <h2 className="text-base font-serif-display font-semibold text-brown-brand">
             {t(lang, 'Rapid Test Kit', 'Kit Ujian Pantas')}
           </h2>
-          <p className="text-sm text-muted-foreground font-body mt-1">
+          <p className="text-xs text-muted-foreground font-body mt-0.5">
             {t(lang, 'Match the colors from your soil test kit', 'Padankan warna dari kit ujian tanah anda')}
           </p>
         </div>
         <SpeakerButton text={t(lang, 'Select the color that matches your soil test kit for each nutrient row', 'Pilih warna yang sepadan dengan kit ujian tanah anda untuk setiap baris nutrien')} lang={lang} />
       </div>
 
-      <div className="space-y-7">
+      <div className="space-y-4">
         {rows.map(row => (
           <div key={row.key}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="font-body font-semibold text-foreground text-sm">{row.label[lang]}</span>
-              {row.unit && <span className="text-xs text-muted-foreground font-body">({row.unit})</span>}
+            <div className="flex items-center gap-1.5 mb-2">
+              <span className="font-body font-semibold text-foreground text-xs">{row.label[lang]}</span>
+              {row.unit && <span className="text-[10px] text-muted-foreground font-body">({row.unit})</span>}
               <SpeakerButton text={row.label[lang]} lang={lang} size="sm" />
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
               {row.levels.map((level, i) => {
                 const isSelected = selected[row.key] === level.value;
                 const isLightColor = ['#fefae0', '#faedcd', '#e9c46a', '#f5c6aa', '#99d98c', '#ffb703', '#f4a261', '#c9b458', '#a7c957'].includes(level.color);
@@ -103,17 +103,17 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
                   <button
                     key={i}
                     onClick={() => setSelected(prev => ({ ...prev, [row.key]: level.value }))}
-                    className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl transition-all duration-200 active:scale-90 flex items-center justify-center ${
+                    className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg transition-all duration-200 active:scale-90 flex items-center justify-center ${
                       isSelected
-                        ? 'ring-[3px] ring-primary ring-offset-2 scale-105'
-                        : 'hover:scale-105 hover:shadow-md'
+                        ? 'ring-[3px] ring-primary ring-offset-1 scale-105'
+                        : 'hover:scale-105 hover:shadow-sm'
                     }`}
                     style={{ backgroundColor: level.color }}
                     aria-label={`${row.label[lang]} ${level.label[lang]}`}
                     title={`${level.label[lang]}${row.unit ? ' ' + row.unit : ''}`}
                   >
                     {isSelected && (
-                      <Check size={18} className={isLightColor ? 'text-foreground' : 'text-white'} strokeWidth={3} />
+                      <Check size={14} className={isLightColor ? 'text-foreground' : 'text-white'} strokeWidth={3} />
                     )}
                   </button>
                 );
@@ -131,18 +131,18 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
 
       {/* Result Summary */}
       {(selected.ph !== null || selected.n !== null || selected.p !== null || selected.k !== null) && (
-        <div className="mt-7 bg-muted/60 rounded-2xl p-5 border border-border animate-in fade-in duration-300">
-          <h3 className="font-serif-display text-sm font-semibold text-brown-brand mb-3">
+        <div className="mt-4 bg-muted/50 rounded-xl p-3 border border-border/60 animate-in fade-in duration-300">
+          <h3 className="font-serif-display text-xs font-semibold text-brown-brand mb-2">
             {t(lang, 'Result Summary', 'Ringkasan Keputusan')}
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-2">
             {rows.map(row => (
               <div key={row.key} className="text-center">
-                <p className="text-[10px] text-muted-foreground font-body uppercase tracking-wide">{row.label[lang]}</p>
-                <p className="text-lg font-body font-bold text-foreground mt-0.5">
+                <p className="text-[9px] text-muted-foreground font-body uppercase tracking-wide">{row.label[lang]}</p>
+                <p className="text-sm font-body font-bold text-foreground mt-0.5">
                   {selected[row.key] !== null ? `${selected[row.key]}` : '—'}
                 </p>
-                {row.unit && <p className="text-[10px] text-muted-foreground font-body">{row.unit}</p>}
+                {row.unit && <p className="text-[9px] text-muted-foreground font-body">{row.unit}</p>}
               </div>
             ))}
           </div>
@@ -152,7 +152,8 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
       <button
         disabled={!canSubmit}
         onClick={() => canSubmit && onSubmit(selected.n!, selected.p!, selected.k!, selected.ph!)}
-        className="w-full mt-6 bg-primary text-primary-foreground rounded-2xl py-4 font-body font-semibold text-base transition-all duration-200 hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed shadow-luxe"
+        className="w-full mt-4 rounded-xl py-3 font-body font-semibold text-sm transition-all duration-200 hover:brightness-105 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
+        style={{ backgroundColor: '#faedcd', color: '#2d1a12' }}
       >
         {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
       </button>
