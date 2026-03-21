@@ -7,6 +7,7 @@ interface SignUpPageProps {
   lang: 'en' | 'bm';
   onComplete: (data: { name: string; crop: string; farmSize: string; lang: 'en' | 'bm' }) => void;
   onLogin: () => void;
+  onBack: () => void;
 }
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
