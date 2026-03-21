@@ -196,42 +196,49 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
               </div>
             </motion.div>
 
-            {/* Recommendations - wider */}
+            {/* Recommendations - Financia-inspired clean card */}
             <motion.div
               custom={1.2} variants={fadeUp} initial="hidden" animate="visible"
-              className="md:col-span-3 bg-card rounded-2xl border border-border/50 p-5 shadow-sm flex flex-col"
+              className="md:col-span-3 rounded-3xl p-6 flex flex-col relative overflow-hidden"
+              style={{ background: 'linear-gradient(165deg, #e8f5e2 0%, #d4edda 40%, #c6e4c0 100%)' }}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Package size={14} className="text-primary" />
+              {/* Soft inner glow */}
+              <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%)' }} />
+
+              <div className="flex items-center gap-2 mb-2 relative z-10">
+                <div className="w-8 h-8 rounded-xl bg-white/70 backdrop-blur-sm flex items-center justify-center shadow-sm">
+                  <Package size={16} className="text-primary" />
                 </div>
-                <h3 className="font-sans text-sm font-bold text-foreground">
+                <h3 className="font-sans text-sm font-bold text-foreground/80">
                   {t(lang, 'Fertilizer Prescription', 'Preskripsi Baja')}
                 </h3>
               </div>
 
-              <div className="space-y-2 flex-1">
+              {/* Total cost hero number */}
+              <div className="mb-4 relative z-10">
+                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Total Cost', 'Jumlah Kos')}</p>
+                <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
+                  RM{result.total_cost_rm.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                </p>
+              </div>
+
+              {/* Item cards row */}
+              <div className="flex gap-3 relative z-10">
                 {result.recommendations.map((rec) => (
                   <div
                     key={rec.name}
-                    className="flex items-center justify-between p-3 rounded-xl bg-muted/40 border border-border/30 hover:border-primary/20 transition-colors"
+                    className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow"
                   >
-                    <div>
-                      <p className="font-sans font-semibold text-foreground text-sm">{rec.name}</p>
-                      <p className="text-xs text-muted-foreground font-sans mt-0.5">
-                        {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
-                      </p>
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Package size={18} className="text-primary" />
                     </div>
-                    <p className="font-sans font-bold text-primary text-base tabular-nums">
-                      RM{rec.subtotal_rm}
+                    <p className="font-sans font-semibold text-foreground text-xs leading-tight">{rec.name}</p>
+                    <p className="text-[10px] text-muted-foreground font-sans">
+                      {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
                     </p>
+                    <p className="font-sans font-bold text-primary text-sm tabular-nums">RM{rec.subtotal_rm}</p>
                   </div>
                 ))}
-              </div>
-
-              <div className="flex justify-between items-center pt-3 mt-2 border-t border-border/50">
-                <span className="font-sans font-semibold text-foreground text-sm">{t(lang, 'Total Cost', 'Jumlah Kos')}</span>
-                <span className="font-sans font-bold text-foreground text-lg tabular-nums">RM{result.total_cost_rm}</span>
               </div>
             </motion.div>
           </div>
