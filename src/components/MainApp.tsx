@@ -68,7 +68,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   }
 
   return (
-    <div className="min-h-screen bg-cream-brand relative overflow-hidden">
+    <div className="h-screen bg-cream-brand relative overflow-hidden flex flex-col">
       {/* Navbar */}
       <header className="border-b border-border/60 px-4 py-3.5 sticky top-0 z-50 bg-cream-brand/90 backdrop-blur-sm">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
