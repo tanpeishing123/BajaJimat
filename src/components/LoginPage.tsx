@@ -11,7 +11,7 @@ interface LoginPageProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
-export function LoginPage({ lang, onLogin, onSignup }: LoginPageProps) {
+export function LoginPage({ lang, onLogin, onSignup, onBack }: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
