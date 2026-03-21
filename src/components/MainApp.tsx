@@ -202,9 +202,19 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
         </div>
       </header>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-5 py-6">
+      {/* Main Content - Full Width */}
+      <div className="flex-1 overflow-y-auto relative">
+        {/* Subtle organic leaf accents */}
+        <svg className="absolute top-8 left-4 w-32 h-32 opacity-[0.04] pointer-events-none" viewBox="0 0 120 120" fill="none">
+          <path d="M20 100 C20 60, 60 20, 100 20 C80 40, 60 60, 60 100 C40 80, 20 100, 20 100Z" stroke="#076653" strokeWidth="1.5" />
+          <path d="M30 90 C40 60, 70 30, 90 30" stroke="#c5a35a" strokeWidth="0.8" opacity="0.6" />
+        </svg>
+        <svg className="absolute bottom-8 right-4 w-28 h-28 opacity-[0.04] pointer-events-none rotate-180" viewBox="0 0 120 120" fill="none">
+          <path d="M20 100 C20 60, 60 20, 100 20 C80 40, 60 60, 60 100 C40 80, 20 100, 20 100Z" stroke="#076653" strokeWidth="1.5" />
+          <path d="M30 90 C40 60, 70 30, 90 30" stroke="#c5a35a" strokeWidth="0.8" opacity="0.6" />
+        </svg>
+
+        <div className="w-full px-6 md:px-20 py-6">
           {/* Page Title */}
           <div className="mb-5">
             <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold mb-2">
