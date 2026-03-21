@@ -100,22 +100,22 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </div>
 
             {/* Right — Overlapping image cluster */}
-            <div className="md:w-[58%] relative min-h-[280px] md:min-h-[340px]">
+            <div className="md:w-[58%] relative min-h-[200px] md:min-h-[240px]">
               {/* Image 1: Healthy leaves — beige border */}
-              <div className="absolute top-0 left-0 w-[58%] z-10 rounded-3xl overflow-hidden border-[4px] border-beige-brand shadow-luxe">
+              <div className="absolute top-0 left-0 w-[54%] z-10 rounded-2xl overflow-hidden border-[3px] border-beige-brand shadow-luxe">
                 <img
                   src={healthyLeaves}
                   alt={t(lang, 'Healthy palm leaves', 'Daun sawit sihat')}
-                  className="w-full h-44 md:h-52 object-cover"
+                  className="w-full h-32 md:h-40 object-cover"
                 />
               </div>
 
               {/* Image 2: Farmer with app — organic mask */}
-              <div className="absolute top-16 md:top-14 right-0 w-[52%] z-20 rounded-[2rem] overflow-hidden shadow-luxe-hover" style={{ borderRadius: '2rem 2rem 3rem 1rem' }}>
+              <div className="absolute top-10 md:top-8 right-0 w-[50%] z-20 rounded-[1.5rem] overflow-hidden shadow-luxe-hover" style={{ borderRadius: '1.5rem 1.5rem 2rem 0.8rem' }}>
                 <img
                   src={farmerApp}
                   alt={t(lang, 'Farmer using BajaJimat app', 'Petani menggunakan aplikasi BajaJimat')}
-                  className="w-full h-48 md:h-56 object-cover"
+                  className="w-full h-36 md:h-44 object-cover"
                 />
               </div>
 
