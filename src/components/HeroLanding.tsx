@@ -66,7 +66,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Asymmetrical Storytelling Section ── */}
-      <section id="mission-section" className="relative bg-cream-brand pb-14 pt-4 md:pt-8 px-6 md:px-12">
+      <section id="mission-section" className="relative bg-cream-brand pb-6 pt-2 md:pt-4 px-6 md:px-12">
         {/* Subtle decorative leaves */}
         <div className="absolute top-4 left-6 opacity-[0.04] pointer-events-none">
           <Leaf size={64} className="text-primary -rotate-12" />
