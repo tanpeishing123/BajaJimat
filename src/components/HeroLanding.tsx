@@ -18,7 +18,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="flex flex-col overflow-hidden">
       {/* ── Hero Section ── */}
-      <section className="relative h-[54vh] min-h-[360px]">
+      <section className="relative h-[44vh] min-h-[300px]">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
