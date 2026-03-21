@@ -46,51 +46,55 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   const mockTestKit: ResultData = {
     recommendations: [
       { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
-      { name: 'Muriate of Potash (MOP)', bags: 2, price_per_bag: 58.0, subtotal_rm: 116.0 },
+      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
+      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
     ],
-    total_cost_rm: 242.0,
-    savings_rm: 185.0,
-    n_deficit_kg: 150,
-    p_deficit_kg: 0,
-    k_deficit_kg: 120,
+    total_cost_rm: 426.0,
+    savings_rm: 334.0,
+    n_deficit_kg: 270,
+    p_deficit_kg: 80,
+    k_deficit_kg: 420,
     input_mode: 'manual',
     confidence: 'high',
     voice_summary: lang === 'bm'
-      ? 'Ladang anda memerlukan 3 beg Urea dan 2 beg MOP. Anda jimat RM185!'
-      : 'Your farm needs 3 bags of Urea and 2 bags of MOP. You save RM185!',
+      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
+      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
   const mockSoilReport: ResultData = {
     recommendations: [
-      { name: 'Urea', bags: 5, price_per_bag: 42.0, subtotal_rm: 210.0 },
-      { name: 'Muriate of Potash (MOP)', bags: 3, price_per_bag: 58.0, subtotal_rm: 174.0 },
+      { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
+      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
+      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
     ],
-    total_cost_rm: 384.0,
-    savings_rm: 215.0,
-    n_deficit_kg: 210,
-    p_deficit_kg: 0,
-    k_deficit_kg: 180,
+    total_cost_rm: 426.0,
+    savings_rm: 334.0,
+    n_deficit_kg: 270,
+    p_deficit_kg: 80,
+    k_deficit_kg: 420,
     input_mode: 'soil_report',
     confidence: 'high',
     voice_summary: lang === 'bm'
-      ? 'Laporan tanah anda menunjukkan kekurangan Nitrogen yang ketara. Kami cadangkan 5 beg Urea dan 3 beg MOP. Anda jimat RM215.'
-      : 'Your soil report shows significant Nitrogen deficiency. We recommend 5 bags of Urea and 3 bags of MOP. You save RM215.',
+      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
+      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
   const mockLeafPhoto: ResultData = {
     recommendations: [
-      { name: 'NPK Blue Special', bags: 4, price_per_bag: 95.0, subtotal_rm: 380.0 },
+      { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
+      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
+      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
     ],
-    total_cost_rm: 380.0,
-    savings_rm: 50.0,
-    n_deficit_kg: 120,
-    p_deficit_kg: 40,
-    k_deficit_kg: 80,
+    total_cost_rm: 426.0,
+    savings_rm: 334.0,
+    n_deficit_kg: 270,
+    p_deficit_kg: 80,
+    k_deficit_kg: 420,
     input_mode: 'leaf_photo',
     confidence: 'medium',
     voice_summary: lang === 'bm'
-      ? 'Berdasarkan foto daun, tanaman anda mengalami kekurangan nitrogen. Cadangan: 4 beg NPK Blue.'
-      : 'Based on leaf photo, your crop has nitrogen deficiency. Recommendation: 4 bags NPK Blue.',
+      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
+      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
   const handleTestKitSubmit = (n: number, p: number, k: number) => {
