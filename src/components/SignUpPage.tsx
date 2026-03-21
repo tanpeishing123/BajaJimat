@@ -12,7 +12,7 @@ interface SignUpPageProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
-export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
+export function SignUpPage({ lang, onComplete, onLogin, onBack }: SignUpPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
