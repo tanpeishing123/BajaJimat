@@ -29,9 +29,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
 
         <div className="relative h-full flex items-end pb-14 md:pb-16 px-6 md:px-12">
           <div className="max-w-6xl mx-auto w-full">
-            <span className="inline-block text-accent font-body font-semibold text-[11px] uppercase tracking-[0.22em] mb-2">
-              {t(lang, 'Smart Agriculture', 'Pertanian Pintar')}
-            </span>
             <h1
               className="text-3xl md:text-5xl lg:text-[3.6rem] font-serif-display font-bold text-white leading-[1.06] tracking-tight max-w-xl"
               style={{ textShadow: '0 2px 16px rgba(0,0,0,0.25)' }}
@@ -53,16 +50,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 onClick={onGetStarted}
                 className="px-7 py-3 bg-primary text-primary-foreground rounded-2xl font-body font-semibold text-sm flex items-center gap-2 shadow-luxe hover:brightness-110 transition-all duration-200 active:scale-[0.97]"
               >
-                {t(lang, 'Get Started Free', 'Mulakan Percuma')}
+                {t(lang, 'Get Started', 'Mulakan')}
                 <ArrowRight size={16} />
-              </button>
-              {/* Scroll down indicator */}
-              <button
-                onClick={scrollToMission}
-                className="flex items-center gap-1.5 text-white/70 hover:text-white font-body text-sm transition-colors duration-200"
-              >
-                <ChevronDown size={16} className="animate-bounce" />
-                {t(lang, 'Scroll down', 'Tatal ke bawah')}
               </button>
             </div>
           </div>
@@ -111,37 +100,25 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </div>
 
             {/* Right — Overlapping image cluster */}
-            <div className="md:w-[58%] relative min-h-[280px] md:min-h-[340px]">
+            <div className="md:w-[58%] relative min-h-[200px] md:min-h-[240px]">
               {/* Image 1: Healthy leaves — beige border */}
-              <div className="absolute top-0 left-0 w-[58%] z-10 rounded-3xl overflow-hidden border-[4px] border-beige-brand shadow-luxe">
+              <div className="absolute top-0 left-0 w-[54%] z-10 rounded-2xl overflow-hidden border-[3px] border-beige-brand shadow-luxe">
                 <img
                   src={healthyLeaves}
                   alt={t(lang, 'Healthy palm leaves', 'Daun sawit sihat')}
-                  className="w-full h-44 md:h-52 object-cover"
+                  className="w-full h-32 md:h-40 object-cover"
                 />
               </div>
 
               {/* Image 2: Farmer with app — organic mask */}
-              <div className="absolute top-16 md:top-14 right-0 w-[52%] z-20 rounded-[2rem] overflow-hidden shadow-luxe-hover" style={{ borderRadius: '2rem 2rem 3rem 1rem' }}>
+              <div className="absolute top-10 md:top-8 right-0 w-[50%] z-20 rounded-[1.5rem] overflow-hidden shadow-luxe-hover" style={{ borderRadius: '1.5rem 1.5rem 2rem 0.8rem' }}>
                 <img
                   src={farmerApp}
                   alt={t(lang, 'Farmer using BajaJimat app', 'Petani menggunakan aplikasi BajaJimat')}
-                  className="w-full h-48 md:h-56 object-cover"
+                  className="w-full h-36 md:h-44 object-cover"
                 />
               </div>
 
-              {/* "Smart Optimization" help card */}
-              <div className="absolute bottom-0 left-[8%] z-30 bg-card rounded-2xl p-3.5 shadow-luxe border border-border/60 max-w-[190px]">
-                <div className="flex items-center gap-2 mb-1">
-                  <Zap size={14} className="text-accent" />
-                  <span className="font-serif-display text-xs font-semibold text-brown-brand">
-                    {t(lang, 'Smart Optimization', 'Pengoptimuman Pintar')}
-                  </span>
-                </div>
-                <p className="text-muted-foreground font-body text-[10px] leading-relaxed">
-                  {t(lang, 'Find the cheapest local fertilizer combination for your deficits.', 'Cari kombinasi baja tempatan termurah untuk kekurangan anda.')}
-                </p>
-              </div>
 
               {/* Tractor sketch */}
               <svg className="absolute -bottom-2 right-4 w-12 h-8 opacity-[0.06] pointer-events-none" viewBox="0 0 56 40" fill="none">

@@ -31,6 +31,31 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     { key: 'leaf', label: t('Leaf Photo', 'Foto Daun'), icon: <Leaf size={16} /> },
   ];
 
+  const buildResult = (n: number, p: number, k: number) => {
+    const n_deficit_kg = Math.max(0, Math.round((2 - n) * 18));
+    const p_deficit_kg = Math.max(0, Math.round((2 - p) * 12));
+    const k_deficit_kg = Math.max(0, Math.round((2 - k) * 15));
+
+    const recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number }[] = [];
+    if (n_deficit_kg > 0) { const bags = Math.ceil(n_deficit_kg / 10); recommendations.push({ name: 'Urea (46-0-0)', bags, price_per_bag: 85, subtotal_rm: bags * 85 }); }
+    if (p_deficit_kg > 0) { const bags = Math.ceil(p_deficit_kg / 8); recommendations.push({ name: 'TSP (0-46-0)', bags, price_per_bag: 110, subtotal_rm: bags * 110 }); }
+    if (k_deficit_kg > 0) { const bags = Math.ceil(k_deficit_kg / 12); recommendations.push({ name: 'MOP (0-0-60)', bags, price_per_bag: 95, subtotal_rm: bags * 95 }); }
+
+    const total_cost_rm = recommendations.reduce((s, r) => s + r.subtotal_rm, 0);
+    const savings_rm = Math.round((n_deficit_kg + p_deficit_kg + k_deficit_kg) * 2.8 + 45);
+    const confidence = (n <= 1 || p <= 1 || k <= 1 ? 'high' : n <= 2 ? 'medium' : 'low') as 'high' | 'medium' | 'low';
+
+    const voice_summary = lang === 'bm'
+      ? `${profile.name}, ladang ${profile.crop} anda memerlukan ${n_deficit_kg} kg nitrogen, ${p_deficit_kg} kg fosforus, dan ${k_deficit_kg} kg kalium. Jumlah kos RM ${total_cost_rm}. Anda boleh jimat RM ${savings_rm}.`
+      : `${profile.name}, your ${profile.crop} farm needs ${n_deficit_kg} kg nitrogen, ${p_deficit_kg} kg phosphorus, and ${k_deficit_kg} kg potassium. Total cost RM ${total_cost_rm}. You can save RM ${savings_rm}.`;
+
+    return {
+      recommendations, total_cost_rm, savings_rm,
+      n_deficit_kg, p_deficit_kg, k_deficit_kg,
+      input_mode: 'manual' as const, confidence, voice_summary,
+    };
+  };
+
   const handleTestKitSubmit = (n: number, p: number, k: number) => {
     setNpkLevels({ n, p, k });
     setShowResults(true);
@@ -44,8 +69,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     return (
       <ResultsDashboard
         lang={lang}
-        npk={npkLevels}
-        profile={profile}
+        result={buildResult(npkLevels.n, npkLevels.p, npkLevels.k)}
         onBack={() => setShowResults(false)}
       />
     );
