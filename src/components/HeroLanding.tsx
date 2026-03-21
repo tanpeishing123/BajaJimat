@@ -18,7 +18,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="flex flex-col overflow-hidden">
       {/* ── Hero Section ── */}
-      <section className="relative h-[54vh] min-h-[360px]">
+      <section className="relative h-[44vh] min-h-[300px]">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
@@ -66,7 +66,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Asymmetrical Storytelling Section ── */}
-      <section id="mission-section" className="relative bg-cream-brand pb-14 pt-4 md:pt-8 px-6 md:px-12">
+      <section id="mission-section" className="relative bg-cream-brand pb-6 pt-2 md:pt-4 px-6 md:px-12">
         {/* Subtle decorative leaves */}
         <div className="absolute top-4 left-6 opacity-[0.04] pointer-events-none">
           <Leaf size={64} className="text-primary -rotate-12" />
@@ -133,7 +133,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
 
         {/* Footer */}
-        <div className="max-w-6xl mx-auto mt-10 pt-3 border-t border-border/40 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto mt-4 pt-2 border-t border-border/40 flex items-center justify-between">
           <div>
             <p className="text-muted-foreground font-body text-xs">
               {t(lang, 'Join thousands of Malaysian farmers already saving on fertilizer costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}

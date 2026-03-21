@@ -13,10 +13,12 @@ const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en
 
 export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [crop, setCrop] = useState('');
   const [farmSize, setFarmSize] = useState('');
 
-  const canSubmit = name.trim() && crop.trim() && farmSize;
+  const canSubmit = name.trim() && email.trim() && password.trim() && crop.trim() && farmSize;
 
   return (
     <div className="h-screen flex overflow-hidden">
@@ -60,13 +62,13 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
       </div>
 
       {/* Right — Form */}
-      <div className="w-full md:w-1/2 bg-cream-brand flex items-center justify-center p-6 md:p-12 relative">
+      <div className="w-full md:w-1/2 bg-cream-brand flex items-center justify-center p-6 md:p-12 relative overflow-y-auto">
         <div className="absolute top-12 right-10 opacity-[0.04] pointer-events-none">
           <Leaf size={120} className="text-primary rotate-12" />
         </div>
 
         <div className="w-full max-w-md">
-          <div className="mb-8">
+          <div className="mb-6">
             <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-brown-brand leading-tight">
               {t(lang, 'Start Your Journey', 'Mulakan Perjalanan Anda')}
             </h1>
@@ -75,8 +77,8 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
             </p>
           </div>
 
-          <div className="bg-card rounded-3xl p-7 shadow-luxe border border-border/60">
-            <div className="space-y-5">
+          <div className="bg-card rounded-3xl p-6 shadow-luxe border border-border/60">
+            <div className="space-y-4">
               {/* Name */}
               <div className="relative">
                 <input
@@ -84,14 +86,39 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder=" "
-                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-6 pb-2 font-body text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
                 />
-                <label className="absolute left-4 top-2 text-[11px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[11px] transition-all pointer-events-none">
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
                   {t(lang, 'Your Name', 'Nama Anda')}
                 </label>
-                <div className="absolute right-3 top-3">
-                  <SpeakerButton text={t(lang, 'Your Name', 'Nama Anda')} lang={lang} size="sm" />
-                </div>
+              </div>
+
+              {/* Email */}
+              <div className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder=" "
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                />
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
+                  {t(lang, 'Email Address', 'Alamat E-mel')}
+                </label>
+              </div>
+
+              {/* Password */}
+              <div className="relative">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder=" "
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                />
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
+                  {t(lang, 'Password', 'Kata Laluan')}
+                </label>
               </div>
 
               {/* Crop Type */}
@@ -101,14 +128,11 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
                   value={crop}
                   onChange={e => setCrop(e.target.value)}
                   placeholder=" "
-                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-6 pb-2 font-body text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
                 />
-                <label className="absolute left-4 top-2 text-[11px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[11px] transition-all pointer-events-none">
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
                   {t(lang, 'What are you growing?', 'Apa yang anda tanam?')}
                 </label>
-                <div className="absolute right-3 top-3">
-                  <SpeakerButton text={t(lang, 'Crop Type', 'Jenis Tanaman')} lang={lang} size="sm" />
-                </div>
               </div>
 
               {/* Farm Size */}
@@ -120,20 +144,20 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
                   placeholder=" "
                   min="0.1"
                   step="0.1"
-                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-6 pb-2 pr-12 font-body text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 pr-12 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
                 />
-                <label className="absolute left-4 top-2 text-[11px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-[11px] transition-all pointer-events-none">
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
                   {t(lang, 'Farm Size', 'Saiz Ladang')}
                 </label>
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-xs font-medium">ha</span>
               </div>
             </div>
 
-            {/* Submit — dynamic active state */}
+            {/* Submit */}
             <button
               disabled={!canSubmit}
               onClick={() => canSubmit && onComplete({ name, crop, farmSize, lang })}
-              className={`w-full mt-7 rounded-2xl py-3.5 font-body font-semibold text-[15px] flex items-center justify-center gap-2 transition-all duration-300 shadow-luxe active:scale-[0.97] ${
+              className={`w-full mt-6 rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-luxe active:scale-[0.97] ${
                 canSubmit
                   ? 'bg-primary text-primary-foreground hover:brightness-110 opacity-100 scale-100'
                   : 'bg-primary/30 text-primary-foreground/60 opacity-50 cursor-not-allowed'
@@ -144,7 +168,7 @@ export function SignUpPage({ lang, onComplete, onLogin }: SignUpPageProps) {
             </button>
           </div>
 
-          <p className="mt-5 text-center font-body text-sm text-muted-foreground">
+          <p className="mt-4 text-center font-body text-sm text-muted-foreground">
             {t(lang, 'Already have an account?', 'Sudah mempunyai akaun?')}{' '}
             <button onClick={onLogin} className="text-brown-brand font-semibold hover:underline transition-colors">
               {t(lang, 'Log In', 'Log Masuk')}
