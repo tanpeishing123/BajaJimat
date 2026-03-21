@@ -75,7 +75,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           <Leaf size={80} className="text-primary rotate-45" />
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full">
           <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start">
             {/* Left — Text */}
             <div className="md:w-[42%] pt-2 md:pt-4">
