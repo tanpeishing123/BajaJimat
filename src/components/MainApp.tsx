@@ -214,16 +214,16 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           <path d="M30 90 C40 60, 70 30, 90 30" stroke="#c5a35a" strokeWidth="0.8" opacity="0.6" />
         </svg>
 
-        <div className="w-full px-6 md:px-20 py-6">
+        <div className="w-full px-6 md:px-20 py-4">
           {/* Page Title */}
-          <div className="mb-5">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold mb-2">
+          <div className="mb-3">
+            <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold mb-1">
               {t('Soil Analysis', 'Analisis Tanah')}
             </span>
-            <h1 className="font-sans text-2xl font-bold text-foreground leading-tight">
+            <h1 className="font-sans text-lg font-bold text-foreground leading-tight">
               {t('Choose Your Input Method', 'Pilih Kaedah Input Anda')}
             </h1>
-            <p className="text-sm text-muted-foreground font-sans mt-1">
+            <p className="text-xs text-muted-foreground font-sans mt-0.5">
               {t('Select how you want to analyze your soil nutrients', 'Pilih cara anda ingin menganalisis nutrien tanah')}
             </p>
           </div>
