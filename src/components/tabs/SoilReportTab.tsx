@@ -63,8 +63,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
       <button
         disabled={!file}
         onClick={onSubmit}
-        className="w-full mt-4 rounded-xl py-2.5 font-body font-semibold text-sm transition-all duration-200 hover:brightness-105 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed"
-        style={{ backgroundColor: '#faedcd', color: '#2d1a12' }}
+        className="w-full mt-4 rounded-xl py-2.5 font-body font-semibold text-sm btn-gradient-primary"
       >
         {t(lang, 'Submit', 'Hantar')}
       </button>
