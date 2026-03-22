@@ -43,7 +43,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     { key: 'soil', label: t('Soil Report', 'Laporan Tanah'), icon: <FileText size={16} /> },
-    { key: 'testkit', label: t('Test Kit', 'Kit Ujian'), icon: <TestTubes size={16} /> },
+    { key: 'testkit', label: t('Manual Entry', 'Kemasukan Manual'), icon: <TestTubes size={16} /> },
     { key: 'leaf', label: t('Leaf Photo', 'Foto Daun'), icon: <Leaf size={16} /> },
   ];
 
