@@ -37,6 +37,9 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   const [showResults, setShowResults] = useState(false);
   const [showLeafAnalysis, setShowLeafAnalysis] = useState(false);
   const [resultData, setResultData] = useState<ResultData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { speak } = useSpeech(lang);
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     { key: 'soil', label: t('Soil Report', 'Laporan Tanah'), icon: <FileText size={16} /> },
