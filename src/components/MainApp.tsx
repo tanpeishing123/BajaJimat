@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2 } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2, ShieldCheck, Activity } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
-import { LeafPhotoTab } from './tabs/LeafPhotoTab';
+import { LeafPhotoTab, type LeafAnalysisResult } from './tabs/LeafPhotoTab';
 import { ResultsDashboard } from './ResultsDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -36,6 +36,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
   const [showResults, setShowResults] = useState(false);
   const [showLeafAnalysis, setShowLeafAnalysis] = useState(false);
+  const [leafResult, setLeafResult] = useState<LeafAnalysisResult | null>(null);
   const [resultData, setResultData] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -83,23 +84,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
-  const mockLeafPhoto: ResultData = {
-    recommendations: [
-      { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
-      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
-      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
-    ],
-    total_cost_rm: 426.0,
-    savings_rm: 334.0,
-    n_deficit_kg: 270,
-    p_deficit_kg: 80,
-    k_deficit_kg: 420,
-    input_mode: 'leaf_photo',
-    confidence: 'medium',
-    voice_summary: lang === 'bm'
-      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
-      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
-  };
+  // mockLeafPhoto removed — now using live API
 
   const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number) => {
     setIsLoading(true);
@@ -186,14 +171,54 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     }
   };
 
-  const handleLeafSubmit = () => {
+  const handleLeafSubmit = (result: LeafAnalysisResult) => {
+    setLeafResult(result);
     setShowLeafAnalysis(true);
   };
 
-  const handleLeafCalculate = () => {
+  const handleLeafCalculate = async () => {
+    if (!leafResult) return;
     setShowLeafAnalysis(false);
-    setResultData(mockLeafPhoto);
-    setShowResults(true);
+    setIsLoading(true);
+    setErrorMsg(null);
+
+    try {
+      const cropType = profile.crop || 'musang_king_durian';
+      const farmSize = parseFloat(profile.farmSize) || 2.0;
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({
+          input_mode: 'leaf_photo',
+          leaf_result: leafResult,
+          crop_type: cropType,
+          farm_size_ha: farmSize,
+          lang,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        throw new Error(errBody || `Server error ${res.status}`);
+      }
+
+      const data: ResultData = await res.json();
+      setResultData(data);
+      setShowResults(true);
+
+      if (data.voice_summary) {
+        speak(data.voice_summary);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Loading screen
@@ -238,10 +263,21 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   }
 
   // Leaf Analysis Intermediate Screen
-  if (showLeafAnalysis) {
+  if (showLeafAnalysis && leafResult) {
+    const healthColors: Record<string, string> = {
+      good: 'bg-emerald-50 text-emerald-700',
+      fair: 'bg-amber-50 text-amber-700',
+      poor: 'bg-orange-50 text-orange-700',
+      critical: 'bg-destructive/10 text-destructive',
+    };
+    const severityColors: Record<string, string> = {
+      mild: 'text-amber-600',
+      moderate: 'text-orange-600',
+      severe: 'text-destructive',
+    };
+
     return (
       <div className="h-screen flex flex-col bg-background">
-        {/* Header */}
         <header className="bg-white border-b border-border/60 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -249,38 +285,76 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
             </div>
             <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
           </div>
-          <button onClick={() => setShowLeafAnalysis(false)} className="text-sm text-muted-foreground hover:text-foreground font-sans transition-colors">
+          <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-foreground font-sans transition-colors">
             ← {t('Back', 'Kembali')}
           </button>
         </header>
 
-        <div className="flex-1 flex items-center justify-center px-6">
+        <div className="flex-1 overflow-y-auto flex items-start justify-center px-6 py-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-md bg-white rounded-3xl p-8 shadow-lg border border-border/40 text-center space-y-5"
+            className="w-full max-w-md bg-white rounded-3xl p-6 shadow-lg border border-border/40 space-y-4"
           >
-            <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center mx-auto">
-              <AlertTriangle className="text-amber-500" size={32} />
-            </div>
-            <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-sans font-semibold mb-3">
-                {t('Deficiency Detected', 'Kekurangan Dikesan')}
+            {/* Health + Confidence badges */}
+            <div className="flex items-center justify-between">
+              <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${healthColors[leafResult.overall_health] || 'bg-muted text-muted-foreground'}`}>
+                <Activity size={12} className="inline mr-1" />
+                {t('Health', 'Kesihatan')}: {leafResult.overall_health}
               </span>
-              <h2 className="font-sans text-2xl font-bold text-foreground">
-                {t('Nitrogen', 'Nitrogen')} <span className="text-destructive">({t('Severe', 'Teruk')})</span>
-              </h2>
+              <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${
+                leafResult.confidence === 'high' ? 'bg-emerald-50 text-emerald-700' :
+                leafResult.confidence === 'medium' ? 'bg-amber-50 text-amber-700' :
+                'bg-muted text-muted-foreground'
+              }`}>
+                <ShieldCheck size={12} className="inline mr-1" />
+                {leafResult.confidence}
+              </span>
             </div>
-            <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-              {t('Visual analysis indicates significant nitrogen deficiency in your crop leaves.', 'Analisis visual menunjukkan kekurangan nitrogen yang ketara pada daun tanaman anda.')}
-            </p>
+
+            {/* Deficiencies */}
+            {leafResult.deficiencies.length > 0 ? (
+              <div className="space-y-2">
+                <h3 className="text-xs font-sans font-semibold text-muted-foreground uppercase tracking-wider">
+                  {t('Deficiencies Detected', 'Kekurangan Dikesan')}
+                </h3>
+                {leafResult.deficiencies.map((d, i) => (
+                  <div key={i} className="p-3 rounded-xl bg-muted/30 border border-border/40 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-sans font-bold text-foreground capitalize">{d.nutrient}</span>
+                      <span className={`text-xs font-sans font-semibold capitalize ${severityColors[d.severity] || 'text-muted-foreground'}`}>
+                        {d.severity} ({d.estimated_deficit_pct}%)
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground font-sans">{d.visual_evidence}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground font-sans text-center py-2">
+                {t('No deficiencies detected.', 'Tiada kekurangan dikesan.')}
+              </p>
+            )}
+
+            {/* AI Recommendation */}
+            <div className="p-3 rounded-xl bg-primary/5 border border-primary/20">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-sans font-semibold text-primary">
+                  {t('AI Recommendation', 'Cadangan AI')}
+                </span>
+                <SpeakerButton text={leafResult.recommendation} lang={lang} size="sm" />
+              </div>
+              <p className="text-sm text-foreground font-sans leading-relaxed">{leafResult.recommendation}</p>
+            </div>
+
+            {/* Calculate button */}
             <button
               onClick={handleLeafCalculate}
               className="w-full py-3 rounded-full btn-gradient-primary font-sans font-semibold text-sm flex items-center justify-center gap-2"
             >
               <Zap size={16} />
-              {t('Calculate Prescription', 'Kira Preskripsi')}
+              {t('Calculate Required Fertiliser →', 'Kira Baja Diperlukan →')}
             </button>
           </motion.div>
         </div>

@@ -1,22 +1,93 @@
 import { useState, useRef } from 'react';
-import { Camera, AlertTriangle } from 'lucide-react';
+import { Camera, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
-export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: () => void }) {
+export interface LeafAnalysisResult {
+  is_plant_photo: boolean;
+  deficiencies: {
+    nutrient: string;
+    severity: string;
+    estimated_deficit_pct: number;
+    visual_evidence: string;
+  }[];
+  overall_health: string;
+  confidence: string;
+  recommendation: string;
+}
+
+export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: (result: LeafAnalysisResult) => void }) {
+  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
+      setFile(f);
       setPreview(URL.createObjectURL(f));
+      setError(null);
+    }
+  };
+
+  const handleAnalyze = async () => {
+    if (!file) return;
+    setIsAnalyzing(true);
+    setError(null);
+
+    try {
+      const base64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve((reader.result as string).split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+
+      const cropType = localStorage.getItem('crop_type') || 'musang_king_durian';
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/analyze-leaf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({
+          image_base64: base64,
+          mime_type: file.type,
+          crop_type: cropType,
+          lang,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || `Server error ${res.status}`);
+      }
+
+      if (data.is_plant_photo === false) {
+        setError(
+          t(lang,
+            "This doesn't look like a plant photo. Please try again.",
+            'Gambar ini bukan foto tanaman. Cuba lagi.'
+          )
+        );
+        return;
+      }
+
+      onSubmit(data as LeafAnalysisResult);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong');
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
   return (
     <div className="space-y-2">
-      {/* AI Disclaimer - compact */}
+      {/* AI Disclaimer */}
       <div className="rounded-lg px-3 py-2 flex items-center gap-2 bg-amber-50 border border-amber-200/60">
         <div className="w-6 h-6 rounded-md bg-amber-100 flex items-center justify-center shrink-0">
           <AlertTriangle size={12} className="text-amber-600" />
@@ -32,7 +103,15 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         <SpeakerButton text={t(lang, 'AI visual analysis disclaimer', 'Penafian analisis visual AI')} lang={lang} size="sm" />
       </div>
 
-      {/* Upload Card - compact */}
+      {/* Error */}
+      {error && (
+        <div className="flex items-start gap-2 p-3 rounded-xl bg-destructive/5 border border-destructive/20">
+          <AlertTriangle size={14} className="text-destructive mt-0.5 shrink-0" />
+          <p className="text-xs text-destructive font-sans">{error}</p>
+        </div>
+      )}
+
+      {/* Upload Card */}
       <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-3">
         <div className="flex items-center justify-between mb-2">
           <div>
@@ -78,11 +157,18 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         </div>
 
         <button
-          disabled={!preview}
-          onClick={onSubmit}
-          className="w-full mt-3 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
+          disabled={!file || isAnalyzing}
+          onClick={handleAnalyze}
+          className="w-full mt-3 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2 disabled:opacity-50"
         >
-          {t(lang, 'Analyze Leaf', 'Analisis Daun')}
+          {isAnalyzing ? (
+            <>
+              <Loader2 size={14} className="animate-spin" />
+              {t(lang, 'Analyzing...', 'Menganalisis...')}
+            </>
+          ) : (
+            t(lang, 'Analyze Leaf', 'Analisis Daun')
+          )}
         </button>
       </div>
     </div>
