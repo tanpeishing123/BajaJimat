@@ -155,6 +155,36 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setShowResults(true);
   };
 
+  // Loading screen
+  if (isLoading) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
+        <Loader2 className="animate-spin text-primary" size={40} />
+        <p className="text-sm text-muted-foreground font-sans">
+          {t('Calculating your prescription...', 'Mengira preskripsi anda...')}
+        </p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (errorMsg) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4 px-6">
+        <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
+          <AlertTriangle className="text-destructive" size={32} />
+        </div>
+        <p className="text-sm text-destructive font-sans text-center max-w-md">{errorMsg}</p>
+        <button
+          onClick={() => setErrorMsg(null)}
+          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm"
+        >
+          {t('Try Again', 'Cuba Lagi')}
+        </button>
+      </div>
+    );
+  }
+
   if (showResults && resultData) {
     return (
       <ResultsDashboard
