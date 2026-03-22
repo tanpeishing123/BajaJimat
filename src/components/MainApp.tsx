@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2 } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
+import { useSpeech } from '@/hooks/useSpeech';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
 import { LeafPhotoTab } from './tabs/LeafPhotoTab';
@@ -36,6 +37,9 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   const [showResults, setShowResults] = useState(false);
   const [showLeafAnalysis, setShowLeafAnalysis] = useState(false);
   const [resultData, setResultData] = useState<ResultData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { speak } = useSpeech(lang);
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     { key: 'soil', label: t('Soil Report', 'Laporan Tanah'), icon: <FileText size={16} /> },
@@ -97,9 +101,43 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
-  const handleTestKitSubmit = (n: number, p: number, k: number) => {
-    setResultData(mockTestKit);
-    setShowResults(true);
+  const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number) => {
+    setIsLoading(true);
+    setErrorMsg(null);
+    try {
+      const cropType = profile.crop || 'musang_king_durian';
+      const farmSize = parseFloat(profile.farmSize) || 2.0;
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input_mode: 'manual',
+          soil_npk: { n_ppm: n, p_ppm: p, k_ppm: k, confidence: 'high' },
+          crop_type: cropType,
+          farm_size_ha: farmSize,
+          lang,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        throw new Error(errBody || `Server error ${res.status}`);
+      }
+
+      const data: ResultData = await res.json();
+      setResultData(data);
+      setShowResults(true);
+
+      // Auto voice readout
+      if (data.voice_summary) {
+        speak(data.voice_summary);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSoilSubmit = () => {
@@ -116,6 +154,36 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setResultData(mockLeafPhoto);
     setShowResults(true);
   };
+
+  // Loading screen
+  if (isLoading) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
+        <Loader2 className="animate-spin text-primary" size={40} />
+        <p className="text-sm text-muted-foreground font-sans">
+          {t('Calculating your prescription...', 'Mengira preskripsi anda...')}
+        </p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (errorMsg) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4 px-6">
+        <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
+          <AlertTriangle className="text-destructive" size={32} />
+        </div>
+        <p className="text-sm text-destructive font-sans text-center max-w-md">{errorMsg}</p>
+        <button
+          onClick={() => setErrorMsg(null)}
+          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm"
+        >
+          {t('Try Again', 'Cuba Lagi')}
+        </button>
+      </div>
+    );
+  }
 
   if (showResults && resultData) {
     return (
