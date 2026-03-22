@@ -171,14 +171,54 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     }
   };
 
-  const handleLeafSubmit = () => {
+  const handleLeafSubmit = (result: LeafAnalysisResult) => {
+    setLeafResult(result);
     setShowLeafAnalysis(true);
   };
 
-  const handleLeafCalculate = () => {
+  const handleLeafCalculate = async () => {
+    if (!leafResult) return;
     setShowLeafAnalysis(false);
-    setResultData(mockLeafPhoto);
-    setShowResults(true);
+    setIsLoading(true);
+    setErrorMsg(null);
+
+    try {
+      const cropType = profile.crop || 'musang_king_durian';
+      const farmSize = parseFloat(profile.farmSize) || 2.0;
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({
+          input_mode: 'leaf_photo',
+          leaf_result: leafResult,
+          crop_type: cropType,
+          farm_size_ha: farmSize,
+          lang,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        throw new Error(errBody || `Server error ${res.status}`);
+      }
+
+      const data: ResultData = await res.json();
+      setResultData(data);
+      setShowResults(true);
+
+      if (data.voice_summary) {
+        speak(data.voice_summary);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Loading screen
