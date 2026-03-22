@@ -101,9 +101,43 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
   };
 
-  const handleTestKitSubmit = (n: number, p: number, k: number) => {
-    setResultData(mockTestKit);
-    setShowResults(true);
+  const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number) => {
+    setIsLoading(true);
+    setErrorMsg(null);
+    try {
+      const cropType = profile.crop || 'musang_king_durian';
+      const farmSize = parseFloat(profile.farmSize) || 2.0;
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input_mode: 'manual',
+          soil_npk: { n_ppm: n, p_ppm: p, k_ppm: k, confidence: 'high' },
+          crop_type: cropType,
+          farm_size_ha: farmSize,
+          lang,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        throw new Error(errBody || `Server error ${res.status}`);
+      }
+
+      const data: ResultData = await res.json();
+      setResultData(data);
+      setShowResults(true);
+
+      // Auto voice readout
+      if (data.voice_summary) {
+        speak(data.voice_summary);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSoilSubmit = () => {
