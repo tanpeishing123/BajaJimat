@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2 } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2, ShieldCheck, Activity } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
-import { LeafPhotoTab } from './tabs/LeafPhotoTab';
+import { LeafPhotoTab, type LeafAnalysisResult } from './tabs/LeafPhotoTab';
 import { ResultsDashboard } from './ResultsDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
 
