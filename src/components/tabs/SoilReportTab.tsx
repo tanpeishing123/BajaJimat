@@ -60,7 +60,11 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/extract-soil', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
         body: JSON.stringify({
           image_base64: base64,
           mime_type: file.type,
