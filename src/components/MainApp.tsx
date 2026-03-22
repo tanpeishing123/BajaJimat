@@ -110,7 +110,11 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
         body: JSON.stringify({
           input_mode: 'manual',
           soil_npk: { n_ppm: n, p_ppm: p, k_ppm: k, confidence: 'high' },
@@ -149,7 +153,11 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
         body: JSON.stringify({
           input_mode: 'soil_report',
           soil_npk: data.soil_npk,
