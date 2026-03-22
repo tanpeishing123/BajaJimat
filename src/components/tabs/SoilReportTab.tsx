@@ -58,12 +58,12 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
 
       const storedLang = (localStorage.getItem('lang') as 'en' | 'bm') || lang;
 
-      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/extract-soil', {
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/extract-soil`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
         },
         body: JSON.stringify({
           image_base64: base64,

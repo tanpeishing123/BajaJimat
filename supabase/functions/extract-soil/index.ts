@@ -11,9 +11,9 @@ serve(async (req) => {
   }
 
   try {
-    const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
-    if (!GEMINI_API_KEY) {
-      throw new Error('GEMINI_API_KEY not configured');
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      throw new Error('LOVABLE_API_KEY not configured');
     }
 
     const { image_base64, mime_type, lang } = await req.json();
@@ -22,7 +22,9 @@ serve(async (req) => {
       throw new Error('image_base64 is required');
     }
 
-    const prompt = `You are an agricultural soil report OCR system. Analyze this image.
+    const systemPrompt = `You are an agricultural soil report OCR system. You extract nutrient values from soil analysis reports. Always respond with ONLY valid JSON, no other text.`;
+
+    const userPrompt = `Analyze this image.
 
 FIRST: Determine if this image is a soil analysis report. If it is NOT a soil report (e.g. random photo, document, etc.), respond with exactly:
 {"error": "not_a_soil_report"}
@@ -44,45 +46,52 @@ Respond with ONLY valid JSON in this exact format:
 }
 
 Set confidence based on how clearly the values could be read from the report.
-The confidence_label should be in ${lang === 'bm' ? 'Bahasa Malaysia' : 'English'}.
-Do not include any text outside the JSON.`;
+The confidence_label should be in ${lang === 'bm' ? 'Bahasa Malaysia' : 'English'}.`;
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    const dataUrl = `data:${mime_type || 'image/jpeg'};base64,${image_base64}`;
 
-    const geminiRes = await fetch(geminiUrl, {
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        contents: [{
-          parts: [
-            { text: prompt },
-            {
-              inline_data: {
-                mime_type: mime_type || 'image/jpeg',
-                data: image_base64,
-              }
-            }
-          ]
-        }],
-        generationConfig: {
-          temperature: 0.1,
-          maxOutputTokens: 512,
-        }
+        model: 'google/gemini-2.5-flash',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: userPrompt },
+              { type: 'image_url', image_url: { url: dataUrl } },
+            ],
+          },
+        ],
       }),
     });
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      throw new Error(`Gemini API error: ${errText}`);
+    if (!response.ok) {
+      if (response.status === 429) {
+        return new Response(JSON.stringify({ error: 'Rate limit exceeded, please try again later.' }), {
+          status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      if (response.status === 402) {
+        return new Response(JSON.stringify({ error: 'AI credits exhausted. Please add funds.' }), {
+          status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      const errText = await response.text();
+      throw new Error(`AI gateway error: ${errText}`);
     }
 
-    const geminiData = await geminiRes.json();
-    const text = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    const aiData = await response.json();
+    const text = aiData.choices?.[0]?.message?.content || '';
 
-    // Extract JSON from response
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      throw new Error('Could not parse Gemini response');
+      throw new Error('Could not parse AI response');
     }
 
     const parsed = JSON.parse(jsonMatch[0]);
