@@ -140,9 +140,42 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     }
   };
 
-  const handleSoilSubmit = () => {
-    setResultData(mockSoilReport);
-    setShowResults(true);
+  const handleSoilSubmit = async (data: { soil_npk: { n_ppm: number; p_ppm: number; k_ppm: number; confidence: string }; ph: number }) => {
+    setIsLoading(true);
+    setErrorMsg(null);
+    try {
+      const cropType = profile.crop || 'musang_king_durian';
+      const farmSize = parseFloat(profile.farmSize) || 2.0;
+
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input_mode: 'soil_report',
+          soil_npk: data.soil_npk,
+          crop_type: cropType,
+          farm_size_ha: farmSize,
+          lang,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        throw new Error(errBody || `Server error ${res.status}`);
+      }
+
+      const result: ResultData = await res.json();
+      setResultData(result);
+      setShowResults(true);
+
+      if (result.voice_summary) {
+        speak(result.voice_summary);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLeafSubmit = () => {
