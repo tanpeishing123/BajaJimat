@@ -36,6 +36,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
   const [showResults, setShowResults] = useState(false);
   const [showLeafAnalysis, setShowLeafAnalysis] = useState(false);
+  const [leafResult, setLeafResult] = useState<LeafAnalysisResult | null>(null);
   const [resultData, setResultData] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
