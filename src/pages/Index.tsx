@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroLanding } from '@/components/HeroLanding';
 import { SignUpPage } from '@/components/SignUpPage';
-import { LoginPage } from '@/components/LoginPage';
 import { MainApp } from '@/components/MainApp';
 
 interface UserProfile {
@@ -12,7 +11,7 @@ interface UserProfile {
   lang: 'en' | 'bm';
 }
 
-type View = 'landing' | 'signup' | 'login' | 'app';
+type View = 'landing' | 'signup' | 'app';
 
 const Index = () => {
   const [view, setView] = useState<View>('landing');
@@ -39,10 +38,12 @@ const Index = () => {
   };
 
   const handleSignUpComplete = (data: UserProfile) => {
-    const profileWithLang = { ...data, lang };
+    const profileWithLang = { ...data, lang: data.lang };
     localStorage.setItem('baja_profile', JSON.stringify(profileWithLang));
+    localStorage.setItem('baja_lang', data.lang);
     localStorage.setItem('onboarding_complete', 'true');
     setProfile(profileWithLang);
+    setLang(data.lang);
     setView('app');
   };
 
@@ -60,28 +61,16 @@ const Index = () => {
           <Navbar
             lang={lang}
             onToggleLang={toggleLang}
-            onLogin={() => setView('login')}
             onSignup={() => setView('signup')}
-            showAuth
           />
           <HeroLanding lang={lang} onGetStarted={() => setView('signup')} />
         </>
-      )}
-
-      {view === 'login' && (
-        <LoginPage
-          lang={lang}
-          onLogin={() => setView('signup')}
-          onSignup={() => setView('signup')}
-          onBack={() => setView('landing')}
-        />
       )}
 
       {view === 'signup' && (
         <SignUpPage
           lang={lang}
           onComplete={handleSignUpComplete}
-          onLogin={() => setView('login')}
           onBack={() => setView('landing')}
         />
       )}
