@@ -93,12 +93,12 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       const cropType = profile.crop || 'musang_king_durian';
       const farmSize = parseFloat(profile.farmSize) || 2.0;
 
-      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/run-solver`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
         },
         body: JSON.stringify({
           input_mode: 'manual',
