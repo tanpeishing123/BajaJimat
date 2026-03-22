@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2 } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
+import { useSpeech } from '@/hooks/useSpeech';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
 import { LeafPhotoTab } from './tabs/LeafPhotoTab';
