@@ -1,4 +1,5 @@
-import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -26,6 +27,7 @@ interface ResultData {
 interface Props {
   lang: 'en' | 'bm';
   result: ResultData;
+  cropType?: string;
   onBack: () => void;
   onToggleLang?: () => void;
 }
@@ -43,8 +45,36 @@ const RadarDot = (props: any) => {
   return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
 };
 
-export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) {
+export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
+  const [farmTip, setFarmTip] = useState<string | null>(null);
+  const [tipLoading, setTipLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchTip = async () => {
+      setTipLoading(true);
+      try {
+        const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/farm-tip', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+          },
+          body: JSON.stringify({ crop_type: cropType || 'general crop', lang }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.tip) setFarmTip(data.tip);
+        }
+      } catch {
+        // silently fail — tip is non-critical
+      } finally {
+        setTipLoading(false);
+      }
+    };
+    fetchTip();
+  }, [cropType, lang]);
 
   const radarData = [
     { nutrient: 'N', value: result.n_deficit_kg, fullMark: Math.max(result.n_deficit_kg, result.p_deficit_kg, result.k_deficit_kg, 1) },
@@ -313,6 +343,29 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
               lang={lang}
               size="md"
             />
+          </motion.div>
+
+          {/* Farm Tip Card */}
+          <motion.div custom={2.0} variants={fadeUp} initial="hidden" animate="visible"
+            className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3.5 flex items-start gap-3"
+          >
+            <span className="text-lg mt-0.5">📅</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-sans text-xs font-semibold text-emerald-800 mb-0.5">
+                {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+              </p>
+              {tipLoading ? (
+                <div className="flex items-center gap-2 py-1">
+                  <Loader2 size={12} className="animate-spin text-emerald-600" />
+                  <span className="text-xs text-emerald-600 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                </div>
+              ) : farmTip ? (
+                <p className="font-sans text-sm text-emerald-700 leading-relaxed">{farmTip}</p>
+              ) : (
+                <p className="font-sans text-xs text-emerald-500 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+              )}
+            </div>
+            {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
           </motion.div>
 
           {/* Footer */}

@@ -236,6 +236,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
       <ResultsDashboard
         lang={lang}
         result={resultData}
+        cropType={profile.crop}
         onBack={() => { setShowResults(false); setResultData(null); }}
         onToggleLang={onToggleLang}
       />
