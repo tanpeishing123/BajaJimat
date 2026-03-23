@@ -92,6 +92,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
       setEditP(data.p_ppm);
       setEditK(data.k_ppm);
       setEditPh(data.ph);
+      setEditMg(data.mg_ppm ?? null);
     } catch (err: any) {
       setExtractError(err.message || 'Something went wrong');
     } finally {
