@@ -107,12 +107,6 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
     ? t(lang, 'Test Kit', 'Kit Ujian')
     : t(lang, 'Leaf Photo', 'Foto Daun');
 
-  const limingWarningText = result.liming_recommendation
-    ? t(lang,
-        `Low Soil pH — Liming Required First. Apply ${result.liming_recommendation.bags} bags of ${result.liming_recommendation.product}, costing RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`,
-        `pH Tanah Rendah — Kapur Diperlukan Dahulu. Gunakan ${result.liming_recommendation.bags} beg ${result.liming_recommendation.product}, kos RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`
-      )
-    : t(lang, 'Low Soil pH — Liming Required First', 'pH Tanah Rendah — Kapur Diperlukan Dahulu');
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
