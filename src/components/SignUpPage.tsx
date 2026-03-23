@@ -10,15 +10,12 @@ interface SignUpPageProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
-const CROPS = [
-  { value: 'oil_palm', en: 'Oil Palm', bm: 'Kelapa Sawit' },
-  { value: 'paddy', en: 'Paddy', bm: 'Padi' },
-  { value: 'musang_king_durian', en: 'Musang King Durian', bm: 'Durian Musang King' },
-  { value: 'rubber', en: 'Rubber', bm: 'Getah' },
-  { value: 'vegetables', en: 'Vegetables', bm: 'Sayuran' },
-  { value: 'cocoa', en: 'Cocoa', bm: 'Koko' },
-  { value: 'coconut', en: 'Coconut', bm: 'Kelapa' },
-  { value: 'pepper', en: 'Pepper', bm: 'Lada' },
+const SOIL_TYPES = [
+  { value: 'mineral', en: 'Mineral Soil', bm: 'Tanah Mineral' },
+  { value: 'peat', en: 'Peat Soil', bm: 'Tanah Gambut' },
+  { value: 'clay', en: 'Clay Soil', bm: 'Tanah Liat' },
+  { value: 'sandy', en: 'Sandy Soil', bm: 'Tanah Berpasir' },
+  { value: 'alluvial', en: 'Alluvial Soil', bm: 'Tanah Aluvium' },
 ];
 
 export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPageProps) {
@@ -26,8 +23,15 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
   const [name, setName] = useState('');
   const [crop, setCrop] = useState('');
   const [farmSize, setFarmSize] = useState('');
+  const [soilType, setSoilType] = useState('mineral');
 
-  const canSubmit = name.trim() && crop && farmSize;
+  const canSubmit = name.trim() && crop.trim() && farmSize;
+
+  const handleSubmit = () => {
+    if (!canSubmit) return;
+    localStorage.setItem('soil_type', soilType);
+    onComplete({ name, crop, farmSize, lang });
+  };
 
   return (
     <div className="h-screen flex overflow-hidden">
@@ -117,24 +121,24 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
                 </label>
               </div>
 
-              {/* Crop Type Dropdown */}
+              {/* Crop Type — Free Text */}
               <div className="relative">
-                <select
+                <input
+                  type="text"
                   value={crop}
                   onChange={e => setCrop(e.target.value)}
-                  className={`w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all appearance-none ${!crop ? 'text-muted-foreground' : ''}`}
-                >
-                  <option value="" disabled>{t(lang, 'Select your crop', 'Pilih tanaman anda')}</option>
-                  {CROPS.map(c => (
-                    <option key={c.value} value={c.value}>{lang === 'bm' ? c.bm : c.en}</option>
-                  ))}
-                </select>
-                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
+                  placeholder=" "
+                  className="peer w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                />
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[10px] transition-all pointer-events-none">
                   {t(lang, 'Crop Type', 'Jenis Tanaman')}
                 </label>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
-                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
-                </div>
+                <p className="mt-1 text-[10px] text-muted-foreground font-body px-1">
+                  {t(lang,
+                    'e.g. Musang King Durian, Oil Palm, Paddy, Rubber, Banana, Mango...',
+                    'Contoh: Durian Musang King, Kelapa Sawit, Padi, Getah, Pisang, Mangga...'
+                  )}
+                </p>
               </div>
 
               {/* Farm Size */}
@@ -153,12 +157,33 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
                 </label>
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-xs font-medium">ha</span>
               </div>
+
+              {/* Soil Type Selector */}
+              <div className="relative">
+                <select
+                  value={soilType}
+                  onChange={e => setSoilType(e.target.value)}
+                  className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
+                >
+                  {SOIL_TYPES.map(s => (
+                    <option key={s.value} value={s.value}>
+                      {lang === 'bm' ? `${s.bm} / ${s.en}` : `${s.en} / ${s.bm}`}
+                    </option>
+                  ))}
+                </select>
+                <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
+                  {t(lang, 'Soil Type', 'Jenis Tanah')}
+                </label>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+                </div>
+              </div>
             </div>
 
             {/* Submit */}
             <button
               disabled={!canSubmit}
-              onClick={() => canSubmit && onComplete({ name, crop, farmSize, lang })}
+              onClick={handleSubmit}
               className="w-full mt-6 rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 btn-gradient-primary"
             >
               {t(lang, 'Get Started', 'Mulakan')}
