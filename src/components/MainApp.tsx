@@ -74,7 +74,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const cropType = profile.crop || 'musang_king_durian';
+      const cropType = mapCrop(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
       const soilType = localStorage.getItem('soil_type') || 'mineral';
 
