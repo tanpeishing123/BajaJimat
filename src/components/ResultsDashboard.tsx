@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
 interface ResultData {
-  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number }[];
+  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; reason?: string }[];
   total_cost_rm: number;
   savings_rm: number;
   n_deficit_kg: number;

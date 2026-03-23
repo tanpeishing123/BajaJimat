@@ -20,7 +20,7 @@ type InputMode = 'soil_report' | 'manual' | 'leaf_photo';
 
 
 interface ResultData {
-  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number }[];
+  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; reason?: string }[];
   total_cost_rm: number;
   savings_rm: number;
   n_deficit_kg: number;
