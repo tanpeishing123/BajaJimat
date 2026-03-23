@@ -317,7 +317,7 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               </div>
 
               <div className="flex gap-3 relative z-10">
-                {result.recommendations.map((rec) => (
+                {fertItems.map((rec) => (
                   <div key={rec.name} className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Package size={18} className="text-primary" />
