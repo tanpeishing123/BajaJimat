@@ -310,9 +310,9 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               </div>
 
               <div className="mb-4 relative z-10">
-                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Total Cost', 'Jumlah Kos')}</p>
+                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Fertiliser Cost', 'Kos Baja')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
-                  RM{result.total_cost_rm.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                  RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
