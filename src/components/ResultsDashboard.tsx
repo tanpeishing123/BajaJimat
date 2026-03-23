@@ -50,6 +50,12 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
 
+  // Separate liming from fertiliser recommendations
+  const limingItems = result.recommendations.filter(r => r.is_liming);
+  const fertItems = result.recommendations.filter(r => !r.is_liming);
+  const fertTotalCost = fertItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const limingTotalCost = limingItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+
   useEffect(() => {
     const fetchTip = async () => {
       setTipLoading(true);
