@@ -1,4 +1,4 @@
-import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote } from 'lucide-react';
+import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -16,6 +16,11 @@ interface ResultData {
   input_mode: 'soil_report' | 'manual' | 'leaf_photo';
   confidence: 'high' | 'medium' | 'low';
   voice_summary: string;
+  liming_needed?: boolean;
+  liming_recommendation?: { product: string; bags: number; cost_rm: number; reason: string };
+  seasonal_advice?: { advice: string };
+  crop_requirements_source?: string;
+  soil_type?: string;
 }
 
 interface Props {
@@ -33,12 +38,9 @@ const fadeUp = {
   }),
 };
 
-/* Custom dot for radar vertices */
 const RadarDot = (props: any) => {
   const { cx, cy } = props;
-  return (
-    <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />
-  );
+  return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
 };
 
 export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) {
@@ -68,6 +70,13 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
     : result.input_mode === 'manual'
     ? t(lang, 'Test Kit', 'Kit Ujian')
     : t(lang, 'Leaf Photo', 'Foto Daun');
+
+  const limingWarningText = result.liming_recommendation
+    ? t(lang,
+        `Low Soil pH — Liming Required First. Apply ${result.liming_recommendation.bags} bags of ${result.liming_recommendation.product}, costing RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`,
+        `pH Tanah Rendah — Kapur Diperlukan Dahulu. Gunakan ${result.liming_recommendation.bags} beg ${result.liming_recommendation.product}, kos RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`
+      )
+    : t(lang, 'Low Soil pH — Liming Required First', 'pH Tanah Rendah — Kapur Diperlukan Dahulu');
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -101,19 +110,30 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
           {/* Title row + Voice Summary inline */}
           <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold ${confidenceColor}`}>
                   {confidenceLabel}
                 </span>
                 <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-sans font-medium">
                   {modeLabel}
                 </span>
+                {/* Soil Type Badge */}
+                {result.soil_type && (
+                  <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-sans font-medium">
+                    {t(lang, 'Soil', 'Tanah')}: {result.soil_type}
+                  </span>
+                )}
+                {/* AI Crop Badge */}
+                {result.crop_requirements_source === 'ai' && (
+                  <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-sans font-semibold">
+                    {t(lang, 'AI-generated requirements ✨', 'Keperluan dijana AI ✨')}
+                  </span>
+                )}
               </div>
               <h1 className="font-sans text-xl font-bold text-foreground">
                 {t(lang, 'Precision Prescription', 'Preskripsi Tepat')}
               </h1>
             </div>
-            {/* Compact voice summary */}
             <button
               onClick={() => speak(result.voice_summary)}
               className={`flex items-center gap-3 btn-gradient-primary rounded-2xl px-5 py-3 transition-all duration-300 active:scale-97 shrink-0 ${isSpeaking ? 'animate-pulse-ring' : ''}`}
@@ -126,15 +146,59 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
             </button>
           </motion.div>
 
+          {/* Seasonal Advice Card */}
+          {result.seasonal_advice?.advice && (
+            <motion.div custom={0.3} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3.5 flex items-start gap-3"
+            >
+              <span className="text-lg mt-0.5">📅</span>
+              <div className="flex-1 min-w-0">
+                <p className="font-sans text-xs font-semibold text-emerald-800 mb-0.5">
+                  {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
+                </p>
+                <p className="font-sans text-sm text-emerald-700 leading-relaxed">
+                  {result.seasonal_advice.advice}
+                </p>
+              </div>
+              <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
+            </motion.div>
+          )}
+
+          {/* Liming Warning Card */}
+          {result.liming_needed && (
+            <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 flex items-start gap-3"
+            >
+              <div className="w-9 h-9 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+                <AlertTriangle size={18} className="text-amber-700" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-sans text-sm font-bold text-amber-800 mb-1">
+                  {t(lang, 'Low Soil pH — Liming Required First', 'pH Tanah Rendah — Kapur Diperlukan Dahulu')}
+                </p>
+                {result.liming_recommendation && (
+                  <div className="flex items-center gap-4 text-xs font-sans text-amber-700">
+                    <span className="font-semibold">{result.liming_recommendation.product}</span>
+                    <span>{result.liming_recommendation.bags} {t(lang, 'bags', 'beg')}</span>
+                    <span className="font-bold">RM{result.liming_recommendation.cost_rm}</span>
+                  </div>
+                )}
+                {result.liming_recommendation?.reason && (
+                  <p className="text-xs text-amber-600 font-sans mt-1">{result.liming_recommendation.reason}</p>
+                )}
+              </div>
+              <SpeakerButton text={limingWarningText} lang={lang} size="sm" />
+            </motion.div>
+          )}
+
           {/* Two Column: Dark Radar + Recommendations */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {/* Radar Chart - dark themed like reference */}
+            {/* Radar Chart */}
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
               className="md:col-span-2 rounded-2xl p-5 shadow-sm relative overflow-hidden"
               style={{ background: 'linear-gradient(160deg, #0a1f1a 0%, #0d2b23 50%, #061a15 100%)' }}
             >
-              {/* Subtle radial glow behind chart */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="w-48 h-48 rounded-full" style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%)' }} />
               </div>
@@ -162,19 +226,9 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="72%" data={radarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis
-                      dataKey="nutrient"
-                      tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 700 }}
-                    />
+                    <PolarAngleAxis dataKey="nutrient" tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 700 }} />
                     <PolarRadiusAxis domain={[0, maxVal]} tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 9 }} axisLine={false} />
-                    <Radar
-                      dataKey="value"
-                      stroke="#34d399"
-                      fill="url(#radarGradient)"
-                      fillOpacity={0.4}
-                      strokeWidth={2.5}
-                      dot={<RadarDot />}
-                    />
+                    <Radar dataKey="value" stroke="#34d399" fill="url(#radarGradient)" fillOpacity={0.4} strokeWidth={2.5} dot={<RadarDot />} />
                     <defs>
                       <radialGradient id="radarGradient" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stopColor="#34d399" stopOpacity={0.6} />
@@ -185,7 +239,6 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
                 </ResponsiveContainer>
               </div>
 
-              {/* Nutrient stats row */}
               <div className="flex justify-center gap-6 mt-1 relative z-10">
                 {radarData.map(d => (
                   <div key={d.nutrient} className="text-center">
@@ -196,13 +249,12 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
               </div>
             </motion.div>
 
-            {/* Recommendations - Financia-inspired clean card */}
+            {/* Recommendations */}
             <motion.div
               custom={1.2} variants={fadeUp} initial="hidden" animate="visible"
               className="md:col-span-3 rounded-3xl p-6 flex flex-col relative overflow-hidden"
               style={{ background: 'linear-gradient(165deg, #e8f5e2 0%, #d4edda 40%, #c6e4c0 100%)' }}
             >
-              {/* Soft inner glow */}
               <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%)' }} />
 
               <div className="flex items-center gap-2 mb-2 relative z-10">
@@ -214,7 +266,6 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
                 </h3>
               </div>
 
-              {/* Total cost hero number */}
               <div className="mb-4 relative z-10">
                 <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Total Cost', 'Jumlah Kos')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
@@ -222,13 +273,9 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
                 </p>
               </div>
 
-              {/* Item cards row */}
               <div className="flex gap-3 relative z-10">
                 {result.recommendations.map((rec) => (
-                  <div
-                    key={rec.name}
-                    className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow"
-                  >
+                  <div key={rec.name} className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Package size={18} className="text-primary" />
                     </div>
@@ -243,7 +290,7 @@ export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) 
             </motion.div>
           </div>
 
-          {/* Savings Banner - full width */}
+          {/* Savings Banner */}
           <motion.div
             custom={1.8} variants={fadeUp} initial="hidden" animate="visible"
             className="rounded-2xl px-6 py-4 btn-gradient-primary flex items-center justify-between w-full"
