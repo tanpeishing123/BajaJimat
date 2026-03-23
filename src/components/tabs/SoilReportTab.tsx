@@ -160,12 +160,13 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
             {t(lang, 'Edit values below if OCR made mistakes', 'Ubah nilai di bawah jika OCR membuat kesilapan')}
           </p>
 
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-5 gap-2">
             {[
-              { label: 'N (ppm)', value: editN, set: setEditN },
-              { label: 'P (ppm)', value: editP, set: setEditP },
-              { label: 'K (ppm)', value: editK, set: setEditK },
-              { label: 'pH', value: editPh, set: setEditPh },
+              { label: 'N (ppm)', value: editN, set: (v: number) => setEditN(v), placeholder: undefined },
+              { label: 'P (ppm)', value: editP, set: (v: number) => setEditP(v), placeholder: undefined },
+              { label: 'K (ppm)', value: editK, set: (v: number) => setEditK(v), placeholder: undefined },
+              { label: 'pH', value: editPh, set: (v: number) => setEditPh(v), placeholder: undefined },
+              { label: 'Mg (ppm)', value: editMg ?? '', set: (v: number) => setEditMg(v || null), placeholder: '—' },
             ].map((field) => (
               <div key={field.label}>
                 <label className="text-[10px] text-muted-foreground font-sans font-medium block mb-0.5">{field.label}</label>
@@ -174,6 +175,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
                   value={field.value}
                   onChange={(e) => field.set(parseFloat(e.target.value) || 0)}
                   className="w-full px-2 py-1.5 rounded-lg border border-border text-xs font-sans text-foreground bg-background focus:outline-none focus:ring-1 focus:ring-primary/40"
+                  placeholder={field.placeholder}
                 />
               </div>
             ))}

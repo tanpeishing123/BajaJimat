@@ -34,6 +34,7 @@ If it IS a soil report, extract the following values:
 - Phosphorus (P) in ppm  
 - Potassium (K) in ppm
 - Soil pH
+- Magnesium (Mg) in ppm — if shown in cmol/kg or meq/100g, multiply by 243 to convert to ppm. If not found, set to null.
 
 Respond with ONLY valid JSON in this exact format:
 {
@@ -41,6 +42,7 @@ Respond with ONLY valid JSON in this exact format:
   "p_ppm": <number>,
   "k_ppm": <number>,
   "ph": <number>,
+  "mg_ppm": <number or null>,
   "confidence": "high" | "medium" | "low",
   "confidence_label": "${lang === 'bm' ? 'Keyakinan Tinggi/Sederhana/Rendah' : 'Confidence: High/Medium/Low'}"
 }
