@@ -18,6 +18,18 @@ interface UserProfile {
 type TabKey = 'soil' | 'testkit' | 'leaf';
 type InputMode = 'soil_report' | 'manual' | 'leaf_photo';
 
+function mapCropType(raw: string): string {
+  const lower = raw.toLowerCase().trim();
+  const map: Record<string, string> = {
+    'rubber': 'getah', 'getah': 'getah',
+    'oil_palm': 'kelapa_sawit', 'oil palm': 'kelapa_sawit', 'kelapa sawit': 'kelapa_sawit',
+    'paddy': 'padi', 'padi': 'padi', 'rice': 'padi',
+    'durian': 'musang_king_durian', 'durian musang king': 'musang_king_durian', 'musang_king_durian': 'musang_king_durian',
+    'vegetables': 'sayur_sayuran', 'sayur-sayuran': 'sayur_sayuran', 'sayur_sayuran': 'sayur_sayuran',
+  };
+  return map[lower] || raw;
+}
+
 interface ResultData {
   recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number }[];
   total_cost_rm: number;
@@ -52,7 +64,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const cropType = profile.crop || 'musang_king_durian';
+      const cropType = mapCropType(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
@@ -95,7 +107,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const cropType = profile.crop || 'musang_king_durian';
+      const cropType = mapCropType(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
@@ -145,7 +157,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setErrorMsg(null);
 
     try {
-      const cropType = profile.crop || 'musang_king_durian';
+      const cropType = mapCropType(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
