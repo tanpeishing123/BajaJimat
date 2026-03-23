@@ -5,7 +5,7 @@ const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en
 
 interface TestKitTabProps {
   lang: 'en' | 'bm';
-  onSubmit: (n: number, p: number, k: number, ph?: number) => void;
+  onSubmit: (n: number, p: number, k: number, ph?: number, mg?: number | null) => void;
 }
 
 export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
@@ -13,6 +13,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
   const [p, setP] = useState('');
   const [k, setK] = useState('');
   const [ph, setPh] = useState('');
+  const [mg, setMg] = useState('');
 
   const canSubmit = n !== '' && p !== '' && k !== '' && ph !== '';
 
@@ -100,9 +101,31 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
         </div>
       </div>
 
+      {/* Magnesium — optional */}
+      <div className="mt-3">
+        <div className="relative">
+          <input
+            type="number"
+            value={mg}
+            onChange={e => setMg(e.target.value)}
+            placeholder="0"
+            min="0"
+            step="0.1"
+            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+          />
+          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
+            {t(lang, 'Magnesium (Mg) — ppm (optional)', 'Magnesium (Mg) — ppm (pilihan)')}
+          </label>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-[10px] font-medium">ppm</span>
+        </div>
+        <p className="text-[10px] text-muted-foreground font-body mt-1 px-1">
+          {t(lang, 'Leave empty if no data available', 'Jika tidak ada data, biarkan kosong')}
+        </p>
+      </div>
+
       <button
         disabled={!canSubmit}
-        onClick={() => canSubmit && onSubmit(Number(n), Number(p), Number(k), Number(ph))}
+        onClick={() => canSubmit && onSubmit(Number(n), Number(p), Number(k), Number(ph), mg.trim() ? Number(mg) : null)}
         className="w-full mt-4 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
       >
         {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
