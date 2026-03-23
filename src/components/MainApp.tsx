@@ -107,7 +107,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const cropType = profile.crop || 'musang_king_durian';
+      const cropType = mapCropType(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
