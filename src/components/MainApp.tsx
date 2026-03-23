@@ -18,6 +18,22 @@ interface UserProfile {
 type TabKey = 'soil' | 'testkit' | 'leaf';
 type InputMode = 'soil_report' | 'manual' | 'leaf_photo';
 
+const CROP_MAP: Record<string, string> = {
+  rubber: 'getah',
+  'oil palm': 'kelapa_sawit',
+  paddy: 'padi',
+  rice: 'padi',
+  durian: 'musang_king_durian',
+  vegetables: 'sayur_sayuran',
+  banana: 'pisang',
+  pineapple: 'nanas',
+  corn: 'jagung',
+  cocoa: 'koko',
+  coconut: 'kelapa',
+};
+
+const mapCrop = (raw: string): string => CROP_MAP[raw.toLowerCase()] ?? raw;
+
 
 interface ResultData {
   recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; reason?: string }[];
