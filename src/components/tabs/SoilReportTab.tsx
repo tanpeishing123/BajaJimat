@@ -32,6 +32,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
   const [editP, setEditP] = useState(0);
   const [editK, setEditK] = useState(0);
   const [editPh, setEditPh] = useState(0);
+  const [editMg, setEditMg] = useState<number | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
