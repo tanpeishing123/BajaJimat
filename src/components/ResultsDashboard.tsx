@@ -1,4 +1,5 @@
-import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
