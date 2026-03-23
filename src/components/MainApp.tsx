@@ -29,6 +29,11 @@ interface ResultData {
   input_mode: InputMode;
   confidence: 'high' | 'medium' | 'low';
   voice_summary: string;
+  liming_needed?: boolean;
+  liming_recommendation?: { product: string; bags: number; cost_rm: number; reason: string };
+  seasonal_advice?: { advice: string };
+  crop_requirements_source?: string;
+  soil_type?: string;
 }
 
 export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
