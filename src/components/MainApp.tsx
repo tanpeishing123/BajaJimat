@@ -96,12 +96,13 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     }
   };
 
-  const handleSoilSubmit = async (data: { soil_npk: { n_ppm: number; p_ppm: number; k_ppm: number; confidence: string }; ph: number }) => {
+  const handleSoilSubmit = async (data: { soil_npk: { n_ppm: number; p_ppm: number; k_ppm: number; confidence: string }; ph: number; mg_ppm?: number | null }) => {
     setIsLoading(true);
     setErrorMsg(null);
     try {
-      const cropType = mapCropType(profile.crop || 'musang_king_durian');
+      const cropType = profile.crop || 'musang_king_durian';
       const farmSize = parseFloat(profile.farmSize) || 2.0;
+      const soilType = localStorage.getItem('soil_type') || 'mineral';
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
@@ -115,6 +116,9 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           soil_npk: data.soil_npk,
           crop_type: cropType,
           farm_size_ha: farmSize,
+          soil_type: soilType,
+          ph: data.ph ?? null,
+          mg_ppm: data.mg_ppm ?? null,
           lang,
         }),
       });
