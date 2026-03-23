@@ -27,6 +27,7 @@ interface ResultData {
 interface Props {
   lang: 'en' | 'bm';
   result: ResultData;
+  cropType?: string;
   onBack: () => void;
   onToggleLang?: () => void;
 }
