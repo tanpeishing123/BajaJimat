@@ -9,6 +9,7 @@ interface ExtractedSoil {
   p_ppm: number;
   k_ppm: number;
   ph: number;
+  mg_ppm: number | null;
   confidence: 'high' | 'medium' | 'low';
   confidence_label: string;
 }
@@ -16,6 +17,7 @@ interface ExtractedSoil {
 interface SoilSubmitData {
   soil_npk: { n_ppm: number; p_ppm: number; k_ppm: number; confidence: string };
   ph: number;
+  mg_ppm?: number | null;
 }
 
 export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: (data: SoilSubmitData) => void }) {
