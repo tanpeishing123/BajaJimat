@@ -56,25 +56,39 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
   const fertTotalCost = fertItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
   const limingTotalCost = limingItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
 
+  const defaultTip = lang === 'bm'
+    ? 'Periksa kelembapan tanah secara berkala untuk hasil optimum.'
+    : 'Check soil moisture regularly for optimal yield.';
+
   useEffect(() => {
     const fetchTip = async () => {
       setTipLoading(true);
       try {
-        const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/farm-tip', {
+        const crop = localStorage.getItem('crop_type') || cropType || 'general crop';
+        const month = new Date().toLocaleString('en', { month: 'long' });
+        const tipLang = localStorage.getItem('baja_lang') || lang;
+
+        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/farm-tip`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
-          body: JSON.stringify({ crop_type: cropType || 'general crop', lang }),
+          body: JSON.stringify({ crop_type: crop, lang: tipLang, month }),
         });
         if (res.ok) {
           const data = await res.json();
-          if (data.tip) setFarmTip(data.tip);
+          if (data.tip) {
+            setFarmTip(data.tip);
+          } else {
+            setFarmTip(defaultTip);
+          }
+        } else {
+          setFarmTip(defaultTip);
         }
       } catch {
-        // silently fail — tip is non-critical
+        setFarmTip(defaultTip);
       } finally {
         setTipLoading(false);
       }
