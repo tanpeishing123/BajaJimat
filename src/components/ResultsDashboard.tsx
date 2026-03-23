@@ -345,6 +345,29 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
             />
           </motion.div>
 
+          {/* Farm Tip Card */}
+          <motion.div custom={2.0} variants={fadeUp} initial="hidden" animate="visible"
+            className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3.5 flex items-start gap-3"
+          >
+            <span className="text-lg mt-0.5">📅</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-sans text-xs font-semibold text-emerald-800 mb-0.5">
+                {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+              </p>
+              {tipLoading ? (
+                <div className="flex items-center gap-2 py-1">
+                  <Loader2 size={12} className="animate-spin text-emerald-600" />
+                  <span className="text-xs text-emerald-600 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                </div>
+              ) : farmTip ? (
+                <p className="font-sans text-sm text-emerald-700 leading-relaxed">{farmTip}</p>
+              ) : (
+                <p className="font-sans text-xs text-emerald-500 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+              )}
+            </div>
+            {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
+          </motion.div>
+
           {/* Footer */}
           <motion.div custom={2.2} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center gap-3 pb-2">
             <button
