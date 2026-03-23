@@ -49,7 +49,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     { key: 'leaf', label: t('Leaf Photo', 'Foto Daun'), icon: <Leaf size={16} /> },
   ];
 
-  const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number) => {
+  const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number, mg?: number | null) => {
     setIsLoading(true);
     setErrorMsg(null);
     try {
@@ -71,7 +71,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           farm_size_ha: farmSize,
           soil_type: soilType,
           ph: ph ?? null,
-          mg_ppm: null,
+          mg_ppm: mg ?? null,
           lang,
         }),
       });
