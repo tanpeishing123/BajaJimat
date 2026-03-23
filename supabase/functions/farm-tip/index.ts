@@ -16,19 +16,13 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY not configured');
     }
 
-    const { crop_type, lang } = await req.json();
+    const { crop_type, lang, month } = await req.json();
 
-    const month = new Date().toLocaleString('en-US', { month: 'long' });
+    const currentMonth = month || new Date().toLocaleString('en-US', { month: 'long' });
     const language = lang === 'bm' ? 'Bahasa Malaysia' : 'English';
+    const langInstruction = lang === 'bm' ? 'Reply in Bahasa Malaysia.' : 'Reply in English.';
 
-    const prompt = `For ${crop_type || 'general crop'} farmers in Malaysia in ${month}, give ONE practical farming tip that is NOT about fertiliser amounts. Focus on one of these:
-- When/how to apply fertiliser (timing, method)
-- Watering advice
-- Pest/disease to watch out for
-- Pruning or harvesting tips
-- Weather-related advice
-
-Give one short sentence in ${language}. No preamble, just the tip.`;
+    const prompt = `You are a Malaysian agricultural expert. For a farmer growing ${crop_type || 'general crop'} in Malaysia, give ONE practical farming tip for ${currentMonth}. Focus on timing of fertiliser application, watering, pest watch, or harvesting. Keep it under 15 words. ${langInstruction} Do not say 'no tip available'.`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
