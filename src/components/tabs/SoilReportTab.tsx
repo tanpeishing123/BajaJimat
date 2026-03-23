@@ -110,6 +110,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
         confidence: extracted.confidence,
       },
       ph: editPh,
+      mg_ppm: editMg,
     });
   };
 
