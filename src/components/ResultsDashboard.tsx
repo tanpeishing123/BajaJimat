@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
 interface ResultData {
-  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number }[];
+  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; reason?: string }[];
   total_cost_rm: number;
   savings_rm: number;
   n_deficit_kg: number;
@@ -49,6 +49,12 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
+
+  // Separate liming from fertiliser recommendations
+  const limingItems = result.recommendations.filter(r => r.is_liming);
+  const fertItems = result.recommendations.filter(r => !r.is_liming);
+  const fertTotalCost = fertItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const limingTotalCost = limingItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
 
   useEffect(() => {
     const fetchTip = async () => {
@@ -101,12 +107,6 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
     ? t(lang, 'Test Kit', 'Kit Ujian')
     : t(lang, 'Leaf Photo', 'Foto Daun');
 
-  const limingWarningText = result.liming_recommendation
-    ? t(lang,
-        `Low Soil pH — Liming Required First. Apply ${result.liming_recommendation.bags} bags of ${result.liming_recommendation.product}, costing RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`,
-        `pH Tanah Rendah — Kapur Diperlukan Dahulu. Gunakan ${result.liming_recommendation.bags} beg ${result.liming_recommendation.product}, kos RM${result.liming_recommendation.cost_rm}. ${result.liming_recommendation.reason}`
-      )
-    : t(lang, 'Low Soil pH — Liming Required First', 'pH Tanah Rendah — Kapur Diperlukan Dahulu');
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -194,8 +194,8 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
             </motion.div>
           )}
 
-          {/* Liming Warning Card */}
-          {result.liming_needed && (
+          {/* Liming Warning Card — from is_liming recommendations */}
+          {limingItems.length > 0 && (
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 flex items-start gap-3"
             >
@@ -204,20 +204,33 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-sans text-sm font-bold text-amber-800 mb-1">
-                  {t(lang, 'Low Soil pH — Liming Required First', 'pH Tanah Rendah — Kapur Diperlukan Dahulu')}
+                  {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Kapur Diperlukan')}
                 </p>
-                {result.liming_recommendation && (
-                  <div className="flex items-center gap-4 text-xs font-sans text-amber-700">
-                    <span className="font-semibold">{result.liming_recommendation.product}</span>
-                    <span>{result.liming_recommendation.bags} {t(lang, 'bags', 'beg')}</span>
-                    <span className="font-bold">RM{result.liming_recommendation.cost_rm}</span>
+                {limingItems[0].reason && (
+                  <p className="text-xs text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
+                )}
+                {limingItems.map((lim) => (
+                  <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
+                    <span className="font-semibold">{lim.name}</span>
+                    <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
+                    <span className="font-bold">= RM{lim.subtotal_rm}</span>
                   </div>
-                )}
-                {result.liming_recommendation?.reason && (
-                  <p className="text-xs text-amber-600 font-sans mt-1">{result.liming_recommendation.reason}</p>
-                )}
+                ))}
+                <p className="text-[10px] text-amber-600/70 font-sans mt-2 leading-relaxed">
+                  {t(lang,
+                    'Liming is a one-time cost, not included in annual fertiliser total.',
+                    'Kos pengapuran adalah kos sekali sahaja, tidak termasuk dalam jumlah baja tahunan.'
+                  )}
+                </p>
               </div>
-              <SpeakerButton text={limingWarningText} lang={lang} size="sm" />
+              <SpeakerButton
+                text={t(lang,
+                  `Low soil pH. Liming required. ${limingItems.map(l => `${l.bags} bags of ${l.name} at RM${l.price_per_bag} each, total RM${l.subtotal_rm}`).join('. ')}. This is a one-time cost.`,
+                  `pH tanah rendah. Kapur diperlukan. ${limingItems.map(l => `${l.bags} beg ${l.name} pada RM${l.price_per_bag} setiap satu, jumlah RM${l.subtotal_rm}`).join('. ')}. Ini kos sekali sahaja.`
+                )}
+                lang={lang}
+                size="sm"
+              />
             </motion.div>
           )}
 
@@ -297,14 +310,14 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               </div>
 
               <div className="mb-4 relative z-10">
-                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Total Cost', 'Jumlah Kos')}</p>
+                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Fertiliser Cost', 'Kos Baja')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
-                  RM{result.total_cost_rm.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                  RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
               <div className="flex gap-3 relative z-10">
-                {result.recommendations.map((rec) => (
+                {fertItems.map((rec) => (
                   <div key={rec.name} className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Package size={18} className="text-primary" />
