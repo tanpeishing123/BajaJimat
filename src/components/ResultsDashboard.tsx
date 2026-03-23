@@ -45,8 +45,36 @@ const RadarDot = (props: any) => {
   return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
 };
 
-export function ResultsDashboard({ lang, result, onBack, onToggleLang }: Props) {
+export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
+  const [farmTip, setFarmTip] = useState<string | null>(null);
+  const [tipLoading, setTipLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchTip = async () => {
+      setTipLoading(true);
+      try {
+        const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/farm-tip', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+          },
+          body: JSON.stringify({ crop_type: cropType || 'general crop', lang }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.tip) setFarmTip(data.tip);
+        }
+      } catch {
+        // silently fail — tip is non-critical
+      } finally {
+        setTipLoading(false);
+      }
+    };
+    fetchTip();
+  }, [cropType, lang]);
 
   const radarData = [
     { nutrient: 'N', value: result.n_deficit_kg, fullMark: Math.max(result.n_deficit_kg, result.p_deficit_kg, result.k_deficit_kg, 1) },
