@@ -48,44 +48,6 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     { key: 'leaf', label: t('Leaf Photo', 'Foto Daun'), icon: <Leaf size={16} /> },
   ];
 
-  const mockTestKit: ResultData = {
-    recommendations: [
-      { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
-      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
-      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
-    ],
-    total_cost_rm: 426.0,
-    savings_rm: 334.0,
-    n_deficit_kg: 270,
-    p_deficit_kg: 80,
-    k_deficit_kg: 420,
-    input_mode: 'manual',
-    confidence: 'high',
-    voice_summary: lang === 'bm'
-      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
-      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
-  };
-
-  const mockSoilReport: ResultData = {
-    recommendations: [
-      { name: 'Urea', bags: 3, price_per_bag: 42.0, subtotal_rm: 126.0 },
-      { name: 'Triple Superphosphate (TSP)', bags: 1, price_per_bag: 60.0, subtotal_rm: 60.0 },
-      { name: 'Muriate of Potash (MOP)', bags: 4, price_per_bag: 60.0, subtotal_rm: 240.0 },
-    ],
-    total_cost_rm: 426.0,
-    savings_rm: 334.0,
-    n_deficit_kg: 270,
-    p_deficit_kg: 80,
-    k_deficit_kg: 420,
-    input_mode: 'soil_report',
-    confidence: 'high',
-    voice_summary: lang === 'bm'
-      ? 'Ladang anda memerlukan 3 beg Urea, 1 beg TSP, dan 4 beg MOP. Jumlah kos ialah RM426. Anda jimat RM334 berbanding baja NPK premium.'
-      : 'Your farm needs 3 bags of Urea, 1 bag of TSP, and 4 bags of MOP. Total cost is RM426. You save RM334 compared to premium NPK blends.',
-  };
-
-  // mockLeafPhoto removed — now using live API
-
   const handleTestKitSubmit = async (n: number, p: number, k: number, ph?: number) => {
     setIsLoading(true);
     setErrorMsg(null);
