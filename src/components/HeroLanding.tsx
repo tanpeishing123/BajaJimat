@@ -1,7 +1,4 @@
 import { ArrowRight } from 'lucide-react';
-import heroBg from '@/assets/hero-bg.jpg';
-import healthyLeaves from '@/assets/healthy-leaves.jpg';
-import farmerApp from '@/assets/farmer-app.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
@@ -22,7 +19,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Hero Section ── */}
       <section className="relative min-h-[55vh]">
         <img
-          src={heroBg}
+          src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200"
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -106,20 +103,13 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               </div>
             </div>
 
-            {/* Right — Images */}
-            <div className="md:w-[50%] flex gap-3 items-start pt-1">
-              <div className="flex-1 rounded-2xl overflow-hidden border-2 border-border shadow-luxe">
+            {/* Right — Image */}
+            <div className="md:w-[50%] pt-1">
+              <div className="rounded-xl overflow-hidden border-2 border-border shadow-luxe">
                 <img
-                  src={healthyLeaves}
-                  alt={t(lang, 'Healthy palm leaves', 'Daun sawit sihat')}
-                  className="w-full h-[400px] object-cover object-center"
-                />
-              </div>
-              <div className="flex-1 rounded-2xl overflow-hidden border-2 border-border shadow-luxe bg-[#f0f7f0]">
-                <img
-                  src={farmerApp}
-                  alt={t(lang, 'Farmer using BajaJimat', 'Petani menggunakan BajaJimat')}
-                  className="w-full h-[400px] object-contain object-center"
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200"
+                  alt={t(lang, 'Malaysian farm landscape', 'Landskap ladang Malaysia')}
+                  className="w-full h-[300px] object-cover object-center"
                 />
               </div>
             </div>

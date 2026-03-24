@@ -8,7 +8,7 @@ interface NavbarProps {
 
 export function Navbar({ lang, onToggleLang, onSignup }: NavbarProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/50 to-transparent">
       <div className="w-full px-6 md:px-12 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-luxe">
