@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import heroBg from '@/assets/hero-bg.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
@@ -19,7 +20,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Hero Section ── */}
       <section className="relative min-h-[55vh]">
         <img
-          src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200"
+          src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -103,13 +104,20 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               </div>
             </div>
 
-            {/* Right — Image */}
-            <div className="md:w-[50%] pt-1">
-              <div className="rounded-xl overflow-hidden border-2 border-border shadow-luxe">
+            {/* Right — Images */}
+            <div className="md:w-[50%] flex gap-3 items-start pt-1">
+              <div className="flex-1 rounded-xl overflow-hidden border-2 border-border shadow-luxe">
                 <img
-                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200"
-                  alt={t(lang, 'Malaysian farm landscape', 'Landskap ladang Malaysia')}
-                  className="w-full h-[300px] object-cover object-center"
+                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600"
+                  alt={t(lang, 'Crop field landscape', 'Landskap ladang tanaman')}
+                  className="w-full h-[250px] object-cover object-center"
+                />
+              </div>
+              <div className="flex-1 rounded-xl overflow-hidden border-2 border-border shadow-luxe">
+                <img
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600"
+                  alt={t(lang, 'Malaysian farmer working', 'Petani Malaysia bekerja')}
+                  className="w-full h-[250px] object-cover object-top"
                 />
               </div>
             </div>
