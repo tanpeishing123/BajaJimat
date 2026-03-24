@@ -322,11 +322,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex justify-center gap-8 mt-1 relative z-10">
-                {radarData.map(d => (
-                  <div key={d.nutrient} className="text-center">
-                    <p className="text-[10px] text-emerald-400/70 font-sans uppercase tracking-wider">{d.nutrient}</p>
-                    <p className="text-base font-bold text-emerald-50 font-sans tabular-nums">{d.value} kg</p>
+              <div className="flex justify-center gap-4 mt-2 relative z-10">
+                {[
+                  { nutrient: 'N', value: result.n_deficit_kg, bg: 'bg-blue-500/20', text: 'text-blue-300', border: 'border-blue-400/30' },
+                  { nutrient: 'P', value: result.p_deficit_kg, bg: 'bg-orange-500/20', text: 'text-orange-300', border: 'border-orange-400/30' },
+                  { nutrient: 'K', value: result.k_deficit_kg, bg: 'bg-emerald-500/20', text: 'text-emerald-300', border: 'border-emerald-400/30' },
+                ].map(d => (
+                  <div key={d.nutrient} className={`flex items-center gap-2 px-4 py-2 rounded-full ${d.bg} border ${d.border}`}>
+                    <span className={`text-xs font-bold font-sans ${d.text}`}>{d.nutrient}</span>
+                    <span className="text-sm font-bold text-white font-sans tabular-nums">{d.value} kg</span>
                   </div>
                 ))}
               </div>
