@@ -1,27 +1,29 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, ClipboardList, AlertTriangle, Loader2, CheckCircle2, Clock, ShieldCheck, Info, Upload } from 'lucide-react';
-import { SpeakerButton } from './SpeakerButton';
+import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, AlertTriangle, Loader2, CheckCircle2, ShieldCheck, Info, Upload, TestTube, Droplets, Bug, Leaf, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
+interface ShoppingItem {
+  product_name: string;
+  type: string;
+  quantity_per_ha: string;
+  price_per_ha_rm: number;
+  application_method: string;
+}
+
+interface ActionStep {
+  step: number;
+  title: string;
+  description: string;
+  timing: string;
+}
+
 interface TreatmentData {
   issue_name: string;
-  shopping_list: {
-    product_name: string;
-    type: string;
-    quantity: string;
-    estimated_price_rm: number;
-    application_method: string;
-  }[];
-  total_estimated_cost_rm: number;
-  action_plan: {
-    step: number;
-    title: string;
-    description: string;
-    timing: string;
-  }[];
+  shopping_list: ShoppingItem[];
+  action_plan: ActionStep[];
   prevention_tips: string[];
   severity_assessment: string;
   expected_recovery_days: number;
@@ -56,10 +58,30 @@ const typeColors: Record<string, string> = {
   supplement: 'bg-amber-100 text-amber-700',
 };
 
+const stepIcons = [TestTube, Droplets, Bug, Leaf, Sun];
+
+const timingColors: Record<string, string> = {
+  morning: 'bg-amber-100 text-amber-700',
+  immediate: 'bg-red-100 text-red-700',
+  week: 'bg-blue-100 text-blue-700',
+  daily: 'bg-emerald-100 text-emerald-700',
+  default: 'bg-purple-100 text-purple-700',
+};
+
+function getTimingColor(timing: string): string {
+  const lower = timing.toLowerCase();
+  if (lower.includes('morning') || lower.includes('pagi')) return timingColors.morning;
+  if (lower.includes('immediate') || lower.includes('segera')) return timingColors.immediate;
+  if (lower.includes('week') || lower.includes('minggu')) return timingColors.week;
+  if (lower.includes('daily') || lower.includes('harian')) return timingColors.daily;
+  return timingColors.default;
+}
+
 export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onToggleLang, onUploadSoil }: Props) {
   const [data, setData] = useState<TreatmentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const hectares = parseFloat(farmSize) || 2;
 
   useEffect(() => {
     const fetchTreatment = async () => {
@@ -78,7 +100,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             severity,
             visual_evidence: visualEvidence,
             crop_type: cropType,
-            farm_size_ha: parseFloat(farmSize) || 2,
+            farm_size_ha: hectares,
             lang,
           }),
         });
@@ -98,7 +120,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
     };
 
     fetchTreatment();
-  }, [issueName, severity, visualEvidence, cropType, farmSize, lang]);
+  }, [issueName, severity, visualEvidence, cropType, hectares, lang]);
 
   if (loading) {
     return (
@@ -129,6 +151,23 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   const severityColor = severity === 'severe' ? 'bg-destructive/10 text-destructive' :
     severity === 'moderate' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700';
+
+  const grandTotal = data.shopping_list.reduce((sum, item) => sum + (item.price_per_ha_rm * hectares), 0);
+
+  // ─── Context Bar (shared across tabs) ───
+  const ContextBar = ({ animIndex = 0 }: { animIndex?: number }) => (
+    <motion.div custom={animIndex} variants={fadeUp} initial="hidden" animate="visible"
+      className="flex items-center gap-2 flex-wrap"
+    >
+      <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
+        <ShieldCheck size={12} />
+        🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
+      </span>
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary font-sans">
+        🌱 {plotName} · {cropType} · {farmSize} ha
+      </span>
+    </motion.div>
+  );
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -172,15 +211,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4">
           {/* ========== Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-4">
-            {/* AI Confidence Badge */}
-            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="flex items-center gap-2 flex-wrap"
-            >
-              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
-                <ShieldCheck size={12} />
-                🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
-              </span>
-            </motion.div>
+            <ContextBar animIndex={0} />
 
             {/* Targeted Issue Alert */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
@@ -211,7 +242,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
               {data.expected_recovery_days > 0 && (
                 <div className="flex items-center gap-1.5 text-xs font-sans text-muted-foreground">
-                  <Clock size={12} />
+                  <span>⏱️</span>
                   {t(lang,
                     `Expected recovery: ~${data.expected_recovery_days} days`,
                     `Jangkaan pemulihan: ~${data.expected_recovery_days} hari`
@@ -220,18 +251,8 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               )}
             </motion.div>
 
-            {/* Farm Info */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20"
-            >
-              <span className="text-xs">🌱</span>
-              <p className="text-xs font-medium text-primary font-sans">
-                {plotName} · {cropType} · {farmSize} ha
-              </p>
-            </motion.div>
-
             {/* Soil Test Upsell */}
-            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
               className="p-4 rounded-2xl bg-sky-50 border border-sky-200/60 space-y-3"
             >
               <div className="flex items-start gap-2.5">
@@ -260,7 +281,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             </motion.div>
 
             {/* Disclaimer */}
-            <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible"
+            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
               className="p-3 rounded-xl bg-amber-50 border border-amber-200/60"
             >
               <div className="flex items-start gap-2">
@@ -278,50 +299,67 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
           {/* ========== Shopping ========== */}
           <TabsContent value="shopping" className="mt-0 space-y-4">
-            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="flex items-center gap-2"
-            >
-              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
-                <ShieldCheck size={12} />
-                🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
-              </span>
-            </motion.div>
+            <ContextBar animIndex={0} />
 
-            {data.shopping_list.map((item, i) => (
-              <motion.div key={i} custom={i + 1} variants={fadeUp} initial="hidden" animate="visible"
-                className="p-4 rounded-2xl bg-card border border-border/40 shadow-sm space-y-2"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Package size={14} className="text-primary" />
+            {data.shopping_list.map((item, i) => {
+              const totalPrice = item.price_per_ha_rm * hectares;
+              return (
+                <motion.div key={i} custom={i + 1} variants={fadeUp} initial="hidden" animate="visible"
+                  className="p-4 rounded-2xl bg-card border border-border/40 shadow-sm space-y-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Package size={14} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-sans font-bold text-foreground">{item.product_name}</p>
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
+                          {item.type}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-sans font-bold text-foreground">{item.product_name}</p>
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
-                        {item.type}
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs font-sans text-muted-foreground">
+                    <span>{t(lang, 'Est. Remedial Dose', 'Dos Pemulihan Anggaran')}: {item.quantity_per_ha}/ha</span>
+                  </div>
+                  <p className="text-xs font-sans text-muted-foreground">{item.application_method}</p>
+
+                  {/* Price Breakdown */}
+                  <div className="pt-2 border-t border-border/30 space-y-1">
+                    <div className="flex items-center justify-between text-xs font-sans text-muted-foreground">
+                      <span>{t(lang, 'Base Price', 'Harga Asas')}</span>
+                      <span>RM{item.price_per_ha_rm.toFixed(2)}/ha</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-sans font-semibold text-foreground">
+                        {t(lang, `Total for ${hectares} ha`, `Jumlah untuk ${hectares} ha`)}
+                      </span>
+                      <span className="text-base font-sans font-extrabold text-emerald-600">
+                        RM{totalPrice.toFixed(2)}
                       </span>
                     </div>
                   </div>
-                  <p className="text-sm font-sans font-bold text-primary">RM{item.estimated_price_rm}</p>
-                </div>
-                <div className="flex items-center justify-between text-xs font-sans text-muted-foreground">
-                  <span>{t(lang, 'Est. Remedial Dose', 'Dos Pemulihan Anggaran')}: {item.quantity}</span>
-                </div>
-                <p className="text-xs font-sans text-muted-foreground">{item.application_method}</p>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
 
-            {/* Total */}
+            {/* Grand Total */}
             <motion.div custom={data.shopping_list.length + 1} variants={fadeUp} initial="hidden" animate="visible"
               className="p-4 rounded-2xl border-2 border-primary/30 bg-primary/5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-sm font-sans font-bold text-foreground">
-                  {t(lang, 'Estimated Total', 'Jumlah Anggaran')}
-                </span>
-                <span className="text-lg font-sans font-extrabold text-primary">
-                  RM{data.total_estimated_cost_rm.toFixed(2)}
+                <div>
+                  <span className="text-sm font-sans font-bold text-foreground">
+                    {t(lang, 'Grand Total', 'Jumlah Keseluruhan')}
+                  </span>
+                  <p className="text-[10px] font-sans text-muted-foreground">
+                    {t(lang, `${data.shopping_list.length} products × ${hectares} ha`, `${data.shopping_list.length} produk × ${hectares} ha`)}
+                  </p>
+                </div>
+                <span className="text-xl font-sans font-extrabold text-primary">
+                  RM{grandTotal.toFixed(2)}
                 </span>
               </div>
             </motion.div>
@@ -345,42 +383,42 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
           {/* ========== Advice ========== */}
           <TabsContent value="advice" className="mt-0 space-y-4">
-            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="flex items-center gap-2"
-            >
-              <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
-                <ShieldCheck size={12} />
-                🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
-              </span>
-            </motion.div>
+            <ContextBar animIndex={0} />
 
-            {/* Action Plan */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
-              <h3 className="text-sm font-sans font-bold text-foreground mb-3 flex items-center gap-2">
-                <ClipboardList size={16} className="text-primary" />
-                {t(lang, 'Step-by-Step Action Plan', 'Pelan Tindakan Langkah-demi-Langkah')}
-              </h3>
-            </motion.div>
+            {/* Vertical Timeline */}
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" className="relative pl-8">
+              {/* Vertical line */}
+              <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-primary/20 rounded-full" />
 
-            {data.action_plan.map((step, i) => (
-              <motion.div key={i} custom={i + 2} variants={fadeUp} initial="hidden" animate="visible"
-                className="p-4 rounded-2xl bg-card border border-border/40 shadow-sm"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
-                    <span className="text-xs font-sans font-bold text-primary-foreground">{step.step}</span>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-sans font-bold text-foreground">{step.title}</p>
-                    <p className="text-xs font-sans text-muted-foreground leading-relaxed">{step.description}</p>
-                    <div className="flex items-center gap-1 text-xs font-sans text-primary">
-                      <Clock size={11} />
-                      {step.timing}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+              <div className="space-y-6">
+                {data.action_plan.map((step, i) => {
+                  const IconComponent = stepIcons[i % stepIcons.length];
+                  const iconColors = ['bg-blue-100 text-blue-600', 'bg-cyan-100 text-cyan-600', 'bg-red-100 text-red-600', 'bg-emerald-100 text-emerald-600', 'bg-amber-100 text-amber-600'];
+                  const iconColor = iconColors[i % iconColors.length];
+
+                  return (
+                    <motion.div key={i} custom={i + 2} variants={fadeUp} initial="hidden" animate="visible"
+                      className="relative"
+                    >
+                      {/* Icon node on the line */}
+                      <div className={`absolute -left-8 w-7 h-7 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
+                        <IconComponent size={14} />
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="text-sm font-sans font-bold text-foreground">{step.title}</p>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold ${getTimingColor(step.timing)}`}>
+                            {step.timing}
+                          </span>
+                        </div>
+                        <p className="text-xs font-sans text-muted-foreground leading-relaxed">{step.description}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
 
             {/* Prevention Tips */}
             <motion.div custom={data.action_plan.length + 3} variants={fadeUp} initial="hidden" animate="visible"
