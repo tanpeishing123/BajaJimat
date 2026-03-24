@@ -28,7 +28,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-6">
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-10">
           {/* Dual-language headline */}
           <h1 className="font-serif-display font-bold text-white leading-tight tracking-tight">
             <span className="block text-2xl md:text-4xl lg:text-5xl">
