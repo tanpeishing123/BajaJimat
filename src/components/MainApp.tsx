@@ -52,7 +52,15 @@ interface ResultData {
   soil_type?: string;
 }
 
-export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
+function updatePlotLastCost(plotId: string, totalCost: number) {
+  try {
+    const plots = JSON.parse(localStorage.getItem('plots') || '[]');
+    const updated = plots.map((p: any) => p.id === plotId ? { ...p, last_cost: totalCost } : p);
+    localStorage.setItem('plots', JSON.stringify(updated));
+  } catch {}
+}
+
+export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotId?: string; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
   const lang = externalLang;
   const t = (en: string, bm: string) => lang === 'bm' ? bm : en;
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
