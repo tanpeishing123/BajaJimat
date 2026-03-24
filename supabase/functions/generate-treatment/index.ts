@@ -58,8 +58,9 @@ Generate a treatment plan. Respond with ONLY valid JSON in this exact format:
 }
 
 Guidelines:
-- Include 2-4 products in the shopping list with realistic Malaysian market prices in RM
-- Provide 3-5 clear action steps
+- Include 2-4 products in the shopping list with realistic per-hectare Malaysian market prices in RM
+- Provide 3-5 action steps with punchy 3-4 word titles and ONE short sentence descriptions
+- Use concise timing tags like "Morning Only", "Immediate", "Week 2", "Daily"
 - Include 3 prevention tips
 - Be practical for a smallholder Malaysian farmer
 - Use products commonly available at Malaysian agricultural supply shops`;
