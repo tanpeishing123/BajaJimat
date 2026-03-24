@@ -21,6 +21,7 @@ interface MyPlotsProps {
   onToggleLang: () => void;
   onLogout: () => void;
   onAnalyse: (plot: Plot) => void;
+  onViewHistory: (plot: Plot) => void;
 }
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
