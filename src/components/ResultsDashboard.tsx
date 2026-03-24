@@ -328,7 +328,7 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               <div className="mb-4 relative z-10">
                 <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Fertiliser Cost', 'Kos Baja')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
-                  RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
