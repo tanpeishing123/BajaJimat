@@ -210,8 +210,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           <p>bajajimat.lovable.app</p>
         </div>
       </div>
-      {/* Header — always visible */}
-      <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
+      {/* Header — always visible (hidden in print) */}
+      <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button onClick={onBack} className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all active:scale-95">
