@@ -482,19 +482,19 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* WhatsApp + PDF Buttons */}
-            <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="flex gap-3">
+            <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
               <button
                 onClick={handleWhatsApp}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366] text-white font-sans font-semibold text-sm hover:bg-[#1fb855] transition-colors active:scale-97"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-sm hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"
               >
-                <Share2 size={16} />
+                <Share2 size={18} />
                 {t(lang, 'Share to WhatsApp', 'Kongsi ke WhatsApp')}
               </button>
               <button
                 onClick={() => window.print()}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary text-primary font-sans font-semibold text-sm hover:bg-primary/5 transition-colors active:scale-97"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-bold text-sm hover:bg-primary/5 transition-colors active:scale-97"
               >
-                <Download size={16} />
+                <Download size={18} />
                 {t(lang, 'Download PDF', 'Muat Turun PDF')}
               </button>
             </motion.div>
