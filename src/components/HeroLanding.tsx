@@ -55,7 +55,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, amount: 0.1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
@@ -64,7 +65,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Headline */}
           <motion.span
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="block text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-lg font-serif-display font-bold leading-[1.1] tracking-tight"
           >
@@ -74,7 +76,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Subtitle */}
           <motion.span
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.4, duration: 0.7 }}
             className="block text-base md:text-xl lg:text-2xl font-body font-medium mt-2 text-accent/90"
           >
@@ -84,7 +87,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.6, duration: 0.7 }}
             className="mt-4 text-white/75 font-body text-xs md:text-sm max-w-md leading-relaxed"
           >
@@ -97,7 +101,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Stats row */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
             className="mt-5 flex flex-nowrap items-stretch bg-white/10 backdrop-blur-md rounded-2xl border border-white/10"
           >
@@ -116,7 +121,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* CTA with spring */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 1.0, type: 'spring', stiffness: 260, damping: 20 }}
             className="mt-6"
           >
