@@ -121,7 +121,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* CTA with spring */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 1.0, type: 'spring', stiffness: 260, damping: 20 }}
             className="mt-6"
           >
