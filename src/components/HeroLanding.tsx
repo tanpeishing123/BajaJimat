@@ -26,7 +26,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-6">
           {/* Dual-language headline */}
@@ -91,20 +91,20 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
                 {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </h2>
-              <div className="mt-2 text-muted-foreground font-body text-[11px] md:text-xs leading-relaxed max-w-md space-y-1.5">
+              <div className="mt-2 text-muted-foreground font-body text-sm md:text-base leading-relaxed max-w-md space-y-2">
                 <p>
                   {t(lang,
                     'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
                     'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
                   )}
                 </p>
-                <p className="font-medium text-foreground">
+                <p className="font-bold text-foreground text-base md:text-lg">
                   {t(lang, 'BajaJimat helps you:', 'BajaJimat membantu anda:')}
                 </p>
-                <ul className="space-y-0.5">
-                  <li>✅ {t(lang, 'Identify soil nutrient deficiencies', 'Kenal pasti kekurangan nutrien tanah')}</li>
-                  <li>✅ {t(lang, 'Get the most affordable fertiliser recommendations', 'Dapatkan cadangan baja paling jimat')}</li>
-                  <li>✅ {t(lang, 'Save up to 40% compared to premium blends', 'Jimat sehingga 40% berbanding baja premium')}</li>
+                <ul className="space-y-2 text-sm md:text-base">
+                  <li><span className="text-lg">✅</span> {t(lang, 'Identify soil nutrient deficiencies', 'Kenal pasti kekurangan nutrien tanah')}</li>
+                  <li><span className="text-lg">✅</span> {t(lang, 'Get the most affordable fertiliser recommendations', 'Dapatkan cadangan baja paling jimat')}</li>
+                  <li><span className="text-lg">✅</span> {t(lang, 'Save up to 40% compared to premium blends', 'Jimat sehingga 40% berbanding baja premium')}</li>
                 </ul>
               </div>
             </div>
@@ -115,14 +115,14 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 <img
                   src={healthyLeaves}
                   alt={t(lang, 'Healthy palm leaves', 'Daun sawit sihat')}
-                  className="w-full h-28 md:h-36 object-contain bg-muted"
+                  className="w-full h-32 md:h-40 object-cover object-center"
                 />
               </div>
               <div className="flex-1 rounded-2xl overflow-hidden border-2 border-border shadow-luxe">
                 <img
                   src={farmerApp}
                   alt={t(lang, 'Farmer using BajaJimat', 'Petani menggunakan BajaJimat')}
-                  className="w-full h-28 md:h-36 object-contain bg-muted"
+                  className="w-full h-32 md:h-40 object-cover object-top"
                 />
               </div>
             </div>
