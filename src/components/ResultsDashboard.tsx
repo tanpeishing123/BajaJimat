@@ -325,14 +325,15 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
                 </h3>
               </div>
 
-              <div className="mb-4 relative z-10">
-                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Fertiliser Cost', 'Kos Baja')}</p>
+              {/* NPK Cost */}
+              <div className="mb-3 relative z-10">
+                <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
-                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                  RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
-              <div className="flex gap-3 relative z-10">
+              <div className="flex gap-3 relative z-10 mb-3">
                 {fertItems.map((rec) => (
                   <div key={rec.name} className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -346,6 +347,25 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
                   </div>
                 ))}
               </div>
+
+              {/* Mg Cost (if exists) */}
+              {mgItems.length > 0 && (
+                <div className="relative z-10 mb-3 rounded-xl bg-blue-50/80 border border-blue-200/60 px-4 py-3 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-blue-600 font-sans font-semibold">{t(lang, 'Magnesium Supplement', 'Suplemen Magnesium')}</p>
+                    <p className="text-lg font-sans font-bold text-blue-800 tabular-nums">RM{mgTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</p>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-600 text-[10px] font-sans font-semibold">{t(lang, 'Optional', 'Pilihan')}</span>
+                </div>
+              )}
+
+              {/* Grand Total */}
+              {mgItems.length > 0 && (
+                <div className="relative z-10 border-t border-foreground/10 pt-2 flex items-center justify-between">
+                  <p className="text-xs text-foreground/50 font-sans font-semibold">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="text-lg font-sans font-extrabold text-foreground tabular-nums">RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</p>
+                </div>
+              )}
             </motion.div>
           </div>
 
@@ -399,6 +419,9 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
                 </p>
                 <p className="text-2xl font-sans font-bold text-white tabular-nums">
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
+                </p>
+                <p className="text-[10px] text-white/50 font-sans mt-0.5">
+                  {t(lang, 'Savings based on NPK cost only', 'Penjimatan berdasarkan kos NPK sahaja')}
                 </p>
               </div>
             </div>
