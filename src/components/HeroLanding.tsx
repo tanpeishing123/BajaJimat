@@ -20,7 +20,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="h-screen flex flex-col overflow-auto">
       {/* ── Hero Section ── */}
-      <section className="relative flex-[50] min-h-0">
+      <section className="relative min-h-[55vh]">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
