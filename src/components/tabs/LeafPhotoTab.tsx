@@ -107,9 +107,9 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
       {/* Error */}
       {error && (
-        <div className="flex items-start gap-2 p-3 rounded-xl bg-destructive/5 border border-destructive/20">
-          <AlertTriangle size={14} className="text-destructive mt-0.5 shrink-0" />
-          <p className="text-xs text-destructive font-sans">{error}</p>
+        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-destructive/10 border-2 border-destructive/30">
+          <AlertTriangle size={16} className="text-destructive mt-0.5 shrink-0" />
+          <p className="text-xs text-destructive font-sans font-semibold">{error}</p>
         </div>
       )}
 
