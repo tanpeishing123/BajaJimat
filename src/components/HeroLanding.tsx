@@ -144,7 +144,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── How It Works ── */}
-      <section className="bg-cream-brand px-6 md:px-12 py-10 md:py-14">
+      <section className="px-6 md:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
