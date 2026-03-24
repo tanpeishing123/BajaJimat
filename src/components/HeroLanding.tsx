@@ -2,7 +2,6 @@ import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, Sprout 
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import farmerImg from '@/assets/farmer-field.jpg';
-import soilBg from '@/assets/soil-texture-bg.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
@@ -49,16 +48,22 @@ const benefits = [
     icon: Search,
     text_en: 'Identify soil nutrient deficiencies',
     text_bm: 'Kenal pasti kekurangan nutrien tanah',
+    desc_en: 'Pinpoint exactly what your soil is missing for optimal crop growth.',
+    desc_bm: 'Kenal pasti dengan tepat apa yang kurang dalam tanah anda.',
   },
   {
     icon: DollarSign,
-    text_en: 'Get the most affordable fertiliser recommendations',
-    text_bm: 'Dapatkan cadangan baja paling berpatutan',
+    text_en: 'Most affordable recommendations',
+    text_bm: 'Cadangan paling berpatutan',
+    desc_en: 'Get the cheapest fertiliser mix tailored to your soil\'s needs.',
+    desc_bm: 'Dapatkan campuran baja paling murah mengikut keperluan tanah anda.',
   },
   {
     icon: Sprout,
-    text_en: 'Save up to 40% compared to premium blends',
-    text_bm: 'Jimat sehingga 40% berbanding baja premium',
+    text_en: 'Save up to 40%',
+    text_bm: 'Jimat sehingga 40%',
+    desc_en: 'Compared to premium blends — same results, lower cost.',
+    desc_bm: 'Berbanding baja premium — hasil sama, kos lebih rendah.',
   },
 ];
 
@@ -72,7 +77,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[hsl(164_50%_8%/0.9)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
 
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
           <motion.h1
@@ -138,18 +143,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
       </section>
 
-      {/* ── Dark image-backed lower sections ── */}
-      <div className="relative">
-        <img
-          src={soilBg}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[hsl(164_50%_8%/0.75)]" />
+      {/* ── Light airy lower sections ── */}
+      <div className="bg-gradient-landing">
 
         {/* ── How It Works ── */}
         <section className="relative px-6 md:px-12 py-20 md:py-28">
@@ -161,10 +156,10 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <p className="font-body text-xs font-semibold tracking-widest uppercase text-accent/80 mb-1">
+              <p className="font-body text-xs font-semibold tracking-widest uppercase text-accent mb-1">
                 {t(lang, 'Simple Process', 'Proses Mudah')}
               </p>
-              <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-white">
+              <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground">
                 {t(lang, 'How It Works', 'Cara Penggunaan')}
               </h2>
             </motion.div>
@@ -181,21 +176,22 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                     transition={{ delay: i * 0.15, duration: 0.5 }}
                     className="group flex-1 relative"
                   >
+                    {/* Arrow connector */}
                     {i < steps.length - 1 && (
-                      <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm items-center justify-center">
-                        <ArrowRight size={12} className="text-accent" />
+                      <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-primary/10 items-center justify-center">
+                        <ArrowRight size={12} className="text-primary" />
                       </div>
                     )}
 
-                    <div className="h-full flex flex-col items-center text-center bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 hover:-translate-y-1 hover:bg-white/[0.15] transition-all duration-300">
-                      <span className="font-body text-[10px] font-bold tracking-widest text-white/30 mb-3">{step.step}</span>
-                      <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-3 group-hover:bg-white/20 transition-colors">
-                        <Icon size={26} className="text-accent" strokeWidth={1.5} />
+                    <div className="h-full flex flex-col items-center text-center bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300">
+                      <span className="font-body text-[10px] font-bold tracking-widest text-muted-foreground/40 mb-3">{step.step}</span>
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                        <Icon size={26} className="text-primary" strokeWidth={1.5} />
                       </div>
-                      <p className="font-body font-semibold text-sm text-white">
+                      <p className="font-body font-semibold text-sm text-foreground">
                         {t(lang, step.title_en, step.title_bm)}
                       </p>
-                      <p className="font-body text-xs text-white/60 mt-1.5 leading-[1.7] max-w-[200px]">
+                      <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7] max-w-[200px]">
                         {t(lang, step.desc_en, step.desc_bm)}
                       </p>
                     </div>
@@ -206,77 +202,149 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           </div>
         </section>
 
-        {/* ── Why BajaJimat ── */}
+        {/* ── Why BajaJimat — Bento Grid ── */}
         <section className="relative px-6 md:px-12 py-20 md:py-28">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="max-w-5xl mx-auto">
+            {/* Section header */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6 }}
-              className="order-2 md:order-1"
+              className="text-center mb-12"
             >
-              <img
-                src={farmerImg}
-                alt="Malaysian farmer working in a lush green field"
-                loading="lazy"
-                width={1024}
-                height={1024}
-                className="w-full h-72 md:h-96 object-cover rounded-2xl shadow-[0_8px_30px_-8px_rgba(0,0,0,0.4)] border border-white/10"
-              />
+              <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground">
+                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
+              </h2>
+              <p className="mt-3 font-body text-base md:text-lg text-muted-foreground leading-[1.8] max-w-xl mx-auto">
+                {t(lang,
+                  'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
+                  'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
+                )}
+              </p>
             </motion.div>
 
-            <div className="order-1 md:order-2">
+            {/* Bento grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+              {/* Large feature card — spans 2 cols */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.6 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="md:col-span-2 group"
               >
-                <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-white leading-tight">
-                  {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
-                </h2>
-                <p className="mt-4 font-body text-base md:text-lg text-white/60 leading-[1.8]">
-                  {t(lang,
-                    'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
-                    'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
-                  )}
-                </p>
+                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-8 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row items-center gap-6">
+                  <img
+                    src={farmerImg}
+                    alt="Malaysian farmer working in a lush green field"
+                    loading="lazy"
+                    className="w-full md:w-48 h-40 md:h-48 object-cover rounded-xl shrink-0"
+                  />
+                  <div>
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <Search size={20} className="text-primary" strokeWidth={1.8} />
+                    </div>
+                    <h3 className="font-body font-bold text-lg text-foreground leading-tight">
+                      {t(lang, 'Localised for Malaysian Soil', 'Khusus untuk Tanah Malaysia')}
+                    </h3>
+                    <p className="font-body text-sm text-muted-foreground mt-2 leading-[1.8]">
+                      {t(lang,
+                        'Identify soil nutrient deficiencies with analysis built specifically for Malaysian crop conditions and soil types.',
+                        'Kenal pasti kekurangan nutrien tanah dengan analisis yang dibina khusus untuk keadaan tanaman dan jenis tanah Malaysia.'
+                      )}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
 
-              <div className="flex flex-col gap-3 mt-6">
-                {benefits.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-30px' }}
-                      transition={{ delay: i * 0.12, duration: 0.5 }}
-                      className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-4 hover:bg-white/[0.15] transition-all duration-200"
-                    >
-                      <div className="w-10 h-10 shrink-0 rounded-lg bg-accent/20 flex items-center justify-center">
-                        <Icon size={20} className="text-accent" strokeWidth={1.8} />
-                      </div>
-                      <p className="font-body font-medium text-sm text-white/90 leading-[1.6]">
-                        {t(lang, item.text_en, item.text_bm)}
-                      </p>
-                    </motion.div>
-                  );
-                })}
-              </div>
+              {/* Tall card */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="md:row-span-2 group"
+              >
+                <div className="h-full bg-primary rounded-2xl p-8 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.15)] transition-all duration-300 flex flex-col justify-between">
+                  <div>
+                    <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                      <Sprout size={20} className="text-accent" strokeWidth={1.8} />
+                    </div>
+                    <h3 className="font-body font-bold text-lg text-primary-foreground leading-tight">
+                      {t(lang, 'Save Up to 40%', 'Jimat Sehingga 40%')}
+                    </h3>
+                    <p className="font-body text-sm text-primary-foreground/70 mt-2 leading-[1.8]">
+                      {t(lang,
+                        'Compared to premium blends — same results, lower cost. Our optimizer finds the cheapest combination that meets your soil\'s exact needs.',
+                        'Berbanding baja premium — hasil sama, kos lebih rendah. Pengoptimum kami mencari kombinasi termurah yang memenuhi keperluan tepat tanah anda.'
+                      )}
+                    </p>
+                  </div>
+                  <div className="mt-6 flex items-baseline gap-2">
+                    <span className="font-body font-extrabold text-5xl text-accent">40%</span>
+                    <span className="font-body text-sm text-primary-foreground/60">{t(lang, 'avg. savings', 'purata jimat')}</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Bottom-left cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: 0.25, duration: 0.5 }}
+                className="group"
+              >
+                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                    <BrainCircuit size={20} className="text-primary" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="font-body font-bold text-sm text-foreground">
+                    {t(lang, 'AI-Driven Precision', 'Ketepatan Dipacu AI')}
+                  </h3>
+                  <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7]">
+                    {t(lang,
+                      'Smart algorithms optimise fertiliser ratios for maximum yield at minimum cost.',
+                      'Algoritma pintar mengoptimumkan nisbah baja untuk hasil maksimum pada kos minimum.'
+                    )}
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="group"
+              >
+                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                    <DollarSign size={20} className="text-primary" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="font-body font-bold text-sm text-foreground">
+                    {t(lang, 'Maximised ROI', 'ROI Dimaksimumkan')}
+                  </h3>
+                  <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7]">
+                    {t(lang,
+                      'Get the most affordable fertiliser recommendations tailored to your farm.',
+                      'Dapatkan cadangan baja paling berpatutan yang disesuaikan untuk ladang anda.'
+                    )}
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
       </div>
 
       {/* ── Footer ── */}
-      <footer className="bg-[hsl(164_50%_6%)] px-6 py-6 text-center">
-        <p className="text-white/50 font-body text-[10px] leading-[1.7]">
+      <footer className="bg-primary px-6 py-6 text-center">
+        <p className="text-primary-foreground/60 font-body text-[10px] leading-[1.7]">
           {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
         </p>
-        <p className="text-[9px] text-white/30 font-body mt-0.5">
+        <p className="text-[9px] text-primary-foreground/40 font-body mt-0.5">
           © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
