@@ -245,15 +245,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
-        <div className="px-4 md:px-8 pt-3 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-muted">
-            <TabsTrigger value="summary" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+        <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
+          <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
+            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
+            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
+              {t(lang, '🛒 Shopping', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -322,11 +322,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex justify-center gap-8 mt-1 relative z-10">
-                {radarData.map(d => (
-                  <div key={d.nutrient} className="text-center">
-                    <p className="text-[10px] text-emerald-400/70 font-sans uppercase tracking-wider">{d.nutrient}</p>
-                    <p className="text-base font-bold text-emerald-50 font-sans tabular-nums">{d.value} kg</p>
+              <div className="flex justify-center gap-4 mt-2 relative z-10">
+                {[
+                  { nutrient: 'N', value: result.n_deficit_kg, bg: 'bg-blue-500/20', text: 'text-blue-300', border: 'border-blue-400/30' },
+                  { nutrient: 'P', value: result.p_deficit_kg, bg: 'bg-orange-500/20', text: 'text-orange-300', border: 'border-orange-400/30' },
+                  { nutrient: 'K', value: result.k_deficit_kg, bg: 'bg-emerald-500/20', text: 'text-emerald-300', border: 'border-emerald-400/30' },
+                ].map(d => (
+                  <div key={d.nutrient} className={`flex items-center gap-2 px-4 py-2 rounded-full ${d.bg} border ${d.border}`}>
+                    <span className={`text-xs font-bold font-sans ${d.text}`}>{d.nutrient}</span>
+                    <span className="text-sm font-bold text-white font-sans tabular-nums">{d.value} kg</span>
                   </div>
                 ))}
               </div>
@@ -395,21 +399,26 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* Fertiliser Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {fertItems.map((rec, i) => (
-                <motion.div key={rec.name} custom={i * 0.3 + 0.5} variants={fadeUp} initial="hidden" animate="visible"
-                  className="bg-card rounded-2xl p-4 shadow-sm border border-border/40 flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Package size={18} className="text-primary" />
-                  </div>
-                  <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
-                  <p className="text-xs text-muted-foreground font-sans">
-                    {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
-                  </p>
-                  <p className="font-sans font-bold text-primary text-lg tabular-nums">RM{rec.subtotal_rm}</p>
-                </motion.div>
-              ))}
+            <div className="space-y-3">
+              {fertItems.map((rec, i) => {
+                const colors = ['border-l-blue-500', 'border-l-orange-500', 'border-l-emerald-500', 'border-l-purple-500', 'border-l-rose-500'];
+                return (
+                  <motion.div key={rec.name} custom={i * 0.3 + 0.5} variants={fadeUp} initial="hidden" animate="visible"
+                    className={`bg-card rounded-2xl p-4 shadow-sm border border-border/40 border-l-4 ${colors[i % colors.length]} flex items-center gap-4 hover:shadow-md transition-shadow`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Package size={18} className="text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
+                      <p className="text-xs text-muted-foreground font-sans mt-0.5">
+                        {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
+                      </p>
+                    </div>
+                    <p className="font-sans font-bold text-primary text-lg tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Magnesium Card */}
@@ -445,10 +454,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Grand Total */}
             <motion.div custom={1.8} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl border border-border bg-card px-5 py-4 flex items-center justify-between"
+              className="rounded-2xl border-2 border-foreground/20 bg-card px-5 py-5 flex items-center justify-between"
             >
-              <p className="font-sans text-sm font-semibold text-foreground/70">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
-              <p className="text-2xl font-sans font-extrabold text-foreground tabular-nums">
+              <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+              <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
                 RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
               </p>
             </motion.div>
@@ -473,19 +482,19 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* WhatsApp + PDF Buttons */}
-            <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="flex gap-3">
+            <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
               <button
                 onClick={handleWhatsApp}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366] text-white font-sans font-semibold text-sm hover:bg-[#1fb855] transition-colors active:scale-97"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-sm hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"
               >
-                <Share2 size={16} />
+                <Share2 size={18} />
                 {t(lang, 'Share to WhatsApp', 'Kongsi ke WhatsApp')}
               </button>
               <button
                 onClick={() => window.print()}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary text-primary font-sans font-semibold text-sm hover:bg-primary/5 transition-colors active:scale-97"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-bold text-sm hover:bg-primary/5 transition-colors active:scale-97"
               >
-                <Download size={16} />
+                <Download size={18} />
                 {t(lang, 'Download PDF', 'Muat Turun PDF')}
               </button>
             </motion.div>
@@ -496,47 +505,53 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* Seasonal Advice */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 flex items-start gap-3"
+                className="rounded-2xl overflow-hidden"
+                style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
               >
-                <span className="text-lg mt-0.5">📅</span>
-                <div className="flex-1 min-w-0">
-                  <p className="font-sans text-xs font-semibold text-emerald-800 mb-0.5">
-                    {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
-                  </p>
-                  <p className="font-sans text-sm text-emerald-700 leading-relaxed">
-                    {result.seasonal_advice.advice}
-                  </p>
+                <div className="px-5 py-5 flex items-start gap-4">
+                  <span className="text-3xl mt-0.5">📅</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-xs font-semibold text-emerald-200 mb-1.5 uppercase tracking-wider">
+                      {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
+                    </p>
+                    <p className="font-sans text-base text-white leading-relaxed font-medium">
+                      {result.seasonal_advice.advice}
+                    </p>
+                  </div>
+                  <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
                 </div>
-                <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
               </motion.div>
             )}
 
             {/* Farm Tip Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 flex items-start gap-3"
+              className="rounded-2xl overflow-hidden"
+              style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
             >
-              <span className="text-lg mt-0.5">📅</span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="font-sans text-xs font-semibold text-emerald-800">
-                    {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
-                  </p>
-                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold">
-                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                  </span>
-                </div>
-                {tipLoading ? (
-                  <div className="flex items-center gap-2 py-1">
-                    <Loader2 size={12} className="animate-spin text-emerald-600" />
-                    <span className="text-xs text-emerald-600 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+              <div className="px-5 py-5 flex items-start gap-4">
+                <span className="text-3xl mt-0.5">📅</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="font-sans text-xs font-semibold text-emerald-200 uppercase tracking-wider">
+                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+                    </p>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-sans font-semibold backdrop-blur-sm">
+                      ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                    </span>
                   </div>
-                ) : farmTip ? (
-                  <p className="font-sans text-sm text-emerald-700 leading-relaxed">{farmTip}</p>
-                ) : (
-                  <p className="font-sans text-xs text-emerald-500 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
-                )}
+                  {tipLoading ? (
+                    <div className="flex items-center gap-2 py-1">
+                      <Loader2 size={14} className="animate-spin text-emerald-200" />
+                      <span className="text-sm text-emerald-200 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                    </div>
+                  ) : farmTip ? (
+                    <p className="font-sans text-base text-white leading-relaxed font-medium">{farmTip}</p>
+                  ) : (
+                    <p className="font-sans text-sm text-emerald-200 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                  )}
+                </div>
+                {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
               </div>
-              {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
             </motion.div>
 
             {/* Nearby Shops Button */}
@@ -545,11 +560,21 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-semibold text-sm hover:bg-primary/5 transition-colors active:scale-97"
+                className="flex items-center justify-center gap-2.5 w-full py-4 rounded-xl btn-gradient-primary font-sans font-bold text-sm shadow-md"
               >
-                <MapPin size={16} />
+                <MapPin size={18} />
                 {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
               </a>
+            </motion.div>
+
+            {/* AI Disclaimer */}
+            <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible">
+              <p className="text-center text-[11px] text-muted-foreground font-sans italic leading-relaxed">
+                ⚠️ {t(lang,
+                  'Advice generated by AI, verify with agricultural expert',
+                  'Nasihat dijana oleh AI, sahkan dengan pakar pertanian'
+                )}
+              </p>
             </motion.div>
           </TabsContent>
         </div>
