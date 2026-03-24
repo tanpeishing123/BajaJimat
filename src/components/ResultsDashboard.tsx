@@ -663,7 +663,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             className="flex-1 py-2.5 rounded-full font-sans font-semibold text-sm flex items-center justify-center gap-2 btn-secondary-outline border-primary/60"
           >
             <ArrowLeft size={14} />
-            {backLabel || t(lang, 'New Analysis', 'Analisis Baharu')}
+            {backLabel || t(lang, 'Back to My Plots', 'Kembali ke Ladang Saya')}
           </button>
           <p className="flex-1 text-[11px] text-muted-foreground font-sans text-center leading-relaxed">
             {t(lang,
