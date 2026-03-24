@@ -120,7 +120,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 <img
                   src={farmerApp}
                   alt={t(lang, 'Farmer using BajaJimat', 'Petani menggunakan BajaJimat')}
-                  className="w-full h-32 md:h-40 object-cover object-top"
+                  className="w-full h-32 md:h-40 object-cover object-center"
                 />
               </div>
             </div>
