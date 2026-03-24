@@ -65,7 +65,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Headline */}
           <motion.span
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="block text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-lg font-serif-display font-bold leading-[1.1] tracking-tight"
           >
