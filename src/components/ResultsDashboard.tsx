@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
 interface ResultData {
-  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; reason?: string }[];
+  recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; is_mg?: boolean; reason?: string }[];
   total_cost_rm: number;
   savings_rm: number;
   n_deficit_kg: number;
@@ -50,11 +50,13 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
 
-  // Separate liming from fertiliser recommendations
+  // Separate liming, Mg, and fertiliser recommendations
   const limingItems = result.recommendations.filter(r => r.is_liming);
-  const fertItems = result.recommendations.filter(r => !r.is_liming);
+  const mgItems = result.recommendations.filter(r => r.is_mg);
+  const fertItems = result.recommendations.filter(r => !r.is_liming && !r.is_mg);
   const fertTotalCost = fertItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
-  const limingTotalCost = limingItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const mgTotalCost = mgItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const displayTotalCost = fertTotalCost + mgTotalCost;
 
   const defaultTip = lang === 'bm'
     ? 'Periksa kelembapan tanah secara berkala untuk hasil optimum.'
@@ -326,7 +328,7 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               <div className="mb-4 relative z-10">
                 <p className="text-xs text-foreground/50 font-sans mb-0.5">{t(lang, 'Fertiliser Cost', 'Kos Baja')}</p>
                 <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight">
-                  RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
 
@@ -347,7 +349,42 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
             </motion.div>
           </div>
 
-          {/* Savings Banner */}
+          {/* Magnesium Deficiency Card */}
+          {mgItems.length > 0 && (
+            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl border border-blue-300 bg-blue-50 px-5 py-4 flex items-start gap-3"
+            >
+              <div className="w-9 h-9 rounded-xl bg-blue-200 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="text-lg">💊</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-sans text-sm font-bold text-blue-800 mb-1">
+                  {t(lang, 'Magnesium Deficiency Detected', 'Kekurangan Magnesium Dikesan')}
+                </p>
+                {mgItems.map((mg) => (
+                  <div key={mg.name} className="mb-1">
+                    <div className="flex items-center gap-4 text-xs font-sans text-blue-700">
+                      <span className="font-semibold">{mg.name}</span>
+                      <span>{mg.bags} {t(lang, 'bags', 'beg')} × RM{mg.price_per_bag}</span>
+                      <span className="font-bold">= RM{mg.subtotal_rm}</span>
+                    </div>
+                    {mg.reason && (
+                      <p className="text-[10px] text-blue-600/70 font-sans mt-0.5 leading-relaxed">{mg.reason}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <SpeakerButton
+                text={t(lang,
+                  `Magnesium deficiency detected. ${mgItems.map(m => `${m.bags} bags of ${m.name} at RM${m.price_per_bag} each, total RM${m.subtotal_rm}`).join('. ')}.`,
+                  `Kekurangan magnesium dikesan. ${mgItems.map(m => `${m.bags} beg ${m.name} pada RM${m.price_per_bag} setiap satu, jumlah RM${m.subtotal_rm}`).join('. ')}.`
+                )}
+                lang={lang}
+                size="sm"
+              />
+            </motion.div>
+          )}
+
           <motion.div
             custom={1.8} variants={fadeUp} initial="hidden" animate="visible"
             className="rounded-2xl px-6 py-4 btn-gradient-primary flex items-center justify-between w-full"
