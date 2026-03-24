@@ -573,6 +573,17 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
           {/* ========== TAB 3: Advice ========== */}
           <TabsContent value="advice" className="mt-0 space-y-4">
+            {/* Tab 3 speaker button */}
+            <div className="flex justify-end">
+              <SpeakerButton
+                text={t(lang,
+                  `This month's advice: ${farmTip || result.seasonal_advice?.advice || ''}.${result.liming_needed ? ' Spread lime evenly across the field and wait 2-4 weeks before fertilising.' : ''}`,
+                  `Nasihat bulan ini: ${farmTip || result.seasonal_advice?.advice || ''}.${result.liming_needed ? ' Tabur kapur secara sekata di ladang dan tunggu 2-4 minggu sebelum membaja.' : ''}`
+                )}
+                lang={lang}
+                size="sm"
+              />
+            </div>
             {/* Seasonal Advice */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
