@@ -1,4 +1,4 @@
-import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, Sprout } from 'lucide-react';
+import { ArrowRight, Scan, BrainCircuit, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import farmerImg from '@/assets/farmer-field.jpg';
