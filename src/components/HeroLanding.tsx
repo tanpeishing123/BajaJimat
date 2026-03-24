@@ -202,43 +202,44 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
       </section>
 
-      {/* ── Why BajaJimat — Bento Grid ── */}
-      <section className="bg-[hsl(152_30%_96%)] px-6 md:px-12 py-10 md:py-14">
-        <div className="max-w-4xl mx-auto">
+      {/* ── Why BajaJimat ── */}
+      <section className="bg-[hsl(40_33%_96%)] px-6 md:px-12 py-12 md:py-16">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Left — The Problem */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-8"
           >
-            <p className="font-body text-xs font-semibold tracking-widest uppercase text-primary/70 mb-1">
-              {t(lang, 'Built Different', 'Dibina Berbeza')}
-            </p>
-            <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground">
+            <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground leading-tight">
               {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
             </h2>
+            <p className="mt-4 font-body text-base md:text-lg text-muted-foreground leading-relaxed">
+              {t(lang,
+                'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
+                'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
+              )}
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {bentoItems.map((item, i) => {
+          {/* Right — Benefits */}
+          <div className="flex flex-col gap-3">
+            {benefits.map((item, i) => {
               const Icon = item.icon;
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.12 }}
-                  className={`${item.span} group rounded-2xl bg-primary p-6 md:p-8 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_24px_-4px_hsla(164,90%,20%,0.25)]`}
+                  className="flex items-center gap-4 bg-card rounded-xl p-4 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] transition-shadow duration-200"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-colors">
-                    <Icon size={22} className="text-primary-foreground" strokeWidth={1.5} />
+                  <div className="w-10 h-10 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Icon size={20} className="text-primary" strokeWidth={1.8} />
                   </div>
-                  <h3 className="font-body font-bold text-base md:text-lg text-primary-foreground leading-snug">
-                    {t(lang, item.title_en, item.title_bm)}
-                  </h3>
-                  <p className="font-body text-xs md:text-sm text-primary-foreground/70 mt-2 leading-relaxed">
-                    {t(lang, item.desc_en, item.desc_bm)}
+                  <p className="font-body font-medium text-sm text-foreground">
+                    {t(lang, item.text_en, item.text_bm)}
                   </p>
                 </motion.div>
               );
