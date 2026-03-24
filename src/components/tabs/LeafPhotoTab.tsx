@@ -63,10 +63,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || `Server error ${res.status}`);
-      }
-
+      // Check for non-plant photo BEFORE generic error (edge function returns 400 for non-plant)
       if (data.is_plant_photo === false) {
         setFile(null);
         setPreview(null);
@@ -78,6 +75,11 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         );
         return;
       }
+
+      if (!res.ok) {
+        throw new Error(data.error || `Server error ${res.status}`);
+      }
+
 
       onSubmit(data as LeafAnalysisResult);
     } catch (err: any) {
