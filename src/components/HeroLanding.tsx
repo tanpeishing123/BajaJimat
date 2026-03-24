@@ -85,7 +85,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
             {/* Left — Text */}
             <div className="md:w-[50%] pt-1 flex flex-col">
-              </span>
               <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
                 {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </h2>
