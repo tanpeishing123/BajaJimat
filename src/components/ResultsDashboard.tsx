@@ -29,6 +29,8 @@ interface Props {
   lang: 'en' | 'bm';
   result: ResultData;
   cropType?: string;
+  plotName?: string;
+  farmSize?: string;
   onBack: () => void;
   backLabel?: string;
   onToggleLang?: () => void;
