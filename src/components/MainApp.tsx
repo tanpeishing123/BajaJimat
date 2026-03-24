@@ -123,7 +123,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
     try {
       const cropType = mapCrop(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
-      const soilType = localStorage.getItem('soil_type') || 'mineral';
+      const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
