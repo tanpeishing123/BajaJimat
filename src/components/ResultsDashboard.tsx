@@ -326,39 +326,18 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               />
             </motion.div>
 
-            {/* 2. Farm Info Card */}
+            {/* 2. Compact Farm Info Bar */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl bg-card border border-border/40 p-5 shadow-sm"
+              className="flex items-center gap-1.5 flex-wrap"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xl">🌱</span>
-                <h3 className="font-sans text-sm font-bold text-foreground">
-                  {t(lang, 'Farm Info', 'Maklumat Ladang')}
-                </h3>
-                {result.crop_requirements_source === 'ai' && (
-                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold ml-auto">
-                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                  </span>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-sm font-sans">
-                <div>
-                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Crop', 'Tanaman')}</p>
-                  <p className="font-semibold text-foreground">{cropType || '-'}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Size', 'Keluasan')}</p>
-                  <p className="font-semibold text-foreground">{farmSize || '-'} {t(lang, 'hectares', 'hektar')}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Soil Type', 'Jenis Tanah')}</p>
-                  <p className="font-semibold text-foreground">{result.soil_type || '-'}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Input Method', 'Kaedah Input')}</p>
-                  <p className="font-semibold text-foreground capitalize">{result.input_mode?.replace('_', ' ') || '-'}</p>
-                </div>
-              </div>
+              <p className="text-xs text-muted-foreground font-sans">
+                {cropType || '-'} · {farmSize || '-'} ha · {result.soil_type || '-'}
+              </p>
+              {result.crop_requirements_source === 'ai' && (
+                <span className="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[9px] font-sans font-semibold">
+                  ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                </span>
+              )}
             </motion.div>
 
             {/* 3. Nutrient Deficit Section */}
