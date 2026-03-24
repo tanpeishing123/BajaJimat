@@ -407,14 +407,47 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
               <p className="text-sm text-foreground font-sans leading-relaxed">{leafResult.recommendation}</p>
             </div>
 
-            {/* Calculate button */}
-            <button
-              onClick={handleLeafCalculate}
-              className="w-full py-3 rounded-full btn-gradient-primary font-sans font-semibold text-sm flex items-center justify-center gap-2"
-            >
-              <Zap size={16} />
-              {t('Calculate Required Fertiliser →', 'Kira Baja Diperlukan →')}
-            </button>
+            {/* Conditional Action Button */}
+            {(() => {
+              const isNPK = hasNPKDeficiency(leafResult);
+              const nonNPKIssues = getNonNPKIssues(leafResult);
+              const primaryNonNPK = nonNPKIssues[0];
+
+              if (isNPK) {
+                return (
+                  <button
+                    onClick={handleLeafCalculate}
+                    className="w-full py-3 rounded-full btn-gradient-primary font-sans font-semibold text-sm flex items-center justify-center gap-2"
+                  >
+                    <Zap size={16} />
+                    {t('Calculate Required Fertiliser →', 'Kira Baja Diperlukan →')}
+                  </button>
+                );
+              }
+
+              // Non-NPK or healthy/no deficiencies
+              const issueName = primaryNonNPK
+                ? primaryNonNPK.nutrient
+                : leafResult.overall_health === 'good'
+                  ? t('Healthy Plant', 'Tanaman Sihat')
+                  : t('General Issue', 'Isu Umum');
+              const issueSeverity = primaryNonNPK?.severity || 'moderate';
+              const issueEvidence = primaryNonNPK?.visual_evidence || leafResult.recommendation;
+
+              return (
+                <button
+                  onClick={() => {
+                    setShowLeafAnalysis(false);
+                    setTreatmentIssue({ name: issueName, severity: issueSeverity, evidence: issueEvidence });
+                    setShowTreatment(true);
+                  }}
+                  className="w-full py-3 rounded-full btn-gradient-primary font-sans font-semibold text-sm flex items-center justify-center gap-2"
+                >
+                  <ShieldPlus size={16} />
+                  {t('View Treatment Plan →', 'Lihat Pelan Rawatan →')}
+                </button>
+              );
+            })()}
           </motion.div>
         </div>
       </div>
