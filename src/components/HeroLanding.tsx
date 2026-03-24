@@ -77,49 +77,60 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </svg>
       </div>
 
-      {/* ── Why BajaJimat Section ── */}
+      {/* ── How It Works Section ── */}
       <section className="relative bg-cream-brand px-6 md:px-12 py-6 flex flex-col">
-        <div className="w-full flex flex-col">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-            {/* Left — Text */}
-            <div className="md:w-[50%] pt-1 flex flex-col">
-              <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
-                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
-              </h2>
-              <div className="mt-2 text-muted-foreground font-body text-sm md:text-base leading-relaxed max-w-md space-y-2">
-                <p>
-                  {t(lang,
-                    'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
-                    'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
-                  )}
-                </p>
-                <p className="font-bold text-foreground text-base md:text-lg">
-                  {t(lang, 'BajaJimat helps you:', 'BajaJimat membantu anda:')}
-                </p>
-                <ul className="space-y-2 text-sm md:text-base">
-                  <li><span className="text-lg">✅</span> {t(lang, 'Identify soil nutrient deficiencies', 'Kenal pasti kekurangan nutrien tanah')}</li>
-                  <li><span className="text-lg">✅</span> {t(lang, 'Get the most affordable fertiliser recommendations', 'Dapatkan cadangan baja paling jimat')}</li>
-                  <li><span className="text-lg">✅</span> {t(lang, 'Save up to 40% compared to premium blends', 'Jimat sehingga 40% berbanding baja premium')}</li>
-                </ul>
-              </div>
+        <div className="w-full flex flex-col items-center">
+          <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight text-center">
+            {t(lang, 'How It Works', 'Cara Penggunaan')}
+          </h2>
+
+          <div className="mt-5 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-0 w-full max-w-3xl">
+            {/* Step 1 */}
+            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">📸</div>
+              <p className="font-body font-semibold text-sm text-foreground">
+                {t(lang, 'Analyse Your Soil', 'Analisis Tanah')}
+              </p>
+              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
+                {t(lang,
+                  'Upload soil report, enter NPK values, or take a leaf photo',
+                  'Muat naik laporan tanah, masukkan nilai NPK, atau ambil foto daun'
+                )}
+              </p>
             </div>
 
-            {/* Right — Images */}
-            <div className="md:w-[50%] flex gap-3 items-start pt-1">
-              <div className="flex-1 rounded-xl overflow-hidden border-2 border-border shadow-luxe">
-                <img
-                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600"
-                  alt={t(lang, 'Crop field landscape', 'Landskap ladang tanaman')}
-                  className="w-full h-[250px] object-cover object-center"
-                />
-              </div>
-              <div className="flex-1 rounded-xl overflow-hidden border-2 border-border shadow-luxe">
-                <img
-                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600"
-                  alt={t(lang, 'Malaysian farmer working', 'Petani Malaysia bekerja')}
-                  className="w-full h-[250px] object-cover object-top"
-                />
-              </div>
+            {/* Arrow 1 */}
+            <span className="text-primary font-bold text-xl md:mx-3 rotate-90 md:rotate-0 select-none">→</span>
+
+            {/* Step 2 */}
+            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">🧮</div>
+              <p className="font-body font-semibold text-sm text-foreground">
+                {t(lang, 'AI Optimisation', 'Pengoptimuman AI')}
+              </p>
+              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
+                {t(lang,
+                  'Our algorithm calculates the cheapest fertiliser combination for your farm',
+                  'Algoritma kami mengira kombinasi baja paling murah untuk ladang anda'
+                )}
+              </p>
+            </div>
+
+            {/* Arrow 2 */}
+            <span className="text-primary font-bold text-xl md:mx-3 rotate-90 md:rotate-0 select-none">→</span>
+
+            {/* Step 3 */}
+            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">💰</div>
+              <p className="font-body font-semibold text-sm text-foreground">
+                {t(lang, 'Save Money', 'Jimat Wang')}
+              </p>
+              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
+                {t(lang,
+                  'Get precise fertiliser list and save up to 40% compared to premium blends',
+                  'Dapatkan senarai baja tepat dan jimat sehingga 40% berbanding baja premium'
+                )}
+              </p>
             </div>
           </div>
         </div>
