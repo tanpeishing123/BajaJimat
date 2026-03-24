@@ -53,7 +53,7 @@ function savePlots(plots: Plot[]) {
   localStorage.setItem('plots', JSON.stringify(plots));
 }
 
-export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse }: MyPlotsProps) {
+export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onViewHistory }: MyPlotsProps) {
   const [plots, setPlots] = useState<Plot[]>(loadPlots);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [plotName, setPlotName] = useState('');
