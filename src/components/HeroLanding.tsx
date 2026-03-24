@@ -91,20 +91,20 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
                 {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </h2>
-              <div className="mt-2 text-muted-foreground font-body text-[11px] md:text-xs leading-relaxed max-w-md space-y-1.5">
+              <div className="mt-2 text-muted-foreground font-body text-sm md:text-base leading-relaxed max-w-md space-y-2">
                 <p>
                   {t(lang,
                     'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
                     'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
                   )}
                 </p>
-                <p className="font-medium text-foreground">
+                <p className="font-bold text-foreground text-base md:text-lg">
                   {t(lang, 'BajaJimat helps you:', 'BajaJimat membantu anda:')}
                 </p>
-                <ul className="space-y-0.5">
-                  <li>✅ {t(lang, 'Identify soil nutrient deficiencies', 'Kenal pasti kekurangan nutrien tanah')}</li>
-                  <li>✅ {t(lang, 'Get the most affordable fertiliser recommendations', 'Dapatkan cadangan baja paling jimat')}</li>
-                  <li>✅ {t(lang, 'Save up to 40% compared to premium blends', 'Jimat sehingga 40% berbanding baja premium')}</li>
+                <ul className="space-y-2 text-sm md:text-base">
+                  <li><span className="text-lg">✅</span> {t(lang, 'Identify soil nutrient deficiencies', 'Kenal pasti kekurangan nutrien tanah')}</li>
+                  <li><span className="text-lg">✅</span> {t(lang, 'Get the most affordable fertiliser recommendations', 'Dapatkan cadangan baja paling jimat')}</li>
+                  <li><span className="text-lg">✅</span> {t(lang, 'Save up to 40% compared to premium blends', 'Jimat sehingga 40% berbanding baja premium')}</li>
                 </ul>
               </div>
             </div>
