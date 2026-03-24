@@ -245,15 +245,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
-        <div className="px-4 md:px-8 pt-3 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-muted">
-            <TabsTrigger value="summary" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+        <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
+          <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
+            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
+            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
+              {t(lang, '🛒 Shopping', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
