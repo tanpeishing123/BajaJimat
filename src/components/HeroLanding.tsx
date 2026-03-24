@@ -19,7 +19,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Hero Section ── */}
       <section className="relative min-h-[55vh]">
         <img
-          src={heroBg}
+          src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200"
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
