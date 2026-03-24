@@ -474,15 +474,13 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* WhatsApp + PDF Buttons */}
             <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="flex gap-3">
-              <a
-                href={`https://wa.me/?text=${buildWhatsAppText()}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={handleWhatsApp}
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366] text-white font-sans font-semibold text-sm hover:bg-[#1fb855] transition-colors active:scale-97"
               >
                 <Share2 size={16} />
                 {t(lang, 'Share to WhatsApp', 'Kongsi ke WhatsApp')}
-              </a>
+              </button>
               <button
                 onClick={() => window.print()}
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-primary text-primary font-sans font-semibold text-sm hover:bg-primary/5 transition-colors active:scale-97"
