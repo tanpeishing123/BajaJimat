@@ -380,7 +380,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
             </button>
             <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
               <LogOut size={12} />
-              {t('Reset', 'Set Semula')}
+              {t('← Back', '← Kembali')}
             </button>
           </div>
         </div>
