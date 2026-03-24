@@ -2,32 +2,25 @@ import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroLanding } from '@/components/HeroLanding';
 import { SignUpPage } from '@/components/SignUpPage';
+import { MyPlots, type Plot } from '@/components/MyPlots';
 import { MainApp } from '@/components/MainApp';
 
-interface UserProfile {
-  name: string;
-  crop: string;
-  farmSize: string;
-  lang: 'en' | 'bm';
-}
-
-type View = 'landing' | 'signup' | 'app';
+type View = 'landing' | 'signup' | 'plots' | 'app';
 
 const Index = () => {
   const [view, setView] = useState<View>('landing');
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [userName, setUserName] = useState('');
+  const [activePlot, setActivePlot] = useState<Plot | null>(null);
   const [lang, setLang] = useState<'en' | 'bm'>(() =>
     (localStorage.getItem('baja_lang') as 'en' | 'bm') || 'en'
   );
 
   useEffect(() => {
-    const saved = localStorage.getItem('baja_profile');
     const onboarded = localStorage.getItem('onboarding_complete');
-    if (saved && onboarded === 'true') {
-      try {
-        setProfile(JSON.parse(saved));
-        setView('app');
-      } catch {}
+    const savedName = localStorage.getItem('baja_user_name');
+    if (onboarded === 'true' && savedName) {
+      setUserName(savedName);
+      setView('plots');
     }
   }, []);
 
@@ -37,21 +30,27 @@ const Index = () => {
     localStorage.setItem('baja_lang', next);
   };
 
-  const handleSignUpComplete = (data: UserProfile) => {
-    const profileWithLang = { ...data, lang: data.lang };
-    localStorage.setItem('baja_profile', JSON.stringify(profileWithLang));
+  const handleSignUpComplete = (data: { name: string; lang: 'en' | 'bm' }) => {
+    localStorage.setItem('baja_user_name', data.name);
     localStorage.setItem('baja_lang', data.lang);
     localStorage.setItem('onboarding_complete', 'true');
-    setProfile(profileWithLang);
+    setUserName(data.name);
     setLang(data.lang);
-    setView('app');
+    setView('plots');
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('baja_user_name');
     localStorage.removeItem('baja_profile');
     localStorage.removeItem('onboarding_complete');
-    setProfile(null);
+    setUserName('');
+    setActivePlot(null);
     setView('landing');
+  };
+
+  const handleAnalyse = (plot: Plot) => {
+    setActivePlot(plot);
+    setView('app');
   };
 
   return (
@@ -75,8 +74,30 @@ const Index = () => {
         />
       )}
 
-      {view === 'app' && profile && (
-        <MainApp profile={profile} onLogout={handleLogout} lang={lang} onToggleLang={toggleLang} />
+      {view === 'plots' && (
+        <MyPlots
+          userName={userName}
+          lang={lang}
+          onToggleLang={toggleLang}
+          onLogout={handleLogout}
+          onAnalyse={handleAnalyse}
+        />
+      )}
+
+      {view === 'app' && activePlot && (
+        <MainApp
+          profile={{
+            name: userName,
+            crop: activePlot.crop_type,
+            farmSize: String(activePlot.farm_size_ha),
+            lang,
+          }}
+          plotName={activePlot.name}
+          soilType={activePlot.soil_type}
+          onLogout={() => setView('plots')}
+          lang={lang}
+          onToggleLang={toggleLang}
+        />
       )}
     </>
   );

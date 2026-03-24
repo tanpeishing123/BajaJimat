@@ -52,7 +52,7 @@ interface ResultData {
   soil_type?: string;
 }
 
-export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
+export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
   const lang = externalLang;
   const t = (en: string, bm: string) => lang === 'bm' ? bm : en;
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
