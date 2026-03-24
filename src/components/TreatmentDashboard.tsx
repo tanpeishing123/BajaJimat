@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, ClipboardList, AlertTriangle, Loader2, CheckCircle2, Clock, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, ClipboardList, AlertTriangle, Loader2, CheckCircle2, Clock, ShieldCheck, Info, Upload } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
