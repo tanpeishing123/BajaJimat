@@ -159,6 +159,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       }
 
       const result: ResultData = await res.json();
+      if (plotId) updatePlotLastCost(plotId, result.total_cost_rm);
       setResultData(result);
       setShowResults(true);
 
