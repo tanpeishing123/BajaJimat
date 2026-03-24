@@ -408,7 +408,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             </button>
             <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
               <LogOut size={12} />
-              {t('← Back', '← Kembali')}
+              {t('Back', 'Kembali')}
             </button>
           </div>
         </div>

@@ -198,7 +198,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/5 transition-colors active:scale-[0.98]"
           >
             <Plus size={18} />
-            {t(lang, '+ Add New Plot', '+ Tambah Ladang Baru')}
+            {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
           </button>
         </div>
       </div>
