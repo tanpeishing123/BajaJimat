@@ -128,7 +128,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
 
         {/* Footer */}
-        <div className="w-full pt-2 border-t border-border/40 text-center">
+        <div className="w-full mt-6 pt-4 border-t border-border/40 text-center">
           <p className="text-muted-foreground font-body text-[10px]">
             {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
           </p>
