@@ -2,6 +2,7 @@ import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, Sprout 
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import farmerImg from '@/assets/farmer-field.jpg';
+import soilBg from '@/assets/soil-texture-bg.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
@@ -63,7 +64,7 @@ const benefits = [
 
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="min-h-screen flex flex-col overflow-auto bg-gradient-landing">
+    <div className="min-h-screen flex flex-col overflow-auto">
       {/* ── Hero Section ── */}
       <section className="relative h-screen min-h-screen overflow-hidden">
         <img
@@ -71,10 +72,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-primary/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[hsl(164_50%_8%/0.9)]" />
 
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-          {/* Dual-language headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -136,143 +136,147 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </button>
           </motion.div>
         </div>
-
-        {/* Wave at absolute bottom */}
-        <div className="absolute bottom-0 left-0 right-0 z-10">
-          <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-8 md:h-12 block" preserveAspectRatio="none">
-            <path d="M0 80h1440V40c-180 20-360 32-540 28S540 40 360 32 120 44 0 56z" fill="hsl(40 33% 98%)" />
-          </svg>
-        </div>
       </section>
 
-      {/* ── How It Works ── */}
-      <section className="px-6 md:px-12 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-10"
-          >
-            <p className="font-body text-xs font-semibold tracking-widest uppercase text-primary/70 mb-1">
-              {t(lang, 'Simple Process', 'Proses Mudah')}
-            </p>
-            <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground">
-              {t(lang, 'How It Works', 'Cara Penggunaan')}
-            </h2>
-          </motion.div>
+      {/* ── Dark image-backed lower sections ── */}
+      <div className="relative">
+        <img
+          src={soilBg}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[hsl(164_50%_8%/0.75)]" />
 
-          <div className="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-6">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ delay: i * 0.15, duration: 0.5 }}
-                  className="group flex-1 relative"
-                >
-                  {/* Connector arrow (desktop only) */}
-                  {i < steps.length - 1 && (
-                    <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-primary/10 items-center justify-center">
-                      <ArrowRight size={12} className="text-primary" />
-                    </div>
-                  )}
-
-                  <div className="h-full flex flex-col items-center text-center bg-card rounded-2xl p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
-                    <span className="font-body text-[10px] font-bold tracking-widest text-primary/40 mb-3">{step.step}</span>
-                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-colors">
-                      <Icon size={26} className="text-primary" strokeWidth={1.5} />
-                    </div>
-                    <p className="font-body font-semibold text-sm text-foreground">
-                      {t(lang, step.title_en, step.title_bm)}
-                    </p>
-                    <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7] max-w-[200px]">
-                      {t(lang, step.desc_en, step.desc_bm)}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Why BajaJimat ── */}
-      <section className="px-6 md:px-12 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Left — Farmer image */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6 }}
-            className="order-2 md:order-1"
-          >
-            <img
-              src={farmerImg}
-              alt="Malaysian farmer working in a lush green field"
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="w-full h-72 md:h-96 object-cover rounded-2xl shadow-[0_8px_30px_-8px_rgba(0,0,0,0.15)]"
-            />
-          </motion.div>
-
-          {/* Right — Text & Benefits */}
-          <div className="order-1 md:order-2">
+        {/* ── How It Works ── */}
+        <section className="relative px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6 }}
+              className="text-center mb-12"
             >
-              <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
-              </h2>
-              <p className="mt-4 font-body text-base md:text-lg text-muted-foreground leading-[1.8]">
-                {t(lang,
-                  'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
-                  'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
-                )}
+              <p className="font-body text-xs font-semibold tracking-widest uppercase text-accent/80 mb-1">
+                {t(lang, 'Simple Process', 'Proses Mudah')}
               </p>
+              <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-white">
+                {t(lang, 'How It Works', 'Cara Penggunaan')}
+              </h2>
             </motion.div>
 
-            <div className="flex flex-col gap-3 mt-6">
-              {benefits.map((item, i) => {
-                const Icon = item.icon;
+            <div className="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-6">
+              {steps.map((step, i) => {
+                const Icon = step.icon;
                 return (
                   <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
+                    key={step.step}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-30px' }}
-                    transition={{ delay: i * 0.12, duration: 0.5 }}
-                    className="flex items-center gap-4 bg-card rounded-xl p-4 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] transition-shadow duration-200"
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ delay: i * 0.15, duration: 0.5 }}
+                    className="group flex-1 relative"
                   >
-                    <div className="w-10 h-10 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Icon size={20} className="text-primary" strokeWidth={1.8} />
+                    {i < steps.length - 1 && (
+                      <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm items-center justify-center">
+                        <ArrowRight size={12} className="text-accent" />
+                      </div>
+                    )}
+
+                    <div className="h-full flex flex-col items-center text-center bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 hover:-translate-y-1 hover:bg-white/[0.15] transition-all duration-300">
+                      <span className="font-body text-[10px] font-bold tracking-widest text-white/30 mb-3">{step.step}</span>
+                      <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-3 group-hover:bg-white/20 transition-colors">
+                        <Icon size={26} className="text-accent" strokeWidth={1.5} />
+                      </div>
+                      <p className="font-body font-semibold text-sm text-white">
+                        {t(lang, step.title_en, step.title_bm)}
+                      </p>
+                      <p className="font-body text-xs text-white/60 mt-1.5 leading-[1.7] max-w-[200px]">
+                        {t(lang, step.desc_en, step.desc_bm)}
+                      </p>
                     </div>
-                    <p className="font-body font-medium text-sm text-foreground leading-[1.6]">
-                      {t(lang, item.text_en, item.text_bm)}
-                    </p>
                   </motion.div>
                 );
               })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ── Why BajaJimat ── */}
+        <section className="relative px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6 }}
+              className="order-2 md:order-1"
+            >
+              <img
+                src={farmerImg}
+                alt="Malaysian farmer working in a lush green field"
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="w-full h-72 md:h-96 object-cover rounded-2xl shadow-[0_8px_30px_-8px_rgba(0,0,0,0.4)] border border-white/10"
+              />
+            </motion.div>
+
+            <div className="order-1 md:order-2">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-white leading-tight">
+                  {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
+                </h2>
+                <p className="mt-4 font-body text-base md:text-lg text-white/60 leading-[1.8]">
+                  {t(lang,
+                    'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
+                    'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
+                  )}
+                </p>
+              </motion.div>
+
+              <div className="flex flex-col gap-3 mt-6">
+                {benefits.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-30px' }}
+                      transition={{ delay: i * 0.12, duration: 0.5 }}
+                      className="flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-4 hover:bg-white/[0.15] transition-all duration-200"
+                    >
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <Icon size={20} className="text-accent" strokeWidth={1.8} />
+                      </div>
+                      <p className="font-body font-medium text-sm text-white/90 leading-[1.6]">
+                        {t(lang, item.text_en, item.text_bm)}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
       {/* ── Footer ── */}
-      <footer className="bg-cream-brand px-6 py-6 border-t border-border/30 text-center">
-        <p className="text-muted-foreground font-body text-[10px] leading-[1.7]">
+      <footer className="bg-[hsl(164_50%_6%)] px-6 py-6 text-center">
+        <p className="text-white/50 font-body text-[10px] leading-[1.7]">
           {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
         </p>
-        <p className="text-[9px] text-muted-foreground/50 font-body mt-0.5">
+        <p className="text-[9px] text-white/30 font-body mt-0.5">
           © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
