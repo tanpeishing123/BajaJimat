@@ -463,7 +463,7 @@ export function ResultsDashboard({ lang, result, cropType, onBack, backLabel, on
               className="flex-1 py-2.5 rounded-full font-sans font-semibold text-sm flex items-center justify-center gap-2 btn-secondary-outline border-primary/60"
             >
               <ArrowLeft size={14} />
-              {t(lang, 'New Analysis', 'Analisis Baharu')}
+              {backLabel || t(lang, 'New Analysis', 'Analisis Baharu')}
             </button>
             <p className="flex-1 text-[11px] text-muted-foreground font-sans text-center leading-relaxed">
               {t(lang,
