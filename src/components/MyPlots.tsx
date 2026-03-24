@@ -55,6 +55,11 @@ function savePlots(plots: Plot[]) {
 
 export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onViewHistory }: MyPlotsProps) {
   const [plots, setPlots] = useState<Plot[]>(loadPlots);
+
+  // Reload plots from localStorage whenever this component mounts (e.g. returning from analysis)
+  useEffect(() => {
+    setPlots(loadPlots());
+  }, []);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [plotName, setPlotName] = useState('');
   const [cropType, setCropType] = useState('');
