@@ -42,33 +42,23 @@ const steps = [
   },
 ];
 
-const bentoItems = [
+const benefits = [
   {
-    icon: MapPin,
-    title_en: 'Localised for Malaysian Soil',
-    title_bm: 'Disesuaikan untuk Tanah Malaysia',
-    desc_en: 'Calibrated for Malaysian soil types including peat, mineral, and coastal soils across all major farming regions.',
-    desc_bm: 'Dikalibrasi untuk jenis tanah Malaysia termasuk tanah gambut, mineral, dan tanah pantai di semua kawasan pertanian utama.',
-    span: 'md:col-span-2',
+    icon: Search,
+    text_en: 'Identify soil nutrient deficiencies',
+    text_bm: 'Kenal pasti kekurangan nutrien tanah',
   },
   {
-    icon: Sparkles,
-    title_en: 'AI-Driven Precision',
-    title_bm: 'Ketepatan Dikuasakan AI',
-    desc_en: 'Machine learning models trained on real agricultural data to optimise every kilogram of fertiliser.',
-    desc_bm: 'Model pembelajaran mesin dilatih pada data pertanian sebenar untuk mengoptimumkan setiap kilogram baja.',
-    span: 'md:col-span-1',
+    icon: DollarSign,
+    text_en: 'Get the most affordable fertiliser recommendations',
+    text_bm: 'Dapatkan cadangan baja paling berpatutan',
   },
   {
     icon: PiggyBank,
-    title_en: 'Maximised ROI',
-    title_bm: 'ROI Dimaksimumkan',
-    desc_en: 'Farmers report saving up to 40% on fertiliser costs while maintaining or improving yield quality.',
-    desc_bm: 'Petani melaporkan penjimatan sehingga 40% kos baja sambil mengekalkan atau meningkatkan kualiti hasil.',
-    span: 'md:col-span-1',
+    text_en: 'Save up to 40% compared to premium blends',
+    text_bm: 'Jimat sehingga 40% berbanding baja premium',
   },
 ];
-
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="min-h-screen flex flex-col overflow-auto">
