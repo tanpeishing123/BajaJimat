@@ -446,6 +446,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
           {/* ========== TAB 2: Shopping List ========== */}
           <TabsContent value="shopping" className="mt-0 space-y-4">
+            {/* Tab 2 speaker button */}
+            <div className="flex justify-end">
+              <SpeakerButton text={result.voice_summary} lang={lang} size="sm" />
+            </div>
             {/* NPK Cost Header */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
               className="rounded-2xl p-5 relative overflow-hidden"
