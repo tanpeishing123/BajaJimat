@@ -1,4 +1,5 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Scan, BrainCircuit, TrendingUp, MapPin, Sparkles, PiggyBank } from 'lucide-react';
+import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 
 interface HeroLandingProps {
@@ -14,135 +15,257 @@ const stats = [
   { value: '2', label_bm: 'Bahasa', label_en: 'Languages', sub_bm: 'BM & English', sub_en: 'BM & English' },
 ];
 
+const steps = [
+  {
+    icon: Scan,
+    title_en: 'Analyse Your Soil',
+    title_bm: 'Analisis Tanah',
+    desc_en: 'Upload soil report, enter NPK values, or take a leaf photo',
+    desc_bm: 'Muat naik laporan tanah, masukkan nilai NPK, atau ambil foto daun',
+    step: '01',
+  },
+  {
+    icon: BrainCircuit,
+    title_en: 'AI Optimisation',
+    title_bm: 'Pengoptimuman AI',
+    desc_en: 'Our algorithm calculates the cheapest fertiliser combination for your farm',
+    desc_bm: 'Algoritma kami mengira kombinasi baja paling murah untuk ladang anda',
+    step: '02',
+  },
+  {
+    icon: TrendingUp,
+    title_en: 'Save Money',
+    title_bm: 'Jimat Wang',
+    desc_en: 'Get precise fertiliser list and save up to 40% compared to premium blends',
+    desc_bm: 'Dapatkan senarai baja tepat dan jimat sehingga 40% berbanding baja premium',
+    step: '03',
+  },
+];
+
+const bentoItems = [
+  {
+    icon: MapPin,
+    title_en: 'Localised for Malaysian Soil',
+    title_bm: 'Disesuaikan untuk Tanah Malaysia',
+    desc_en: 'Calibrated for Malaysian soil types including peat, mineral, and coastal soils across all major farming regions.',
+    desc_bm: 'Dikalibrasi untuk jenis tanah Malaysia termasuk tanah gambut, mineral, dan tanah pantai di semua kawasan pertanian utama.',
+    span: 'md:col-span-2',
+  },
+  {
+    icon: Sparkles,
+    title_en: 'AI-Driven Precision',
+    title_bm: 'Ketepatan Dikuasakan AI',
+    desc_en: 'Machine learning models trained on real agricultural data to optimise every kilogram of fertiliser.',
+    desc_bm: 'Model pembelajaran mesin dilatih pada data pertanian sebenar untuk mengoptimumkan setiap kilogram baja.',
+    span: 'md:col-span-1',
+  },
+  {
+    icon: PiggyBank,
+    title_en: 'Maximised ROI',
+    title_bm: 'ROI Dimaksimumkan',
+    desc_en: 'Farmers report saving up to 40% on fertiliser costs while maintaining or improving yield quality.',
+    desc_bm: 'Petani melaporkan penjimatan sehingga 40% kos baja sambil mengekalkan atau meningkatkan kualiti hasil.',
+    span: 'md:col-span-1',
+  },
+];
+
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="h-screen flex flex-col overflow-auto">
+    <div className="min-h-screen flex flex-col overflow-auto">
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[55vh]">
+      <section className="relative min-h-[60vh]">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-primary/30" />
 
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-10">
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-24 pb-14">
           {/* Dual-language headline */}
-          <h1 className="font-serif-display font-bold text-white leading-tight tracking-tight">
-            <span className="block text-2xl md:text-4xl lg:text-5xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="font-serif-display font-bold leading-[1.1] tracking-tight"
+          >
+            <span className="block text-4xl md:text-6xl lg:text-7xl text-white drop-shadow-lg">
               Jimat Baja, Tingkat Hasil
             </span>
-            <span className="block text-sm md:text-lg lg:text-xl text-secondary font-semibold mt-1 opacity-90">
+            <span className="block text-base md:text-xl lg:text-2xl font-body font-medium mt-2 text-accent/90">
               Save on Fertiliser, Boost Your Yield
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="mt-3 text-white/80 font-body text-[11px] md:text-sm max-w-lg leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="mt-4 text-white/75 font-body text-xs md:text-sm max-w-md leading-relaxed"
+          >
             {t(lang,
               'Precise fertiliser recommendations based on real soil science — helping Malaysian farmers save more.',
               'Cadangan baja tepat berdasarkan sains tanah sebenar — membantu petani Malaysia berjimat lebih.'
             )}
-          </p>
+          </motion.p>
 
           {/* Stats row */}
-          <div className="mt-4 flex flex-nowrap items-stretch bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 overflow-visible">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-5 flex flex-nowrap items-stretch bg-white/10 backdrop-blur-md rounded-2xl border border-white/10"
+          >
             {stats.map((s, i) => (
-              <div key={s.value} className={`min-w-[150px] flex-1 text-center px-4 md:px-6 py-2.5 ${i < stats.length - 1 ? 'border-r border-white/15' : ''}`}>
-                <span className="block text-secondary font-body font-bold text-sm md:text-base whitespace-nowrap">
+              <div key={s.value} className={`min-w-[130px] flex-1 text-center px-4 md:px-6 py-3 ${i < stats.length - 1 ? 'border-r border-white/10' : ''}`}>
+                <span className="block font-body font-bold text-sm md:text-base text-accent whitespace-nowrap">
                   {s.value} <span className="text-xs md:text-sm font-semibold text-white/80">{lang === 'bm' ? s.label_bm : s.label_en}</span>
                 </span>
-                <span className="block text-white/50 font-body text-[10px] md:text-xs mt-0.5 whitespace-nowrap">
+                <span className="block text-white/45 font-body text-[10px] md:text-xs mt-0.5 whitespace-nowrap">
                   {lang === 'bm' ? s.sub_bm : s.sub_en}
                 </span>
               </div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-5">
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.7, duration: 0.4 }}
+            className="mt-6"
+          >
             <button
               onClick={onGetStarted}
-              className="px-10 py-3.5 rounded-full btn-gradient-primary font-body font-semibold text-sm md:text-base flex items-center gap-2.5 animate-pulse-ring"
+              className="group px-10 py-4 rounded-full bg-accent text-foreground font-body font-bold text-sm md:text-base flex items-center gap-2.5 shadow-[0_0_24px_hsla(38,92%,50%,0.4)] hover:shadow-[0_0_36px_hsla(38,92%,50%,0.55)] hover:scale-105 active:scale-[0.97] transition-all duration-200"
             >
               {t(lang, 'Get Started', 'Mulakan')}
-              <ArrowRight size={18} />
+              <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Wave separator ── */}
-      <div className="relative -mt-4 z-10">
-        <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-5 md:h-8" preserveAspectRatio="none">
-          <path d="M0 48h1440V18c-120 14-240 22-360 18S840 16 720 12 480 14 360 20 120 36 0 42z" fill="hsl(40 33% 98%)" />
+      {/* ── Elegant wave separator ── */}
+      <div className="relative -mt-6 z-10">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-8 md:h-12" preserveAspectRatio="none">
+          <path d="M0 80h1440V40c-180 20-360 32-540 28S540 40 360 32 120 44 0 56z" fill="hsl(40 33% 98%)" />
         </svg>
       </div>
 
-      {/* ── How It Works Section ── */}
-      <section className="relative bg-cream-brand px-6 md:px-12 py-6 flex flex-col">
-        <div className="w-full flex flex-col items-center">
-          <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight text-center">
-            {t(lang, 'How It Works', 'Cara Penggunaan')}
-          </h2>
+      {/* ── How It Works ── */}
+      <section className="bg-cream-brand px-6 md:px-12 py-10 md:py-14">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <p className="font-body text-xs font-semibold tracking-widest uppercase text-primary/70 mb-1">
+              {t(lang, 'Simple Process', 'Proses Mudah')}
+            </p>
+            <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground">
+              {t(lang, 'How It Works', 'Cara Penggunaan')}
+            </h2>
+          </motion.div>
 
-          <div className="mt-5 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-0 w-full max-w-3xl">
-            {/* Step 1 */}
-            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">📸</div>
-              <p className="font-body font-semibold text-sm text-foreground">
-                {t(lang, 'Analyse Your Soil', 'Analisis Tanah')}
-              </p>
-              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
-                {t(lang,
-                  'Upload soil report, enter NPK values, or take a leaf photo',
-                  'Muat naik laporan tanah, masukkan nilai NPK, atau ambil foto daun'
-                )}
-              </p>
-            </div>
+          <div className="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-6">
+            {steps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15 }}
+                  className="group flex-1 relative"
+                >
+                  {/* Connector arrow (desktop only) */}
+                  {i < steps.length - 1 && (
+                    <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 rounded-full bg-primary/10 items-center justify-center">
+                      <ArrowRight size={12} className="text-primary" />
+                    </div>
+                  )}
 
-            {/* Arrow 1 */}
-            <span className="text-primary font-bold text-xl md:mx-3 rotate-90 md:rotate-0 select-none">→</span>
+                  <div className="h-full flex flex-col items-center text-center bg-card rounded-2xl p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+                    {/* Step number */}
+                    <span className="font-body text-[10px] font-bold tracking-widest text-primary/40 mb-3">{step.step}</span>
 
-            {/* Step 2 */}
-            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">🧮</div>
-              <p className="font-body font-semibold text-sm text-foreground">
-                {t(lang, 'AI Optimisation', 'Pengoptimuman AI')}
-              </p>
-              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
-                {t(lang,
-                  'Our algorithm calculates the cheapest fertiliser combination for your farm',
-                  'Algoritma kami mengira kombinasi baja paling murah untuk ladang anda'
-                )}
-              </p>
-            </div>
+                    {/* Icon */}
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-colors">
+                      <Icon size={26} className="text-primary" strokeWidth={1.5} />
+                    </div>
 
-            {/* Arrow 2 */}
-            <span className="text-primary font-bold text-xl md:mx-3 rotate-90 md:rotate-0 select-none">→</span>
-
-            {/* Step 3 */}
-            <div className="flex-1 flex flex-col items-center text-center bg-card rounded-xl border border-border p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-2xl mb-2">💰</div>
-              <p className="font-body font-semibold text-sm text-foreground">
-                {t(lang, 'Save Money', 'Jimat Wang')}
-              </p>
-              <p className="font-body text-[11px] text-muted-foreground mt-1 leading-relaxed max-w-[180px]">
-                {t(lang,
-                  'Get precise fertiliser list and save up to 40% compared to premium blends',
-                  'Dapatkan senarai baja tepat dan jimat sehingga 40% berbanding baja premium'
-                )}
-              </p>
-            </div>
+                    <p className="font-body font-semibold text-sm text-foreground">
+                      {t(lang, step.title_en, step.title_bm)}
+                    </p>
+                    <p className="font-body text-xs text-muted-foreground mt-1.5 leading-relaxed max-w-[200px]">
+                      {t(lang, step.desc_en, step.desc_bm)}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+      </section>
 
-        {/* Footer */}
-        <div className="w-full mt-6 pt-4 border-t border-border/40 text-center">
-          <p className="text-muted-foreground font-body text-[10px]">
-            {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
-          </p>
-          <p className="text-[9px] text-muted-foreground/50 font-body mt-0.5">© 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾</p>
+      {/* ── Why BajaJimat — Bento Grid ── */}
+      <section className="bg-[hsl(152_30%_96%)] px-6 md:px-12 py-10 md:py-14">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <p className="font-body text-xs font-semibold tracking-widest uppercase text-primary/70 mb-1">
+              {t(lang, 'Built Different', 'Dibina Berbeza')}
+            </p>
+            <h2 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground">
+              {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {bentoItems.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12 }}
+                  className={`${item.span} group rounded-2xl bg-primary p-6 md:p-8 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_24px_-4px_hsla(164,90%,20%,0.25)]`}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-colors">
+                    <Icon size={22} className="text-primary-foreground" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="font-body font-bold text-base md:text-lg text-primary-foreground leading-snug">
+                    {t(lang, item.title_en, item.title_bm)}
+                  </h3>
+                  <p className="font-body text-xs md:text-sm text-primary-foreground/70 mt-2 leading-relaxed">
+                    {t(lang, item.desc_en, item.desc_bm)}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
+
+      {/* ── Footer ── */}
+      <footer className="bg-cream-brand px-6 py-6 border-t border-border/30 text-center">
+        <p className="text-muted-foreground font-body text-[10px]">
+          {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
+        </p>
+        <p className="text-[9px] text-muted-foreground/50 font-body mt-0.5">
+          © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
+        </p>
+      </footer>
     </div>
   );
 }
