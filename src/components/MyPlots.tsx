@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Trash2, FlaskConical, Sprout, Globe, LogOut, MapPin } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SpeakerButton } from './SpeakerButton';
@@ -55,6 +55,11 @@ function savePlots(plots: Plot[]) {
 
 export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onViewHistory }: MyPlotsProps) {
   const [plots, setPlots] = useState<Plot[]>(loadPlots);
+
+  // Reload plots from localStorage whenever this component mounts (e.g. returning from analysis)
+  useEffect(() => {
+    setPlots(loadPlots());
+  }, []);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [plotName, setPlotName] = useState('');
   const [cropType, setCropType] = useState('');
@@ -168,8 +173,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                     </button>
                     <button
                       onClick={() => onViewHistory(plot)}
-                      disabled={!plot.history?.length}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95"
                     >
                       {t(lang, 'View History', 'Lihat Sejarah')}
                       {plot.history?.length ? (
