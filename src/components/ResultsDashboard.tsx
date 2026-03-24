@@ -50,11 +50,13 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
 
-  // Separate liming from fertiliser recommendations
+  // Separate liming, Mg, and fertiliser recommendations
   const limingItems = result.recommendations.filter(r => r.is_liming);
-  const fertItems = result.recommendations.filter(r => !r.is_liming);
+  const mgItems = result.recommendations.filter(r => r.is_mg);
+  const fertItems = result.recommendations.filter(r => !r.is_liming && !r.is_mg);
   const fertTotalCost = fertItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
-  const limingTotalCost = limingItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const mgTotalCost = mgItems.reduce((sum, r) => sum + r.subtotal_rm, 0);
+  const displayTotalCost = fertTotalCost + mgTotalCost;
 
   const defaultTip = lang === 'bm'
     ? 'Periksa kelembapan tanah secara berkala untuk hasil optimum.'
