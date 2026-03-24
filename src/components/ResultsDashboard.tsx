@@ -454,10 +454,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Grand Total */}
             <motion.div custom={1.8} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl border border-border bg-card px-5 py-4 flex items-center justify-between"
+              className="rounded-2xl border-2 border-foreground/20 bg-card px-5 py-5 flex items-center justify-between"
             >
-              <p className="font-sans text-sm font-semibold text-foreground/70">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
-              <p className="text-2xl font-sans font-extrabold text-foreground tabular-nums">
+              <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+              <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
                 RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
               </p>
             </motion.div>
