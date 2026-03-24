@@ -556,7 +556,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </Tabs>
 
       {/* Footer — always visible */}
-      <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
+      <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
