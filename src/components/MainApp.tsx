@@ -411,6 +411,18 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         </svg>
 
         <div className="w-full px-6 md:px-20 py-4">
+          {/* Plot Context Banner */}
+          {plotName && (
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/5 border border-primary/20">
+              <p className="text-xs font-sans font-medium text-primary">
+                {t(
+                  `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
+                  `Analisis untuk: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`
+                )}
+              </p>
+            </div>
+          )}
+
           {/* Page Title */}
           <div className="mb-3">
             <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold mb-1">
