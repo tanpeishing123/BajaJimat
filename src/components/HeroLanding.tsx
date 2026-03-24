@@ -87,7 +87,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Paragraph */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.6, duration: 0.7 }}
             className="mt-4 text-white/75 font-body text-xs md:text-sm max-w-md leading-relaxed"
           >
