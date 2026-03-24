@@ -264,7 +264,8 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         lang={lang}
         result={resultData}
         cropType={profile.crop}
-        onBack={() => { setShowResults(false); setResultData(null); }}
+        onBack={onLogout}
+        backLabel={t('← Back to My Plots', '← Kembali ke Ladang Saya')}
         onToggleLang={onToggleLang}
       />
     );
