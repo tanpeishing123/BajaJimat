@@ -173,9 +173,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       setResultData(result);
       setShowResults(true);
 
-      if (result.voice_summary) {
-        speak(result.voice_summary);
-      }
+      // Voice readout removed — user clicks speaker button manually
     } catch (err: any) {
       setErrorMsg(err.message || 'Something went wrong');
     } finally {
