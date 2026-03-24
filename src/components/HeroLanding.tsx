@@ -202,137 +202,73 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           </div>
         </section>
 
-        {/* ── Why BajaJimat — Bento Grid ── */}
-        <section className="relative px-6 md:px-12 py-20 md:py-28">
+        {/* ── Why BajaJimat — Two-Column Split ── */}
+        <section className="relative px-6 md:px-12 py-24 md:py-32">
           <div className="max-w-5xl mx-auto">
-            {/* Section header */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground">
-                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
-              </h2>
-              <p className="mt-3 font-body text-base md:text-lg text-muted-foreground leading-[1.8] max-w-xl mx-auto">
-                {t(lang,
-                  'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
-                  'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
-                )}
-              </p>
-            </motion.div>
-
-            {/* Bento grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-              {/* Large feature card — spans 2 cols */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+              {/* Left — Farmer Image */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-                className="md:col-span-2 group"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, margin: '-60px' }}
+                transition={{ duration: 0.7 }}
               >
-                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-8 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col md:flex-row items-center gap-6">
-                  <img
-                    src={farmerImg}
-                    alt="Malaysian farmer working in a lush green field"
-                    loading="lazy"
-                    className="w-full md:w-48 h-40 md:h-48 object-cover rounded-xl shrink-0"
-                  />
-                  <div>
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                      <Search size={20} className="text-primary" strokeWidth={1.8} />
-                    </div>
-                    <h3 className="font-body font-bold text-lg text-foreground leading-tight">
-                      {t(lang, 'Localised for Malaysian Soil', 'Khusus untuk Tanah Malaysia')}
-                    </h3>
-                    <p className="font-body text-sm text-muted-foreground mt-2 leading-[1.8]">
-                      {t(lang,
-                        'Identify soil nutrient deficiencies with analysis built specifically for Malaysian crop conditions and soil types.',
-                        'Kenal pasti kekurangan nutrien tanah dengan analisis yang dibina khusus untuk keadaan tanaman dan jenis tanah Malaysia.'
-                      )}
-                    </p>
-                  </div>
-                </div>
+                <img
+                  src={farmerImg}
+                  alt="Malaysian farmer working in a lush green field"
+                  loading="lazy"
+                  className="w-full h-[320px] md:h-[440px] object-cover rounded-3xl shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]"
+                />
               </motion.div>
 
-              {/* Tall card */}
+              {/* Right — Copy & Checklist */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="md:row-span-2 group"
+                viewport={{ once: false, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="flex flex-col justify-center space-y-6"
               >
-                <div className="h-full bg-primary rounded-2xl p-8 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.15)] transition-all duration-300 flex flex-col justify-between">
-                  <div>
-                    <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                      <Sprout size={20} className="text-accent" strokeWidth={1.8} />
-                    </div>
-                    <h3 className="font-body font-bold text-lg text-primary-foreground leading-tight">
-                      {t(lang, 'Save Up to 40%', 'Jimat Sehingga 40%')}
-                    </h3>
-                    <p className="font-body text-sm text-primary-foreground/70 mt-2 leading-[1.8]">
-                      {t(lang,
-                        'Compared to premium blends — same results, lower cost. Our optimizer finds the cheapest combination that meets your soil\'s exact needs.',
-                        'Berbanding baja premium — hasil sama, kos lebih rendah. Pengoptimum kami mencari kombinasi termurah yang memenuhi keperluan tepat tanah anda.'
-                      )}
-                    </p>
-                  </div>
-                  <div className="mt-6 flex items-baseline gap-2">
-                    <span className="font-body font-extrabold text-5xl text-accent">40%</span>
-                    <span className="font-body text-sm text-primary-foreground/60">{t(lang, 'avg. savings', 'purata jimat')}</span>
-                  </div>
-                </div>
-              </motion.div>
+                <h2 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground leading-[1.15]">
+                  {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
+                </h2>
 
-              {/* Bottom-left cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: 0.25, duration: 0.5 }}
-                className="group"
-              >
-                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                    <BrainCircuit size={20} className="text-primary" strokeWidth={1.8} />
-                  </div>
-                  <h3 className="font-body font-bold text-sm text-foreground">
-                    {t(lang, 'AI-Driven Precision', 'Ketepatan Dipacu AI')}
-                  </h3>
-                  <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7]">
-                    {t(lang,
-                      'Smart algorithms optimise fertiliser ratios for maximum yield at minimum cost.',
-                      'Algoritma pintar mengoptimumkan nisbah baja untuk hasil maksimum pada kos minimum.'
-                    )}
-                  </p>
-                </div>
-              </motion.div>
+                <p className="font-body text-base md:text-lg text-muted-foreground leading-[1.9] max-w-md">
+                  {t(lang,
+                    'Every year, Malaysian farmers waste money buying the wrong or overpriced fertilisers.',
+                    'Setiap tahun, petani Malaysia membazir wang membeli baja yang salah atau terlalu mahal.'
+                  )}
+                </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="group"
-              >
-                <div className="h-full bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-6 shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.1)] transition-all duration-300">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                    <DollarSign size={20} className="text-primary" strokeWidth={1.8} />
-                  </div>
-                  <h3 className="font-body font-bold text-sm text-foreground">
-                    {t(lang, 'Maximised ROI', 'ROI Dimaksimumkan')}
-                  </h3>
-                  <p className="font-body text-xs text-muted-foreground mt-1.5 leading-[1.7]">
-                    {t(lang,
-                      'Get the most affordable fertiliser recommendations tailored to your farm.',
-                      'Dapatkan cadangan baja paling berpatutan yang disesuaikan untuk ladang anda.'
-                    )}
-                  </p>
-                </div>
+                <p className="font-body font-bold text-sm text-foreground">
+                  {t(lang, 'BajaJimat helps you:', 'BajaJimat membantu anda:')}
+                </p>
+
+                <ul className="space-y-4">
+                  {[
+                    { en: 'Identify soil nutrient deficiencies', bm: 'Kenal pasti kekurangan nutrien tanah' },
+                    { en: 'Get the most affordable fertiliser recommendations', bm: 'Dapatkan cadangan baja paling berpatutan' },
+                    { en: 'Save up to 40% compared to premium blends', bm: 'Jimat sehingga 40% berbanding baja premium' },
+                  ].map((item, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: false, margin: '-30px' }}
+                      transition={{ delay: 0.25 + i * 0.1, duration: 0.45 }}
+                      className="flex items-start gap-3"
+                    >
+                      <span className="mt-0.5 flex-shrink-0 w-6 h-6 rounded-full bg-primary/15 flex items-center justify-center">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-primary">
+                          <path d="M3 7.5L5.5 10L11 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                      <span className="font-body text-sm md:text-base text-foreground leading-[1.7]">
+                        {t(lang, item.en, item.bm)}
+                      </span>
+                    </motion.li>
+                  ))}
+                </ul>
               </motion.div>
             </div>
           </div>
