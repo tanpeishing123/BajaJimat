@@ -326,8 +326,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className="flex items-center gap-1.5 flex-wrap"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/60 border border-border/40">
-                <p className="text-xs text-muted-foreground font-sans">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                <span className="text-xs">🌱</span>
+                <p className="text-xs font-medium text-primary font-sans">
                   {cropType || '-'} · {farmSize || '-'} ha · {result.soil_type || '-'}
                 </p>
                 {result.crop_requirements_source === 'ai' && (
