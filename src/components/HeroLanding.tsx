@@ -18,7 +18,7 @@ const stats = [
 
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-auto">
       {/* ── Hero Section ── */}
       <section className="relative flex-[50] min-h-0">
         <img
