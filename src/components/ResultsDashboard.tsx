@@ -309,96 +309,74 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4">
           {/* ========== TAB 1: Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-4">
-            {/* 1. Confidence Badge */}
-            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex flex-wrap items-center gap-2">
-              <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold ${confidenceColor}`}>
-                {confidenceLabel}
-              </span>
-              {result.crop_requirements_source === 'ai' && (
-                <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-sans font-semibold">
-                  ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+            {/* Tab speaker button + Confidence Badge row */}
+            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold ${confidenceColor}`}>
+                  {confidenceLabel}
                 </span>
-              )}
+              </div>
+              <SpeakerButton
+                text={t(lang,
+                  `Crop ${cropType || 'unknown'}, size ${farmSize || 'unknown'} hectares, soil ${result.soil_type || 'unknown'}. Nitrogen deficit ${result.n_deficit_kg} kg, phosphorus ${result.p_deficit_kg} kg, potassium ${result.k_deficit_kg} kg.${result.liming_needed ? ' Soil pH is low, liming required.' : ''}`,
+                  `Tanaman ${cropType || 'tidak diketahui'}, keluasan ${farmSize || 'tidak diketahui'} hektar, tanah ${result.soil_type || 'tidak diketahui'}. Defisit nitrogen ${result.n_deficit_kg} kg, fosforus ${result.p_deficit_kg} kg, kalium ${result.k_deficit_kg} kg.${result.liming_needed ? ' pH tanah rendah, pengapuran diperlukan.' : ''}`
+                )}
+                lang={lang}
+                size="sm"
+              />
             </motion.div>
 
-            {/* 2. pH Warning Card */}
-            {result.liming_needed && limingItems.length > 0 && (
-              <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 flex items-start gap-3"
-              >
-                <div className="w-9 h-9 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
-                  <AlertTriangle size={18} className="text-amber-700" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-sans text-sm font-bold text-amber-800 mb-1">
-                    ⚠️ {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Pengapuran Diperlukan')}
-                  </p>
-                  {limingItems[0].reason && (
-                    <p className="text-xs text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
-                  )}
-                  {limingItems.map((lim) => (
-                    <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
-                      <span className="font-semibold">{lim.name}</span>
-                      <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
-                      <span className="font-bold">= RM{lim.subtotal_rm}</span>
-                    </div>
-                  ))}
-                  <p className="text-[10px] text-amber-600/70 font-sans mt-2 leading-relaxed">
-                    {t(lang,
-                      'One-time cost, not included in annual fertiliser total',
-                      'Kos sekali sahaja, tidak termasuk dalam jumlah baja tahunan'
-                    )}
-                  </p>
-                </div>
-                <SpeakerButton
-                  text={t(lang,
-                    `Low soil pH. Liming required. ${limingItems.map(l => `${l.bags} bags of ${l.name}, total RM${l.subtotal_rm}`).join('. ')}.`,
-                    `pH tanah rendah. Pengapuran diperlukan. ${limingItems.map(l => `${l.bags} beg ${l.name}, jumlah RM${l.subtotal_rm}`).join('. ')}.`
-                  )}
-                  lang={lang}
-                  size="sm"
-                />
-              </motion.div>
-            )}
-
-            {/* 3. Soil Health Score Ring */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl bg-card border border-border/40 p-5 shadow-sm flex flex-col items-center"
+            {/* 2. Farm Info Card */}
+            <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl bg-card border border-border/40 p-5 shadow-sm"
             >
-              <p className="font-sans text-sm font-bold text-foreground mb-3">
-                {t(lang, 'Soil Health Score', 'Skor Kesihatan Tanah')}
-              </p>
-              <div className="relative">
-                <SoilHealthRing score={soilScore} label={soilLabel} />
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">🌱</span>
+                <h3 className="font-sans text-sm font-bold text-foreground">
+                  {t(lang, 'Farm Info', 'Maklumat Ladang')}
+                </h3>
+                {result.crop_requirements_source === 'ai' && (
+                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold ml-auto">
+                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-sm font-sans">
+                <div>
+                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Crop', 'Tanaman')}</p>
+                  <p className="font-semibold text-foreground">{cropType || '-'}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Size', 'Keluasan')}</p>
+                  <p className="font-semibold text-foreground">{farmSize || '-'} {t(lang, 'hectares', 'hektar')}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Soil Type', 'Jenis Tanah')}</p>
+                  <p className="font-semibold text-foreground">{result.soil_type || '-'}</p>
+                </div>
+                <div>
+                  <p className="text-[11px] text-muted-foreground">{t(lang, 'Input Method', 'Kaedah Input')}</p>
+                  <p className="font-semibold text-foreground capitalize">{result.input_mode?.replace('_', ' ') || '-'}</p>
+                </div>
               </div>
             </motion.div>
 
-            {/* 4. Radar Chart */}
+            {/* 3. Nutrient Deficit Section */}
             <motion.div
-              custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
+              custom={1} variants={fadeUp} initial="hidden" animate="visible"
               className="rounded-2xl p-5 shadow-sm relative overflow-hidden"
               style={{ background: 'linear-gradient(160deg, #0a1f1a 0%, #0d2b23 50%, #061a15 100%)' }}
             >
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="w-48 h-48 rounded-full" style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%)' }} />
               </div>
-              <div className="flex items-center justify-between mb-2 relative z-10">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                    <TrendingDown size={14} className="text-emerald-400" />
-                  </div>
-                  <h3 className="font-sans text-sm font-bold text-emerald-50">
-                    {t(lang, 'NPK Deficit Analysis', 'Analisis Defisit NPK')}
-                  </h3>
+              <div className="flex items-center gap-2 mb-2 relative z-10">
+                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                  <TrendingDown size={14} className="text-emerald-400" />
                 </div>
-                <SpeakerButton
-                  text={t(lang,
-                    `Nitrogen deficit ${result.n_deficit_kg} kg, phosphorus ${result.p_deficit_kg} kg, potassium ${result.k_deficit_kg} kg.`,
-                    `Defisit nitrogen ${result.n_deficit_kg} kg, fosforus ${result.p_deficit_kg} kg, kalium ${result.k_deficit_kg} kg.`
-                  )}
-                  lang={lang}
-                  size="sm"
-                />
+                <h3 className="font-sans text-sm font-bold text-emerald-50">
+                  {t(lang, 'Nutrient Deficit', 'Defisit Nutrien')}
+                </h3>
               </div>
               <div className="h-[200px] relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
@@ -416,8 +394,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-
-              {/* 5. N-P-K Deficit Pills */}
+              {/* N-P-K Deficit Pills */}
               <div className="flex justify-center gap-3 mt-2 relative z-10">
                 {[
                   { nutrient: 'N', value: result.n_deficit_kg, bg: 'bg-blue-500/20', text: 'text-blue-300', border: 'border-blue-400/30' },
@@ -432,28 +409,39 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
-            {/* 6. Crop Info Card */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl bg-card border border-border/40 p-4 shadow-sm"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Sprout size={18} className="text-primary" />
+            {/* 4. pH Warning Card */}
+            {result.liming_needed && limingItems.length > 0 && (
+              <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
+                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+                    <AlertTriangle size={18} className="text-amber-700" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-sm font-bold text-amber-800 mb-1">
+                      ⚠️ {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Pengapuran Diperlukan')}
+                    </p>
+                    {limingItems[0].reason && (
+                      <p className="text-xs text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
+                    )}
+                    {limingItems.map((lim) => (
+                      <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
+                        <span className="font-semibold">{lim.name}</span>
+                        <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
+                        <span className="font-bold">= RM{lim.subtotal_rm}</span>
+                      </div>
+                    ))}
+                    <p className="text-[10px] text-amber-600/70 font-sans mt-2 leading-relaxed">
+                      {t(lang,
+                        'One-time cost, not included in annual fertiliser total',
+                        'Kos sekali sahaja, tidak termasuk dalam jumlah baja tahunan'
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-sans text-sm font-semibold text-foreground">{cropType || '-'}</p>
-                  <p className="text-xs text-muted-foreground font-sans">
-                    {farmSize || '-'} {t(lang, 'ha', 'hektar')}
-                    {result.soil_type ? ` · ${result.soil_type}` : ''}
-                  </p>
-                </div>
-                {result.crop_requirements_source === 'ai' && (
-                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold shrink-0">
-                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                  </span>
-                )}
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
           </TabsContent>
 
           {/* ========== TAB 2: Shopping List ========== */}
