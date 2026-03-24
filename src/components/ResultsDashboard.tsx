@@ -326,14 +326,16 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className="flex items-center gap-1.5 flex-wrap"
             >
-              <p className="text-xs text-muted-foreground font-sans">
-                {cropType || '-'} · {farmSize || '-'} ha · {result.soil_type || '-'}
-              </p>
-              {result.crop_requirements_source === 'ai' && (
-                <span className="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[9px] font-sans font-semibold">
-                  ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                </span>
-              )}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/60 border border-border/40">
+                <p className="text-xs text-muted-foreground font-sans">
+                  {cropType || '-'} · {farmSize || '-'} ha · {result.soil_type || '-'}
+                </p>
+                {result.crop_requirements_source === 'ai' && (
+                  <span className="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[9px] font-sans font-semibold">
+                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                  </span>
+                )}
+              </div>
             </motion.div>
 
             {/* 3. Nutrient Deficit Section */}
