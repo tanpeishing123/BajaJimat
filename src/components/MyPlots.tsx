@@ -3,6 +3,8 @@ import { Plus, Trash2, FlaskConical, Sprout, Globe, LogOut, MapPin } from 'lucid
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SpeakerButton } from './SpeakerButton';
 
+import type { HistoryEntry } from './PlotHistory';
+
 export interface Plot {
   id: string;
   name: string;
@@ -10,6 +12,7 @@ export interface Plot {
   farm_size_ha: number;
   soil_type: string;
   last_cost: number | null;
+  history?: HistoryEntry[];
 }
 
 interface MyPlotsProps {
