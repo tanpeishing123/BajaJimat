@@ -131,7 +131,10 @@ const Index = () => {
             plotName={freshPlot?.name || ''}
             history={freshPlot?.history || []}
             lang={lang}
+            cropType={freshPlot?.crop_type}
+            farmSize={String(freshPlot?.farm_size_ha || '')}
             onBack={handleBackToPlots}
+            onToggleLang={toggleLang}
           />
         );
       })()}
