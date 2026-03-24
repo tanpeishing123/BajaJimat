@@ -203,7 +203,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </section>
 
       {/* ── Why BajaJimat ── */}
-      <section className="bg-[hsl(40_33%_96%)] px-6 md:px-12 py-12 md:py-16">
+      <section className="px-6 md:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left — The Problem */}
           <motion.div
