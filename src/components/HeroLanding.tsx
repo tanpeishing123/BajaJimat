@@ -80,13 +80,11 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Why BajaJimat Section ── */}
-      <section className="relative bg-cream-brand flex-[50] min-h-0 px-6 md:px-12 pb-4 pt-1 flex flex-col overflow-hidden">
-        <div className="w-full flex-1 min-h-0 flex flex-col">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start flex-1 min-h-0">
+      <section className="relative bg-cream-brand px-6 md:px-12 py-6 flex flex-col">
+        <div className="w-full flex flex-col">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
             {/* Left — Text */}
             <div className="md:w-[50%] pt-1 flex flex-col">
-              <span className="inline-block text-accent font-body font-semibold text-[9px] uppercase tracking-[0.2em] mb-0.5">
-                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </span>
               <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
                 {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
