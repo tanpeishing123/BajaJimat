@@ -627,7 +627,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <p className="font-sans text-sm text-emerald-200 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
                 </div>
-                {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
+                
               </div>
             </motion.div>
 
