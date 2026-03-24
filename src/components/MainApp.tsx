@@ -106,6 +106,8 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   const [resultData, setResultData] = useState<ResultData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showTreatment, setShowTreatment] = useState(false);
+  const [treatmentIssue, setTreatmentIssue] = useState<{ name: string; severity: string; evidence: string } | null>(null);
   const { speak } = useSpeech(lang);
 
   const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
