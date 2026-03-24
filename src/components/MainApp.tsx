@@ -87,12 +87,12 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
         },
         body: JSON.stringify({
           input_mode: 'manual',
-          soil_npk: { n_ppm: n, p_ppm: p, k_ppm: k, confidence: 'high' },
+          soil_npk: { n_ppm: n, p_ppm: p, k_ppm: k, ph: ph ?? null, mg_ppm: mg ?? 0, confidence: 'high' },
           crop_type: cropType,
           farm_size_ha: farmSize,
           soil_type: soilType,
           ph: ph ?? null,
-          mg_ppm: mg ?? null,
+          mg_ppm: mg ?? 0,
           lang,
         }),
       });
