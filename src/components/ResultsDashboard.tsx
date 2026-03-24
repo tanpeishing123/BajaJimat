@@ -49,6 +49,37 @@ const RadarDot = (props: any) => {
   return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
 };
 
+/* Circular progress ring */
+function SoilHealthRing({ score, label }: { score: number; label: string }) {
+  const size = 140;
+  const strokeWidth = 10;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (score / 100) * circumference;
+  const color = score >= 80 ? '#22c55e' : score >= 60 ? '#eab308' : score >= 40 ? '#f97316' : '#ef4444';
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="hsl(var(--muted))" strokeWidth={strokeWidth} />
+        <circle
+          cx={size / 2} cy={size / 2} r={radius} fill="none"
+          stroke={color} strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - progress}
+          strokeLinecap="round"
+          className="transition-all duration-1000 ease-out"
+        />
+      </svg>
+      <div className="absolute flex flex-col items-center justify-center" style={{ width: size, height: size }}>
+        <span className="text-3xl font-extrabold font-sans text-foreground">{score}</span>
+        <span className="text-[10px] font-sans text-muted-foreground font-medium">/100</span>
+      </div>
+      <span className="text-xs font-sans font-semibold" style={{ color }}>{label}</span>
+    </div>
+  );
+}
+
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
@@ -114,6 +145,21 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
     : result.confidence === 'medium'
     ? 'bg-amber-100 text-amber-700'
     : 'bg-orange-100 text-orange-700';
+
+  // Soil Health Score
+  let soilScore = 100;
+  if (result.n_deficit_kg > 100) soilScore -= 25;
+  if (result.p_deficit_kg > 50) soilScore -= 25;
+  if (result.k_deficit_kg > 200) soilScore -= 25;
+  if (result.liming_needed) soilScore -= 25;
+
+  const soilLabel = soilScore >= 80
+    ? t(lang, 'Healthy Soil', 'Tanah Sihat')
+    : soilScore >= 60
+    ? t(lang, 'Fair', 'Sederhana')
+    : soilScore >= 40
+    ? t(lang, 'Poor', 'Lemah')
+    : t(lang, 'Critical', 'Kritikal');
 
   const currentDate = new Date().toLocaleDateString(lang === 'bm' ? 'ms-MY' : 'en-MY', {
     day: 'numeric', month: 'long', year: 'numeric',
@@ -210,7 +256,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           <p>bajajimat.lovable.app</p>
         </div>
       </div>
-      {/* Header — always visible (hidden in print) */}
+
+      {/* Header */}
       <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -262,16 +309,11 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4">
           {/* ========== TAB 1: Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-4">
-            {/* Badges */}
+            {/* 1. Confidence Badge */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex flex-wrap items-center gap-2">
               <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold ${confidenceColor}`}>
                 {confidenceLabel}
               </span>
-              {result.soil_type && (
-                <span className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-sans font-medium">
-                  {t(lang, 'Soil', 'Tanah')}: {result.soil_type}
-                </span>
-              )}
               {result.crop_requirements_source === 'ai' && (
                 <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-sans font-semibold">
                   ✨ {t(lang, 'AI Generated', 'Dijana AI')}
@@ -279,9 +321,61 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               )}
             </motion.div>
 
-            {/* Radar Chart */}
+            {/* 2. pH Warning Card */}
+            {result.liming_needed && limingItems.length > 0 && (
+              <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
+                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 flex items-start gap-3"
+              >
+                <div className="w-9 h-9 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+                  <AlertTriangle size={18} className="text-amber-700" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-sans text-sm font-bold text-amber-800 mb-1">
+                    ⚠️ {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Pengapuran Diperlukan')}
+                  </p>
+                  {limingItems[0].reason && (
+                    <p className="text-xs text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
+                  )}
+                  {limingItems.map((lim) => (
+                    <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
+                      <span className="font-semibold">{lim.name}</span>
+                      <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
+                      <span className="font-bold">= RM{lim.subtotal_rm}</span>
+                    </div>
+                  ))}
+                  <p className="text-[10px] text-amber-600/70 font-sans mt-2 leading-relaxed">
+                    {t(lang,
+                      'One-time cost, not included in annual fertiliser total',
+                      'Kos sekali sahaja, tidak termasuk dalam jumlah baja tahunan'
+                    )}
+                  </p>
+                </div>
+                <SpeakerButton
+                  text={t(lang,
+                    `Low soil pH. Liming required. ${limingItems.map(l => `${l.bags} bags of ${l.name}, total RM${l.subtotal_rm}`).join('. ')}.`,
+                    `pH tanah rendah. Pengapuran diperlukan. ${limingItems.map(l => `${l.bags} beg ${l.name}, jumlah RM${l.subtotal_rm}`).join('. ')}.`
+                  )}
+                  lang={lang}
+                  size="sm"
+                />
+              </motion.div>
+            )}
+
+            {/* 3. Soil Health Score Ring */}
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl bg-card border border-border/40 p-5 shadow-sm flex flex-col items-center"
+            >
+              <p className="font-sans text-sm font-bold text-foreground mb-3">
+                {t(lang, 'Soil Health Score', 'Skor Kesihatan Tanah')}
+              </p>
+              <div className="relative">
+                <SoilHealthRing score={soilScore} label={soilLabel} />
+              </div>
+            </motion.div>
+
+            {/* 4. Radar Chart */}
             <motion.div
-              custom={1} variants={fadeUp} initial="hidden" animate="visible"
+              custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
               className="rounded-2xl p-5 shadow-sm relative overflow-hidden"
               style={{ background: 'linear-gradient(160deg, #0a1f1a 0%, #0d2b23 50%, #061a15 100%)' }}
             >
@@ -306,7 +400,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   size="sm"
                 />
               </div>
-              <div className="h-[220px] relative z-10">
+              <div className="h-[200px] relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="72%" data={radarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.08)" />
@@ -322,59 +416,44 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex justify-center gap-4 mt-2 relative z-10">
+
+              {/* 5. N-P-K Deficit Pills */}
+              <div className="flex justify-center gap-3 mt-2 relative z-10">
                 {[
                   { nutrient: 'N', value: result.n_deficit_kg, bg: 'bg-blue-500/20', text: 'text-blue-300', border: 'border-blue-400/30' },
                   { nutrient: 'P', value: result.p_deficit_kg, bg: 'bg-orange-500/20', text: 'text-orange-300', border: 'border-orange-400/30' },
                   { nutrient: 'K', value: result.k_deficit_kg, bg: 'bg-emerald-500/20', text: 'text-emerald-300', border: 'border-emerald-400/30' },
                 ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-2 px-4 py-2 rounded-full ${d.bg} border ${d.border}`}>
+                  <div key={d.nutrient} className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${d.bg} border ${d.border}`}>
                     <span className={`text-xs font-bold font-sans ${d.text}`}>{d.nutrient}</span>
-                    <span className="text-sm font-bold text-white font-sans tabular-nums">{d.value} kg</span>
+                    <span className="text-sm font-bold text-white font-sans tabular-nums">{d.value}kg</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* pH / Liming Warning */}
-            {limingItems.length > 0 && (
-              <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 flex items-start gap-3"
-              >
-                <div className="w-9 h-9 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
-                  <AlertTriangle size={18} className="text-amber-700" />
+            {/* 6. Crop Info Card */}
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl bg-card border border-border/40 p-4 shadow-sm"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Sprout size={18} className="text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-sans text-sm font-bold text-amber-800 mb-1">
-                    {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Kapur Diperlukan')}
-                  </p>
-                  {limingItems[0].reason && (
-                    <p className="text-xs text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
-                  )}
-                  {limingItems.map((lim) => (
-                    <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
-                      <span className="font-semibold">{lim.name}</span>
-                      <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
-                      <span className="font-bold">= RM{lim.subtotal_rm}</span>
-                    </div>
-                  ))}
-                  <p className="text-[10px] text-amber-600/70 font-sans mt-2 leading-relaxed">
-                    {t(lang,
-                      'Liming is a one-time cost, not included in annual fertiliser total.',
-                      'Kos pengapuran adalah kos sekali sahaja, tidak termasuk dalam jumlah baja tahunan.'
-                    )}
+                  <p className="font-sans text-sm font-semibold text-foreground">{cropType || '-'}</p>
+                  <p className="text-xs text-muted-foreground font-sans">
+                    {farmSize || '-'} {t(lang, 'ha', 'hektar')}
+                    {result.soil_type ? ` · ${result.soil_type}` : ''}
                   </p>
                 </div>
-                <SpeakerButton
-                  text={t(lang,
-                    `Low soil pH. Liming required. ${limingItems.map(l => `${l.bags} bags of ${l.name}, total RM${l.subtotal_rm}`).join('. ')}.`,
-                    `pH tanah rendah. Kapur diperlukan. ${limingItems.map(l => `${l.bags} beg ${l.name}, jumlah RM${l.subtotal_rm}`).join('. ')}.`
-                  )}
-                  lang={lang}
-                  size="sm"
-                />
-              </motion.div>
-            )}
+                {result.crop_requirements_source === 'ai' && (
+                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold shrink-0">
+                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                  </span>
+                )}
+              </div>
+            </motion.div>
           </TabsContent>
 
           {/* ========== TAB 2: Shopping List ========== */}
@@ -554,8 +633,28 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
+            {/* pH Liming Advice */}
+            {result.liming_needed && (
+              <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+                className="rounded-2xl border border-amber-200 bg-amber-50 p-5"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">🧪</span>
+                  <p className="font-sans text-sm font-bold text-amber-800">
+                    {t(lang, 'Liming Method', 'Cara Pengapuran')}
+                  </p>
+                </div>
+                <p className="font-sans text-sm text-amber-700 leading-relaxed">
+                  {t(lang,
+                    'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
+                    'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
+                  )}
+                </p>
+              </motion.div>
+            )}
+
             {/* Nearby Shops Button */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
+            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible">
               <a
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
@@ -568,7 +667,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* AI Disclaimer */}
-            <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible">
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
               <p className="text-center text-[11px] text-muted-foreground font-sans italic leading-relaxed">
                 ⚠️ {t(lang,
                   'Advice generated by AI, verify with agricultural expert',
@@ -580,7 +679,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         </div>
       </Tabs>
 
-      {/* Footer — always visible */}
+      {/* Footer */}
       <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center gap-3">
           <button
