@@ -10,6 +10,12 @@ interface HeroLandingProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
+const stats = [
+  { value: '40% Jimat', sub_bm: 'vs baja premium', sub_en: 'vs premium fertiliser' },
+  { value: '3 Cara Analisis', sub_bm: 'Laporan, Manual, Foto', sub_en: 'Report, Manual, Photo' },
+  { value: '2 Bahasa', sub_bm: 'BM & English', sub_en: 'BM & English' },
+];
+
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
@@ -20,33 +26,49 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           alt="Malaysian palm oil plantation at golden hour"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
 
         <div className="relative h-full flex items-end pb-8 md:pb-10 pt-[88px] px-6 md:px-12">
-          <div className="w-full">
+          <div className="w-full max-w-2xl">
+            {/* Dual-language headline */}
             <h1
-              className="text-[1.7rem] md:text-4xl lg:text-[3rem] font-serif-display font-bold text-white leading-[1.06] tracking-tight max-w-xl"
-              style={{ textShadow: '0 2px 16px rgba(0,0,0,0.25)' }}
+              className="font-serif-display font-bold text-white leading-[1.06] tracking-tight"
+              style={{ textShadow: '0 2px 16px rgba(0,0,0,0.3)' }}
             >
-              {t(lang, 'Precision Fertilizer,', 'Baja Tepat,')}
-              <br />
-              <span className="text-secondary">
-                {t(lang, 'Maximum Savings', 'Jimat Maksimum')}
+              <span className="block text-[1.8rem] md:text-[2.6rem] lg:text-[3.2rem]">
+                Jimat Baja, Tingkat Hasil
+              </span>
+              <span className="block text-base md:text-xl lg:text-2xl text-secondary font-semibold mt-0.5 opacity-90">
+                Save on Fertiliser, Boost Your Yield
               </span>
             </h1>
-            <p className="mt-2 text-white/85 font-body text-xs md:text-sm max-w-md leading-relaxed">
+
+            <p className="mt-2.5 text-white/85 font-body text-[11px] md:text-sm max-w-lg leading-relaxed">
               {t(lang,
-                'AI-driven nutrient analysis for Malaysian farmers. Reduce waste, cut costs by up to 40%.',
-                'Analisis nutrien berteraskan AI untuk petani Malaysia. Kurangkan pembaziran, jimat sehingga 40%.'
+                'Precise fertiliser recommendations based on real soil science — helping Malaysian farmers save more.',
+                'Cadangan baja tepat berdasarkan sains tanah sebenar — membantu petani Malaysia berjimat lebih.'
               )}
             </p>
-            <div className="mt-4">
+
+            {/* Stats row */}
+            <div className="flex gap-4 md:gap-6 mt-3">
+              {stats.map((s) => (
+                <div key={s.value} className="text-center">
+                  <span className="block text-secondary font-body font-bold text-xs md:text-sm">{s.value}</span>
+                  <span className="block text-white/60 font-body text-[9px] md:text-[10px] mt-0.5">
+                    {lang === 'bm' ? s.sub_bm : s.sub_en}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5">
               <button
                 onClick={onGetStarted}
-                className="px-6 py-2.5 rounded-full btn-gradient-primary font-body font-semibold text-sm flex items-center gap-2"
+                className="px-8 py-3 rounded-full btn-gradient-primary font-body font-semibold text-sm md:text-base flex items-center gap-2.5 animate-pulse-ring"
               >
                 {t(lang, 'Get Started', 'Mulakan')}
-                <ArrowRight size={15} />
+                <ArrowRight size={17} />
               </button>
             </div>
           </div>
@@ -60,9 +82,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </svg>
       </div>
 
-      {/* ── Storytelling Section ── */}
+      {/* ── Why BajaJimat Section ── */}
       <section className="relative bg-cream-brand flex-[45] min-h-0 px-6 md:px-12 pb-8 pt-1 flex flex-col">
-        {/* Decorative leaves */}
         <div className="absolute top-2 left-4 opacity-[0.04] pointer-events-none">
           <Leaf size={48} className="text-primary -rotate-12" />
         </div>
@@ -75,15 +96,15 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             {/* Left — Text */}
             <div className="md:w-[42%] pt-1">
               <span className="inline-block text-accent font-body font-semibold text-[9px] uppercase tracking-[0.2em] mb-1">
-                {t(lang, 'Our Mission', 'Misi Kami')}
+                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </span>
               <h2 className="font-serif-display text-lg md:text-xl lg:text-2xl font-bold text-foreground leading-[1.12] tracking-tight">
-                {t(lang, 'Strengthen Your Harvest', 'Perkasa Hasil Tani Anda')}
+                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </h2>
               <p className="mt-2 text-muted-foreground font-body text-xs leading-relaxed max-w-sm">
                 {t(lang,
-                  'We combine soil science with smart algorithms to deliver the most cost-effective fertilizer plans — tailored to your land, your crop, and your budget.',
-                  'Kami menggabungkan sains tanah dengan algoritma pintar untuk memberikan pelan baja paling kos efektif — disesuaikan untuk tanah, tanaman, dan bajet anda.'
+                  'Malaysian farmers waste thousands of ringgit every year buying the wrong or overpriced fertilisers. BajaJimat uses AI and mathematical optimization to recommend the cheapest fertiliser combination based on your actual soil nutrient content.',
+                  'Petani Malaysia membazir ribuan ringgit setiap tahun membeli baja yang salah atau terlalu mahal. BajaJimat menggunakan AI dan pengoptimum matematik untuk mencadangkan kombinasi baja paling murah berdasarkan kandungan nutrien tanah sebenar anda.'
                 )}
               </p>
               <svg className="mt-2 w-16 h-4 text-accent opacity-50" viewBox="0 0 96 24" fill="none">
@@ -108,11 +129,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   className="w-full h-28 md:h-36 object-cover"
                 />
               </div>
-              <svg className="absolute -bottom-1 right-3 w-10 h-6 opacity-[0.06] pointer-events-none" viewBox="0 0 56 40" fill="none">
-                <rect x="8" y="14" width="28" height="14" rx="3" stroke="hsl(var(--foreground))" strokeWidth="1.5" />
-                <circle cx="14" cy="32" r="6" stroke="hsl(var(--foreground))" strokeWidth="1.5" />
-                <circle cx="34" cy="32" r="4" stroke="hsl(var(--foreground))" strokeWidth="1.5" />
-              </svg>
             </div>
           </div>
         </div>
@@ -121,7 +137,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <div className="w-full pt-2 border-t border-border/40 flex items-center justify-between">
           <div>
             <p className="text-muted-foreground font-body text-[10px]">
-              {t(lang, 'Join thousands of Malaysian farmers already saving on fertilizer costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
+              {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
             </p>
             <p className="text-[9px] text-muted-foreground/50 font-body mt-0.5">© 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾</p>
           </div>
