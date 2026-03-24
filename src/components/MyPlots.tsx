@@ -173,8 +173,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                     </button>
                     <button
                       onClick={() => onViewHistory(plot)}
-                      disabled={!plot.history?.length}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95"
                     >
                       {t(lang, 'View History', 'Lihat Sejarah')}
                       {plot.history?.length ? (
