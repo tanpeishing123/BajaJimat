@@ -54,7 +54,7 @@ const benefits = [
     text_bm: 'Dapatkan cadangan baja paling berpatutan',
   },
   {
-    icon: PiggyBank,
+    icon: Sprout,
     text_en: 'Save up to 40% compared to premium blends',
     text_bm: 'Jimat sehingga 40% berbanding baja premium',
   },
