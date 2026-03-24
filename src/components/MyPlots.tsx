@@ -164,14 +164,23 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                       className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
                     >
                       <FlaskConical size={14} />
-                      {t(lang, 'Analyse', 'Analisis')}
+                      {t(lang, 'New Analysis', 'Analisis Baru')}
+                    </button>
+                    <button
+                      onClick={() => onViewHistory(plot)}
+                      disabled={!plot.history?.length}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {t(lang, 'View History', 'Lihat Sejarah')}
+                      {plot.history?.length ? (
+                        <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold">{plot.history.length}</span>
+                      ) : null}
                     </button>
                     <button
                       onClick={() => handleDelete(plot.id)}
-                      className="flex items-center justify-center gap-1 px-3 py-2 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-colors active:scale-95"
+                      className="flex items-center justify-center px-2.5 py-2 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-colors active:scale-95"
                     >
                       <Trash2 size={12} />
-                      {t(lang, 'Delete', 'Padam')}
                     </button>
                   </div>
                 </div>
