@@ -3,6 +3,8 @@ import { Plus, Trash2, FlaskConical, Sprout, Globe, LogOut, MapPin } from 'lucid
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SpeakerButton } from './SpeakerButton';
 
+import type { HistoryEntry } from './PlotHistory';
+
 export interface Plot {
   id: string;
   name: string;
@@ -10,6 +12,7 @@ export interface Plot {
   farm_size_ha: number;
   soil_type: string;
   last_cost: number | null;
+  history?: HistoryEntry[];
 }
 
 interface MyPlotsProps {
@@ -18,6 +21,7 @@ interface MyPlotsProps {
   onToggleLang: () => void;
   onLogout: () => void;
   onAnalyse: (plot: Plot) => void;
+  onViewHistory: (plot: Plot) => void;
 }
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -49,7 +53,7 @@ function savePlots(plots: Plot[]) {
   localStorage.setItem('plots', JSON.stringify(plots));
 }
 
-export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse }: MyPlotsProps) {
+export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onViewHistory }: MyPlotsProps) {
   const [plots, setPlots] = useState<Plot[]>(loadPlots);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [plotName, setPlotName] = useState('');
@@ -160,14 +164,23 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse }: M
                       className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
                     >
                       <FlaskConical size={14} />
-                      {t(lang, 'Analyse', 'Analisis')}
+                      {t(lang, 'New Analysis', 'Analisis Baru')}
+                    </button>
+                    <button
+                      onClick={() => onViewHistory(plot)}
+                      disabled={!plot.history?.length}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-colors active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {t(lang, 'View History', 'Lihat Sejarah')}
+                      {plot.history?.length ? (
+                        <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold">{plot.history.length}</span>
+                      ) : null}
                     </button>
                     <button
                       onClick={() => handleDelete(plot.id)}
-                      className="flex items-center justify-center gap-1 px-3 py-2 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-colors active:scale-95"
+                      className="flex items-center justify-center px-2.5 py-2 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-colors active:scale-95"
                     >
                       <Trash2 size={12} />
-                      {t(lang, 'Delete', 'Padam')}
                     </button>
                   </div>
                 </div>

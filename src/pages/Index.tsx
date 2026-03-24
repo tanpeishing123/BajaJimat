@@ -4,8 +4,9 @@ import { HeroLanding } from '@/components/HeroLanding';
 import { SignUpPage } from '@/components/SignUpPage';
 import { MyPlots, type Plot } from '@/components/MyPlots';
 import { MainApp } from '@/components/MainApp';
+import { PlotHistory } from '@/components/PlotHistory';
 
-type View = 'landing' | 'signup' | 'plots' | 'app';
+type View = 'landing' | 'signup' | 'plots' | 'app' | 'history';
 
 const Index = () => {
   const [view, setView] = useState<View>('landing');
@@ -54,10 +55,24 @@ const Index = () => {
     setView('app');
   };
 
+  const handleViewHistory = (plot: Plot) => {
+    setActivePlot(plot);
+    setView('history');
+  };
+
   const handleBackToPlots = () => {
     localStorage.removeItem('current_plot');
     setActivePlot(null);
     setView('plots');
+  };
+
+  // Reload plot data from localStorage to get fresh history
+  const getActivePlotFresh = (): Plot | null => {
+    if (!activePlot) return null;
+    try {
+      const plots: Plot[] = JSON.parse(localStorage.getItem('plots') || '[]');
+      return plots.find(p => p.id === activePlot.id) || activePlot;
+    } catch { return activePlot; }
   };
 
   return (
@@ -88,6 +103,7 @@ const Index = () => {
           onToggleLang={toggleLang}
           onLogout={handleLogout}
           onAnalyse={handleAnalyse}
+          onViewHistory={handleViewHistory}
         />
       )}
 
@@ -107,6 +123,18 @@ const Index = () => {
           onToggleLang={toggleLang}
         />
       )}
+
+      {view === 'history' && activePlot && (() => {
+        const freshPlot = getActivePlotFresh();
+        return (
+          <PlotHistory
+            plotName={freshPlot?.name || ''}
+            history={freshPlot?.history || []}
+            lang={lang}
+            onBack={handleBackToPlots}
+          />
+        );
+      })()}
     </>
   );
 };
