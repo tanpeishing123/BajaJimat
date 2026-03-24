@@ -1,4 +1,4 @@
-import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, PiggyBank } from 'lucide-react';
+import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, Sprout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 
@@ -54,16 +54,16 @@ const benefits = [
     text_bm: 'Dapatkan cadangan baja paling berpatutan',
   },
   {
-    icon: PiggyBank,
+    icon: Sprout,
     text_en: 'Save up to 40% compared to premium blends',
     text_bm: 'Jimat sehingga 40% berbanding baja premium',
   },
 ];
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="min-h-screen flex flex-col overflow-auto">
+    <div className="min-h-screen flex flex-col overflow-auto bg-gradient-landing">
       {/* ── Hero Section ── */}
-      <section className="relative min-h-[60vh]">
+      <section className="relative min-h-screen">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
@@ -144,7 +144,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── How It Works ── */}
-      <section className="bg-cream-brand px-6 md:px-12 py-10 md:py-14">
+      <section className="px-6 md:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -203,7 +203,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </section>
 
       {/* ── Why BajaJimat ── */}
-      <section className="bg-[hsl(40_33%_96%)] px-6 md:px-12 py-12 md:py-16">
+      <section className="px-6 md:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left — The Problem */}
           <motion.div
