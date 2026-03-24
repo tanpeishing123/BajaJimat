@@ -108,7 +108,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </div>
 
             {/* Right — Images */}
-            <div className="md:w-[50%] flex gap-3 min-h-0 h-full items-start pt-1">
+            <div className="md:w-[50%] flex gap-3 items-start pt-1">
               <div className="flex-1 rounded-2xl overflow-hidden border-2 border-border shadow-luxe">
                 <img
                   src={healthyLeaves}
