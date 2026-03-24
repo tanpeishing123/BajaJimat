@@ -29,6 +29,7 @@ interface Props {
   result: ResultData;
   cropType?: string;
   onBack: () => void;
+  backLabel?: string;
   onToggleLang?: () => void;
 }
 
