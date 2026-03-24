@@ -420,6 +420,9 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
                 <p className="text-2xl font-sans font-bold text-white tabular-nums">
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                 </p>
+                <p className="text-[10px] text-white/50 font-sans mt-0.5">
+                  {t(lang, 'Savings based on NPK cost only', 'Penjimatan berdasarkan kos NPK sahaja')}
+                </p>
               </div>
             </div>
             <SpeakerButton
