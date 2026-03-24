@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { ArrowLeft, ChevronDown, ChevronUp, FileText, TestTubes, Leaf, Calendar } from 'lucide-react';
+import { ArrowLeft, ChevronRight, FileText, TestTubes, Leaf, Calendar } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ResultsDashboard } from './ResultsDashboard';
+import { motion } from 'framer-motion';
 
 export interface HistoryEntry {
   date: string;
@@ -11,13 +12,24 @@ export interface HistoryEntry {
   p_deficit_kg: number;
   k_deficit_kg: number;
   recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; is_mg?: boolean; reason?: string }[];
+  confidence?: 'high' | 'medium' | 'low';
+  savings_rm?: number;
+  voice_summary?: string;
+  liming_needed?: boolean;
+  liming_recommendation?: { product: string; bags: number; cost_rm: number; reason: string };
+  seasonal_advice?: { advice: string };
+  crop_requirements_source?: string;
+  soil_type?: string;
 }
 
 interface PlotHistoryProps {
   plotName: string;
   history: HistoryEntry[];
   lang: 'en' | 'bm';
+  cropType?: string;
+  farmSize?: string;
   onBack: () => void;
+  onToggleLang?: () => void;
 }
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -28,10 +40,41 @@ const MODE_CONFIG: Record<string, { icon: React.ReactNode; en: string; bm: strin
   leaf_photo: { icon: <Leaf size={12} />, en: 'Leaf Photo', bm: 'Foto Daun' },
 };
 
-export function PlotHistory({ plotName, history, lang, onBack }: PlotHistoryProps) {
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+export function PlotHistory({ plotName, history, lang, cropType, farmSize, onBack, onToggleLang }: PlotHistoryProps) {
+  const [selectedEntry, setSelectedEntry] = useState<HistoryEntry | null>(null);
 
-  const toggle = (i: number) => setExpandedIdx(expandedIdx === i ? null : i);
+  // Show full 3-tab results for a selected entry
+  if (selectedEntry) {
+    const resultData = {
+      recommendations: selectedEntry.recommendations,
+      total_cost_rm: selectedEntry.total_cost_rm,
+      savings_rm: selectedEntry.savings_rm ?? 0,
+      n_deficit_kg: selectedEntry.n_deficit_kg,
+      p_deficit_kg: selectedEntry.p_deficit_kg,
+      k_deficit_kg: selectedEntry.k_deficit_kg,
+      input_mode: selectedEntry.input_mode,
+      confidence: selectedEntry.confidence ?? ('medium' as const),
+      voice_summary: selectedEntry.voice_summary ?? '',
+      liming_needed: selectedEntry.liming_needed,
+      liming_recommendation: selectedEntry.liming_recommendation,
+      seasonal_advice: selectedEntry.seasonal_advice,
+      crop_requirements_source: selectedEntry.crop_requirements_source,
+      soil_type: selectedEntry.soil_type,
+    };
+
+    return (
+      <ResultsDashboard
+        lang={lang}
+        result={resultData}
+        cropType={cropType}
+        plotName={plotName}
+        farmSize={farmSize}
+        onBack={() => setSelectedEntry(null)}
+        backLabel={t(lang, 'Back to History', 'Kembali ke Sejarah')}
+        onToggleLang={onToggleLang}
+      />
+    );
+  }
 
   return (
     <div className="h-screen flex flex-col bg-background">
@@ -68,7 +111,6 @@ export function PlotHistory({ plotName, history, lang, onBack }: PlotHistoryProp
             <div className="space-y-3">
               {history.map((entry, i) => {
                 const mode = MODE_CONFIG[entry.input_mode] || MODE_CONFIG.manual;
-                const isExpanded = expandedIdx === i;
                 const dateStr = new Date(entry.date).toLocaleDateString(lang === 'bm' ? 'ms-MY' : 'en-MY', {
                   day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
                 });
@@ -81,11 +123,10 @@ export function PlotHistory({ plotName, history, lang, onBack }: PlotHistoryProp
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-card rounded-2xl border border-border/60 shadow-sm overflow-hidden"
                   >
                     <button
-                      onClick={() => toggle(i)}
-                      className="w-full px-4 py-3 flex items-center justify-between text-left"
+                      onClick={() => setSelectedEntry(entry)}
+                      className="w-full bg-card rounded-2xl border border-border/60 shadow-sm px-4 py-3 flex items-center justify-between text-left hover:border-primary/40 hover:shadow-md transition-all active:scale-[0.98]"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
@@ -106,45 +147,9 @@ export function PlotHistory({ plotName, history, lang, onBack }: PlotHistoryProp
                       </div>
                       <div className="flex items-center gap-2 ml-2">
                         <SpeakerButton text={summaryText} lang={lang} size="sm" />
-                        {isExpanded ? (
-                          <ChevronUp size={16} className="text-muted-foreground" />
-                        ) : (
-                          <ChevronDown size={16} className="text-muted-foreground" />
-                        )}
+                        <ChevronRight size={16} className="text-muted-foreground" />
                       </div>
                     </button>
-
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-4 pb-4 pt-1 space-y-2 border-t border-border/40">
-                            {entry.recommendations.map((rec, j) => (
-                              <div key={j} className={`p-2.5 rounded-xl text-xs font-sans ${
-                                rec.is_mg ? 'bg-blue-50 border border-blue-200' :
-                                rec.is_liming ? 'bg-amber-50 border border-amber-200' :
-                                'bg-muted/30 border border-border/40'
-                              }`}>
-                                <div className="flex items-center justify-between">
-                                  <span className="font-semibold text-foreground">{rec.name}</span>
-                                  <span className="text-muted-foreground">
-                                    {rec.bags} × RM {rec.price_per_bag.toFixed(2)} = RM {rec.subtotal_rm.toFixed(2)}
-                                  </span>
-                                </div>
-                                {rec.reason && (
-                                  <p className="text-muted-foreground mt-1">{rec.reason}</p>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 );
               })}

@@ -63,6 +63,14 @@ function updatePlotLastCost(plotId: string, totalCost: number, resultData: Resul
       p_deficit_kg: resultData.p_deficit_kg,
       k_deficit_kg: resultData.k_deficit_kg,
       recommendations: resultData.recommendations,
+      confidence: resultData.confidence,
+      savings_rm: resultData.savings_rm,
+      voice_summary: resultData.voice_summary,
+      liming_needed: resultData.liming_needed,
+      liming_recommendation: resultData.liming_recommendation,
+      seasonal_advice: resultData.seasonal_advice,
+      crop_requirements_source: resultData.crop_requirements_source,
+      soil_type: resultData.soil_type,
     };
     const updated = plots.map((p: any) => {
       if (p.id !== plotId) return p;
@@ -273,7 +281,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         plotName={plotName || profile.crop}
         farmSize={profile.farmSize}
         onBack={onLogout}
-        backLabel={t('← Back to My Plots', '← Kembali ke Ladang Saya')}
+        backLabel={t('Back to My Plots', 'Kembali ke Ladang Saya')}
         onToggleLang={onToggleLang}
       />
     );
@@ -400,7 +408,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             </button>
             <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
               <LogOut size={12} />
-              {t('← Back', '← Kembali')}
+              {t('Back', 'Kembali')}
             </button>
           </div>
         </div>
