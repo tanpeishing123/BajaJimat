@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import heroBg from '@/assets/hero-bg.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
