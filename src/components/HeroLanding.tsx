@@ -61,7 +61,7 @@ const benefits = [
 ];
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="min-h-screen flex flex-col overflow-auto">
+    <div className="min-h-screen flex flex-col overflow-auto bg-gradient-landing">
       {/* ── Hero Section ── */}
       <section className="relative min-h-screen">
         <img

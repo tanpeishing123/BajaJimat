@@ -101,6 +101,15 @@
   .bg-cream-brand {
     background-color: hsl(var(--cream));
   }
+  .bg-gradient-landing {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--cream)) 0%,
+      hsl(40 40% 96%) 30%,
+      hsl(120 15% 95%) 70%,
+      hsl(152 20% 93%) 100%
+    );
+  }
   .shadow-luxe {
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 10px 30px -5px rgba(0,0,0,0.08), 0 20px 60px -10px rgba(0,0,0,0.05);
   }
