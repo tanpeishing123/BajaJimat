@@ -356,20 +356,30 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-md bg-white rounded-3xl p-6 shadow-lg border border-border/40 space-y-4"
           >
-            {/* Health + Confidence badges */}
+            {/* Health + Confidence badges + Speaker */}
             <div className="flex items-center justify-between">
               <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${healthColors[leafResult.overall_health] || 'bg-muted text-muted-foreground'}`}>
                 <Activity size={12} className="inline mr-1" />
                 {t('Health', 'Kesihatan')}: {leafResult.overall_health}
               </span>
-              <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${
-                leafResult.confidence === 'high' ? 'bg-emerald-50 text-emerald-700' :
-                leafResult.confidence === 'medium' ? 'bg-amber-50 text-amber-700' :
-                'bg-muted text-muted-foreground'
-              }`}>
-                <ShieldCheck size={12} className="inline mr-1" />
-                {leafResult.confidence}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${
+                  leafResult.confidence === 'high' ? 'bg-emerald-50 text-emerald-700' :
+                  leafResult.confidence === 'medium' ? 'bg-amber-50 text-amber-700' :
+                  'bg-muted text-muted-foreground'
+                }`}>
+                  <ShieldCheck size={12} className="inline mr-1" />
+                  {leafResult.confidence}
+                </span>
+                <SpeakerButton
+                  text={t(
+                    `Leaf analysis results. Overall health: ${leafResult.overall_health}. Confidence: ${leafResult.confidence}. ${leafResult.deficiencies.length > 0 ? `${leafResult.deficiencies.length} deficiencies detected: ${leafResult.deficiencies.map(d => `${d.nutrient}, severity ${d.severity}, ${d.estimated_deficit_pct} percent deficit`).join('. ')}.` : 'No deficiencies detected.'} ${leafResult.recommendation}`,
+                    `Keputusan analisis daun. Kesihatan keseluruhan: ${leafResult.overall_health}. Keyakinan: ${leafResult.confidence}. ${leafResult.deficiencies.length > 0 ? `${leafResult.deficiencies.length} kekurangan dikesan: ${leafResult.deficiencies.map(d => `${d.nutrient}, keterukan ${d.severity}, ${d.estimated_deficit_pct} peratus defisit`).join('. ')}.` : 'Tiada kekurangan dikesan.'} ${leafResult.recommendation}`
+                  )}
+                  lang={lang}
+                  size="sm"
+                />
+              </div>
             </div>
 
             {/* Deficiencies */}
