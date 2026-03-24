@@ -2,6 +2,7 @@ import { ArrowRight, Scan, BrainCircuit, TrendingUp, Search, DollarSign, Sprout 
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import farmerImg from '@/assets/farmer-field.jpg';
+import soilBg from '@/assets/soil-texture-bg.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
