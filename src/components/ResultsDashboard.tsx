@@ -244,7 +244,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </header>
 
       {/* Tabbed Content */}
-      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
+      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-3 flex-shrink-0">
           <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-muted">
             <TabsTrigger value="summary" className="rounded-lg text-xs sm:text-sm font-sans font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
