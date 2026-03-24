@@ -101,7 +101,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           {/* Stats row */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
             className="mt-5 flex flex-nowrap items-stretch bg-white/10 backdrop-blur-md rounded-2xl border border-white/10"
           >
