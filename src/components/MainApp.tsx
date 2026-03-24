@@ -370,7 +370,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
             </div>
             <div>
               <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
-              <p className="text-xs text-muted-foreground font-sans">{profile.crop} · {profile.farmSize} ha</p>
+              <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
