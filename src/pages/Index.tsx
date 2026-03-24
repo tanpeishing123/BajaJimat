@@ -49,8 +49,15 @@ const Index = () => {
   };
 
   const handleAnalyse = (plot: Plot) => {
+    localStorage.setItem('current_plot', JSON.stringify(plot));
     setActivePlot(plot);
     setView('app');
+  };
+
+  const handleBackToPlots = () => {
+    localStorage.removeItem('current_plot');
+    setActivePlot(null);
+    setView('plots');
   };
 
   return (
