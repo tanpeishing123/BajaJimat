@@ -52,10 +52,23 @@ interface ResultData {
   soil_type?: string;
 }
 
-function updatePlotLastCost(plotId: string, totalCost: number) {
+function updatePlotLastCost(plotId: string, totalCost: number, resultData: ResultData) {
   try {
     const plots = JSON.parse(localStorage.getItem('plots') || '[]');
-    const updated = plots.map((p: any) => p.id === plotId ? { ...p, last_cost: totalCost } : p);
+    const historyEntry = {
+      date: new Date().toISOString(),
+      input_mode: resultData.input_mode,
+      total_cost_rm: resultData.total_cost_rm,
+      n_deficit_kg: resultData.n_deficit_kg,
+      p_deficit_kg: resultData.p_deficit_kg,
+      k_deficit_kg: resultData.k_deficit_kg,
+      recommendations: resultData.recommendations,
+    };
+    const updated = plots.map((p: any) => {
+      if (p.id !== plotId) return p;
+      const history = [historyEntry, ...(p.history || [])].slice(0, 5);
+      return { ...p, last_cost: totalCost, history };
+    });
     localStorage.setItem('plots', JSON.stringify(updated));
   } catch {}
 }
