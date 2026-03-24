@@ -407,7 +407,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
                       <div className="space-y-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-sans font-bold text-foreground">{step.title}</p>
+                          <p className="text-sm font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold ${getTimingColor(step.timing)}`}>
                             {step.timing}
                           </span>

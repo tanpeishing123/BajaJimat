@@ -396,17 +396,6 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
               </p>
             )}
 
-            {/* AI Recommendation */}
-            <div className="p-3 rounded-xl bg-primary/5 border border-primary/20">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-sans font-semibold text-primary">
-                  {t('AI Recommendation', 'Cadangan AI')}
-                </span>
-                <SpeakerButton text={leafResult.recommendation} lang={lang} size="sm" />
-              </div>
-              <p className="text-sm text-foreground font-sans leading-relaxed">{leafResult.recommendation}</p>
-            </div>
-
             {/* Conditional Action Button */}
             {(() => {
               const isNPK = hasNPKDeficiency(leafResult);

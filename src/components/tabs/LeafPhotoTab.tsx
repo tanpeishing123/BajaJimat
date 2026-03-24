@@ -68,10 +68,12 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
       }
 
       if (data.is_plant_photo === false) {
+        setFile(null);
+        setPreview(null);
         setError(
           t(lang,
-            "This doesn't look like a plant photo. Please try again.",
-            'Gambar ini bukan foto tanaman. Cuba lagi.'
+            'Error: No leaf detected. Please reupload a clear image of a leaf.',
+            'Ralat: Tiada daun dikesan. Sila muat naik semula gambar daun yang jelas.'
           )
         );
         return;
