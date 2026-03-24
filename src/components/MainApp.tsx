@@ -289,6 +289,23 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
     );
   }
 
+  // Treatment Dashboard for non-NPK issues
+  if (showTreatment && treatmentIssue) {
+    return (
+      <TreatmentDashboard
+        lang={lang}
+        issueName={treatmentIssue.name}
+        severity={treatmentIssue.severity}
+        visualEvidence={treatmentIssue.evidence}
+        cropType={profile.crop}
+        farmSize={profile.farmSize}
+        plotName={plotName || profile.crop}
+        onBack={() => { setShowTreatment(false); setTreatmentIssue(null); setShowLeafAnalysis(true); }}
+        onToggleLang={onToggleLang}
+      />
+    );
+  }
+
   if (showResults && resultData) {
     return (
       <ResultsDashboard
