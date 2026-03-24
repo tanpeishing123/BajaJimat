@@ -545,11 +545,6 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                 </p>
               </div>
-              <SpeakerButton
-                text={t(lang, `You saved RM ${result.savings_rm} compared to premium blends.`, `Anda jimat RM ${result.savings_rm} berbanding baja premium.`)}
-                lang={lang}
-                size="md"
-              />
             </motion.div>
 
             {/* WhatsApp + PDF Buttons */}
