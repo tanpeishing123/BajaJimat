@@ -18,9 +18,9 @@ const stats = [
 
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-auto">
       {/* ── Hero Section ── */}
-      <section className="relative flex-[50] min-h-0">
+      <section className="relative min-h-[55vh]">
         <img
           src={heroBg}
           alt="Malaysian palm oil plantation at golden hour"
@@ -28,7 +28,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-6">
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 pt-20 pb-10">
           {/* Dual-language headline */}
           <h1 className="font-serif-display font-bold text-white leading-tight tracking-tight">
             <span className="block text-2xl md:text-4xl lg:text-5xl">
@@ -80,14 +80,11 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Why BajaJimat Section ── */}
-      <section className="relative bg-cream-brand flex-[50] min-h-0 px-6 md:px-12 pb-4 pt-1 flex flex-col overflow-hidden">
-        <div className="w-full flex-1 min-h-0 flex flex-col">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start flex-1 min-h-0">
+      <section className="relative bg-cream-brand px-6 md:px-12 py-6 flex flex-col">
+        <div className="w-full flex flex-col">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start">
             {/* Left — Text */}
             <div className="md:w-[50%] pt-1 flex flex-col">
-              <span className="inline-block text-accent font-body font-semibold text-[9px] uppercase tracking-[0.2em] mb-0.5">
-                {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
-              </span>
               <h2 className="font-serif-display text-lg md:text-xl font-bold text-foreground leading-tight tracking-tight">
                 {t(lang, 'Why BajaJimat?', 'Mengapa BajaJimat?')}
               </h2>
@@ -110,7 +107,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </div>
 
             {/* Right — Images */}
-            <div className="md:w-[50%] flex gap-3 min-h-0 h-full items-start pt-1">
+            <div className="md:w-[50%] flex gap-3 items-start pt-1">
               <div className="flex-1 rounded-2xl overflow-hidden border-2 border-border shadow-luxe">
                 <img
                   src={healthyLeaves}
@@ -122,7 +119,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                 <img
                   src={farmerApp}
                   alt={t(lang, 'Farmer using BajaJimat', 'Petani menggunakan BajaJimat')}
-                  className="w-full h-32 md:h-40 object-cover object-top"
+                  className="w-full h-32 md:h-40 object-cover object-center"
                 />
               </div>
             </div>
@@ -130,7 +127,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
 
         {/* Footer */}
-        <div className="w-full pt-2 border-t border-border/40 text-center">
+        <div className="w-full mt-6 pt-4 border-t border-border/40 text-center">
           <p className="text-muted-foreground font-body text-[10px]">
             {t(lang, 'Join thousands of Malaysian farmers already saving on fertiliser costs.', 'Sertai ribuan petani Malaysia yang sudah jimat kos baja.')}
           </p>
