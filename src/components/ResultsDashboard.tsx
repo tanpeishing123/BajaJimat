@@ -505,47 +505,53 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* Seasonal Advice */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 flex items-start gap-3"
+                className="rounded-2xl overflow-hidden"
+                style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
               >
-                <span className="text-lg mt-0.5">📅</span>
-                <div className="flex-1 min-w-0">
-                  <p className="font-sans text-xs font-semibold text-emerald-800 mb-0.5">
-                    {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
-                  </p>
-                  <p className="font-sans text-sm text-emerald-700 leading-relaxed">
-                    {result.seasonal_advice.advice}
-                  </p>
+                <div className="px-5 py-5 flex items-start gap-4">
+                  <span className="text-3xl mt-0.5">📅</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-xs font-semibold text-emerald-200 mb-1.5 uppercase tracking-wider">
+                      {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
+                    </p>
+                    <p className="font-sans text-base text-white leading-relaxed font-medium">
+                      {result.seasonal_advice.advice}
+                    </p>
+                  </div>
+                  <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
                 </div>
-                <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
               </motion.div>
             )}
 
             {/* Farm Tip Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 flex items-start gap-3"
+              className="rounded-2xl overflow-hidden"
+              style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
             >
-              <span className="text-lg mt-0.5">📅</span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="font-sans text-xs font-semibold text-emerald-800">
-                    {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
-                  </p>
-                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-sans font-semibold">
-                    ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                  </span>
-                </div>
-                {tipLoading ? (
-                  <div className="flex items-center gap-2 py-1">
-                    <Loader2 size={12} className="animate-spin text-emerald-600" />
-                    <span className="text-xs text-emerald-600 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+              <div className="px-5 py-5 flex items-start gap-4">
+                <span className="text-3xl mt-0.5">📅</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="font-sans text-xs font-semibold text-emerald-200 uppercase tracking-wider">
+                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+                    </p>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-sans font-semibold backdrop-blur-sm">
+                      ✨ {t(lang, 'AI Generated', 'Dijana AI')}
+                    </span>
                   </div>
-                ) : farmTip ? (
-                  <p className="font-sans text-sm text-emerald-700 leading-relaxed">{farmTip}</p>
-                ) : (
-                  <p className="font-sans text-xs text-emerald-500 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
-                )}
+                  {tipLoading ? (
+                    <div className="flex items-center gap-2 py-1">
+                      <Loader2 size={14} className="animate-spin text-emerald-200" />
+                      <span className="text-sm text-emerald-200 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                    </div>
+                  ) : farmTip ? (
+                    <p className="font-sans text-base text-white leading-relaxed font-medium">{farmTip}</p>
+                  ) : (
+                    <p className="font-sans text-sm text-emerald-200 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                  )}
+                </div>
+                {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
               </div>
-              {farmTip && <SpeakerButton text={farmTip} lang={lang} size="sm" />}
             </motion.div>
 
             {/* Nearby Shops Button */}
@@ -554,11 +560,21 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-semibold text-sm hover:bg-primary/5 transition-colors active:scale-97"
+                className="flex items-center justify-center gap-2.5 w-full py-4 rounded-xl btn-gradient-primary font-sans font-bold text-sm shadow-md"
               >
-                <MapPin size={16} />
+                <MapPin size={18} />
                 {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
               </a>
+            </motion.div>
+
+            {/* AI Disclaimer */}
+            <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible">
+              <p className="text-center text-[11px] text-muted-foreground font-sans italic leading-relaxed">
+                ⚠️ {t(lang,
+                  'Advice generated by AI, verify with agricultural expert',
+                  'Nasihat dijana oleh AI, sahkan dengan pakar pertanian'
+                )}
+              </p>
             </motion.div>
           </TabsContent>
         </div>
