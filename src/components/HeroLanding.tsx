@@ -1,7 +1,4 @@
 import { ArrowRight } from 'lucide-react';
-import heroBg from '@/assets/hero-bg.jpg';
-import healthyLeaves from '@/assets/healthy-leaves.jpg';
-import farmerApp from '@/assets/farmer-app.jpg';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
