@@ -1,12 +1,27 @@
 import { useState } from 'react';
-import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2, ShieldCheck, Activity } from 'lucide-react';
+import { FileText, TestTubes, Leaf, Globe, Sprout, AlertTriangle, Zap, LogOut, Loader2, ShieldCheck, Activity, Cross, ShieldPlus } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
 import { LeafPhotoTab, type LeafAnalysisResult } from './tabs/LeafPhotoTab';
 import { ResultsDashboard } from './ResultsDashboard';
+import { TreatmentDashboard } from './TreatmentDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const NPK_NUTRIENTS = ['nitrogen', 'phosphorus', 'potassium'];
+
+function hasNPKDeficiency(result: LeafAnalysisResult): boolean {
+  return result.deficiencies.some(d =>
+    NPK_NUTRIENTS.includes(d.nutrient.toLowerCase())
+  );
+}
+
+function getNonNPKIssues(result: LeafAnalysisResult) {
+  return result.deficiencies.filter(d =>
+    !NPK_NUTRIENTS.includes(d.nutrient.toLowerCase())
+  );
+}
 
 interface UserProfile {
   name: string;
