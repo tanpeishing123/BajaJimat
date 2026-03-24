@@ -225,7 +225,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
                 </div>
                 <div className="text-left">
                   <p className="font-sans text-xs font-medium text-foreground">
-                    {t(lang, 'Drag & drop or click to upload', 'Seret & lepas atau klik untuk muat naik')}
+                    {t(lang, 'Drag & drop or click to upload', 'Ambil gambar atau muat naik dari galeri')}
                   </p>
                   <p className="font-sans text-[10px] text-muted-foreground">
                     {t(lang, 'Supports PDF and image formats', 'Menyokong format PDF dan imej')}
