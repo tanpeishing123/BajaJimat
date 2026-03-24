@@ -139,7 +139,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
           farm_size_ha: farmSize,
           soil_type: soilType,
           ph: data.ph ?? null,
-          mg_ppm: data.mg_ppm ?? null,
+          mg_ppm: data.mg_ppm ?? 0,
           lang,
         }),
       });
