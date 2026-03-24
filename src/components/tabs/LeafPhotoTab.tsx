@@ -63,6 +63,19 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
       const data = await res.json();
 
+      // Check for non-plant photo BEFORE generic error (edge function returns 400 for non-plant)
+      if (data.is_plant_photo === false) {
+        setFile(null);
+        setPreview(null);
+        setError(
+          t(lang,
+            'Error: No leaf detected. Please reupload a clear image of a leaf.',
+            'Ralat: Tiada daun dikesan. Sila muat naik semula gambar daun yang jelas.'
+          )
+        );
+        return;
+      }
+
       if (!res.ok) {
         throw new Error(data.error || `Server error ${res.status}`);
       }
