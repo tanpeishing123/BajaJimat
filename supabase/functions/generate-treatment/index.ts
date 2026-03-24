@@ -39,18 +39,17 @@ Generate a treatment plan. Respond with ONLY valid JSON in this exact format:
     {
       "product_name": "<specific product or chemical name>",
       "type": "fungicide" | "insecticide" | "micronutrient" | "organic" | "supplement",
-      "quantity": "<e.g. 2 bottles, 5 kg>",
-      "estimated_price_rm": <number>,
+      "quantity_per_ha": "<e.g. 1 bottle, 2 kg — amount for 1 hectare>",
+      "price_per_ha_rm": <number — cost for 1 hectare>,
       "application_method": "<brief how-to>"
     }
   ],
-  "total_estimated_cost_rm": <number>,
   "action_plan": [
     {
       "step": 1,
-      "title": "<short action title>",
-      "description": "<detailed instruction>",
-      "timing": "<when to do this>"
+      "title": "<bold 3-4 word action title>",
+      "description": "<one short sentence explaining why>",
+      "timing": "<e.g. Morning Only, Immediate, Week 2>"
     }
   ],
   "prevention_tips": ["<tip1>", "<tip2>", "<tip3>"],
