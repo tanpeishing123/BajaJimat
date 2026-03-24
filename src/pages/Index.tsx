@@ -49,8 +49,15 @@ const Index = () => {
   };
 
   const handleAnalyse = (plot: Plot) => {
+    localStorage.setItem('current_plot', JSON.stringify(plot));
     setActivePlot(plot);
     setView('app');
+  };
+
+  const handleBackToPlots = () => {
+    localStorage.removeItem('current_plot');
+    setActivePlot(null);
+    setView('plots');
   };
 
   return (
@@ -92,9 +99,10 @@ const Index = () => {
             farmSize: String(activePlot.farm_size_ha),
             lang,
           }}
+          plotId={activePlot.id}
           plotName={activePlot.name}
           soilType={activePlot.soil_type}
-          onLogout={() => setView('plots')}
+          onLogout={handleBackToPlots}
           lang={lang}
           onToggleLang={toggleLang}
         />

@@ -29,6 +29,7 @@ interface Props {
   result: ResultData;
   cropType?: string;
   onBack: () => void;
+  backLabel?: string;
   onToggleLang?: () => void;
 }
 
@@ -45,7 +46,7 @@ const RadarDot = (props: any) => {
   return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
 };
 
-export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang }: Props) {
+export function ResultsDashboard({ lang, result, cropType, onBack, backLabel, onToggleLang }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
@@ -462,7 +463,7 @@ export function ResultsDashboard({ lang, result, cropType, onBack, onToggleLang 
               className="flex-1 py-2.5 rounded-full font-sans font-semibold text-sm flex items-center justify-center gap-2 btn-secondary-outline border-primary/60"
             >
               <ArrowLeft size={14} />
-              {t(lang, 'New Analysis', 'Analisis Baharu')}
+              {backLabel || t(lang, 'New Analysis', 'Analisis Baharu')}
             </button>
             <p className="flex-1 text-[11px] text-muted-foreground font-sans text-center leading-relaxed">
               {t(lang,

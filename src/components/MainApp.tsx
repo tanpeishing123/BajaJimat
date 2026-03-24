@@ -52,7 +52,15 @@ interface ResultData {
   soil_type?: string;
 }
 
-export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
+function updatePlotLastCost(plotId: string, totalCost: number) {
+  try {
+    const plots = JSON.parse(localStorage.getItem('plots') || '[]');
+    const updated = plots.map((p: any) => p.id === plotId ? { ...p, last_cost: totalCost } : p);
+    localStorage.setItem('plots', JSON.stringify(updated));
+  } catch {}
+}
+
+export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotId?: string; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
   const lang = externalLang;
   const t = (en: string, bm: string) => lang === 'bm' ? bm : en;
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
@@ -103,6 +111,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
       }
 
       const data: ResultData = await res.json();
+      if (plotId) updatePlotLastCost(plotId, data.total_cost_rm);
       setResultData(data);
       setShowResults(true);
 
@@ -150,6 +159,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
       }
 
       const result: ResultData = await res.json();
+      if (plotId) updatePlotLastCost(plotId, result.total_cost_rm);
       setResultData(result);
       setShowResults(true);
 
@@ -204,6 +214,7 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
       }
 
       const data: ResultData = await res.json();
+      if (plotId) updatePlotLastCost(plotId, data.total_cost_rm);
       setResultData(data);
       setShowResults(true);
 
@@ -253,7 +264,8 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
         lang={lang}
         result={resultData}
         cropType={profile.crop}
-        onBack={() => { setShowResults(false); setResultData(null); }}
+        onBack={onLogout}
+        backLabel={t('← Back to My Plots', '← Kembali ke Ladang Saya')}
         onToggleLang={onToggleLang}
       />
     );
@@ -399,6 +411,18 @@ export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, l
         </svg>
 
         <div className="w-full px-6 md:px-20 py-4">
+          {/* Plot Context Banner */}
+          {plotName && (
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/5 border border-primary/20">
+              <p className="text-xs font-sans font-medium text-primary">
+                {t(
+                  `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
+                  `Analisis untuk: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`
+                )}
+              </p>
+            </div>
+          )}
+
           {/* Page Title */}
           <div className="mb-3">
             <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold mb-1">
