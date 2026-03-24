@@ -52,7 +52,7 @@ interface ResultData {
   soil_type?: string;
 }
 
-export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
+export function MainApp({ profile, plotName, soilType: propSoilType, onLogout, lang: externalLang, onToggleLang }: { profile: UserProfile; plotName?: string; soilType?: string; onLogout: () => void; lang: 'en' | 'bm'; onToggleLang: () => void }) {
   const lang = externalLang;
   const t = (en: string, bm: string) => lang === 'bm' ? bm : en;
   const [activeTab, setActiveTab] = useState<TabKey>('testkit');
@@ -76,7 +76,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     try {
       const cropType = mapCrop(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
-      const soilType = localStorage.getItem('soil_type') || 'mineral';
+      const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
@@ -123,7 +123,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     try {
       const cropType = mapCrop(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
-      const soilType = localStorage.getItem('soil_type') || 'mineral';
+      const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
@@ -177,7 +177,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
     try {
       const cropType = mapCrop(profile.crop || 'musang_king_durian');
       const farmSize = parseFloat(profile.farmSize) || 2.0;
-      const soilType = localStorage.getItem('soil_type') || 'mineral';
+      const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
       const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
@@ -370,7 +370,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
             </div>
             <div>
               <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
-              <p className="text-xs text-muted-foreground font-sans">{profile.crop} · {profile.farmSize} ha</p>
+              <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -380,7 +380,7 @@ export function MainApp({ profile, onLogout, lang: externalLang, onToggleLang }:
             </button>
             <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
               <LogOut size={12} />
-              {t('Reset', 'Set Semula')}
+              {t('← Back', '← Kembali')}
             </button>
           </div>
         </div>
