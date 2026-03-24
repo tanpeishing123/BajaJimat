@@ -152,7 +152,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
+              viewport={{ once: false, margin: '-60px' }}
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
@@ -172,7 +172,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                     key={step.step}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
+                    viewport={{ once: false, margin: '-40px' }}
                     transition={{ delay: i * 0.15, duration: 0.5 }}
                     className="group flex-1 relative"
                   >
