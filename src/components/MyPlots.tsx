@@ -142,6 +142,11 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse }: M
                       <p className="text-xs text-muted-foreground font-sans mt-0.5">
                         {plot.crop_type} · {plot.farm_size_ha} ha · {soilLabel(plot.soil_type, lang)}
                       </p>
+                      {plot.last_cost !== null && (
+                        <p className="text-xs font-sans font-semibold text-primary mt-0.5">
+                          {t(lang, 'Last cost', 'Kos terakhir')}: RM {plot.last_cost.toFixed(2)}
+                        </p>
+                      )}
                     </div>
                     <SpeakerButton
                       text={`${plot.name}, ${plot.crop_type}, ${plot.farm_size_ha} ${lang === 'bm' ? 'hektar' : 'hectares'}`}
