@@ -399,21 +399,26 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* Fertiliser Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {fertItems.map((rec, i) => (
-                <motion.div key={rec.name} custom={i * 0.3 + 0.5} variants={fadeUp} initial="hidden" animate="visible"
-                  className="bg-card rounded-2xl p-4 shadow-sm border border-border/40 flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Package size={18} className="text-primary" />
-                  </div>
-                  <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
-                  <p className="text-xs text-muted-foreground font-sans">
-                    {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
-                  </p>
-                  <p className="font-sans font-bold text-primary text-lg tabular-nums">RM{rec.subtotal_rm}</p>
-                </motion.div>
-              ))}
+            <div className="space-y-3">
+              {fertItems.map((rec, i) => {
+                const colors = ['border-l-blue-500', 'border-l-orange-500', 'border-l-emerald-500', 'border-l-purple-500', 'border-l-rose-500'];
+                return (
+                  <motion.div key={rec.name} custom={i * 0.3 + 0.5} variants={fadeUp} initial="hidden" animate="visible"
+                    className={`bg-card rounded-2xl p-4 shadow-sm border border-border/40 border-l-4 ${colors[i % colors.length]} flex items-center gap-4 hover:shadow-md transition-shadow`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Package size={18} className="text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
+                      <p className="text-xs text-muted-foreground font-sans mt-0.5">
+                        {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
+                      </p>
+                    </div>
+                    <p className="font-sans font-bold text-primary text-lg tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Magnesium Card */}
