@@ -45,13 +45,13 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           </p>
 
           {/* Stats row */}
-          <div className="mt-4 flex items-stretch gap-0 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 overflow-hidden">
+          <div className="mt-4 flex flex-nowrap items-stretch bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 overflow-visible">
             {stats.map((s, i) => (
-              <div key={s.value} className={`flex-1 text-center px-4 md:px-6 py-2.5 ${i < stats.length - 1 ? 'border-r border-white/15' : ''}`}>
-                <span className="block text-secondary font-body font-bold text-base md:text-lg">
-                  {s.value} <span className="text-[10px] md:text-xs font-semibold text-white/80">{lang === 'bm' ? s.label_bm : s.label_en}</span>
+              <div key={s.value} className={`min-w-[150px] flex-1 text-center px-4 md:px-6 py-2.5 ${i < stats.length - 1 ? 'border-r border-white/15' : ''}`}>
+                <span className="block text-secondary font-body font-bold text-sm md:text-base whitespace-nowrap">
+                  {s.value} <span className="text-xs md:text-sm font-semibold text-white/80">{lang === 'bm' ? s.label_bm : s.label_en}</span>
                 </span>
-                <span className="block text-white/50 font-body text-[9px] md:text-[10px] mt-0.5">
+                <span className="block text-white/50 font-body text-[10px] md:text-xs mt-0.5 whitespace-nowrap">
                   {lang === 'bm' ? s.sub_bm : s.sub_en}
                 </span>
               </div>
