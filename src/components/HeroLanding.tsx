@@ -43,29 +43,6 @@ const steps = [
   },
 ];
 
-const benefits = [
-  {
-    icon: Search,
-    text_en: 'Identify soil nutrient deficiencies',
-    text_bm: 'Kenal pasti kekurangan nutrien tanah',
-    desc_en: 'Pinpoint exactly what your soil is missing for optimal crop growth.',
-    desc_bm: 'Kenal pasti dengan tepat apa yang kurang dalam tanah anda.',
-  },
-  {
-    icon: DollarSign,
-    text_en: 'Most affordable recommendations',
-    text_bm: 'Cadangan paling berpatutan',
-    desc_en: 'Get the cheapest fertiliser mix tailored to your soil\'s needs.',
-    desc_bm: 'Dapatkan campuran baja paling murah mengikut keperluan tanah anda.',
-  },
-  {
-    icon: Sprout,
-    text_en: 'Save up to 40%',
-    text_bm: 'Jimat sehingga 40%',
-    desc_en: 'Compared to premium blends — same results, lower cost.',
-    desc_bm: 'Berbanding baja premium — hasil sama, kos lebih rendah.',
-  },
-];
 
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
