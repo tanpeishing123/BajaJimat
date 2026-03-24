@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, AlertTriangle, Loader2, CheckCircle2, ShieldCheck, Info, Upload, TestTube, Droplets, Bug, Leaf, Sun } from 'lucide-react';
+import { SpeakerButton } from './SpeakerButton';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
@@ -211,7 +212,17 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4">
           {/* ========== Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-4">
-            <ContextBar animIndex={0} />
+            <div className="flex items-center justify-between">
+              <ContextBar animIndex={0} />
+              <SpeakerButton
+                text={t(lang,
+                  `Treatment summary for ${data.issue_name}. Severity: ${severity}. ${data.expected_recovery_days > 0 ? `Expected recovery in ${data.expected_recovery_days} days.` : ''} Standard NPK is not required. Visual symptom detected, standard remedial action recommended.`,
+                  `Ringkasan rawatan untuk ${data.issue_name}. Keterukan: ${severity}. ${data.expected_recovery_days > 0 ? `Jangkaan pemulihan dalam ${data.expected_recovery_days} hari.` : ''} NPK standard tidak diperlukan. Gejala visual dikesan, tindakan pemulihan standard disyorkan.`
+                )}
+                lang={lang}
+                size="sm"
+              />
+            </div>
 
             {/* Targeted Issue Alert */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
@@ -299,7 +310,17 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
           {/* ========== Shopping ========== */}
           <TabsContent value="shopping" className="mt-0 space-y-4">
-            <ContextBar animIndex={0} />
+            <div className="flex items-center justify-between">
+              <ContextBar animIndex={0} />
+              <SpeakerButton
+                text={t(lang,
+                  `Shopping list for ${data.issue_name} treatment. ${data.shopping_list.length} products recommended. Grand total for ${hectares} hectares: RM${grandTotal.toFixed(2)}.`,
+                  `Senarai belanja untuk rawatan ${data.issue_name}. ${data.shopping_list.length} produk disyorkan. Jumlah keseluruhan untuk ${hectares} hektar: RM${grandTotal.toFixed(2)}.`
+                )}
+                lang={lang}
+                size="sm"
+              />
+            </div>
 
             {data.shopping_list.map((item, i) => {
               const totalPrice = item.price_per_ha_rm * hectares;
@@ -383,7 +404,17 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
           {/* ========== Advice ========== */}
           <TabsContent value="advice" className="mt-0 space-y-4">
-            <ContextBar animIndex={0} />
+            <div className="flex items-center justify-between">
+              <ContextBar animIndex={0} />
+              <SpeakerButton
+                text={t(lang,
+                  `Action plan for ${data.issue_name}. ${data.action_plan.length} steps to follow. ${data.action_plan.map((s, i) => `Step ${i + 1}: ${s.title.replace(/\*\*/g, '')}. ${s.description}`).join('. ')}`,
+                  `Pelan tindakan untuk ${data.issue_name}. ${data.action_plan.length} langkah untuk diikuti. ${data.action_plan.map((s, i) => `Langkah ${i + 1}: ${s.title.replace(/\*\*/g, '')}. ${s.description}`).join('. ')}`
+                )}
+                lang={lang}
+                size="sm"
+              />
+            </div>
 
             {/* Vertical Timeline */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" className="relative pl-8">
