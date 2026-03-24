@@ -595,7 +595,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       {result.seasonal_advice.advice}
                     </p>
                   </div>
-                  <SpeakerButton text={result.seasonal_advice.advice} lang={lang} size="sm" />
+                  
                 </div>
               </motion.div>
             )}
