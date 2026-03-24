@@ -166,6 +166,50 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
+      {/* Print-only content */}
+      <div className="hidden print:block p-8">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold">🌿 BajaJimat</h1>
+          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+        </div>
+        <div className="mb-4 text-sm">
+          <p><strong>{t(lang, 'Plot', 'Ladang')}:</strong> {plotName || '-'}</p>
+          <p><strong>{t(lang, 'Crop', 'Tanaman')}:</strong> {cropType || '-'}</p>
+          <p><strong>{t(lang, 'Farm Size', 'Saiz Ladang')}:</strong> {farmSize || '-'} {t(lang, 'ha', 'hektar')}</p>
+          <p><strong>{t(lang, 'Date', 'Tarikh')}:</strong> {currentDate}</p>
+        </div>
+        <table className="w-full border-collapse mb-4 text-sm">
+          <thead>
+            <tr className="border-b-2 border-foreground">
+              <th className="text-left py-2">{t(lang, 'Fertiliser', 'Baja')}</th>
+              <th className="text-center py-2">{t(lang, 'Bags', 'Beg')}</th>
+              <th className="text-right py-2">{t(lang, 'Price/Bag', 'Harga/Beg')}</th>
+              <th className="text-right py-2">{t(lang, 'Subtotal', 'Jumlah')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...fertItems, ...mgItems].map(r => (
+              <tr key={r.name} className="border-b border-muted">
+                <td className="py-2">{r.name}</td>
+                <td className="text-center py-2">{r.bags}</td>
+                <td className="text-right py-2">RM{r.price_per_bag}</td>
+                <td className="text-right py-2 font-semibold">RM{r.subtotal_rm}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t-2 border-foreground font-bold">
+              <td colSpan={3} className="py-2">{t(lang, 'Total', 'Jumlah')}</td>
+              <td className="text-right py-2">RM{displayTotalCost.toFixed(2)}</td>
+            </tr>
+          </tfoot>
+        </table>
+        <p className="text-sm font-semibold">💰 {t(lang, 'Saved', 'Jimat')}: RM{result.savings_rm} {t(lang, 'vs premium blends', 'vs baja premium')}</p>
+        <div className="mt-8 pt-4 border-t text-center text-xs text-muted-foreground">
+          <p>BajaJimat — {t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p>bajajimat.lovable.app</p>
+        </div>
+      </div>
       {/* Header — always visible */}
       <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
