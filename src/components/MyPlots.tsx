@@ -144,7 +144,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           ) : (
             <div className="space-y-3 mb-6">
               {plots.map(plot => (
-                <div key={plot.id} className="bg-white rounded-2xl p-4 border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div key={plot.id} className="bg-card rounded-2xl p-4 border border-border/40 shadow-luxe hover:shadow-luxe-hover transition-all duration-300">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-start gap-3">
                       <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">

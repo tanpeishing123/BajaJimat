@@ -63,7 +63,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
       const data = await res.json();
 
-      // Check for non-plant photo BEFORE generic error (edge function returns 400 for non-plant)
       if (data.is_plant_photo === false) {
         setFile(null);
         setPreview(null);
@@ -80,7 +79,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         throw new Error(data.error || `Server error ${res.status}`);
       }
 
-
       onSubmit(data as LeafAnalysisResult);
     } catch (err: any) {
       setError(err.message || 'Something went wrong');
@@ -90,16 +88,16 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   };
 
   return (
-    <div className="space-y-2">
-      {/* AI Disclaimer */}
-      <div className="rounded-lg px-3 py-2 flex items-center gap-2 bg-amber-50 border border-amber-200/60">
-        <div className="w-6 h-6 rounded-md bg-amber-100 flex items-center justify-center shrink-0">
-          <AlertTriangle size={12} className="text-amber-600" />
+    <div className="space-y-2.5">
+      {/* AI Disclaimer - Premium tooltip style */}
+      <div className="rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 bg-amber-50/70 border border-amber-200/40">
+        <div className="w-6 h-6 rounded-lg bg-amber-100/80 flex items-center justify-center shrink-0">
+          <AlertTriangle size={12} className="text-amber-500" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-sans font-medium text-amber-800">
+          <p className="text-xs font-sans font-medium text-amber-700">
             {t(lang, 'AI Visual Analysis', 'Analisis Visual AI')}
-            <span className="font-normal text-amber-600 ml-1">
+            <span className="font-normal text-amber-500 ml-1">
               — {t(lang, 'estimates only, field verification recommended', 'anggaran sahaja, verifikasi lapangan disyorkan')}
             </span>
           </p>
@@ -109,14 +107,14 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
       {/* Error */}
       {error && (
-        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-destructive/10 border-2 border-destructive/30">
+        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-destructive/10 border border-destructive/20">
           <AlertTriangle size={16} className="text-destructive mt-0.5 shrink-0" />
           <p className="text-xs text-destructive font-sans font-semibold">{error}</p>
         </div>
       )}
 
       {/* Upload Card */}
-      <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-3">
+      <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-3">
         <div className="flex items-center justify-between mb-2">
           <div>
             <h2 className="text-sm font-sans font-bold text-foreground">
@@ -140,7 +138,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
         <div
           onClick={() => inputRef.current?.click()}
-          className="border-2 border-dashed border-primary/30 rounded-xl p-6 text-center cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02]"
+          className="dropzone-premium rounded-xl p-6 text-center cursor-pointer"
         >
           {preview ? (
             <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain" />
@@ -159,7 +157,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         <button
           disabled={!file || isAnalyzing}
           onClick={handleAnalyze}
-          className="w-full mt-3 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2 disabled:opacity-50"
+          className="w-full mt-3 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
         >
           {isAnalyzing ? (
             <>

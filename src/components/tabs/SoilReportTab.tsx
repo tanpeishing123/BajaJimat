@@ -27,7 +27,6 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
   const [extractError, setExtractError] = useState<string | null>(null);
   const [extracted, setExtracted] = useState<ExtractedSoil | null>(null);
 
-  // Editable fields after extraction
   const [editN, setEditN] = useState(0);
   const [editP, setEditP] = useState(0);
   const [editK, setEditK] = useState(0);
@@ -115,13 +114,13 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
   };
 
   const confidenceColor = extracted?.confidence === 'high'
-    ? 'bg-emerald-50 text-emerald-700'
+    ? 'bg-primary/10 text-primary'
     : extracted?.confidence === 'medium'
       ? 'bg-amber-50 text-amber-700'
-      : 'bg-red-50 text-red-700';
+      : 'bg-destructive/10 text-destructive';
 
   return (
-    <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-3">
+    <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-3">
       <div className="flex items-center justify-between mb-2">
         <div>
           <h2 className="text-sm font-sans font-bold text-foreground">
@@ -146,7 +145,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
       {extracted ? (
         <div className="space-y-3">
           <div className="flex items-center gap-2 mb-1">
-            <CheckCircle size={14} className="text-emerald-600" />
+            <CheckCircle size={14} className="text-primary" />
             <span className="text-xs font-sans font-semibold text-foreground">
               {t(lang, 'Extracted Values', 'Nilai yang Diekstrak')}
             </span>
@@ -174,7 +173,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
                   type="number"
                   value={field.value}
                   onChange={(e) => field.set(parseFloat(e.target.value) || 0)}
-                  className="w-full px-2 py-1.5 rounded-lg border border-border text-xs font-sans text-foreground bg-background focus:outline-none focus:ring-1 focus:ring-primary/40"
+                  className="w-full px-2 py-1.5 rounded-lg input-premium text-xs font-sans text-foreground"
                   placeholder={field.placeholder}
                 />
               </div>
@@ -183,7 +182,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
 
           <button
             onClick={handleConfirm}
-            className="w-full mt-1 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
+            className="w-full mt-1 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary"
           >
             {t(lang, 'Continue →', 'Teruskan →')}
           </button>
@@ -193,14 +192,14 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
           {/* Upload area */}
           <div
             onClick={() => inputRef.current?.click()}
-            onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('border-primary', 'bg-primary/5'); }}
-            onDragLeave={e => { e.currentTarget.classList.remove('border-primary', 'bg-primary/5'); }}
+            onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('border-primary', 'bg-primary/10'); }}
+            onDragLeave={e => { e.currentTarget.classList.remove('border-primary', 'bg-primary/10'); }}
             onDrop={e => {
               e.preventDefault();
-              e.currentTarget.classList.remove('border-primary', 'bg-primary/5');
+              e.currentTarget.classList.remove('border-primary', 'bg-primary/10');
               if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             }}
-            className="border-2 border-dashed border-border rounded-xl p-4 text-center cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02]"
+            className="dropzone-premium rounded-xl p-4 text-center cursor-pointer"
           >
             <input
               ref={inputRef}
@@ -220,8 +219,8 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
               </div>
             ) : (
               <div className="flex items-center gap-3 justify-center text-muted-foreground">
-                <div className="w-8 h-8 rounded-xl bg-muted/60 flex items-center justify-center shrink-0">
-                  <Upload size={16} className="text-muted-foreground" />
+                <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Upload size={16} className="text-primary" />
                 </div>
                 <div className="text-left">
                   <p className="font-sans text-xs font-medium text-foreground">
@@ -235,7 +234,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
           <button
             disabled={!file || isExtracting}
             onClick={handleExtract}
-            className="w-full mt-3 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full mt-3 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
           >
             {isExtracting ? (
               <>
