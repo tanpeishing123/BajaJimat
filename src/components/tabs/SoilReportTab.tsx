@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Upload, FileText, Loader2, CheckCircle, AlertTriangle, Edit3 } from 'lucide-react';
+import { FileText, Loader2, CheckCircle, AlertTriangle, Edit3 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -120,14 +120,14 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
       : 'bg-destructive/10 text-destructive';
 
   return (
-    <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-3">
-      <div className="flex items-center justify-between mb-2">
+    <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-4">
+      <div className="flex items-center justify-between mb-3">
         <div>
           <h2 className="text-sm font-sans font-bold text-foreground">
-            {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
+            {t(lang, 'Soil Report Analysis', 'Analisis Laporan Tanah')}
           </h2>
           <p className="text-xs text-muted-foreground font-sans">
-            {t(lang, 'Upload your DOA soil report for analysis', 'Muat naik laporan tanah DOA anda untuk analisis')}
+            {t(lang, 'Upload your DOA soil test results', 'Muat naik keputusan ujian tanah DOA anda')}
           </p>
         </div>
         <SpeakerButton text={t(lang, 'Upload your DOA soil report here', 'Muat naik laporan tanah DOA anda di sini')} lang={lang} size="sm" />
@@ -182,14 +182,21 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
 
           <button
             onClick={handleConfirm}
-            className="w-full mt-1 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary"
+            className="w-full mt-1 rounded-xl py-2.5 font-sans font-semibold text-xs btn-gradient-primary"
           >
             {t(lang, 'Continue →', 'Teruskan →')}
           </button>
         </div>
       ) : (
         <>
-          {/* Upload area */}
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*,.pdf"
+            className="hidden"
+            onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
+          />
+
           <div
             onClick={() => inputRef.current?.click()}
             onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('border-primary', 'bg-primary/10'); }}
@@ -199,32 +206,28 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
               e.currentTarget.classList.remove('border-primary', 'bg-primary/10');
               if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
             }}
-            className="dropzone-premium rounded-xl p-4 text-center cursor-pointer"
+            className="dropzone-premium rounded-xl p-6 text-center cursor-pointer"
           >
-            <input
-              ref={inputRef}
-              type="file"
-              accept="image/*,.pdf"
-              className="hidden"
-              onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
-            />
             {preview ? (
-              <img src={preview} alt="Preview" className="max-h-20 mx-auto rounded-lg object-contain" />
+              <img src={preview} alt="Preview" className="max-h-24 mx-auto rounded-lg object-contain" />
             ) : file ? (
-              <div className="flex items-center gap-3 justify-center text-muted-foreground">
-                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FileText size={14} className="text-primary" />
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <FileText size={20} className="text-primary" />
                 </div>
-                <p className="font-sans text-xs font-medium text-foreground">{file.name}</p>
+                <p className="font-sans text-xs font-semibold text-foreground">{file.name}</p>
               </div>
             ) : (
-              <div className="flex items-center gap-3 justify-center text-muted-foreground">
-                <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Upload size={16} className="text-primary" />
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <FileText size={20} className="text-primary" />
                 </div>
-                <div className="text-left">
-                  <p className="font-sans text-xs font-medium text-foreground">
-                    {t(lang, 'Click to upload PDF / photo', 'Klik untuk muat naik PDF / gambar')}
+                <div>
+                  <p className="font-sans text-xs font-semibold text-foreground">
+                    {t(lang, 'Upload or drag & drop your soil report', 'Muat naik atau seret & lepas laporan tanah anda')}
+                  </p>
+                  <p className="font-sans text-[11px] text-muted-foreground mt-0.5">
+                    {t(lang, 'Supports PDF files and clear images', 'Menyokong fail PDF dan gambar yang jelas')}
                   </p>
                 </div>
               </div>
@@ -234,7 +237,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
           <button
             disabled={!file || isExtracting}
             onClick={handleExtract}
-            className="w-full mt-3 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
+            className="w-full mt-3 rounded-xl py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
           >
             {isExtracting ? (
               <>
@@ -242,7 +245,7 @@ export function SoilReportTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit:
                 {t(lang, 'Extracting...', 'Mengekstrak...')}
               </>
             ) : (
-              t(lang, 'Submit & Analyze', 'Hantar & Analisis')
+              t(lang, 'Submit & Analyse', 'Hantar & Analisis')
             )}
           </button>
         </>

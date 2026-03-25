@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Upload, AlertTriangle, Loader2 } from 'lucide-react';
+import { Camera, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -89,7 +89,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
   return (
     <div className="space-y-2.5">
-      {/* AI Disclaimer - Premium tooltip style */}
+      {/* AI Disclaimer */}
       <div className="rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 bg-amber-50/70 border border-amber-200/40">
         <div className="w-6 h-6 rounded-lg bg-amber-100/80 flex items-center justify-center shrink-0">
           <AlertTriangle size={12} className="text-amber-500" />
@@ -114,8 +114,8 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
       )}
 
       {/* Upload Card */}
-      <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-3">
-        <div className="flex items-center justify-between mb-2">
+      <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-4">
+        <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-sm font-sans font-bold text-foreground">
               {t(lang, 'Leaf Photo Analysis', 'Analisis Foto Daun')}
@@ -127,7 +127,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden file input */}
         <input
           ref={inputRef}
           type="file"
@@ -145,11 +144,16 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           ) : (
             <div className="flex flex-col items-center gap-2 text-muted-foreground">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Upload size={20} className="text-primary" />
+                <Camera size={20} className="text-primary" />
               </div>
-              <p className="font-sans text-xs font-medium text-foreground">
-                {t(lang, 'Click to take photo / upload photo from gallery', 'Klik untuk ambil / muat naik gambar')}
-              </p>
+              <div>
+                <p className="font-sans text-xs font-semibold text-foreground">
+                  {t(lang, 'Take a photo or upload from gallery', 'Ambil gambar atau muat naik dari galeri')}
+                </p>
+                <p className="font-sans text-[11px] text-muted-foreground mt-0.5">
+                  {t(lang, 'Clear, close-up photos work best', 'Gambar jelas dan dekat adalah terbaik')}
+                </p>
+              </div>
             </div>
           )}
         </div>
@@ -157,7 +161,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         <button
           disabled={!file || isAnalyzing}
           onClick={handleAnalyze}
-          className="w-full mt-3 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
+          className="w-full mt-3 rounded-xl py-2.5 font-sans font-semibold text-xs btn-gradient-primary flex items-center justify-center gap-2"
         >
           {isAnalyzing ? (
             <>
@@ -165,7 +169,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
               {t(lang, 'Analyzing...', 'Menganalisis...')}
             </>
           ) : (
-            t(lang, 'Analyze Leaf', 'Analisis Daun')
+            t(lang, 'Analyse Leaf', 'Analisis Daun')
           )}
         </button>
       </div>
