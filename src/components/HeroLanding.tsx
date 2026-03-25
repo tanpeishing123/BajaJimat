@@ -15,13 +15,22 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 60 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const wordReveal = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
 
 const bentoBlocks = [
@@ -29,52 +38,56 @@ const bentoBlocks = [
     icon: ShieldCheck,
     title_en: 'Stop Chemical Runoff',
     title_bm: 'Hentikan Larian Kimia',
-    desc_en: 'Apply only what the soil needs.',
-    desc_bm: 'Gunakan hanya apa yang tanah perlukan.',
-    span: 'md:col-span-2',
+    desc_en: 'Apply only what the soil needs — protecting rivers, soil, and future harvests.',
+    desc_bm: 'Gunakan hanya apa yang tanah perlukan — lindungi sungai, tanah, dan tuaian masa depan.',
+    span: 'md:col-span-2 md:row-span-1',
   },
   {
     icon: BadgeDollarSign,
     title_en: 'Affordable Precision',
     title_bm: 'Ketepatan Mampu Milik',
-    desc_en: 'Cut costs by 40% so no field goes unnourished.',
-    desc_bm: 'Jimat 40% supaya tiada ladang terbiar.',
-    span: 'md:col-span-1',
+    desc_en: 'Cut fertiliser costs by 40% so no field goes unnourished.',
+    desc_bm: 'Jimat kos baja sehingga 40% supaya tiada ladang terbiar.',
+    span: 'md:col-span-1 md:row-span-1',
   },
   {
     icon: BarChart3,
     title_en: 'Boost National Supply',
     title_bm: 'Tingkat Bekalan Negara',
-    desc_en: 'Higher yields per hectare for a stronger Malaysia.',
-    desc_bm: 'Hasil lebih tinggi sehektar untuk Malaysia lebih kukuh.',
-    span: 'md:col-span-1',
+    desc_en: 'Higher yields per hectare for a stronger, more food-secure Malaysia.',
+    desc_bm: 'Hasil lebih tinggi sehektar untuk Malaysia yang lebih kukuh dan terjamin makanan.',
+    span: 'md:col-span-1 md:row-span-1',
   },
 ];
 
 export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
+  const headerEn = 'Empowering Farmers. Securing Our Food.';
+  const headerBm = 'Memperkasa Petani. Menjamin Makanan Kita.';
+  const headerText = t(lang, headerEn, headerBm);
+  const headerWords = headerText.split(' ');
+
   return (
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
       {/* ── Hero Section ── */}
-      <section className="relative h-screen min-h-[600px] overflow-hidden">
-        <motion.img
+      <section className="relative h-[100svh] min-h-[520px] max-h-[900px] overflow-hidden">
+        {/* Ken Burns background */}
+        <img
           src={heroBg}
           alt="Lush Malaysian paddy field at golden hour"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover animate-ken-burns will-change-transform"
           width={1920}
           height={1080}
-          initial={{ opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2.5, ease: 'easeOut' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+        {/* Gradient overlay — only behind text area */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
 
-        <div className="relative h-full flex flex-col items-center justify-end pb-20 md:pb-28 text-center px-6">
+        <div className="relative h-full flex flex-col items-center justify-end pb-16 sm:pb-20 md:pb-28 text-center px-6">
           <motion.h1
             custom={0}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="font-serif-display text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.4)] leading-[1.05] tracking-tight"
+            className="font-serif-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.5)] leading-[1.08] tracking-tight"
           >
             Jimat Baja,
             <br />
@@ -86,59 +99,61 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-3 font-body text-lg md:text-2xl text-white/80 font-medium tracking-wide"
+            className="mt-4 font-serif-display text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/85 font-medium italic tracking-wide"
           >
             Save on Fertiliser, Boost Your Yield
           </motion.p>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-8">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
             <button
               onClick={onGetStarted}
-              className="group relative px-10 py-4 rounded-full bg-primary text-primary-foreground font-body font-bold text-base md:text-lg flex items-center gap-3 shadow-[0_0_30px_hsla(164,90%,30%,0.5)] hover:shadow-[0_0_50px_hsla(164,90%,30%,0.7)] hover:scale-105 active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
+              className="group relative px-10 py-4 rounded-full bg-primary text-primary-foreground font-body font-bold text-base md:text-lg flex items-center gap-3
+                shadow-[0_0_30px_hsla(164,90%,25%,0.5)]
+                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.7)] hover:scale-105
+                active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
             >
               {t(lang, 'Get Started', 'Mulakan')}
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
             </button>
           </motion.div>
-
-          <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible" className="mt-8 flex gap-8 md:gap-12">
-            {[
-              { val: '40%', label: t(lang, 'Cost Savings', 'Penjimatan') },
-              { val: '3', label: t(lang, 'Analysis Modes', 'Cara Analisis') },
-              { val: '2', label: t(lang, 'Languages', 'Bahasa') },
-            ].map((s) => (
-              <div key={s.val} className="text-center">
-                <span className="block font-serif-display text-2xl md:text-3xl font-bold text-accent">{s.val}</span>
-                <span className="block font-body text-[11px] md:text-xs text-white/60 mt-0.5">{s.label}</span>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
-      {/* ── How It Works (extracted) ── */}
+      {/* ── How It Works ── */}
       <HowItWorksSection lang={lang} onGetStarted={onGetStarted} />
 
-      {/* ── Why BajaJimat — Bento Grid ── */}
-      <section className="relative px-6 md:px-12 py-24 md:py-32 bg-gradient-landing">
-        <div className="max-w-5xl mx-auto">
+      {/* ── Empowering Farmers — Bento Grid ── */}
+      <section className="relative px-6 md:px-12 py-24 md:py-36 bg-background">
+        <div className="max-w-6xl mx-auto">
+          {/* Split-word header reveal */}
           <motion.div
             variants={sectionReveal}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="text-center mb-14 md:mb-20"
+            className="text-center mb-16 md:mb-24"
           >
-            <h2 className="font-serif-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1]">
-              {t(lang, 'Empowering Farmers.', 'Memperkasa Petani.')}
-              <br />
-              <span className="text-primary">
-                {t(lang, 'Securing Our Food.', 'Menjamin Makanan Kita.')}
-              </span>
+            <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
+              {headerWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordReveal}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className={`inline-block mr-[0.3em] ${
+                    word.includes('.') ? 'text-primary' : 'text-foreground'
+                  }`}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {bentoBlocks.map((block, i) => {
               const Icon = block.icon;
               return (
@@ -149,16 +164,16 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.12 }}
-                  className={`${block.span} relative overflow-hidden rounded-2xl p-6 md:p-8 cursor-default
-                    bg-white/60 backdrop-blur-xl border border-white/70
-                    shadow-[0_4px_30px_-8px_rgba(0,0,0,0.06)]
-                    hover:-translate-y-1.5 hover:shadow-[0_12px_40px_-8px_hsla(164,60%,30%,0.15)]
+                  className={`${block.span} relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                    bg-card border border-border/30
+                    shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
+                    hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                     transition-all duration-500 group`}
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors duration-300">
-                    <Icon size={24} className="text-primary" strokeWidth={1.5} />
+                  <div className="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center mb-5 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                    <Icon size={26} className="text-primary" strokeWidth={1.5} />
                   </div>
-                  <h3 className="font-serif-display text-xl md:text-2xl font-bold text-foreground mb-1.5">
+                  <h3 className="font-serif-display text-xl md:text-2xl font-bold text-foreground mb-2">
                     {t(lang, block.title_en, block.title_bm)}
                   </h3>
                   <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
@@ -172,14 +187,14 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="bg-primary px-6 py-8 text-center">
+      <footer className="bg-primary px-6 py-10 text-center">
         <p className="text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
           {t(lang,
             'Join thousands of Malaysian farmers already saving on fertiliser costs.',
             'Sertai ribuan petani Malaysia yang sudah jimat kos baja.'
           )}
         </p>
-        <p className="text-[10px] text-primary-foreground/40 font-body mt-2">
+        <p className="text-[10px] text-primary-foreground/40 font-body mt-3">
           © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>

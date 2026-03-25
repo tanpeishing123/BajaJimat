@@ -53,14 +53,13 @@ const steps = [
   },
 ];
 
-// Animated icon components
 function ScanAnim() {
   return (
-    <div className="relative w-16 h-16 flex items-center justify-center">
-      <Scan size={32} className="text-primary" strokeWidth={1.5} />
+    <div className="relative w-14 h-14 flex items-center justify-center">
+      <Scan size={28} className="text-primary" strokeWidth={1.5} />
       <motion.div
-        className="absolute left-2 right-2 h-0.5 bg-primary/60 rounded-full"
-        animate={{ top: ['25%', '75%', '25%'] }}
+        className="absolute left-3 right-3 h-0.5 bg-primary/50 rounded-full"
+        animate={{ top: ['30%', '70%', '30%'] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
       />
     </div>
@@ -69,12 +68,12 @@ function ScanAnim() {
 
 function OptimiseAnim() {
   return (
-    <div className="relative w-16 h-16 flex items-center justify-center">
-      <BrainCircuit size={32} className="text-primary" strokeWidth={1.5} />
+    <div className="relative w-14 h-14 flex items-center justify-center">
+      <BrainCircuit size={28} className="text-primary" strokeWidth={1.5} />
       <motion.div
-        className="absolute inset-0 rounded-full border-2 border-primary/20"
-        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
+        className="absolute inset-0 rounded-full border-2 border-primary/15"
+        animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
       />
     </div>
   );
@@ -82,12 +81,12 @@ function OptimiseAnim() {
 
 function NourishAnim() {
   return (
-    <div className="relative w-16 h-16 flex items-center justify-center">
-      <Sprout size={32} className="text-primary" strokeWidth={1.5} />
+    <div className="relative w-14 h-14 flex items-center justify-center">
+      <Sprout size={28} className="text-primary" strokeWidth={1.5} />
       <motion.div
-        className="absolute bottom-1 text-xs font-bold text-accent"
-        animate={{ y: [0, -6, 0], opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-0.5 text-xs font-bold text-accent"
+        animate={{ y: [0, -8, 0], opacity: [0.4, 1, 0.4] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
       >
         💰
       </motion.div>
@@ -120,7 +119,6 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
     [activeDetail]
   );
 
-  // Keyboard navigation
   useEffect(() => {
     if (activeDetail === null) return;
     const handler = (e: KeyboardEvent) => {
@@ -152,14 +150,14 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
     <section className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden">
       {/* Mint radial gradient bg */}
       <div className="absolute inset-0 bg-gradient-mint pointer-events-none" />
-      {/* Subtle roots/circuit SVG pattern */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.035] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      {/* Circuit pattern */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-            <path d="M60 0v40M60 80v40M0 60h40M80 60h40M60 40a20 20 0 0120 20 20 20 0 01-20 20 20 20 0 01-20-20 20 20 0 0120-20z" fill="none" stroke="hsl(164,60%,30%)" strokeWidth="1.2" />
-            <circle cx="60" cy="60" r="4" fill="hsl(164,60%,30%)" />
-            <circle cx="60" cy="0" r="2" fill="hsl(164,60%,30%)" />
-            <circle cx="0" cy="60" r="2" fill="hsl(164,60%,30%)" />
+            <path d="M60 0v40M60 80v40M0 60h40M80 60h40M60 40a20 20 0 0120 20 20 20 0 01-20 20 20 20 0 01-20-20 20 20 0 0120-20z" fill="none" stroke="hsl(164,60%,30%)" strokeWidth="1" />
+            <circle cx="60" cy="60" r="3" fill="hsl(164,60%,30%)" />
+            <circle cx="60" cy="0" r="1.5" fill="hsl(164,60%,30%)" />
+            <circle cx="0" cy="60" r="1.5" fill="hsl(164,60%,30%)" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#circuit)" />
@@ -173,10 +171,10 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
           viewport={{ once: true, margin: '-80px' }}
           className="text-center mb-16 md:mb-20"
         >
-          <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-2">
+          <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
             {t(lang, 'Simple Process', 'Proses Mudah')}
           </p>
-          <h2 className="font-serif-display text-3xl md:text-5xl font-bold text-foreground">
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
             {t(lang, 'How It Works', 'Cara Penggunaan')}
           </h2>
         </motion.div>
@@ -194,13 +192,14 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
-                className="group relative flex flex-col items-center text-center p-8 rounded-2xl cursor-pointer
-                  glass-card-hiw
-                  hover:-translate-y-2 hover:shadow-[0_12px_40px_-8px_hsla(164,60%,30%,0.2)]
+                className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
+                  bg-card border border-border/30
+                  shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
+                  hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                   active:scale-[0.97] transition-all duration-500"
               >
-                {/* Animated icon */}
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                {/* Animated icon in pale mint circle */}
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
                   <AnimIcon />
                 </div>
                 <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
@@ -212,7 +211,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
                   {t(lang, step.desc_en, step.desc_bm)}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {t(lang, 'Learn more', 'Ketahui lagi')}
                   <ArrowRight size={12} />
                 </span>
@@ -248,10 +247,10 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   width={1920}
                   height={1080}
                 />
-                <div className="absolute inset-0 bg-black/50 backdrop-blur-xl" />
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-2xl" />
               </motion.div>
 
-              {/* Content card */}
+              {/* Content card — glassmorphism */}
               <AnimatePresence mode="wait" custom={swipeDir}>
                 <motion.div
                   key={activeDetail}
@@ -261,7 +260,8 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative w-full max-w-lg bg-card/95 backdrop-blur-md rounded-3xl p-8 md:p-10 shadow-2xl"
+                  className="relative w-full max-w-lg rounded-3xl p-8 md:p-10 shadow-2xl
+                    bg-white/80 backdrop-blur-xl border border-white/50"
                   onClick={(e) => e.stopPropagation()}
                   onTouchStart={handleTouchStart}
                   onTouchEnd={handleTouchEnd}
@@ -269,13 +269,13 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   {/* Close button */}
                   <button
                     onClick={closeDetail}
-                    className="absolute top-4 right-4 w-8 h-8 rounded-full bg-muted/80 flex items-center justify-center hover:bg-muted transition-colors"
+                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-muted/60 flex items-center justify-center hover:bg-muted transition-colors"
                   >
                     <X size={16} className="text-muted-foreground" />
                   </button>
 
                   {/* Step badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold mb-5">
                     {steps[activeDetail].step} · {t(lang, steps[activeDetail].title_en, steps[activeDetail].title_bm)}
                   </div>
 
@@ -299,7 +299,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   </button>
 
                   {/* Dot indicators */}
-                  <div className="flex items-center justify-center gap-2 mt-6">
+                  <div className="flex items-center justify-center gap-2.5 mt-6">
                     {steps.map((_, i) => (
                       <button
                         key={i}
@@ -307,10 +307,10 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                           setSwipeDir(i > (activeDetail ?? 0) ? 1 : -1);
                           setActiveDetail(i);
                         }}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        className={`h-2 rounded-full transition-all duration-300 ${
                           i === activeDetail
-                            ? 'w-6 bg-primary'
-                            : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                            ? 'w-7 bg-primary'
+                            : 'w-2 bg-muted-foreground/25 hover:bg-muted-foreground/40'
                         }`}
                       />
                     ))}
@@ -318,16 +318,16 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Prev / Next arrows */}
+              {/* Prev / Next arrows — interactive */}
               {activeDetail > 0 && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     goTo(-1);
                   }}
-                  className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors z-10"
+                  className="nav-arrow absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center z-10"
                 >
-                  <ChevronLeft size={20} className="text-white" />
+                  <ChevronLeft size={22} className="text-white" />
                 </button>
               )}
               {activeDetail < steps.length - 1 && (
@@ -336,9 +336,9 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                     e.stopPropagation();
                     goTo(1);
                   }}
-                  className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors z-10"
+                  className="nav-arrow absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center z-10"
                 >
-                  <ChevronRight size={20} className="text-white" />
+                  <ChevronRight size={22} className="text-white" />
                 </button>
               )}
             </motion.div>
