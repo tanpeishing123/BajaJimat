@@ -2,6 +2,7 @@ import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-reac
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
+import { HeroMockCard } from '@/components/landing/HeroMockCard';
 
 interface HeroLandingProps {
   lang: 'en' | 'bm';
@@ -15,7 +16,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: i * 0.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -31,6 +32,13 @@ const wordReveal = {
     y: 0,
     transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   }),
+};
+
+const floatY = {
+  animate: {
+    y: [0, -8, 0],
+    transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+  },
 };
 
 const bentoBlocks = [
@@ -75,45 +83,64 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Gradient overlay — only behind text area */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/20" />
 
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-          <motion.h1
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="font-serif-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.5)] leading-[1.08] tracking-tight"
+        {/* 2-column grid */}
+        <div className="relative h-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          {/* Left — Copy */}
+          <motion.div
+            variants={floatY}
+            animate="animate"
+            className="flex flex-col items-start justify-center pt-12 md:pt-0"
           >
-            Jimat Baja,
-            <br />
-            Tingkat Hasil
-          </motion.h1>
-
-          <motion.p
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-4 font-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 font-semibold tracking-wide"
-          >
-            Save on Fertiliser, Boost Your Yield
-          </motion.p>
-
-          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
-            <button
-              onClick={onGetStarted}
-              className="group relative px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                bg-gradient-to-r from-[hsla(164,80%,30%,0.7)] to-[hsla(170,70%,35%,0.7)]
-                backdrop-blur-md border border-white/30 text-white
-                shadow-[0_0_30px_hsla(164,90%,25%,0.4)]
-                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.6)] hover:scale-105
-                active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
+            <motion.h1
+              custom={0}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.5)] leading-[1.08] tracking-tight text-left"
             >
-              {t(lang, 'Get Started', 'Mulakan')}
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
+              Jimat Baja,
+              <br />
+              Tingkat Hasil
+            </motion.h1>
+
+            <motion.p
+              custom={1}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mt-4 font-body text-lg sm:text-xl md:text-2xl text-white/90 font-medium tracking-wide text-left"
+            >
+              Save on Fertiliser, Boost Your Yield
+            </motion.p>
+
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-8">
+              <button
+                onClick={onGetStarted}
+                className="group relative px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                  bg-gradient-to-r from-[hsla(164,80%,30%,0.7)] to-[hsla(170,70%,35%,0.7)]
+                  backdrop-blur-md border border-white/30 text-white
+                  shadow-[0_0_30px_hsla(164,90%,25%,0.4)]
+                  hover:shadow-[0_0_50px_hsla(164,90%,30%,0.6)] hover:scale-105
+                  active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
+              >
+                {t(lang, 'Get Started', 'Mulakan')}
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </button>
+            </motion.div>
+          </motion.div>
+
+          {/* Right — Glassmorphism mock card */}
+          <motion.div
+            custom={3}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="hidden md:flex items-center justify-center"
+          >
+            <HeroMockCard />
           </motion.div>
         </div>
       </section>
@@ -129,18 +156,18 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={sectionReveal}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: false, margin: '-80px' }}
             className="text-center mb-16 md:mb-24"
           >
             <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
-          {headerWords.map((word, i) => (
+              {headerWords.map((word, i) => (
                 <motion.span
                   key={i}
                   custom={i}
                   variants={wordReveal}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   className={`inline-block mr-[0.3em] ${
                     word.includes('.') ? 'text-primary' : 'text-foreground'
                   }`}
@@ -161,15 +188,16 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   variants={sectionReveal}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={{ once: false, margin: '-40px' }}
                   transition={{ delay: i * 0.15 }}
-                  className={`relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                  className="animate-float-card relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
                     bg-card border border-border/30
                     shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                     hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
-                    transition-all duration-500 group`}
+                    transition-all duration-500 group"
+                  style={{ animationDelay: `${i * 0.5}s` }}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center mb-5 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-500">
                     <Icon size={26} className="text-primary" strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif-display text-xl md:text-2xl font-bold text-foreground mb-2">
