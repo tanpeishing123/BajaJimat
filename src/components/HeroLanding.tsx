@@ -11,26 +11,17 @@ interface HeroLandingProps {
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 1, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: i * 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const wordReveal = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  }),
+const scrollReveal = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const bentoBlocks = [
@@ -38,22 +29,22 @@ const bentoBlocks = [
     icon: ShieldCheck,
     title_en: 'Stop Chemical Runoff',
     title_bm: 'Hentikan Larian Kimia',
-    desc_en: 'Apply only what the soil needs — protecting rivers, soil, and future harvests.',
-    desc_bm: 'Gunakan hanya apa yang tanah perlukan — lindungi sungai, tanah, dan tuaian masa depan.',
+    desc_en: 'Apply only what the soil needs.',
+    desc_bm: 'Gunakan hanya apa yang tanah perlukan.',
   },
   {
     icon: BadgeDollarSign,
     title_en: 'Affordable Precision',
     title_bm: 'Ketepatan Mampu Milik',
-    desc_en: 'Cut fertiliser costs by 40% so no field goes unnourished.',
-    desc_bm: 'Jimat kos baja sehingga 40% supaya tiada ladang terbiar.',
+    desc_en: 'Cut costs by up to 40%.',
+    desc_bm: 'Jimat kos sehingga 40%.',
   },
   {
     icon: BarChart3,
     title_en: 'Boost National Supply',
     title_bm: 'Tingkat Bekalan Negara',
-    desc_en: 'Higher yields per hectare for a stronger, more food-secure Malaysia.',
-    desc_bm: 'Hasil lebih tinggi sehektar untuk Malaysia yang lebih kukuh dan terjamin makanan.',
+    desc_en: 'Higher yields for a stronger Malaysia.',
+    desc_bm: 'Hasil lebih tinggi untuk Malaysia lebih kukuh.',
   },
 ];
 
@@ -67,7 +58,6 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
       {/* ── Hero Section ── */}
       <section className="relative h-[100svh] min-h-[520px] max-h-[900px] overflow-hidden flex items-center justify-center">
-        {/* Ken Burns background */}
         <img
           src={heroBg}
           alt="Lush Malaysian paddy field at golden hour"
@@ -75,17 +65,15 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Centered radial gradient overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/60 via-black/20 to-transparent" />
 
-        {/* Centered content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
           <motion.h1
             custom={0}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight"
+            className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
           >
             Jimat Baja,
             <br />
@@ -97,18 +85,18 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-5 font-body text-lg sm:text-xl md:text-2xl text-accent font-semibold tracking-wide"
+            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-accent font-medium tracking-wide"
           >
             Save on Fertiliser, Boost Your Yield
           </motion.p>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-8">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
             <button
               onClick={onGetStarted}
               className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                bg-accent text-foreground
-                shadow-[0_4px_20px_-4px_hsla(38,92%,50%,0.5)]
-                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(38,92%,50%,0.6)]
+                bg-primary text-primary-foreground
+                shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
+                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
                 active:scale-[0.97] transition-all duration-300"
             >
               {t(lang, 'Get Started', 'Mulakan')}
@@ -122,22 +110,28 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       <HowItWorksSection lang={lang} onGetStarted={onGetStarted} />
 
       {/* ── Empowering Farmers — Bento Grid ── */}
-      <section className="relative px-6 md:px-12 py-24 md:py-36 bg-background">
+      <section className="relative px-6 md:px-12 py-24 md:py-36" style={{ background: '#FAFAF8' }}>
         <div className="max-w-6xl mx-auto">
-          {/* Split-word header reveal */}
           <motion.div
-            variants={sectionReveal}
+            variants={scrollReveal}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="text-center mb-16 md:mb-24"
+            viewport={{ once: true, margin: '-60px' }}
+            className="text-center mb-14 md:mb-20"
           >
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
+            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.15]">
               {headerWords.map((word, i) => (
                 <motion.span
                   key={i}
                   custom={i}
-                  variants={wordReveal}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: (j: number) => ({
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: 0.3 + j * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                    }),
+                  }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -151,25 +145,24 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </h2>
           </motion.div>
 
-          {/* Bento grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {bentoBlocks.map((block, i) => {
               const Icon = block.icon;
               return (
                 <motion.div
                   key={i}
-                  variants={sectionReveal}
+                  variants={scrollReveal}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.15 }}
-                  className={`relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                  className="relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
                     bg-card border border-border/30
                     shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                     hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
-                    transition-all duration-500 group`}
+                    transition-all duration-500 group"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center mb-5 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-500">
                     <Icon size={26} className="text-primary" strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif-display text-xl md:text-2xl font-bold text-foreground mb-2">
