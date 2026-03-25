@@ -56,11 +56,22 @@ const steps = [
 function ScanAnim() {
   return (
     <div className="relative w-14 h-14 flex items-center justify-center">
-      <Scan size={28} className="text-primary" strokeWidth={1.5} />
+      {/* Leaf icon */}
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-primary" strokeWidth="1.5" stroke="currentColor">
+        <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20c4 0 8.5-3.5 9.5-11.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5.5 14.5S8 12 10 12c2 0 4 1 4 1" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      {/* Pulsing scan line */}
       <motion.div
-        className="absolute left-3 right-3 h-0.5 bg-primary/50 rounded-full"
-        animate={{ top: ['30%', '70%', '30%'] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-2 right-2 h-[2px] rounded-full bg-primary/60"
+        animate={{ top: ['20%', '80%', '20%'] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      {/* Outer pulse ring */}
+      <motion.div
+        className="absolute inset-0 rounded-full border border-primary/20"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
       />
     </div>
   );
