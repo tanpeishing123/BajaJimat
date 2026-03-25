@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3, Leaf, ScanLine, Languages } from 'lucide-react';
+import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
@@ -10,26 +10,17 @@ interface HeroLandingProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
-const fadeLeft = {
-  hidden: { opacity: 0, x: -20 },
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
-    x: 0,
-    transition: { delay: i * 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    y: 0,
+    transition: { delay: i * 0.15, duration: 1, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-const fadeUpDelayed = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 const sectionReveal = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
 };
 
@@ -41,12 +32,6 @@ const wordReveal = {
     transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   }),
 };
-
-const stats = [
-  { icon: BadgeDollarSign, value: '40%', label_en: 'Savings', label_bm: 'Penjimatan' },
-  { icon: ScanLine, value: '3', label_en: 'Analysis Modes', label_bm: 'Mod Analisis' },
-  { icon: Languages, value: '2', label_en: 'Languages', label_bm: 'Bahasa' },
-];
 
 const bentoBlocks = [
   {
@@ -81,7 +66,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
       {/* ── Hero Section ── */}
-      <section className="relative h-[100svh] min-h-[520px] max-h-[900px] overflow-hidden">
+      <section className="relative h-[100svh] min-h-[520px] max-h-[900px] overflow-hidden flex items-center justify-center">
         {/* Ken Burns background */}
         <img
           src={heroBg}
@@ -90,75 +75,45 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Left-heavy gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        {/* Centered radial gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/60 via-black/20 to-transparent" />
 
-        {/* 2-column grid */}
-        <div className="relative h-full grid grid-cols-1 md:grid-cols-2 items-center px-6 md:px-16 lg:px-24 gap-8">
-          {/* Left Column — The Hook */}
-          <div className="flex flex-col items-start justify-center pt-16 md:pt-0">
-            <motion.h1
-              custom={0}
-              variants={fadeLeft}
-              initial="hidden"
-              animate="visible"
-              className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight"
-            >
-              Jimat Baja,
-              <br />
-              Tingkat Hasil
-            </motion.h1>
-
-            <motion.p
-              custom={1}
-              variants={fadeLeft}
-              initial="hidden"
-              animate="visible"
-              className="mt-5 font-body text-lg sm:text-xl md:text-2xl text-white/90 font-medium tracking-wide"
-            >
-              Save on Fertiliser, Boost Your Yield
-            </motion.p>
-
-            <motion.div custom={2} variants={fadeLeft} initial="hidden" animate="visible" className="mt-8">
-              <button
-                onClick={onGetStarted}
-                className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                  bg-primary text-primary-foreground
-                  shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
-                  hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
-                  active:scale-[0.97] transition-all duration-300"
-              >
-                {t(lang, 'Get Started', 'Mulakan')}
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
-            </motion.div>
-          </div>
-
-          {/* Right Column — Floating Glass Stats */}
-          <motion.div
-            variants={fadeUpDelayed}
+        {/* Centered content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
+          <motion.h1
+            custom={0}
+            variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="hidden md:flex items-center justify-center"
+            className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight"
           >
-            <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-[0_8px_40px_-8px_rgba(0,0,0,0.3)] w-full max-w-sm">
-              <div className="flex flex-col gap-6">
-                {stats.map((stat, i) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div key={i} className="flex items-center gap-5">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
-                        <Icon size={22} className="text-white/80" strokeWidth={1.5} />
-                      </div>
-                      <div>
-                        <p className="text-3xl font-bold text-white tracking-tight leading-none">{stat.value}</p>
-                        <p className="text-sm text-white/60 font-body mt-0.5">{t(lang, stat.label_en, stat.label_bm)}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            Jimat Baja,
+            <br />
+            Tingkat Hasil
+          </motion.h1>
+
+          <motion.p
+            custom={1}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mt-5 font-body text-lg sm:text-xl md:text-2xl text-accent font-semibold tracking-wide"
+          >
+            Save on Fertiliser, Boost Your Yield
+          </motion.p>
+
+          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-8">
+            <button
+              onClick={onGetStarted}
+              className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                bg-accent text-foreground
+                shadow-[0_4px_20px_-4px_hsla(38,92%,50%,0.5)]
+                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(38,92%,50%,0.6)]
+                active:scale-[0.97] transition-all duration-300"
+            >
+              {t(lang, 'Get Started', 'Mulakan')}
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+            </button>
           </motion.div>
         </div>
       </section>
@@ -178,7 +133,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             className="text-center mb-16 md:mb-24"
           >
             <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
-          {headerWords.map((word, i) => (
+              {headerWords.map((word, i) => (
                 <motion.span
                   key={i}
                   custom={i}
