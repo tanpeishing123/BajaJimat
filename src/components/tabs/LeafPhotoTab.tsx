@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, Upload, AlertTriangle, Loader2 } from 'lucide-react';
+import { Upload, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -23,7 +23,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
@@ -130,7 +129,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden file inputs */}
+        {/* Hidden file input */}
         <input
           ref={inputRef}
           type="file"
@@ -138,50 +137,27 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
-        <input
-          ref={cameraRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
-        />
 
-        {preview ? (
-          <div
-            onClick={() => inputRef.current?.click()}
-            className="border-2 border-dashed border-border rounded-xl p-4 text-center cursor-pointer transition-all duration-200 hover:border-primary/50"
-          >
-            <img src={preview} alt="Leaf preview" className="max-h-20 mx-auto rounded-lg object-contain" />
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => cameraRef.current?.click()}
-              className="flex-1 border-2 border-dashed border-primary/40 rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer transition-all duration-200 hover:border-primary/60 hover:bg-primary/[0.02] bg-transparent"
-            >
+        <div
+          onClick={() => inputRef.current?.click()}
+          className="border-2 border-dashed border-primary/30 rounded-xl p-6 text-center cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02]"
+        >
+          {preview ? (
+            <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain" />
+          ) : (
+            <div className="flex flex-col items-center gap-2 text-muted-foreground">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Camera size={20} className="text-primary" />
+                <Upload size={20} className="text-primary" />
               </div>
-              <span className="font-sans text-xs font-medium text-foreground">
-                {t(lang, 'Take Photo', 'Ambil Foto')}
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              className="flex-1 border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/[0.02] bg-transparent"
-            >
-              <div className="w-10 h-10 rounded-full bg-muted/60 flex items-center justify-center">
-                <Upload size={20} className="text-muted-foreground" />
-              </div>
-              <span className="font-sans text-xs font-medium text-foreground">
-                {t(lang, 'Upload', 'Muat Naik')}
-              </span>
-            </button>
-          </div>
-        )}
+              <p className="font-sans text-xs font-medium text-foreground">
+                {t(lang, 'Drag & drop or click to upload', 'Seret & lepas atau klik untuk muat naik')}
+              </p>
+              <p className="font-sans text-[10px] text-muted-foreground">
+                {t(lang, 'Supports photo capture and image formats', 'Menyokong tangkapan foto dan format imej')}
+              </p>
+            </div>
+          )}
+        </div>
 
         <button
           disabled={!file || isAnalyzing}
