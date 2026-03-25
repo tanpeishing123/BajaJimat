@@ -81,7 +81,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         {/* Gradient overlay — only behind text area */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
 
-        <div className="relative h-full flex flex-col items-center justify-end pb-16 sm:pb-20 md:pb-28 text-center px-6">
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
           <motion.h1
             custom={0}
             variants={fadeUp}
@@ -99,7 +99,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-4 font-serif-display text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/85 font-medium italic tracking-wide"
+            className="mt-4 font-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 font-semibold tracking-wide"
           >
             Save on Fertiliser, Boost Your Yield
           </motion.p>
@@ -107,9 +107,11 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
             <button
               onClick={onGetStarted}
-              className="group relative px-10 py-4 rounded-full bg-primary text-primary-foreground font-body font-bold text-base md:text-lg flex items-center gap-3
-                shadow-[0_0_30px_hsla(164,90%,25%,0.5)]
-                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.7)] hover:scale-105
+              className="group relative px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                bg-gradient-to-r from-[hsla(164,80%,30%,0.7)] to-[hsla(170,70%,35%,0.7)]
+                backdrop-blur-md border border-white/30 text-white
+                shadow-[0_0_30px_hsla(164,90%,25%,0.4)]
+                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.6)] hover:scale-105
                 active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
             >
               {t(lang, 'Get Started', 'Mulakan')}
@@ -133,8 +135,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             viewport={{ once: true, margin: '-80px' }}
             className="text-center mb-16 md:mb-24"
           >
-            <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
-              {headerWords.map((word, i) => (
+            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
+          {headerWords.map((word, i) => (
                 <motion.span
                   key={i}
                   custom={i}
@@ -163,8 +165,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
-                  transition={{ delay: i * 0.12 }}
-                  className={`${block.span} relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                  transition={{ delay: i * 0.15 }}
+                  className={`relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
                     bg-card border border-border/30
                     shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                     hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
