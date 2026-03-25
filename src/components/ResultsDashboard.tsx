@@ -168,7 +168,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   const buildWhatsAppText = () => {
     const allItems = [...fertItems, ...mgItems];
     const itemLines = allItems.map(r =>
-      `• ${r.name}: ${r.bags} ${t(lang, 'bags', 'beg')} × RM${r.price_per_bag} = RM${r.subtotal_rm}`
+      `• ${r.name}: ${r.bags} ${t(lang, 'bags (25kg)', 'beg (25kg)')} × RM${r.price_per_bag} = RM${r.subtotal_rm}`
     );
 
     const message = lang === 'bm'
@@ -294,7 +294,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
             <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
-              {t(lang, '🛒 Shopping', '🛒 Senarai')}
+              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
             </TabsTrigger>
             <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '💡 Advice', '💡 Nasihat')}
@@ -406,7 +406,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     {limingItems.map((lim) => (
                       <div key={lim.name} className="flex items-center gap-4 text-xs font-sans text-amber-700 mb-1">
                         <span className="font-semibold">{lim.name}</span>
-                        <span>{lim.bags} {t(lang, 'bags', 'beg')} × RM{lim.price_per_bag}</span>
+                        <span>{lim.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{lim.price_per_bag}</span>
                         <span className="font-bold">= RM{lim.subtotal_rm}</span>
                       </div>
                     ))}
@@ -461,7 +461,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <div className="flex-1 min-w-0">
                       <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
                       <p className="text-xs text-muted-foreground font-sans mt-0.5">
-                        {rec.bags} {t(lang, 'bags', 'beg')} × RM{rec.price_per_bag}
+                        {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
                       </p>
                     </div>
                     <p className="font-sans font-bold text-primary text-lg tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
@@ -486,7 +486,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <div key={mg.name} className="mb-1">
                       <div className="flex items-center gap-4 text-xs font-sans text-blue-700">
                         <span className="font-semibold">{mg.name}</span>
-                        <span>{mg.bags} {t(lang, 'bags', 'beg')} × RM{mg.price_per_bag}</span>
+                        <span>{mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}</span>
                         <span className="font-bold">= RM{mg.subtotal_rm}</span>
                       </div>
                       {mg.reason && (
