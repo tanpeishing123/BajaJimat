@@ -495,7 +495,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         <div className="w-full px-6 md:px-20 py-4">
           {/* Plot Context Banner */}
           {plotName && (
-            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/5 border border-primary/20">
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/[0.07] border border-primary/15">
               <p className="text-xs font-sans font-medium text-primary">
                 {t(
                   `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
@@ -518,18 +518,18 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             </p>
           </div>
 
-          {/* Tabs */}
-          <div className="flex gap-1.5 mb-3 bg-muted/50 p-1 rounded-xl">
+          {/* Tabs - Premium Pill Style */}
+          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-muted/40">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2 font-sans text-xs font-medium transition-all duration-200 rounded-lg active:scale-[0.97] ${
+                  className={`relative flex-1 flex items-center justify-center gap-1.5 py-2.5 font-sans text-xs font-semibold transition-all duration-200 rounded-xl active:scale-[0.97] ${
                     isActive
-                      ? 'bg-white text-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'tab-pill-active'
+                      : 'tab-pill-inactive'
                   }`}
                 >
                   {tab.icon}

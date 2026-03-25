@@ -18,7 +18,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
   const canSubmit = n !== '' && p !== '' && k !== '' && ph !== '';
 
   return (
-    <div className="bg-white rounded-2xl border border-border/50 shadow-sm px-5 py-4">
+    <div className="bg-card rounded-2xl border border-border/40 shadow-luxe px-5 py-4">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-sm font-sans font-bold text-foreground">
@@ -41,12 +41,12 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             placeholder=" "
             min="0"
             step="1"
-            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+            className="peer w-full rounded-xl input-premium px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground transition-all"
           />
-          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] transition-all pointer-events-none">
+          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] peer-focus:text-primary transition-all pointer-events-none">
             {t(lang, 'Nitrogen (N)', 'Nitrogen (N)')}
           </label>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-[10px] font-medium">ppm</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 font-body text-[10px] font-medium">ppm</span>
         </div>
 
         {/* Phosphorus */}
@@ -58,12 +58,12 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             placeholder=" "
             min="0"
             step="1"
-            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+            className="peer w-full rounded-xl input-premium px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground transition-all"
           />
-          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] transition-all pointer-events-none">
+          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] peer-focus:text-primary transition-all pointer-events-none">
             {t(lang, 'Phosphorus (P)', 'Fosforus (P)')}
           </label>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-[10px] font-medium">ppm</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 font-body text-[10px] font-medium">ppm</span>
         </div>
 
         {/* Potassium */}
@@ -75,12 +75,12 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             placeholder=" "
             min="0"
             step="1"
-            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+            className="peer w-full rounded-xl input-premium px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground transition-all"
           />
-          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] transition-all pointer-events-none">
+          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] peer-focus:text-primary transition-all pointer-events-none">
             {t(lang, 'Potassium (K)', 'Kalium (K)')}
           </label>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-[10px] font-medium">ppm</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 font-body text-[10px] font-medium">ppm</span>
         </div>
 
         {/* pH */}
@@ -93,9 +93,9 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             min="0"
             max="14"
             step="0.1"
-            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+            className="peer w-full rounded-xl input-premium px-3 pt-5 pb-1.5 font-body text-sm text-foreground transition-all"
           />
-          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] transition-all pointer-events-none">
+          <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium peer-placeholder-shown:top-3 peer-placeholder-shown:text-xs peer-focus:top-1 peer-focus:text-[10px] peer-focus:text-primary transition-all pointer-events-none">
             {t(lang, 'Soil pH', 'pH Tanah')}
           </label>
         </div>
@@ -111,12 +111,12 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
             placeholder="0"
             min="0"
             step="0.1"
-            className="peer w-full rounded-xl border border-border bg-muted/30 px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+            className="peer w-full rounded-xl input-premium px-3 pt-5 pb-1.5 pr-14 font-body text-sm text-foreground transition-all"
           />
           <label className="absolute left-3 top-1 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
             {t(lang, 'Magnesium (Mg) — ppm (optional)', 'Magnesium (Mg) — ppm (pilihan)')}
           </label>
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-body text-[10px] font-medium">ppm</span>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 font-body text-[10px] font-medium">ppm</span>
         </div>
         <p className="text-[10px] text-muted-foreground font-body mt-1 px-1">
           {t(lang, 'Leave empty if no data available', 'Jika tidak ada data, biarkan kosong')}
@@ -126,7 +126,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
       <button
         disabled={!canSubmit}
         onClick={() => canSubmit && onSubmit(Number(n), Number(p), Number(k), Number(ph), mg.trim() ? Number(mg) : null)}
-        className="w-full mt-4 rounded-full py-2 font-sans font-semibold text-xs btn-gradient-primary"
+        className="w-full mt-4 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary"
       >
         {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
       </button>
