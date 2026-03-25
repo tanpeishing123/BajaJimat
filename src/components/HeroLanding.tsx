@@ -131,7 +131,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={sectionReveal}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-80px' }}
+            viewport={{ once: true, margin: '-80px' }}
             className="text-center mb-16 md:mb-24"
           >
             <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
@@ -142,7 +142,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   variants={wordReveal}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   className={`inline-block mr-[0.3em] ${
                     word.includes('.') ? 'text-primary' : 'text-foreground'
                   }`}
