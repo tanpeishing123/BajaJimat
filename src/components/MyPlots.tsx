@@ -95,22 +95,22 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
   };
 
   return (
-    <div className="h-screen flex flex-col bg-dark-emerald">
+    <div className="h-screen flex flex-col" style={{ background: '#F8FAFC' }}>
       {/* Header */}
-      <header className="bg-transparent border-b border-emerald-400/15 px-6 py-4 flex-shrink-0 backdrop-blur-sm">
+      <header className="bg-white border-b border-border/60 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center">
-              <Sprout className="text-emerald-400" size={18} />
+            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
+              <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-display text-base font-bold text-emerald-50">BajaJimat</span>
+            <span className="font-display text-base font-bold text-foreground">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-400/20 text-xs font-sans font-medium text-emerald-300/70 hover:text-emerald-200 hover:border-emerald-400/40 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
-            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-emerald-300/70 hover:text-emerald-200 font-sans transition-colors active:scale-95">
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
               <LogOut size={12} />
               {t(lang, 'Logout', 'Log Keluar')}
             </button>
@@ -123,10 +123,10 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
         <div className="max-w-2xl mx-auto">
           {/* Greeting */}
           <div className="mb-6">
-            <h1 className="font-display text-2xl font-bold text-emerald-50 tracking-tight">
+            <h1 className="font-display text-2xl font-bold text-foreground tracking-tight">
               {t(lang, 'My Plots', 'Ladang Saya')}
             </h1>
-            <p className="text-sm text-emerald-300/60 font-sans mt-1">
+            <p className="text-sm text-muted-foreground font-sans mt-1">
               {t(lang, `Welcome, ${userName}!`, `Selamat datang, ${userName}!`)}
             </p>
           </div>
@@ -134,29 +134,29 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           {/* Plot Cards */}
           {plots.length === 0 ? (
             <div className="text-center py-16 px-6">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-400/20 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="text-emerald-400/60" size={28} />
+              <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                <MapPin className="text-muted-foreground" size={28} />
               </div>
-              <p className="text-sm text-emerald-300/50 font-sans">
+              <p className="text-sm text-muted-foreground font-sans">
                 {t(lang, 'No plots yet. Add your first plot!', 'Belum ada ladang. Tambah ladang pertama anda!')}
               </p>
             </div>
           ) : (
             <div className="space-y-3 mb-6">
               {plots.map(plot => (
-                <div key={plot.id} className="glass-dark rounded-2xl p-4 hover:border-emerald-400/40 transition-all duration-300">
+                <div key={plot.id} className="bg-white rounded-2xl p-4 border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-400/20 flex items-center justify-center shrink-0 mt-0.5">
-                        <Leaf size={16} className="text-emerald-400" />
+                      <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <Leaf size={16} className="text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-display text-sm font-bold text-emerald-50">{plot.name}</h3>
-                        <p className="text-xs text-emerald-300/50 font-sans mt-0.5">
+                        <h3 className="font-display text-sm font-bold text-foreground">{plot.name}</h3>
+                        <p className="text-xs text-muted-foreground font-sans mt-0.5">
                           {plot.crop_type} · {plot.farm_size_ha} ha · {soilLabel(plot.soil_type, lang)}
                         </p>
                         {plot.last_cost !== null && (
-                          <p className="text-xs font-sans font-semibold text-glow-green mt-1">
+                          <p className="text-xs font-sans font-semibold text-primary mt-1">
                             {t(lang, 'Last cost', 'Kos terakhir')}: RM {plot.last_cost.toFixed(2)}
                           </p>
                         )}
@@ -171,23 +171,23 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                   <div className="flex items-center gap-2 mt-3">
                     <button
                       onClick={() => onAnalyse(plot)}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-sans text-xs font-semibold transition-all duration-200 active:scale-95 shadow-lg shadow-emerald-500/25"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-sans text-xs font-semibold transition-all duration-200 active:scale-95 shadow-sm"
                     >
                       <FlaskConical size={14} />
                       {t(lang, 'New Analysis', 'Analisis Baru')}
                     </button>
                     <button
                       onClick={() => onViewHistory(plot)}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-emerald-400/30 text-emerald-300 text-xs font-sans font-semibold hover:bg-emerald-400/10 hover:border-emerald-400/50 transition-all duration-200 active:scale-95"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-all duration-200 active:scale-95"
                     >
                       {t(lang, 'View History', 'Lihat Sejarah')}
                       {plot.history?.length ? (
-                        <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-emerald-400/15 text-emerald-300 text-[10px] font-bold">{plot.history.length}</span>
+                        <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold">{plot.history.length}</span>
                       ) : null}
                     </button>
                     <button
                       onClick={() => handleDelete(plot.id)}
-                      className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-red-400/30 text-red-400 text-xs font-sans font-medium hover:bg-red-400/10 hover:border-red-400/50 transition-all duration-200 active:scale-95"
+                      className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-all duration-200 active:scale-95"
                     >
                       <Trash2 size={12} />
                     </button>
@@ -200,7 +200,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           {/* Add New Plot Button */}
           <button
             onClick={() => setSheetOpen(true)}
-            className="w-full py-3 rounded-2xl border-2 border-dashed border-emerald-400/30 text-emerald-300 font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-emerald-400/5 hover:border-emerald-400/50 transition-all duration-200 active:scale-[0.98]"
+            className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 bg-white text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/5 hover:border-primary/60 transition-all duration-200 active:scale-[0.98]"
           >
             <Plus size={18} />
             {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
