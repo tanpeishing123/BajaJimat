@@ -325,6 +325,15 @@
   transform: translateY(-50%) scale(1.05);
 }
 
+@keyframes float-card {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float-card {
+  animation: float-card 3.5s ease-in-out infinite;
+}
+
 @media print {
   body {
     background: white !important;
