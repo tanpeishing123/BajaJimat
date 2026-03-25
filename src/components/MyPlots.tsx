@@ -171,7 +171,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                   <div className="flex items-center gap-2 mt-3">
                     <button
                       onClick={() => onAnalyse(plot)}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-sans text-xs font-semibold transition-all duration-200 active:scale-95 shadow-sm"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
                     >
                       <FlaskConical size={14} />
                       {t(lang, 'New Analysis', 'Analisis Baru')}
@@ -200,7 +200,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           {/* Add New Plot Button */}
           <button
             onClick={() => setSheetOpen(true)}
-            className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 bg-white text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/5 hover:border-primary/60 transition-all duration-200 active:scale-[0.98]"
+            className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 bg-primary/[0.03] text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/[0.07] hover:border-primary/60 transition-all duration-200 active:scale-[0.98]"
           >
             <Plus size={18} />
             {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
@@ -225,7 +225,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 value={plotName}
                 onChange={e => setPlotName(e.target.value)}
                 placeholder={t(lang, 'e.g. Ladang Utara', 'contoh: Ladang Utara')}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Plot Name', 'Nama Ladang')}
@@ -239,7 +239,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 value={cropType}
                 onChange={e => setCropType(e.target.value)}
                 placeholder={t(lang, 'e.g. Rubber, Durian, Paddy...', 'contoh: Getah, Durian, Padi...')}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Crop Type', 'Jenis Tanaman')}
@@ -255,7 +255,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 placeholder="0"
                 min="0.1"
                 step="0.1"
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 pr-12 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
+                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 pr-12 font-body text-sm text-foreground input-premium transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Size (hectares)', 'Keluasan (hektar)')}
@@ -268,7 +268,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
               <select
                 value={soilType}
                 onChange={e => setSoilType(e.target.value)}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
+                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all appearance-none"
               >
                 {SOIL_TYPES.map(s => (
                   <option key={s.value} value={s.value}>
