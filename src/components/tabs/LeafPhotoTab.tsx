@@ -150,10 +150,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
                 <Upload size={20} className="text-primary" />
               </div>
               <p className="font-sans text-xs font-medium text-foreground">
-                {t(lang, 'Drag & drop or click to upload', 'Seret & lepas atau klik untuk muat naik')}
-              </p>
-              <p className="font-sans text-[10px] text-muted-foreground">
-                {t(lang, 'Supports photo capture and image formats', 'Menyokong tangkapan foto dan format imej')}
+                {t(lang, 'Click to take photo / upload photo from gallery', 'Klik untuk ambil / muat naik gambar')}
               </p>
             </div>
           )}
