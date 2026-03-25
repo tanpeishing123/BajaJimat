@@ -201,7 +201,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
             <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
-              {t(lang, '🛒 Shopping', '🛒 Senarai')}
+              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
             </TabsTrigger>
             <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
               {t(lang, '💡 Advice', '💡 Nasihat')}
