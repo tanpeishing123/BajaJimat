@@ -56,29 +56,12 @@ const steps = [
 function ScanAnim() {
   return (
     <div className="relative w-14 h-14 flex items-center justify-center">
-      {/* Magnifying glass over leaf */}
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" className="text-primary" strokeWidth="1.4" stroke="currentColor">
-        {/* Leaf */}
-        <path d="M15 8C9 9.5 7 14 5.5 18.5" strokeLinecap="round" />
-        <path d="M6 15c1.5-1.5 3.5-2.5 5-2.5" strokeLinecap="round" />
-        {/* Magnifying glass circle */}
-        <circle cx="11" cy="10" r="5" strokeWidth="1.6" />
-        {/* Handle */}
-        <line x1="14.5" y1="13.5" x2="18" y2="17" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-      {/* Scanning line inside the magnifying glass area */}
       <motion.div
-        className="absolute h-[1.5px] rounded-full bg-primary/70"
-        style={{ left: '22%', right: '40%' }}
-        animate={{ top: ['30%', '55%', '30%'] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      {/* Outer pulse */}
-      <motion.div
-        className="absolute inset-0 rounded-full border border-primary/15"
-        animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
-      />
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <Scan size={28} className="text-primary" strokeWidth={1.5} />
+      </motion.div>
     </div>
   );
 }
@@ -185,7 +168,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
           variants={sectionReveal}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, margin: '-80px' }}
+          viewport={{ once: true, margin: '-80px' }}
           className="text-center mb-16 md:mb-20"
         >
           <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
@@ -206,11 +189,10 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 variants={sectionReveal}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, margin: '-60px' }}
+                viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
-                style={{ animationDelay: `${i * 0.6}s` }}
-                className="animate-float-card group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
+                className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
                   bg-card border border-border/30
                   shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                   hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
