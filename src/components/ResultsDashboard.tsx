@@ -46,7 +46,12 @@ const fadeUp = {
 
 const RadarDot = (props: any) => {
   const { cx, cy } = props;
-  return <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />;
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={8} fill="#34d399" fillOpacity={0.2} />
+      <circle cx={cx} cy={cy} r={4} fill="#34d399" stroke="#065f46" strokeWidth={2} />
+    </g>
+  );
 };
 
 /* Circular progress ring */
@@ -207,7 +212,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="h-screen flex flex-col bg-agri-depth overflow-hidden">
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
@@ -290,13 +295,13 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
           <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
-            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
+            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
+            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
               {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md">
+            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -342,7 +347,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* 3. Nutrient Deficit Section */}
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl p-5 shadow-sm relative overflow-hidden"
+              className="rounded-2xl p-5 relative overflow-hidden glass-emerald"
               style={{ background: 'linear-gradient(160deg, #0a1f1a 0%, #0d2b23 50%, #061a15 100%)' }}
             >
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -360,9 +365,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="72%" data={radarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis dataKey="nutrient" tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 700 }} />
+                    <PolarAngleAxis dataKey="nutrient" tick={{ fill: 'rgba(255,255,255,0.85)', fontSize: 13, fontWeight: 800, fontFamily: 'Plus Jakarta Sans, sans-serif' }} />
                     <PolarRadiusAxis domain={[0, maxVal]} tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 9 }} axisLine={false} />
-                    <Radar dataKey="value" stroke="#34d399" fill="url(#radarGrad)" fillOpacity={0.4} strokeWidth={2.5} dot={<RadarDot />} />
+                    <Radar dataKey="value" stroke="#34d399" fill="url(#radarGrad)" fillOpacity={0.5} strokeWidth={2.5} dot={<RadarDot />} />
                     <defs>
                       <radialGradient id="radarGrad" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stopColor="#34d399" stopOpacity={0.6} />
@@ -375,12 +380,12 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               {/* N-P-K Deficit Pills */}
               <div className="flex justify-center gap-3 mt-2 relative z-10">
                 {[
-                  { nutrient: 'N', value: result.n_deficit_kg, bg: 'bg-blue-500/20', text: 'text-blue-300', border: 'border-blue-400/30' },
-                  { nutrient: 'P', value: result.p_deficit_kg, bg: 'bg-orange-500/20', text: 'text-orange-300', border: 'border-orange-400/30' },
-                  { nutrient: 'K', value: result.k_deficit_kg, bg: 'bg-emerald-500/20', text: 'text-emerald-300', border: 'border-emerald-400/30' },
+                  { nutrient: 'N', value: result.n_deficit_kg, pill: 'pill-n', text: 'text-blue-300', border: 'border-blue-400/40' },
+                  { nutrient: 'P', value: result.p_deficit_kg, pill: 'pill-p', text: 'text-amber-300', border: 'border-amber-400/40' },
+                  { nutrient: 'K', value: result.k_deficit_kg, pill: 'pill-k', text: 'text-emerald-300', border: 'border-emerald-400/40' },
                 ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${d.bg} border ${d.border}`}>
-                    <span className={`text-xs font-bold font-sans ${d.text}`}>{d.nutrient}</span>
+                  <div key={d.nutrient} className={`flex items-center gap-2 px-4 py-2 rounded-full ${d.pill} border ${d.border}`}>
+                    <span className={`text-xs font-extrabold font-sans ${d.text} tracking-wide`}>{d.nutrient}</span>
                     <span className="text-sm font-bold text-white font-sans tabular-nums">{d.value}kg</span>
                   </div>
                 ))}
