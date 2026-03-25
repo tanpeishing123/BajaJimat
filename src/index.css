@@ -111,6 +111,18 @@
       hsl(152 20% 93%) 100%
     );
   }
+  .bg-gradient-mint {
+    background: radial-gradient(ellipse at 50% 0%, hsla(152, 60%, 90%, 0.5) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 100%, hsla(164, 50%, 92%, 0.4) 0%, transparent 60%),
+                hsl(0 0% 100%);
+  }
+  .glass-card-hiw {
+    background: hsla(0, 0%, 100%, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsla(164, 70%, 45%, 0.18);
+    box-shadow: 0 4px 24px -6px hsla(164, 60%, 30%, 0.08), 0 1px 3px rgba(0,0,0,0.04);
+  }
   .bg-agri-depth {
     background: radial-gradient(ellipse at 50% 0%, hsla(164, 60%, 12%, 0.07) 0%, transparent 60%),
                 radial-gradient(ellipse at 80% 100%, hsla(164, 50%, 10%, 0.05) 0%, transparent 50%),
