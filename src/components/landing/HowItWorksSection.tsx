@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Scan, BrainCircuit, Sprout, ChevronLeft, ChevronRight, ArrowRight, X } from 'lucide-react';
+import { Search, BrainCircuit, Sprout, ChevronLeft, ChevronRight, ArrowRight, X } from 'lucide-react';
 import tabAnalyseBg from '@/assets/tab-analyse-bg.jpg';
 import tabOptimiseBg from '@/assets/tab-optimise-bg.jpg';
 import tabNourishBg from '@/assets/tab-nourish-bg.jpg';
@@ -12,14 +12,14 @@ interface Props {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+const scrollReveal = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 1, 0.5, 1] } },
 };
 
 const steps = [
   {
-    icon: Scan,
+    icon: Search,
     title_en: 'Diagnose',
     title_bm: 'Diagnosis',
     desc_en: 'Instantly map soil health via report or photo.',
@@ -57,10 +57,10 @@ function ScanAnim() {
   return (
     <div className="relative w-14 h-14 flex items-center justify-center">
       <motion.div
-        animate={{ opacity: [0.7, 1, 0.7] }}
+        animate={{ scale: [1, 1.08, 1], opacity: [0.8, 1, 0.8] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <Scan size={28} className="text-primary" strokeWidth={1.5} />
+        <Search size={28} className="text-primary" strokeWidth={1.5} />
       </motion.div>
     </div>
   );
@@ -165,7 +165,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
 
       <div className="relative max-w-5xl mx-auto">
         <motion.div
-          variants={sectionReveal}
+          variants={scrollReveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
@@ -186,7 +186,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
             return (
               <motion.button
                 key={step.step}
-                variants={sectionReveal}
+                variants={scrollReveal}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-60px' }}
