@@ -19,7 +19,7 @@ const scrollReveal = {
 
 const steps = [
   {
-    icon: Scan,
+    icon: Search,
     title_en: 'Diagnose',
     title_bm: 'Diagnosis',
     desc_en: 'Instantly map soil health via report or photo.',
@@ -165,7 +165,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
 
       <div className="relative max-w-5xl mx-auto">
         <motion.div
-          variants={sectionReveal}
+          variants={scrollReveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
@@ -186,7 +186,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
             return (
               <motion.button
                 key={step.step}
-                variants={sectionReveal}
+                variants={scrollReveal}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-60px' }}
