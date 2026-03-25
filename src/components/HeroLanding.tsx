@@ -65,46 +65,72 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Left-heavy gradient overlay for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+        {/* Centered radial gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.25)_60%,transparent_100%)]" />
 
-        {/* Left-aligned content */}
-        <div className="relative h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex items-center">
-          <div className="max-w-2xl">
-            <motion.h1
-              variants={stagger(0)}
-              initial="hidden"
-              animate="visible"
-              className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-snug tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.4)]"
-            >
-              Jimat Baja,
-              <br />
-              Tingkat Hasil
-            </motion.h1>
+        {/* Centered content */}
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+          <motion.h1
+            variants={stagger(0)}
+            initial="hidden"
+            animate="visible"
+            className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-snug tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.4)]"
+          >
+            Jimat Baja,
+            <br />
+            Tingkat Hasil
+          </motion.h1>
 
-            <motion.p
-              variants={stagger(1)}
-              initial="hidden"
-              animate="visible"
-              className="mt-5 font-body text-lg sm:text-xl md:text-2xl text-white/90 font-medium tracking-wide"
-            >
-              Save on Fertiliser, Boost Your Yield
-            </motion.p>
+          <motion.p
+            variants={stagger(1)}
+            initial="hidden"
+            animate="visible"
+            className="mt-5 text-lg sm:text-xl md:text-2xl text-white font-medium tracking-wide"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Save on Fertiliser, Boost Your Yield
+          </motion.p>
 
-            <motion.div variants={stagger(2)} initial="hidden" animate="visible" className="mt-8">
-              <button
-                onClick={onGetStarted}
-                className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                  bg-primary text-primary-foreground
-                  shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
-                  hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
-                  active:scale-[0.97] transition-all duration-300"
+          {/* Glass Stats Bar */}
+          <motion.div
+            variants={stagger(2)}
+            initial="hidden"
+            animate="visible"
+            className="mt-8 flex items-center gap-0 rounded-2xl overflow-hidden
+              bg-black/30 backdrop-blur-xl border border-white/15
+              shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]"
+          >
+            {[
+              { value: '40%', label: t(lang, 'Savings', 'Penjimatan') },
+              { value: '3', label: t(lang, 'Analysis Modes', 'Mod Analisis') },
+              { value: '2', label: t(lang, 'Languages', 'Bahasa') },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className={`px-6 py-4 md:px-8 md:py-5 flex flex-col items-center gap-1 ${
+                  i < 2 ? 'border-r border-white/10' : ''
+                }`}
               >
-                {t(lang, 'Get Started', 'Mulakan')}
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
-            </motion.div>
-          </div>
+                <span className="text-white font-bold text-xl md:text-2xl tracking-tight">{stat.value}</span>
+                <span className="text-white/70 text-[11px] md:text-xs font-medium tracking-wide uppercase">{stat.label}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Get Started Button */}
+          <motion.div variants={stagger(3)} initial="hidden" animate="visible" className="mt-8">
+            <button
+              onClick={onGetStarted}
+              className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg inline-flex items-center gap-3
+                bg-primary text-primary-foreground
+                shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
+                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6),0_0_40px_-4px_hsla(164,90%,30%,0.3)]
+                active:scale-[0.97] transition-all duration-300"
+            >
+              {t(lang, 'Get Started', 'Mulakan')}
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+            </button>
+          </motion.div>
         </div>
       </section>
 
