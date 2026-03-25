@@ -40,7 +40,6 @@ const bentoBlocks = [
     title_bm: 'Hentikan Larian Kimia',
     desc_en: 'Apply only what the soil needs — protecting rivers, soil, and future harvests.',
     desc_bm: 'Gunakan hanya apa yang tanah perlukan — lindungi sungai, tanah, dan tuaian masa depan.',
-    span: 'md:col-span-2 md:row-span-1',
   },
   {
     icon: BadgeDollarSign,
@@ -48,7 +47,6 @@ const bentoBlocks = [
     title_bm: 'Ketepatan Mampu Milik',
     desc_en: 'Cut fertiliser costs by 40% so no field goes unnourished.',
     desc_bm: 'Jimat kos baja sehingga 40% supaya tiada ladang terbiar.',
-    span: 'md:col-span-1 md:row-span-1',
   },
   {
     icon: BarChart3,
@@ -56,7 +54,6 @@ const bentoBlocks = [
     title_bm: 'Tingkat Bekalan Negara',
     desc_en: 'Higher yields per hectare for a stronger, more food-secure Malaysia.',
     desc_bm: 'Hasil lebih tinggi sehektar untuk Malaysia yang lebih kukuh dan terjamin makanan.',
-    span: 'md:col-span-1 md:row-span-1',
   },
 ];
 
