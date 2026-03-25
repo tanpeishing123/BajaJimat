@@ -11,16 +11,16 @@ interface HeroLandingProps {
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: i * 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
 const scrollReveal = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
@@ -72,7 +72,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             custom={0}
             variants={fadeUp}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
             className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
           >
             Jimat Baja,
@@ -84,13 +85,14 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             custom={1}
             variants={fadeUp}
             initial="hidden"
-            animate="visible"
-            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-accent font-medium tracking-wide"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-white/80 font-medium tracking-wide"
           >
             Save on Fertiliser, Boost Your Yield
           </motion.p>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
             <button
               onClick={onGetStarted}
               className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
@@ -116,7 +118,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             variants={scrollReveal}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: false, amount: 0.2 }}
             className="text-center mb-14 md:mb-20"
           >
             <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.15]">
@@ -134,7 +136,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   }}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.2 }}
                   className={`inline-block mr-[0.3em] ${
                     word.includes('.') ? 'text-primary' : 'text-foreground'
                   }`}
@@ -154,7 +156,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   variants={scrollReveal}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
+                  viewport={{ once: false, amount: 0.2 }}
                   transition={{ delay: i * 0.15 }}
                   className="relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
                     bg-card border border-border/30

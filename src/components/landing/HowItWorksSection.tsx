@@ -13,8 +13,8 @@ interface Props {
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const steps = [
@@ -179,7 +179,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
           variants={sectionReveal}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: false, amount: 0.2 }}
           className="text-center mb-16 md:mb-20"
         >
           <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
@@ -200,7 +200,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 variants={sectionReveal}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-60px' }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
                 className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
