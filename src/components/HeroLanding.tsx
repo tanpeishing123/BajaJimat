@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3, Leaf, ScanLine, Languages } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
@@ -10,13 +10,22 @@ interface HeroLandingProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+const fadeLeft = {
+  hidden: { opacity: 0, x: -20 },
   visible: (i: number) => ({
     opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+    x: 0,
+    transition: { delay: i * 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   }),
+};
+
+const fadeUpDelayed = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const sectionReveal = {
@@ -32,6 +41,12 @@ const wordReveal = {
     transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+const stats = [
+  { icon: BadgeDollarSign, value: '40%', label_en: 'Savings', label_bm: 'Penjimatan' },
+  { icon: ScanLine, value: '3', label_en: 'Analysis Modes', label_bm: 'Mod Analisis' },
+  { icon: Languages, value: '2', label_en: 'Languages', label_bm: 'Bahasa' },
+];
 
 const bentoBlocks = [
   {
@@ -75,45 +90,75 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Gradient overlay — only behind text area */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+        {/* Left-heavy gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-          <motion.h1
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="font-serif-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.5)] leading-[1.08] tracking-tight"
-          >
-            Jimat Baja,
-            <br />
-            Tingkat Hasil
-          </motion.h1>
-
-          <motion.p
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-4 font-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 font-semibold tracking-wide"
-          >
-            Save on Fertiliser, Boost Your Yield
-          </motion.p>
-
-          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
-            <button
-              onClick={onGetStarted}
-              className="group relative px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                bg-gradient-to-r from-[hsla(164,80%,30%,0.7)] to-[hsla(170,70%,35%,0.7)]
-                backdrop-blur-md border border-white/30 text-white
-                shadow-[0_0_30px_hsla(164,90%,25%,0.4)]
-                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.6)] hover:scale-105
-                active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
+        {/* 2-column grid */}
+        <div className="relative h-full grid grid-cols-1 md:grid-cols-2 items-center px-6 md:px-16 lg:px-24 gap-8">
+          {/* Left Column — The Hook */}
+          <div className="flex flex-col items-start justify-center pt-16 md:pt-0">
+            <motion.h1
+              custom={0}
+              variants={fadeLeft}
+              initial="hidden"
+              animate="visible"
+              className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight"
             >
-              {t(lang, 'Get Started', 'Mulakan')}
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
+              Jimat Baja,
+              <br />
+              Tingkat Hasil
+            </motion.h1>
+
+            <motion.p
+              custom={1}
+              variants={fadeLeft}
+              initial="hidden"
+              animate="visible"
+              className="mt-5 font-body text-lg sm:text-xl md:text-2xl text-white/90 font-medium tracking-wide"
+            >
+              Save on Fertiliser, Boost Your Yield
+            </motion.p>
+
+            <motion.div custom={2} variants={fadeLeft} initial="hidden" animate="visible" className="mt-8">
+              <button
+                onClick={onGetStarted}
+                className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                  bg-primary text-primary-foreground
+                  shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
+                  hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
+                  active:scale-[0.97] transition-all duration-300"
+              >
+                {t(lang, 'Get Started', 'Mulakan')}
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Right Column — Floating Glass Stats */}
+          <motion.div
+            variants={fadeUpDelayed}
+            initial="hidden"
+            animate="visible"
+            className="hidden md:flex items-center justify-center"
+          >
+            <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-[0_8px_40px_-8px_rgba(0,0,0,0.3)] w-full max-w-sm">
+              <div className="flex flex-col gap-6">
+                {stats.map((stat, i) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div key={i} className="flex items-center gap-5">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
+                        <Icon size={22} className="text-white/80" strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <p className="text-3xl font-bold text-white tracking-tight leading-none">{stat.value}</p>
+                        <p className="text-sm text-white/60 font-body mt-0.5">{t(lang, stat.label_en, stat.label_bm)}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
