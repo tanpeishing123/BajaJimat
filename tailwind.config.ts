@@ -89,6 +89,7 @@ export default {
       fontFamily: {
         serif: ["Playfair Display", "serif"],
         sans: ["Plus Jakarta Sans", "sans-serif"],
+        display: ["Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
