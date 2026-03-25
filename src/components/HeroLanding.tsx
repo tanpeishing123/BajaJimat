@@ -10,18 +10,27 @@ interface HeroLandingProps {
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => (lang === 'bm' ? bm : en);
 
-const stagger = (i: number) => ({
-  hidden: { opacity: 0, y: 30 },
-  visible: {
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 1, ease: [0.25, 1, 0.5, 1] },
-  },
-});
+    transition: { delay: i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
-const scrollReveal = {
+const sectionReveal = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const wordReveal = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 1, 0.5, 1] } },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.6 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
 
 const bentoBlocks = [
@@ -52,6 +61,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   const headerEn = 'Empowering Farmers. Securing Our Food.';
   const headerBm = 'Memperkasa Petani. Menjamin Makanan Kita.';
   const headerText = t(lang, headerEn, headerBm);
+  const headerWords = headerText.split(' ');
 
   return (
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
@@ -65,16 +75,16 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Centered radial gradient overlay for text contrast */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.25)_60%,transparent_100%)]" />
+        {/* Gradient overlay — only behind text area */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
 
-        {/* Centered content */}
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
           <motion.h1
-            variants={stagger(0)}
+            custom={0}
+            variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-snug tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.4)]"
+            className="font-serif-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.5)] leading-[1.08] tracking-tight"
           >
             Jimat Baja,
             <br />
@@ -82,50 +92,24 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           </motion.h1>
 
           <motion.p
-            variants={stagger(1)}
+            custom={1}
+            variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-5 text-lg sm:text-xl md:text-2xl text-white font-medium tracking-wide"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="mt-4 font-body text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 font-semibold tracking-wide"
           >
             Save on Fertiliser, Boost Your Yield
           </motion.p>
 
-          {/* Glass Stats Bar */}
-          <motion.div
-            variants={stagger(2)}
-            initial="hidden"
-            animate="visible"
-            className="mt-8 flex items-center gap-0 rounded-2xl overflow-hidden
-              bg-black/30 backdrop-blur-xl border border-white/15
-              shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]"
-          >
-            {[
-              { value: '40%', label: t(lang, 'Savings', 'Penjimatan') },
-              { value: '3', label: t(lang, 'Analysis Modes', 'Mod Analisis') },
-              { value: '2', label: t(lang, 'Languages', 'Bahasa') },
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className={`px-6 py-4 md:px-8 md:py-5 flex flex-col items-center gap-1 ${
-                  i < 2 ? 'border-r border-white/10' : ''
-                }`}
-              >
-                <span className="text-white font-bold text-xl md:text-2xl tracking-tight">{stat.value}</span>
-                <span className="text-white/70 text-[11px] md:text-xs font-medium tracking-wide uppercase">{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Get Started Button */}
-          <motion.div variants={stagger(3)} initial="hidden" animate="visible" className="mt-8">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="mt-10">
             <button
               onClick={onGetStarted}
-              className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg inline-flex items-center gap-3
-                bg-primary text-primary-foreground
-                shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
-                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6),0_0_40px_-4px_hsla(164,90%,30%,0.3)]
-                active:scale-[0.97] transition-all duration-300"
+              className="group relative px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                bg-gradient-to-r from-[hsla(164,80%,30%,0.7)] to-[hsla(170,70%,35%,0.7)]
+                backdrop-blur-md border border-white/30 text-white
+                shadow-[0_0_30px_hsla(164,90%,25%,0.4)]
+                hover:shadow-[0_0_50px_hsla(164,90%,30%,0.6)] hover:scale-105
+                active:scale-[0.97] transition-all duration-300 animate-pulse-ring"
             >
               {t(lang, 'Get Started', 'Mulakan')}
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
@@ -140,15 +124,30 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Empowering Farmers — Bento Grid ── */}
       <section className="relative px-6 md:px-12 py-24 md:py-36 bg-background">
         <div className="max-w-6xl mx-auto">
+          {/* Split-word header reveal */}
           <motion.div
-            variants={scrollReveal}
+            variants={sectionReveal}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             className="text-center mb-16 md:mb-24"
           >
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.15]">
-              {headerText}
+            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15]">
+          {headerWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={wordReveal}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className={`inline-block mr-[0.3em] ${
+                    word.includes('.') ? 'text-primary' : 'text-foreground'
+                  }`}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </h2>
           </motion.div>
 
@@ -159,18 +158,18 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               return (
                 <motion.div
                   key={i}
-                  variants={scrollReveal}
+                  variants={sectionReveal}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.15 }}
-                  className="relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                  className={`relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
                     bg-card border border-border/30
                     shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                     hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
-                    transition-all duration-500 group"
+                    transition-all duration-500 group`}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-500">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center mb-5 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
                     <Icon size={26} className="text-primary" strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif-display text-xl md:text-2xl font-bold text-foreground mb-2">
