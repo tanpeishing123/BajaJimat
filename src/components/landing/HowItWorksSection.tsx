@@ -168,7 +168,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
           variants={sectionReveal}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, margin: '-80px' }}
+          viewport={{ once: true, margin: '-80px' }}
           className="text-center mb-16 md:mb-20"
         >
           <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
