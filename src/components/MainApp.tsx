@@ -291,6 +291,39 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
 
   // Treatment Dashboard for non-NPK issues
   if (showTreatment && treatmentIssue) {
+    // Save treatment entry to plot history
+    const saveTreatmentToHistory = () => {
+      if (!plotId) return;
+      try {
+        const plots = JSON.parse(localStorage.getItem('plots') || '[]');
+        const historyEntry = {
+          date: new Date().toISOString(),
+          input_mode: 'leaf_photo' as const,
+          total_cost_rm: 0,
+          n_deficit_kg: 0,
+          p_deficit_kg: 0,
+          k_deficit_kg: 0,
+          recommendations: [],
+          confidence: 'medium' as const,
+          savings_rm: 0,
+          voice_summary: `Treatment for ${treatmentIssue.name}`,
+          treatment_issue: treatmentIssue.name,
+          treatment_severity: treatmentIssue.severity,
+        };
+        const updated = plots.map((p: any) => {
+          if (p.id !== plotId) return p;
+          const existing = p.history || [];
+          // Avoid duplicating if already saved for same issue in last minute
+          const recentDup = existing.find((h: any) => h.treatment_issue === treatmentIssue.name && (Date.now() - new Date(h.date).getTime()) < 60000);
+          if (recentDup) return p;
+          const history = [historyEntry, ...existing].slice(0, 10);
+          return { ...p, history };
+        });
+        localStorage.setItem('plots', JSON.stringify(updated));
+      } catch {}
+    };
+    saveTreatmentToHistory();
+
     return (
       <TreatmentDashboard
         lang={lang}
