@@ -379,15 +379,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 </ResponsiveContainer>
               </div>
               {/* N-P-K Deficit Pills — glossy finish, larger text */}
-              <div className="flex justify-center gap-2 sm:gap-4 mt-3 relative z-10 flex-wrap">
+              <div className="flex justify-center gap-1.5 sm:gap-3 mt-1.5 sm:mt-3 relative z-10 flex-wrap">
                 {[
                   { nutrient: 'N', value: result.n_deficit_kg, pill: 'pill-glossy-n', text: 'text-blue-300', border: 'border-blue-400/40' },
                   { nutrient: 'P', value: result.p_deficit_kg, pill: 'pill-glossy-p', text: 'text-amber-300', border: 'border-amber-400/40' },
                   { nutrient: 'K', value: result.k_deficit_kg, pill: 'pill-glossy-k', text: 'text-emerald-300', border: 'border-emerald-400/40' },
                 ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-6 py-2 sm:py-3 rounded-full ${d.pill} border ${d.border}`}>
-                    <span className={`text-xs sm:text-sm font-extrabold font-display ${d.text} tracking-wide`}>{d.nutrient}</span>
-                    <span className="text-sm sm:text-lg font-bold text-white font-sans tabular-nums">{d.value}kg</span>
+                  <div key={d.nutrient} className={`flex items-center gap-1 sm:gap-2 px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full ${d.pill} border ${d.border}`}>
+                    <span className={`text-[10px] sm:text-sm font-extrabold font-display ${d.text} tracking-wide`}>{d.nutrient}</span>
+                    <span className="text-xs sm:text-base font-bold text-white font-sans tabular-nums">{d.value}kg</span>
                   </div>
                 ))}
               </div>
