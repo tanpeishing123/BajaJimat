@@ -127,7 +127,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
     return (
       <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
         <Loader2 className="animate-spin text-primary" size={40} />
-        <p className="text-sm text-muted-foreground font-sans">
+        <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
         </p>
       </div>
@@ -140,8 +140,8 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
-        <p className="text-sm text-destructive font-sans text-center max-w-md">{error}</p>
-        <button onClick={onBack} className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm">
+        <p className="text-base text-destructive font-sans text-center max-w-md font-medium">{error}</p>
+        <button onClick={onBack} className="px-6 py-2.5 rounded-full btn-gradient-primary font-sans font-bold text-base">
           {t(lang, 'Go Back', 'Kembali')}
         </button>
       </div>
@@ -155,16 +155,16 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   const grandTotal = data.shopping_list.reduce((sum, item) => sum + (item.price_per_ha_rm * hectares), 0);
 
-  // ─── Context Bar (shared across tabs) ───
+  // Context Bar
   const ContextBar = ({ animIndex = 0 }: { animIndex?: number }) => (
     <motion.div custom={animIndex} variants={fadeUp} initial="hidden" animate="visible"
       className="flex items-center gap-2 flex-wrap"
     >
-      <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
-        <ShieldCheck size={12} />
+      <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-sans font-bold flex items-center gap-1">
+        <ShieldCheck size={14} />
         🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
       </span>
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary font-sans">
+      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-semibold text-primary font-sans">
         🌱 {plotName} · {cropType} · {farmSize} ha
       </span>
     </motion.div>
@@ -197,21 +197,21 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
         <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
           <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
-            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
+            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
+            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
               {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-xs sm:text-sm font-sans font-semibold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active">
+            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4">
+        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
           {/* ========== Summary ========== */}
-          <TabsContent value="summary" className="mt-0 space-y-4">
+          <TabsContent value="summary" className="mt-0 space-y-5">
             <div className="flex items-center justify-between">
               <ContextBar animIndex={0} />
               <SpeakerButton
@@ -226,33 +226,33 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Targeted Issue Alert */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-2xl bg-primary/5 border border-primary/20 space-y-3"
+              className="p-5 rounded-2xl bg-primary/5 border border-primary/20 space-y-3"
             >
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <ShieldAlert size={16} className="text-primary" />
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <ShieldAlert size={20} className="text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs font-sans text-muted-foreground">{t(lang, 'Targeted Issue', 'Isu Sasaran')}</p>
-                  <p className="text-sm font-sans font-bold text-foreground capitalize">{data.issue_name}</p>
-                  <p className="text-xs font-sans text-muted-foreground mt-0.5">
+                  <p className="text-sm font-sans text-muted-foreground font-medium">{t(lang, 'Targeted Issue', 'Isu Sasaran')}</p>
+                  <p className="text-lg font-sans font-bold text-foreground capitalize">{data.issue_name}</p>
+                  <p className="text-sm font-sans text-muted-foreground mt-0.5">
                     {t(lang, 'Visual symptom detected. Standard remedial action recommended.', 'Gejala visual dikesan. Tindakan pemulihan standard disyorkan.')}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 flex-wrap">
-                <span className={`px-3 py-1 rounded-full text-xs font-sans font-semibold capitalize ${severityColor}`}>
+                <span className={`px-4 py-1.5 rounded-full text-sm font-sans font-bold capitalize ${severityColor}`}>
                   {t(lang, 'Severity', 'Keterukan')}: {severity}
                 </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-semibold flex items-center gap-1">
-                  <CheckCircle2 size={11} />
+                <span className="px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-sans font-bold flex items-center gap-1">
+                  <CheckCircle2 size={13} />
                   {t(lang, 'Standard NPK is NOT Required', 'NPK Standard TIDAK Diperlukan')}
                 </span>
               </div>
 
               {data.expected_recovery_days > 0 && (
-                <div className="flex items-center gap-1.5 text-xs font-sans text-muted-foreground">
+                <div className="flex items-center gap-1.5 text-sm font-sans text-muted-foreground font-medium">
                   <span>⏱️</span>
                   {t(lang,
                     `Expected recovery: ~${data.expected_recovery_days} days`,
@@ -264,15 +264,15 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Soil Test Upsell */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-2xl bg-sky-50 border border-sky-200/60 space-y-3"
+              className="p-5 rounded-2xl bg-sky-50 border border-sky-200/60 space-y-3"
             >
-              <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
-                  <Info size={14} className="text-sky-600" />
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                  <Info size={18} className="text-sky-600" />
                 </div>
-                <div className="space-y-2">
-                  <p className="text-xs font-sans text-sky-900 leading-relaxed">
-                    <span className="font-semibold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
+                <div className="space-y-3">
+                  <p className="text-sm font-sans text-sky-900 leading-relaxed font-medium">
+                    <span className="font-bold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
                     {t(lang,
                       'This is a baseline remedial estimate based on visual symptoms. For exact dosage calculations tailored to your field\'s pH and nutrient lockouts, upload a recent Soil Test Report.',
                       'Ini ialah anggaran pemulihan asas berdasarkan gejala visual. Untuk pengiraan dos tepat yang disesuaikan dengan pH dan sekatan nutrien ladang anda, muat naik Laporan Ujian Tanah terkini.'
@@ -281,10 +281,10 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                   {onUploadSoil && (
                     <button
                       onClick={onUploadSoil}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-700 text-xs font-sans font-semibold transition-all duration-200 active:scale-95"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-sans font-bold transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                     >
-                      <Upload size={13} />
-                      {t(lang, 'Upload Soil Data', 'Muat Naik Data Tanah')}
+                      <Upload size={16} />
+                      {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
                     </button>
                   )}
                 </div>
@@ -293,12 +293,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Disclaimer */}
             <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-3 rounded-xl bg-amber-50 border border-amber-200/60"
+              className="p-4 rounded-xl bg-amber-50 border border-amber-200/60"
             >
               <div className="flex items-start gap-2">
-                <AlertTriangle size={14} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-xs font-sans text-amber-800">
-                  <span className="font-semibold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
+                <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
+                <p className="text-sm font-sans text-amber-800 font-medium">
+                  <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
                     'This AI-generated treatment plan is of medium accuracy. Verify with an agronomist.',
                     'Pelan rawatan dijana AI ini mempunyai ketepatan sederhana. Sahkan dengan ahli agronomi.'
@@ -322,20 +322,21 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               />
             </div>
 
-            {/* Unified Receipt Card */}
+            {/* Unified Frosted Receipt Card */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-sm border border-border/30 overflow-hidden"
+              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden"
+              style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}
             >
               {/* Receipt Header */}
               <div className="px-6 pt-6 pb-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Package size={18} className="text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Package size={22} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-sans text-base font-bold text-foreground">
+                  <h3 className="font-sans text-xl font-bold text-foreground">
                     {t(lang, 'Treatment Products', 'Produk Rawatan')}
                   </h3>
-                  <p className="text-xs font-sans text-muted-foreground">
+                  <p className="text-sm font-sans text-muted-foreground font-medium">
                     {data.issue_name} · {hectares} ha
                   </p>
                 </div>
@@ -346,39 +347,39 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                 {data.shopping_list.map((item, i) => {
                   const totalPrice = item.price_per_ha_rm * hectares;
                   return (
-                    <div key={i} className={`flex items-center justify-between py-4 ${i < data.shopping_list.length - 1 ? 'border-b border-border/40' : ''}`}>
+                    <div key={i} className={`flex items-center justify-between py-5 ${i < data.shopping_list.length - 1 ? 'border-b border-emerald-100' : ''}`}>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
-                          <Package size={14} className="text-primary" />
+                        <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
+                          <Package size={16} className="text-primary" />
                         </div>
                         <div>
-                          <p className="font-sans font-semibold text-foreground text-sm">{item.product_name}</p>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
+                          <p className="font-sans font-bold text-foreground text-lg">{item.product_name}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-sans font-bold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
                               {item.type}
                             </span>
-                            <span className="text-xs text-muted-foreground font-sans">
+                            <span className="text-sm text-muted-foreground font-sans font-medium">
                               {item.quantity_per_ha}/ha
                             </span>
                           </div>
                         </div>
                       </div>
-                      <p className="font-sans font-bold text-foreground text-base tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
+                      <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
                     </div>
                   );
                 })}
               </div>
 
               {/* Grand Total */}
-              <div className="mx-6 border-t-2 border-foreground/15" />
-              <div className="px-6 py-5 flex items-center justify-between">
+              <div className="mx-6 border-t-2 border-foreground/20" />
+              <div className="px-6 py-6 flex items-center justify-between">
                 <div>
-                  <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
-                  <p className="text-[10px] font-sans text-muted-foreground">
+                  <p className="font-sans text-xl font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="text-sm font-sans text-muted-foreground font-medium">
                     {t(lang, `${data.shopping_list.length} products × ${hectares} ha`, `${data.shopping_list.length} produk × ${hectares} ha`)}
                   </p>
                 </div>
-                <p className="text-2xl font-sans font-extrabold text-foreground tabular-nums">
+                <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
                   RM{grandTotal.toFixed(2)}
                 </p>
               </div>
@@ -386,12 +387,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Disclaimer */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-3 rounded-xl bg-amber-50 border border-amber-200/60"
+              className="p-4 rounded-xl bg-amber-50 border border-amber-200/60"
             >
               <div className="flex items-start gap-2">
-                <AlertTriangle size={14} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-xs font-sans text-amber-800">
-                  <span className="font-semibold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
+                <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
+                <p className="text-sm font-sans text-amber-800 font-medium">
+                  <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
                     'Prices are estimates. Verify availability and pricing at your local agricultural supply shop.',
                     'Harga adalah anggaran. Sahkan ketersediaan dan harga di kedai bekalan pertanian tempatan anda.'
@@ -415,11 +416,11 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               />
             </div>
 
-            {/* Action Plan — White Insight Card with timeline */}
+            {/* Action Plan — Premium Insight Card with timeline */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
+              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
             >
-              <h4 className="font-sans text-xs font-semibold text-primary mb-4 uppercase tracking-wider">
+              <h4 className="font-sans text-sm font-bold text-primary mb-5 uppercase tracking-wider">
                 {t(lang, 'Action Plan', 'Pelan Tindakan')}
               </h4>
               <div className="relative pl-8">
@@ -432,17 +433,17 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
                     return (
                       <div key={i} className="relative">
-                        <div className={`absolute -left-8 w-7 h-7 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
-                          <IconComponent size={14} />
+                        <div className={`absolute -left-8 w-8 h-8 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
+                          <IconComponent size={16} />
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-1.5">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <p className="text-sm font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold ${getTimingColor(step.timing)}`}>
+                            <p className="text-lg font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
+                            <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing)}`}>
                               {step.timing}
                             </span>
                           </div>
-                          <p className="text-xs font-sans text-muted-foreground leading-relaxed">{step.description}</p>
+                          <p className="text-base font-sans text-muted-foreground leading-relaxed font-medium">{step.description}</p>
                         </div>
                       </div>
                     );
@@ -451,18 +452,18 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
             </motion.div>
 
-            {/* Prevention Tips — White Insight Card */}
+            {/* Prevention Tips — Premium Insight Card */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
+              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
             >
-              <h4 className="font-sans text-xs font-semibold text-primary mb-3 uppercase tracking-wider">
+              <h4 className="font-sans text-sm font-bold text-primary mb-4 uppercase tracking-wider">
                 {t(lang, 'Prevention Tips', 'Petua Pencegahan')}
               </h4>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {data.prevention_tips.map((tip, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 size={13} className="text-primary mt-0.5 shrink-0" />
-                    <p className="text-xs font-sans text-foreground">{tip}</p>
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
+                    <p className="text-base font-sans text-foreground font-medium leading-relaxed">{tip}</p>
                   </div>
                 ))}
               </div>
@@ -470,7 +471,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Disclaimer */}
             <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
-              <p className="text-center text-[11px] text-muted-foreground font-sans italic leading-relaxed">
+              <p className="text-center text-sm text-muted-foreground font-sans italic leading-relaxed">
                 ⚠️ {t(lang,
                   'Advice generated by AI. Verify with an agronomist.',
                   'Nasihat dijana oleh AI. Sahkan dengan ahli agronomi.'
