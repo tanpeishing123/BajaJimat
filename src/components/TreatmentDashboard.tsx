@@ -309,7 +309,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
           </TabsContent>
 
           {/* ========== Shopping ========== */}
-          <TabsContent value="shopping" className="mt-0 space-y-4">
+          <TabsContent value="shopping" className="mt-0 space-y-5">
             <div className="flex items-center justify-between">
               <ContextBar animIndex={0} />
               <SpeakerButton
@@ -322,71 +322,70 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               />
             </div>
 
-            {data.shopping_list.map((item, i) => {
-              const totalPrice = item.price_per_ha_rm * hectares;
-              return (
-                <motion.div key={i} custom={i + 1} variants={fadeUp} initial="hidden" animate="visible"
-                  className="p-4 rounded-2xl bg-card border border-border/40 shadow-sm space-y-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <Package size={14} className="text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-sans font-bold text-foreground">{item.product_name}</p>
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
-                          {item.type}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-sans text-muted-foreground">
-                    <span>{t(lang, 'Est. Remedial Dose', 'Dos Pemulihan Anggaran')}: {item.quantity_per_ha}/ha</span>
-                  </div>
-                  <p className="text-xs font-sans text-muted-foreground">{item.application_method}</p>
-
-                  {/* Price Breakdown */}
-                  <div className="pt-2 border-t border-border/30 space-y-1">
-                    <div className="flex items-center justify-between text-xs font-sans text-muted-foreground">
-                      <span>{t(lang, 'Base Price', 'Harga Asas')}</span>
-                      <span>RM{item.price_per_ha_rm.toFixed(2)}/ha</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans font-semibold text-foreground">
-                        {t(lang, `Total for ${hectares} ha`, `Jumlah untuk ${hectares} ha`)}
-                      </span>
-                      <span className="text-base font-sans font-extrabold text-emerald-600">
-                        RM{totalPrice.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-
-            {/* Grand Total */}
-            <motion.div custom={data.shopping_list.length + 1} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-2xl border-2 border-primary/30 bg-primary/5"
+            {/* Unified Receipt Card */}
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+              className="bg-card rounded-2xl shadow-sm border border-border/30 overflow-hidden"
             >
-              <div className="flex items-center justify-between">
+              {/* Receipt Header */}
+              <div className="px-6 pt-6 pb-4 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Package size={18} className="text-primary" />
+                </div>
                 <div>
-                  <span className="text-sm font-sans font-bold text-foreground">
-                    {t(lang, 'Grand Total', 'Jumlah Keseluruhan')}
-                  </span>
+                  <h3 className="font-sans text-base font-bold text-foreground">
+                    {t(lang, 'Treatment Products', 'Produk Rawatan')}
+                  </h3>
+                  <p className="text-xs font-sans text-muted-foreground">
+                    {data.issue_name} · {hectares} ha
+                  </p>
+                </div>
+              </div>
+
+              {/* Product Rows */}
+              <div className="px-6">
+                {data.shopping_list.map((item, i) => {
+                  const totalPrice = item.price_per_ha_rm * hectares;
+                  return (
+                    <div key={i} className={`flex items-center justify-between py-4 ${i < data.shopping_list.length - 1 ? 'border-b border-border/40' : ''}`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
+                          <Package size={14} className="text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-sans font-semibold text-foreground text-sm">{item.product_name}</p>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
+                              {item.type}
+                            </span>
+                            <span className="text-xs text-muted-foreground font-sans">
+                              {item.quantity_per_ha}/ha
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="font-sans font-bold text-foreground text-base tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Grand Total */}
+              <div className="mx-6 border-t-2 border-foreground/15" />
+              <div className="px-6 py-5 flex items-center justify-between">
+                <div>
+                  <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
                   <p className="text-[10px] font-sans text-muted-foreground">
                     {t(lang, `${data.shopping_list.length} products × ${hectares} ha`, `${data.shopping_list.length} produk × ${hectares} ha`)}
                   </p>
                 </div>
-                <span className="text-xl font-sans font-extrabold text-primary">
+                <p className="text-2xl font-sans font-extrabold text-foreground tabular-nums">
                   RM{grandTotal.toFixed(2)}
-                </span>
+                </p>
               </div>
             </motion.div>
 
             {/* Disclaimer */}
-            <motion.div custom={data.shopping_list.length + 2} variants={fadeUp} initial="hidden" animate="visible"
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
               className="p-3 rounded-xl bg-amber-50 border border-amber-200/60"
             >
               <div className="flex items-start gap-2">
@@ -403,7 +402,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
           </TabsContent>
 
           {/* ========== Advice ========== */}
-          <TabsContent value="advice" className="mt-0 space-y-4">
+          <TabsContent value="advice" className="mt-0 space-y-5">
             <div className="flex items-center justify-between">
               <ContextBar animIndex={0} />
               <SpeakerButton
@@ -416,70 +415,67 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               />
             </div>
 
-            {/* Vertical Timeline */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" className="relative pl-8">
-              {/* Vertical line */}
-              <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-primary/20 rounded-full" />
+            {/* Action Plan — White Insight Card with timeline */}
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+              className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
+            >
+              <h4 className="font-sans text-xs font-semibold text-primary mb-4 uppercase tracking-wider">
+                {t(lang, 'Action Plan', 'Pelan Tindakan')}
+              </h4>
+              <div className="relative pl-8">
+                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-border rounded-full" />
+                <div className="space-y-6">
+                  {data.action_plan.map((step, i) => {
+                    const IconComponent = stepIcons[i % stepIcons.length];
+                    const iconColors = ['bg-blue-50 text-blue-600', 'bg-cyan-50 text-cyan-600', 'bg-red-50 text-red-600', 'bg-emerald-50 text-emerald-600', 'bg-amber-50 text-amber-600'];
+                    const iconColor = iconColors[i % iconColors.length];
 
-              <div className="space-y-6">
-                {data.action_plan.map((step, i) => {
-                  const IconComponent = stepIcons[i % stepIcons.length];
-                  const iconColors = ['bg-blue-100 text-blue-600', 'bg-cyan-100 text-cyan-600', 'bg-red-100 text-red-600', 'bg-emerald-100 text-emerald-600', 'bg-amber-100 text-amber-600'];
-                  const iconColor = iconColors[i % iconColors.length];
-
-                  return (
-                    <motion.div key={i} custom={i + 2} variants={fadeUp} initial="hidden" animate="visible"
-                      className="relative"
-                    >
-                      {/* Icon node on the line */}
-                      <div className={`absolute -left-8 w-7 h-7 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
-                        <IconComponent size={14} />
-                      </div>
-
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold ${getTimingColor(step.timing)}`}>
-                            {step.timing}
-                          </span>
+                    return (
+                      <div key={i} className="relative">
+                        <div className={`absolute -left-8 w-7 h-7 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
+                          <IconComponent size={14} />
                         </div>
-                        <p className="text-xs font-sans text-muted-foreground leading-relaxed">{step.description}</p>
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <p className="text-sm font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold ${getTimingColor(step.timing)}`}>
+                              {step.timing}
+                            </span>
+                          </div>
+                          <p className="text-xs font-sans text-muted-foreground leading-relaxed">{step.description}</p>
+                        </div>
                       </div>
-                    </motion.div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </motion.div>
 
-            {/* Prevention Tips */}
-            <motion.div custom={data.action_plan.length + 3} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 space-y-2"
+            {/* Prevention Tips — White Insight Card */}
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
+              className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
             >
-              <h4 className="text-xs font-sans font-bold text-emerald-800 uppercase tracking-wider">
+              <h4 className="font-sans text-xs font-semibold text-primary mb-3 uppercase tracking-wider">
                 {t(lang, 'Prevention Tips', 'Petua Pencegahan')}
               </h4>
-              {data.prevention_tips.map((tip, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <CheckCircle2 size={13} className="text-emerald-600 mt-0.5 shrink-0" />
-                  <p className="text-xs font-sans text-emerald-800">{tip}</p>
-                </div>
-              ))}
+              <div className="space-y-2">
+                {data.prevention_tips.map((tip, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <CheckCircle2 size={13} className="text-primary mt-0.5 shrink-0" />
+                    <p className="text-xs font-sans text-foreground">{tip}</p>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             {/* Disclaimer */}
-            <motion.div custom={data.action_plan.length + 4} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-3 rounded-xl bg-amber-50 border border-amber-200/60"
-            >
-              <div className="flex items-start gap-2">
-                <AlertTriangle size={14} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-xs font-sans text-amber-800">
-                  <span className="font-semibold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
-                  {t(lang,
-                    'This AI-generated treatment plan is of medium accuracy. Verify with an agronomist.',
-                    'Pelan rawatan dijana AI ini mempunyai ketepatan sederhana. Sahkan dengan ahli agronomi.'
-                  )}
-                </p>
-              </div>
+            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
+              <p className="text-center text-[11px] text-muted-foreground font-sans italic leading-relaxed">
+                ⚠️ {t(lang,
+                  'Advice generated by AI. Verify with an agronomist.',
+                  'Nasihat dijana oleh AI. Sahkan dengan ahli agronomi.'
+                )}
+              </p>
             </motion.div>
           </TabsContent>
         </div>
