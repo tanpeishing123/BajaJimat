@@ -347,7 +347,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* Nutrient Deficit Section */}
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl p-3 sm:p-6 relative overflow-hidden glass-dark-elevated"
+              className="rounded-2xl p-6 relative overflow-hidden glass-dark-elevated"
               style={{ background: 'linear-gradient(160deg, rgba(10,31,26,0.95) 0%, rgba(13,43,35,0.9) 50%, rgba(6,26,21,0.95) 100%)' }}
             >
               {/* Glowing pulse center */}
@@ -362,12 +362,12 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   {t(lang, 'Nutrient Deficit', 'Defisit Nutrien')}
                 </h3>
               </div>
-              <div className="h-[160px] sm:h-[210px] relative z-10">
+              <div className="h-[210px] relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="65%" data={radarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="72%" data={radarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis dataKey="nutrient" tick={{ fill: 'rgba(255,255,255,0.85)', fontSize: 13, fontWeight: 800, fontFamily: 'Inter, sans-serif' }} />
-                    <PolarRadiusAxis domain={[0, maxVal]} tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 9 }} axisLine={false} />
+                    <PolarAngleAxis dataKey="nutrient" tick={{ fill: 'rgba(255,255,255,0.85)', fontSize: 16, fontWeight: 800, fontFamily: 'Inter, sans-serif' }} />
+                    <PolarRadiusAxis domain={[0, maxVal]} tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} />
                     <Radar dataKey="value" stroke="#34d399" fill="url(#radarGrad)" fillOpacity={0.5} strokeWidth={2.5} dot={<RadarDot />} />
                     <defs>
                       <radialGradient id="radarGrad" cx="50%" cy="50%" r="50%">
@@ -379,15 +379,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 </ResponsiveContainer>
               </div>
               {/* N-P-K Deficit Pills — glossy finish, larger text */}
-              <div className="flex justify-center gap-1.5 sm:gap-4 mt-2 sm:mt-3 relative z-10 flex-wrap">
+              <div className="flex justify-center gap-2 sm:gap-4 mt-3 relative z-10 flex-wrap">
                 {[
                   { nutrient: 'N', value: result.n_deficit_kg, pill: 'pill-glossy-n', text: 'text-blue-300', border: 'border-blue-400/40' },
                   { nutrient: 'P', value: result.p_deficit_kg, pill: 'pill-glossy-p', text: 'text-amber-300', border: 'border-amber-400/40' },
                   { nutrient: 'K', value: result.k_deficit_kg, pill: 'pill-glossy-k', text: 'text-emerald-300', border: 'border-emerald-400/40' },
                 ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-1 sm:gap-2.5 px-2 sm:px-6 py-1.5 sm:py-3 rounded-full ${d.pill} border ${d.border} min-w-0`}>
-                    <span className={`text-[10px] sm:text-sm font-extrabold font-display ${d.text} tracking-wide shrink-0`}>{d.nutrient}</span>
-                    <span className="text-xs sm:text-lg font-bold text-white font-sans tabular-nums truncate">{d.value}kg</span>
+                  <div key={d.nutrient} className={`flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-6 py-2 sm:py-3 rounded-full ${d.pill} border ${d.border}`}>
+                    <span className={`text-xs sm:text-sm font-extrabold font-display ${d.text} tracking-wide`}>{d.nutrient}</span>
+                    <span className="text-sm sm:text-lg font-bold text-white font-sans tabular-nums">{d.value}kg</span>
                   </div>
                 ))}
               </div>
