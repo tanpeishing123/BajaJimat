@@ -429,110 +429,96 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           </TabsContent>
 
           {/* ========== TAB 2: Shopping List ========== */}
-          <TabsContent value="shopping" className="mt-0 space-y-4">
+          <TabsContent value="shopping" className="mt-0 space-y-5">
             {/* Tab 2 speaker button */}
             <div className="flex justify-end">
               <SpeakerButton text={result.voice_summary} lang={lang} size="sm" />
             </div>
-            {/* NPK Cost Header */}
+
+            {/* Unified Receipt Card */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl p-5 relative overflow-hidden"
-              style={{ background: 'linear-gradient(165deg, #e8f5e2 0%, #d4edda 40%, #c6e4c0 100%)' }}
+              className="bg-card rounded-2xl shadow-sm border border-border/30 overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%)' }} />
-              <div className="flex items-center gap-2 mb-2 relative z-10">
-                <div className="w-8 h-8 rounded-xl bg-white/70 backdrop-blur-sm flex items-center justify-center shadow-sm">
-                  <Package size={16} className="text-primary" />
+              {/* Receipt Header */}
+              <div className="px-6 pt-6 pb-4 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Package size={18} className="text-primary" />
                 </div>
-                <h3 className="font-sans text-sm font-bold text-foreground/80">
-                  {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
-                </h3>
-              </div>
-              <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums tracking-tight relative z-10">
-                RM{fertTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-              </p>
-            </motion.div>
-
-            {/* Fertiliser Cards */}
-            <div className="space-y-3">
-              {fertItems.map((rec, i) => {
-                const colors = ['border-l-blue-500', 'border-l-orange-500', 'border-l-emerald-500', 'border-l-purple-500', 'border-l-rose-500'];
-                return (
-                  <motion.div key={rec.name} custom={i * 0.3 + 0.5} variants={fadeUp} initial="hidden" animate="visible"
-                    className={`bg-card rounded-2xl p-4 shadow-sm border border-border/40 border-l-4 ${colors[i % colors.length]} flex items-center gap-4 hover:shadow-md transition-shadow`}
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Package size={18} className="text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-sans font-semibold text-foreground text-sm leading-tight">{rec.name}</p>
-                      <p className="text-xs text-muted-foreground font-sans mt-0.5">
-                        {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
-                      </p>
-                    </div>
-                    <p className="font-sans font-bold text-primary text-lg tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Magnesium Card */}
-            {mgItems.length > 0 && (
-              <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-blue-300 bg-blue-50 px-5 py-4 flex items-start gap-3"
-              >
-                <div className="w-9 h-9 rounded-xl bg-blue-200 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-lg">💊</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-sans text-sm font-bold text-blue-800 mb-1">
-                    {t(lang, 'Magnesium Supplement', 'Suplemen Magnesium')}
+                <div>
+                  <h3 className="font-sans text-base font-bold text-foreground">
+                    {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
+                  </h3>
+                  <p className="text-xs font-sans text-muted-foreground">
+                    {plotName || ''} · {cropType || ''} · {farmSize || ''} ha
                   </p>
-                  {mgItems.map((mg) => (
-                    <div key={mg.name} className="mb-1">
-                      <div className="flex items-center gap-4 text-xs font-sans text-blue-700">
-                        <span className="font-semibold">{mg.name}</span>
-                        <span>{mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}</span>
-                        <span className="font-bold">= RM{mg.subtotal_rm}</span>
-                      </div>
-                      {mg.reason && (
-                        <p className="text-[10px] text-blue-600/70 font-sans mt-0.5">{mg.reason}</p>
-                      )}
-                    </div>
-                  ))}
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-600 text-[10px] font-sans font-semibold shrink-0">
-                  {t(lang, 'Optional', 'Pilihan')}
-                </span>
-              </motion.div>
-            )}
+              </div>
 
-            {/* Grand Total */}
-            <motion.div custom={1.8} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl border-2 border-foreground/20 bg-card px-5 py-5 flex items-center justify-between"
-            >
-              <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
-              <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
-                RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-              </p>
+              {/* Fertiliser Item Rows */}
+              <div className="px-6">
+                {fertItems.map((rec, i) => (
+                  <div key={rec.name} className={`flex items-center justify-between py-4 ${i < fertItems.length - 1 ? 'border-b border-border/40' : ''}`}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
+                        <Package size={14} className="text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-sans font-semibold text-foreground text-sm">{rec.name}</p>
+                        <p className="text-xs text-muted-foreground font-sans mt-0.5">
+                          {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="font-sans font-bold text-foreground text-base tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                  </div>
+                ))}
+
+                {/* Magnesium items inline */}
+                {mgItems.map((mg) => (
+                  <div key={mg.name} className="flex items-center justify-between py-4 border-t border-border/40">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                        <span className="text-sm">💊</span>
+                      </div>
+                      <div>
+                        <p className="font-sans font-semibold text-foreground text-sm">{mg.name}</p>
+                        <p className="text-xs text-muted-foreground font-sans mt-0.5">
+                          {mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}
+                          {mg.reason && <span className="ml-1 text-blue-500">· {t(lang, 'Optional', 'Pilihan')}</span>}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="font-sans font-bold text-foreground text-base tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Grand Total */}
+              <div className="mx-6 border-t-2 border-foreground/15" />
+              <div className="px-6 py-5 flex items-center justify-between">
+                <p className="font-sans text-base font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                <p className="text-2xl font-sans font-extrabold text-foreground tabular-nums">
+                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                </p>
+              </div>
             </motion.div>
 
-            {/* Savings Banner */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl px-5 py-4 btn-gradient-primary flex items-center justify-between"
+            {/* Savings Banner — detached */}
+            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-xl px-5 py-4 bg-primary/8 border border-primary/20 flex items-center justify-between"
             >
               <div>
-                <p className="text-white/70 font-sans text-xs">
+                <p className="text-muted-foreground font-sans text-xs">
                   {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
                 </p>
-                <p className="text-2xl font-sans font-bold text-white tabular-nums">
+                <p className="text-xl font-sans font-bold text-primary tabular-nums mt-0.5">
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                 </p>
               </div>
             </motion.div>
 
             {/* WhatsApp + PDF Buttons */}
-            <motion.div custom={2.3} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
+            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
               <button
                 onClick={handleWhatsApp}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-sm hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"
@@ -551,7 +537,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           </TabsContent>
 
           {/* ========== TAB 3: Advice ========== */}
-          <TabsContent value="advice" className="mt-0 space-y-4">
+          <TabsContent value="advice" className="mt-0 space-y-5">
             {/* Tab 3 speaker button */}
             <div className="flex justify-end">
               <SpeakerButton
@@ -563,88 +549,89 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 size="sm"
               />
             </div>
-            {/* Seasonal Advice */}
+
+            {/* Seasonal Advice — White Insight Card */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl overflow-hidden"
-                style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
+                className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
               >
-                <div className="px-5 py-5 flex items-start gap-4">
-                  <span className="text-3xl mt-0.5">📅</span>
+                <div className="flex items-start gap-4">
+                  <span className="text-2xl mt-0.5">📅</span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-xs font-semibold text-emerald-200 mb-1.5 uppercase tracking-wider">
+                    <p className="font-sans text-xs font-semibold text-primary mb-1.5 uppercase tracking-wider">
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
-                    <p className="font-sans text-base text-white leading-relaxed font-medium">
+                    <p className="font-sans text-sm text-foreground leading-relaxed">
                       {result.seasonal_advice.advice}
                     </p>
                   </div>
-                  
                 </div>
               </motion.div>
             )}
 
-            {/* Farm Tip Card */}
+            {/* Farm Tip Card — White Insight Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl overflow-hidden"
-              style={{ background: 'linear-gradient(145deg, hsl(164 90% 20%) 0%, hsl(164 90% 28%) 50%, hsl(152 60% 30%) 100%)' }}
+              className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5"
             >
-              <div className="px-5 py-5 flex items-start gap-4">
-                <span className="text-3xl mt-0.5">📅</span>
+              <div className="flex items-start gap-4">
+                <span className="text-2xl mt-0.5">💡</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <p className="font-sans text-xs font-semibold text-emerald-200 uppercase tracking-wider">
+                    <p className="font-sans text-xs font-semibold text-primary uppercase tracking-wider">
                       {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
                     </p>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-sans font-semibold backdrop-blur-sm">
+                    <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-sans font-semibold">
                       ✨ {t(lang, 'AI Generated', 'Dijana AI')}
                     </span>
                   </div>
                   {tipLoading ? (
                     <div className="flex items-center gap-2 py-1">
-                      <Loader2 size={14} className="animate-spin text-emerald-200" />
-                      <span className="text-sm text-emerald-200 font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                      <Loader2 size={14} className="animate-spin text-primary" />
+                      <span className="text-sm text-muted-foreground font-sans">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-base text-white leading-relaxed font-medium">{farmTip}</p>
+                    <p className="font-sans text-sm text-foreground leading-relaxed">{farmTip}</p>
                   ) : (
-                    <p className="font-sans text-sm text-emerald-200 italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                    <p className="font-sans text-sm text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
                 </div>
-                
               </div>
             </motion.div>
 
-            {/* pH Liming Advice */}
+            {/* pH Liming Advice — White Insight Card */}
             {result.liming_needed && (
               <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-amber-200 bg-amber-50 p-5"
+                className="bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-amber-500 p-5"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xl">🧪</span>
-                  <p className="font-sans text-sm font-bold text-amber-800">
-                    {t(lang, 'Liming Method', 'Cara Pengapuran')}
-                  </p>
+                <div className="flex items-start gap-4">
+                  <span className="text-2xl mt-0.5">🧪</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-sans text-xs font-semibold text-amber-600 mb-1.5 uppercase tracking-wider">
+                      {t(lang, 'Liming Method', 'Cara Pengapuran')}
+                    </p>
+                    <p className="font-sans text-sm text-foreground leading-relaxed">
+                      {t(lang,
+                        'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
+                        'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <p className="font-sans text-sm text-amber-700 leading-relaxed">
-                  {t(lang,
-                    'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
-                    'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
-                  )}
-                </p>
               </motion.div>
             )}
 
-            {/* Nearby Shops Button */}
+            {/* Nearby Shops — White Insight Card */}
             <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible">
               <a
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2.5 w-full py-4 rounded-xl btn-gradient-primary font-sans font-bold text-sm shadow-md"
+                className="flex items-center gap-3 bg-card rounded-xl shadow-sm border border-border/30 border-l-4 border-l-primary p-5 hover:shadow-md transition-shadow"
               >
-                <MapPin size={18} />
-                {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
+                <MapPin size={20} className="text-primary shrink-0" />
+                <span className="font-sans font-semibold text-sm text-foreground">
+                  {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
+                </span>
               </a>
             </motion.div>
 
