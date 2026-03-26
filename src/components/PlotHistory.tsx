@@ -20,6 +20,8 @@ export interface HistoryEntry {
   seasonal_advice?: { advice: string };
   crop_requirements_source?: string;
   soil_type?: string;
+  treatment_issue?: string;
+  treatment_severity?: string;
 }
 
 interface PlotHistoryProps {
@@ -137,12 +139,20 @@ export function PlotHistory({ plotName, history, lang, cropType, farmSize, onBac
                           <span className="text-[10px] text-muted-foreground font-sans">{dateStr}</span>
                         </div>
                         <div className="flex items-baseline gap-3">
-                          <span className="text-sm font-sans font-bold text-foreground">
-                            RM {entry.total_cost_rm.toFixed(2)}
-                          </span>
-                          <span className="text-[10px] text-muted-foreground font-sans">
-                            N:{entry.n_deficit_kg.toFixed(1)} P:{entry.p_deficit_kg.toFixed(1)} K:{entry.k_deficit_kg.toFixed(1)}
-                          </span>
+                          {entry.treatment_issue ? (
+                            <span className="text-sm font-sans font-bold text-foreground">
+                              🩺 {entry.treatment_issue} ({entry.treatment_severity || 'moderate'})
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-sm font-sans font-bold text-foreground">
+                                RM {entry.total_cost_rm.toFixed(2)}
+                              </span>
+                              <span className="text-[10px] text-muted-foreground font-sans">
+                                N:{entry.n_deficit_kg.toFixed(1)} P:{entry.p_deficit_kg.toFixed(1)} K:{entry.k_deficit_kg.toFixed(1)}
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                       <div className="flex items-center gap-2 ml-2">
