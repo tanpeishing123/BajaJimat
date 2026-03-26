@@ -347,7 +347,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* Nutrient Deficit Section */}
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl p-6 relative overflow-hidden glass-dark-elevated"
+              className="rounded-2xl p-4 sm:p-6 relative overflow-hidden glass-dark-elevated"
               style={{ background: 'linear-gradient(160deg, rgba(10,31,26,0.95) 0%, rgba(13,43,35,0.9) 50%, rgba(6,26,21,0.95) 100%)' }}
             >
               {/* Glowing pulse center */}
