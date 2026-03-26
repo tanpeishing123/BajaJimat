@@ -385,9 +385,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   { nutrient: 'P', value: result.p_deficit_kg, pill: 'pill-glossy-p', text: 'text-amber-300', border: 'border-amber-400/40' },
                   { nutrient: 'K', value: result.k_deficit_kg, pill: 'pill-glossy-k', text: 'text-emerald-300', border: 'border-emerald-400/40' },
                 ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-1.5 sm:gap-2.5 px-2.5 sm:px-6 py-2 sm:py-3 rounded-full min-w-fit ${d.pill} border ${d.border}`}>
-                    <span className={`text-[10px] sm:text-sm font-extrabold font-display ${d.text} tracking-wide shrink-0`}>{d.nutrient}</span>
-                    <span className="text-[11px] sm:text-lg font-bold text-white font-sans tabular-nums whitespace-nowrap">{d.value}kg</span>
+                  <div key={d.nutrient} className={`flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-6 py-2 sm:py-3 rounded-full ${d.pill} border ${d.border}`}>
+                    <span className={`text-xs sm:text-sm font-extrabold font-display ${d.text} tracking-wide`}>{d.nutrient}</span>
+                    <span className="text-sm sm:text-lg font-bold text-white font-sans tabular-nums">{d.value}kg</span>
                   </div>
                 ))}
               </div>
