@@ -436,14 +436,14 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                         <div className={`absolute -left-8 w-8 h-8 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
                           <IconComponent size={16} />
                         </div>
-                        <div className="space-y-1.5">
+                        <div className="space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
                             <p className="text-lg font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
                             <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing)}`}>
                               {step.timing}
                             </span>
                           </div>
-                          <p className="text-base font-sans text-muted-foreground leading-relaxed font-medium">{step.description}</p>
+                          <p className="text-sm font-sans text-muted-foreground leading-snug font-medium line-clamp-2">{step.description}</p>
                         </div>
                       </div>
                     );
@@ -459,13 +459,17 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               <h4 className="font-sans text-sm font-bold text-primary mb-4 uppercase tracking-wider">
                 {t(lang, 'Prevention Tips', 'Petua Pencegahan')}
               </h4>
-              <div className="space-y-3">
-                {data.prevention_tips.map((tip, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
-                    <p className="text-base font-sans text-foreground font-medium leading-relaxed">{tip}</p>
-                  </div>
-                ))}
+              <div className="space-y-2.5">
+                {data.prevention_tips.map((tip, i) => {
+                  // Truncate long tips to first sentence
+                  const shortTip = tip.length > 100 ? tip.slice(0, tip.indexOf('.', 40) + 1 || 100) || tip.slice(0, 100) + '…' : tip;
+                  return (
+                    <div key={i} className="flex items-start gap-3">
+                      <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
+                      <p className="text-sm font-sans text-foreground font-medium leading-snug">{shortTip}</p>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
 
