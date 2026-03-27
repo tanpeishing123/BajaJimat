@@ -2,7 +2,16 @@ import { useState, useEffect } from 'react';
 import { Plus, Trash2, FlaskConical, Sprout, Globe, LogOut, MapPin, Leaf } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SpeakerButton } from './SpeakerButton';
+import farmWelcomeBg from '@/assets/farm-welcome-bg.jpg';
 
+import cropOilPalm from '@/assets/crops/oil-palm.jpg';
+import cropPaddy from '@/assets/crops/paddy.jpg';
+import cropCorn from '@/assets/crops/corn.jpg';
+import cropDurian from '@/assets/crops/durian.jpg';
+import cropRubber from '@/assets/crops/rubber.jpg';
+import cropVegetables from '@/assets/crops/vegetables.jpg';
+import cropBanana from '@/assets/crops/banana.jpg';
+import cropCoconut from '@/assets/crops/coconut.jpg';
 import type { HistoryEntry } from './PlotHistory';
 
 export interface Plot {
