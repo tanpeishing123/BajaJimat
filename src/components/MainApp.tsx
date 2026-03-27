@@ -474,9 +474,9 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
                   };
 
                   return (
-                    <div key={i} className="bg-gray-50 rounded-xl p-4 mb-3 border border-gray-100 space-y-2">
+                    <div key={i} className="bg-white/50 backdrop-blur-lg rounded-xl p-4 mb-3 border border-white/60 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-base font-sans font-bold text-foreground capitalize">{d.nutrient}</span>
+                        <span className="text-base font-sans font-bold text-gray-900 capitalize">{d.nutrient}</span>
                         <span className={`px-3 py-1 rounded-full text-sm font-sans font-semibold capitalize ${severityBadgeColor[d.severity] || 'bg-muted text-muted-foreground'}`}>
                           {d.severity} ({d.estimated_deficit_pct}%)
                         </span>
