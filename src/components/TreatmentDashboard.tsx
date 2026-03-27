@@ -82,7 +82,7 @@ function getTimingColor(timing: string): string {
 }
 
 /* Glassmorphism card classes */
-const glassCard = "bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
+const glassCard = "bg-white/40 backdrop-blur-md border border-gray-200/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
 const glassCardHover = `${glassCard} hover:bg-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-out`;
 
 export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil, initialData, onDataLoaded }: Props) {
@@ -140,7 +140,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (loading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f5f5f4 40%, rgba(236,253,245,0.4) 100%)' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
@@ -151,7 +151,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f5f5f4 40%, rgba(236,253,245,0.4) 100%)' }}>
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
@@ -186,12 +186,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f5f5f4 40%, rgba(236,253,245,0.4) 100%)' }}>
       {/* Header */}
-      <header className="bg-white/40 backdrop-blur-md border-b border-white/50 px-4 md:px-8 py-3 flex-shrink-0">
+      <header className="bg-white/40 backdrop-blur-md border-b border-gray-200/50 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/50 bg-white/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-gray-200/50 bg-white/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -200,7 +200,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
           </div>
           {onToggleLang && (
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
@@ -211,7 +211,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/30 backdrop-blur-md border border-white/50 p-1 gap-0">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200/50 p-1 gap-0">
             <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white/80 data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>

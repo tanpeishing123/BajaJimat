@@ -134,12 +134,12 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
     savePlots(updated);
   };
 
-  const glassCard = "bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
+  const glassCard = "bg-white/40 backdrop-blur-md border border-gray-200/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
 
   return (
-    <div className="h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+    <div className="h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f5f5f4 40%, rgba(236,253,245,0.4) 100%)' }}>
       {/* Header */}
-      <header className="bg-white/40 backdrop-blur-md border-b border-white/50 px-6 py-4 flex-shrink-0">
+      <header className="bg-white/40 backdrop-blur-md border-b border-gray-200/50 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -148,7 +148,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             <span className="font-display text-base font-bold text-gray-900">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/50 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/50 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
@@ -226,7 +226,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                       </button>
                       <button
                         onClick={() => onViewHistory(plot)}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-white/50 bg-white/30 text-primary text-xs font-sans font-semibold hover:bg-white/50 transition-all duration-200 active:scale-[0.98]"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-gray-200/50 bg-white/30 text-primary text-xs font-sans font-semibold hover:bg-white/50 transition-all duration-200 active:scale-[0.98]"
                       >
                         {t(lang, 'View History', 'Lihat Sejarah')}
                         {plot.history?.length ? (
@@ -235,7 +235,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                       </button>
                       <button
                         onClick={() => handleDelete(plot.id)}
-                        className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-white/50 bg-white/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/10 transition-all duration-200 active:scale-[0.98]"
+                        className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-gray-200/50 bg-white/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/10 transition-all duration-200 active:scale-[0.98]"
                       >
                         <Trash2 size={12} />
                       </button>
@@ -260,7 +260,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
 
       {/* Add Plot Sheet */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto bg-white/50 backdrop-blur-xl border-t border-white/50">
+        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto bg-white/50 backdrop-blur-xl border-t border-gray-200/50">
           <SheetHeader className="mb-4">
             <SheetTitle className="font-sans text-lg font-bold text-gray-900">
               {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
