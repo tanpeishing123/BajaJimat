@@ -134,23 +134,25 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
     savePlots(updated);
   };
 
+  const glassCard = "bg-white/60 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
+
   return (
-    <div className="h-screen flex flex-col bg-muted/40">
+    <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
       {/* Header */}
-      <header className="bg-white border-b border-border/60 px-6 py-4 flex-shrink-0">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-display text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-display text-base font-bold text-gray-900">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/80 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
-            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/50 text-xs text-muted-foreground hover:text-gray-900 hover:bg-white/80 font-sans transition-all active:scale-95">
               <LogOut size={12} />
               {t(lang, 'Logout', 'Log Keluar')}
             </button>
@@ -177,8 +179,8 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
 
           {/* Plot Cards */}
           {plots.length === 0 ? (
-            <div className="text-center py-16 px-6">
-              <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-4">
+            <div className={`text-center py-16 px-6 ${glassCard}`}>
+              <div className="w-16 h-16 rounded-2xl bg-white/60 flex items-center justify-center mx-auto mb-4">
                 <MapPin className="text-muted-foreground" size={28} />
               </div>
               <p className="text-sm text-muted-foreground font-sans">
@@ -189,7 +191,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             <div className="space-y-3 mb-6">
               {plots.map(plot => {
                 return (
-                <div key={plot.id} className="bg-card rounded-xl overflow-hidden border border-border/20 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div key={plot.id} className={`${glassCard} overflow-hidden hover:bg-white/80 hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
                   <div className="p-5">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-start gap-3">
@@ -197,7 +199,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                           <Leaf size={18} className="text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-display text-sm font-bold text-foreground">{plot.name}</h3>
+                          <h3 className="font-display text-sm font-bold text-gray-900">{plot.name}</h3>
                           <p className="text-xs text-muted-foreground font-sans mt-0.5">
                             {plot.crop_type} · {plot.farm_size_ha} ha · {soilLabel(plot.soil_type, lang)}
                           </p>
@@ -217,14 +219,14 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                     <div className="flex items-center gap-2 mt-3">
                       <button
                         onClick={() => onAnalyse(plot)}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl btn-gradient-primary font-sans text-xs font-semibold active:scale-[0.98]"
                       >
                         <FlaskConical size={14} />
                         {t(lang, 'New Analysis', 'Analisis Baru')}
                       </button>
                       <button
                         onClick={() => onViewHistory(plot)}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-all duration-200 active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-white/80 bg-white/50 text-primary text-xs font-sans font-semibold hover:bg-white/80 transition-all duration-200 active:scale-[0.98]"
                       >
                         {t(lang, 'View History', 'Lihat Sejarah')}
                         {plot.history?.length ? (
@@ -233,7 +235,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                       </button>
                       <button
                         onClick={() => handleDelete(plot.id)}
-                        className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-all duration-200 active:scale-95"
+                        className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-white/80 bg-white/50 text-destructive text-xs font-sans font-medium hover:bg-destructive/10 transition-all duration-200 active:scale-[0.98]"
                       >
                         <Trash2 size={12} />
                       </button>
@@ -248,7 +250,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           {/* Add New Plot Button */}
           <button
             onClick={() => setSheetOpen(true)}
-            className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 bg-primary/[0.03] text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/[0.07] hover:border-primary/60 transition-all duration-200 active:scale-[0.98]"
+            className="w-full py-3 rounded-2xl border-2 border-dashed border-primary/40 bg-white/30 backdrop-blur-lg text-primary font-sans font-semibold text-sm flex items-center justify-center gap-2 hover:bg-white/60 hover:border-primary/60 transition-all duration-300 active:scale-[0.98]"
           >
             <Plus size={18} />
             {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
@@ -258,9 +260,9 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
 
       {/* Add Plot Sheet */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto">
+        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto bg-white/80 backdrop-blur-2xl border-t border-white/60">
           <SheetHeader className="mb-4">
-            <SheetTitle className="font-sans text-lg font-bold text-foreground">
+            <SheetTitle className="font-sans text-lg font-bold text-gray-900">
               {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
             </SheetTitle>
           </SheetHeader>
@@ -273,7 +275,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 value={plotName}
                 onChange={e => setPlotName(e.target.value)}
                 placeholder={t(lang, 'e.g. Ladang Utara', 'contoh: Ladang Utara')}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all"
+                className="w-full rounded-2xl border border-white/60 bg-white/50 backdrop-blur-lg px-4 pt-5 pb-1.5 font-body text-sm text-gray-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Plot Name', 'Nama Ladang')}
@@ -287,7 +289,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 value={cropType}
                 onChange={e => setCropType(e.target.value)}
                 placeholder={t(lang, 'e.g. Rubber, Durian, Paddy...', 'contoh: Getah, Durian, Padi...')}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all"
+                className="w-full rounded-2xl border border-white/60 bg-white/50 backdrop-blur-lg px-4 pt-5 pb-1.5 font-body text-sm text-gray-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Crop Type', 'Jenis Tanaman')}
@@ -303,7 +305,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
                 placeholder="0"
                 min="0.1"
                 step="0.1"
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 pr-12 font-body text-sm text-foreground input-premium transition-all"
+                className="w-full rounded-2xl border border-white/60 bg-white/50 backdrop-blur-lg px-4 pt-5 pb-1.5 pr-12 font-body text-sm text-gray-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
               />
               <label className="absolute left-4 top-1.5 text-[10px] text-muted-foreground font-body font-medium pointer-events-none">
                 {t(lang, 'Size (hectares)', 'Keluasan (hektar)')}
@@ -316,7 +318,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
               <select
                 value={soilType}
                 onChange={e => setSoilType(e.target.value)}
-                className="w-full rounded-2xl border border-border bg-beige-brand/40 px-4 pt-5 pb-1.5 font-body text-sm text-foreground input-premium transition-all appearance-none"
+                className="w-full rounded-2xl border border-white/60 bg-white/50 backdrop-blur-lg px-4 pt-5 pb-1.5 font-body text-sm text-gray-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all appearance-none"
               >
                 {SOIL_TYPES.map(s => (
                   <option key={s.value} value={s.value}>
@@ -336,7 +338,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             <button
               disabled={!canSave}
               onClick={handleSave}
-              className="w-full rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 btn-gradient-primary"
+              className="w-full rounded-2xl py-3 font-body font-semibold text-sm flex items-center justify-center gap-2 btn-gradient-primary active:scale-[0.98]"
             >
               {t(lang, 'Save', 'Simpan')}
             </button>
