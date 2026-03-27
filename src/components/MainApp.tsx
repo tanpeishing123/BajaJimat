@@ -328,7 +328,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Loading screen
   if (isLoading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-sm text-muted-foreground font-sans">
           {t('Calculating your prescription...', 'Mengira preskripsi anda...')}
@@ -340,8 +340,8 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Error state
   if (errorMsg) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
-        <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/60 flex items-center justify-center">
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+        <div className="w-16 h-16 rounded-2xl bg-white/40 backdrop-blur-md border border-white/50 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
         <p className="text-sm text-destructive font-sans text-center max-w-md">{errorMsg}</p>
@@ -409,8 +409,8 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
     };
 
     return (
-      <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
-        <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex items-center justify-between">
+      <div className="h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
+        <header className="bg-white/40 backdrop-blur-md border-b border-white/50 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
@@ -427,7 +427,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-md bg-white/60 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-6 space-y-4"
+            className="w-full max-w-md bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-3xl p-6 space-y-4"
           >
             {/* Health + Confidence badges + Speaker */}
             <div className="flex items-center justify-between">
@@ -474,7 +474,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
                   };
 
                   return (
-                    <div key={i} className="bg-white/50 backdrop-blur-lg rounded-xl p-4 mb-3 border border-white/60 space-y-2">
+                    <div key={i} className="bg-white/40 backdrop-blur-md rounded-xl p-4 mb-3 border border-white/50 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-base font-sans font-bold text-gray-900 capitalize">{d.nutrient}</span>
                         <span className={`px-3 py-1 rounded-full text-sm font-sans font-semibold capitalize ${severityBadgeColor[d.severity] || 'bg-muted text-muted-foreground'}`}>
@@ -540,9 +540,9 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   }
 
   return (
-    <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+    <div className="h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
       {/* Clean Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex-shrink-0">
+      <header className="bg-white/40 backdrop-blur-md border-b border-white/50 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -554,11 +554,11 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/80 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/50 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
-            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/50 text-xs text-muted-foreground hover:text-gray-900 hover:bg-white/80 font-sans transition-all active:scale-95">
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/30 text-xs text-muted-foreground hover:text-gray-900 hover:bg-white/50 font-sans transition-all active:scale-95">
               <LogOut size={12} />
               {t('Back', 'Kembali')}
             </button>
@@ -581,7 +581,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         <div className="w-full px-6 md:px-20 py-4">
           {/* Plot Context Banner */}
           {plotName && (
-            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-white/50 backdrop-blur-lg border border-white/60">
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-white/30 backdrop-blur-md border border-white/50">
               <p className="text-xs font-sans font-medium text-primary">
                 {t(
                   `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
@@ -605,7 +605,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
           </div>
 
           {/* Tabs - Premium Pill Style */}
-          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-white/40 backdrop-blur-lg border border-white/60">
+          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-white/30 backdrop-blur-md border border-white/50">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
