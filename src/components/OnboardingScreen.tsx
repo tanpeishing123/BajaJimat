@@ -31,7 +31,7 @@ export function OnboardingScreen({ lang, onComplete, onBack }: OnboardingProps) 
           </div>
           <h1 className="text-4xl md:text-5xl font-serif-display font-bold text-brown-brand tracking-tight">BajaJimat</h1>
           <p className="mt-2 text-gold-brand font-medium text-lg font-body">
-            {t(lang, '{t(lang, 'Smart Fertiliser Optimiser', 'Pengoptimum Baja Pintar')}', 'Pengoptimum Baja Pintar')}
+            {t(lang, 'Smart Fertiliser Optimiser', 'Pengoptimum Baja Pintar')}
           </p>
         </div>
 
