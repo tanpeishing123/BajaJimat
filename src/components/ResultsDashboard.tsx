@@ -212,7 +212,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col bg-agri-depth overflow-hidden">
+    <div className="h-screen flex flex-col bg-muted/40 overflow-hidden">
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
@@ -293,15 +293,15 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
-        <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
-          <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
-            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
+        <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-muted/60 p-1 gap-0">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
-              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+              {t(lang, '🛒 Shopping', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -437,8 +437,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Unified Frosted Receipt Card */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden"
-              style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}
+              className="rounded-2xl shadow-md border border-border/10 overflow-hidden bg-card"
             >
               {/* Receipt Header */}
               <div className="px-6 pt-6 pb-4 flex items-center gap-3">
@@ -559,7 +558,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* Seasonal Advice — Premium Insight Card */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
+                className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 transition-transform duration-300"
               >
                 <div className="flex items-start gap-4">
                   <span className="text-3xl mt-0.5">📅</span>
@@ -577,7 +576,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Farm Tip Card — Premium Insight Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
+              className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 transition-transform duration-300"
             >
               <div className="flex items-start gap-4">
                 <span className="text-3xl mt-0.5">💡</span>
@@ -607,7 +606,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* pH Liming Advice — Premium Insight Card */}
             {result.liming_needed && (
               <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-amber-500 p-6"
+                className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-amber-500 p-6 hover:-translate-y-1 transition-transform duration-300"
               >
                 <div className="flex items-start gap-4">
                   <span className="text-3xl mt-0.5">🧪</span>
@@ -632,7 +631,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6 hover:shadow-lg transition-shadow"
+                className="flex items-center gap-4 bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
                 <MapPin size={24} className="text-primary shrink-0" />
                 <span className="font-sans font-bold text-lg text-foreground">

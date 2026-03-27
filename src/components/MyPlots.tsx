@@ -135,7 +135,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
   };
 
   return (
-    <div className="h-screen flex flex-col" style={{ background: '#F8FAFC' }}>
+    <div className="h-screen flex flex-col bg-muted/40">
       {/* Header */}
       <header className="bg-white border-b border-border/60 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
@@ -188,23 +188,14 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           ) : (
             <div className="space-y-3 mb-6">
               {plots.map(plot => {
-                const cropImg = getCropImage(plot.crop_type);
                 return (
-                <div key={plot.id} className="bg-card rounded-2xl overflow-hidden border border-border/40 shadow-luxe hover:shadow-luxe-hover transition-all duration-300">
-                  {/* Crop Thumbnail */}
-                  {cropImg && (
-                    <div className="h-28 w-full overflow-hidden">
-                      <img src={cropImg} alt={plot.crop_type} className="w-full h-full object-cover rounded-t-lg" loading="lazy" width={512} height={512} />
-                    </div>
-                  )}
-                  <div className="p-4">
+                <div key={plot.id} className="bg-card rounded-xl overflow-hidden border border-border/20 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="p-5">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-start gap-3">
-                        {!cropImg && (
-                          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                            <Leaf size={16} className="text-primary" />
-                          </div>
-                        )}
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                          <Leaf size={18} className="text-primary" />
+                        </div>
                         <div>
                           <h3 className="font-display text-sm font-bold text-foreground">{plot.name}</h3>
                           <p className="text-xs text-muted-foreground font-sans mt-0.5">
