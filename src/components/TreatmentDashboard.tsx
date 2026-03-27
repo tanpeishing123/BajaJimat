@@ -185,20 +185,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             </div>
             <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
           </div>
-          <div className="flex items-center gap-2">
-            {onBackToPlots && (
-              <button onClick={onBackToPlots} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold hover:bg-primary/20 transition-all duration-200 active:scale-95">
-                <ArrowLeft size={12} />
-                {t(lang, 'My Plots', 'Ladang Saya')}
-              </button>
-            )}
-            {onToggleLang && (
-              <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
-                <Globe size={12} />
-                {lang === 'en' ? 'BM' : 'EN'}
-              </button>
-            )}
-          </div>
+          {onToggleLang && (
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+              <Globe size={12} />
+              {lang === 'en' ? 'BM' : 'EN'}
+            </button>
+          )}
         </div>
       </header>
 

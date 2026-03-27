@@ -281,10 +281,6 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 {t(lang, 'Hear Summary', 'Dengar Ringkasan')}
               </span>
             </button>
-            <button onClick={onBack} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-sans font-semibold hover:bg-primary/20 transition-all duration-200 active:scale-95">
-              <ArrowLeft size={12} />
-              {t(lang, 'My Plots', 'Ladang Saya')}
-            </button>
             {onToggleLang && (
               <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
                 <Globe size={12} />
@@ -441,15 +437,11 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Unified Frosted Receipt Card */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden relative"
-              style={{ background: 'linear-gradient(135deg, rgba(236,253,245,0.3), white 40%, rgba(236,253,245,0.1))' }}
+              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden"
+              style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}
             >
-              {/* Subtle corner decoration */}
-              <div className="absolute top-0 right-0 w-24 h-24 opacity-[0.04] pointer-events-none">
-                <Package size={96} className="text-primary" />
-              </div>
               {/* Receipt Header */}
-              <div className="px-6 pt-6 pb-4 flex items-center gap-3 relative z-10">
+              <div className="px-6 pt-6 pb-4 flex items-center gap-3">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                   <Package size={22} className="text-primary" />
                 </div>
@@ -517,12 +509,11 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
-            {/* Savings Banner — prominent emerald with sparkle */}
+            {/* Savings Banner — prominent emerald */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-xl px-6 py-5 bg-gradient-to-r from-emerald-50 to-emerald-100 border-2 border-emerald-300 flex items-center justify-between relative overflow-hidden"
+              className="rounded-xl px-6 py-5 bg-emerald-100 border-2 border-emerald-300 flex items-center justify-between"
             >
-              <div className="absolute -right-4 -top-4 w-20 h-20 rounded-full bg-emerald-200/30 blur-xl" />
-              <div className="relative z-10">
+              <div>
                 <p className="text-emerald-800 font-sans text-sm font-semibold">
                   {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
                 </p>
@@ -565,59 +556,47 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               />
             </div>
 
-            {/* Seasonal Advice — Emerald Growth Card */}
+            {/* Seasonal Advice — Premium Insight Card */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-emerald-500 p-5"
+                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
-                    <Droplets size={20} className="text-emerald-600" />
-                  </div>
+                  <span className="text-3xl mt-0.5">📅</span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-lg font-semibold text-foreground mb-1">
-                      {t(lang, "Seasonal Advice", 'Nasihat Musim')}
+                    <p className="font-sans text-sm font-bold text-primary mb-2 uppercase tracking-wider">
+                      {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
-                    <ul className="space-y-1">
-                      <li className="font-sans text-base text-foreground/80 leading-relaxed flex items-start gap-2">
-                        <span className="text-emerald-500 mt-1.5 shrink-0">•</span>
-                        {result.seasonal_advice.advice}
-                      </li>
-                    </ul>
+                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
+                      {result.seasonal_advice.advice}
+                    </p>
                   </div>
                 </div>
               </motion.div>
             )}
 
-            {/* Farm Tip — Sky Info Card */}
+            {/* Farm Tip Card — Premium Insight Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-sky-500 p-5"
+              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center shrink-0">
-                  <Lightbulb size={20} className="text-sky-600" />
-                </div>
+                <span className="text-3xl mt-0.5">💡</span>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="font-sans text-lg font-semibold text-foreground">
-                      {t(lang, "Farm Tip", 'Tip Ladang')}
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="font-sans text-sm font-bold text-primary uppercase tracking-wider">
+                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
                     </p>
-                    <span className="px-2 py-0.5 rounded-full bg-sky-50 text-sky-600 text-xs font-sans font-bold">
-                      ✨ AI
+                    <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-bold">
+                      ✨ {t(lang, 'AI Generated', 'Dijana AI')}
                     </span>
                   </div>
                   {tipLoading ? (
                     <div className="flex items-center gap-2 py-1">
-                      <Loader2 size={16} className="animate-spin text-sky-500" />
-                      <span className="text-base text-muted-foreground font-sans">{t(lang, 'Loading...', 'Memuatkan...')}</span>
+                      <Loader2 size={16} className="animate-spin text-primary" />
+                      <span className="text-base text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <ul className="space-y-1">
-                      <li className="font-sans text-base text-foreground/80 leading-relaxed flex items-start gap-2">
-                        <span className="text-sky-500 mt-1.5 shrink-0">•</span>
-                        {farmTip}
-                      </li>
-                    </ul>
+                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">{farmTip}</p>
                   ) : (
                     <p className="font-sans text-base text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
@@ -625,43 +604,39 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
-            {/* pH Liming — Amber Warning Card */}
+            {/* pH Liming Advice — Premium Insight Card */}
             {result.liming_needed && (
               <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-amber-500 p-5"
+                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-amber-500 p-6"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
-                    <ShieldAlert size={20} className="text-amber-600" />
-                  </div>
+                  <span className="text-3xl mt-0.5">🧪</span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-lg font-semibold text-foreground mb-1">
-                      {t(lang, 'Liming Required', 'Pengapuran Diperlukan')}
+                    <p className="font-sans text-sm font-bold text-amber-600 mb-2 uppercase tracking-wider">
+                      {t(lang, 'Liming Method', 'Cara Pengapuran')}
                     </p>
-                    <ul className="space-y-1">
-                      <li className="font-sans text-base text-foreground/80 leading-relaxed flex items-start gap-2">
-                        <span className="text-amber-500 mt-1.5 shrink-0">•</span>
-                        {t(lang, 'Spread lime evenly. Wait 2-4 weeks before fertilising.', 'Tabur kapur sekata. Tunggu 2-4 minggu sebelum membaja.')}
-                      </li>
-                    </ul>
+                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
+                      {t(lang,
+                        'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
+                        'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
+                      )}
+                    </p>
                   </div>
                 </div>
               </motion.div>
             )}
 
-            {/* Nearby Shops — Emerald Action Card */}
+            {/* Nearby Shops — Premium Insight Card */}
             <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible">
               <a
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-emerald-500 p-5 hover:shadow-md transition-shadow"
+                className="flex items-center gap-4 bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6 hover:shadow-lg transition-shadow"
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
-                  <MapPin size={20} className="text-emerald-600" />
-                </div>
-                <span className="font-sans font-semibold text-lg text-foreground">
-                  {t(lang, 'Find Nearby Fertilizer Shops', 'Cari Kedai Baja Berdekatan')}
+                <MapPin size={24} className="text-primary shrink-0" />
+                <span className="font-sans font-bold text-lg text-foreground">
+                  {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
                 </span>
               </a>
             </motion.div>
@@ -670,8 +645,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
               <p className="text-center text-sm text-muted-foreground font-sans italic leading-relaxed">
                 ⚠️ {t(lang,
-                  'Advice generated by AI. Verify with agricultural expert.',
-                  'Nasihat dijana oleh AI. Sahkan dengan pakar pertanian.'
+                  'Advice generated by AI, verify with agricultural expert',
+                  'Nasihat dijana oleh AI, sahkan dengan pakar pertanian'
                 )}
               </p>
             </motion.div>
