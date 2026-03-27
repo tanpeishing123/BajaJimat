@@ -130,14 +130,18 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 md:px-20 py-6">
         <div className="max-w-2xl mx-auto">
-          {/* Greeting */}
-          <div className="mb-6">
-            <h1 className="font-display text-2xl font-bold text-foreground tracking-tight">
-              {t(lang, 'My Plots', 'Ladang Saya')}
-            </h1>
-            <p className="text-sm text-muted-foreground font-sans mt-1">
-              {t(lang, `Welcome, ${userName}!`, `Selamat datang, ${userName}!`)}
-            </p>
+          {/* Greeting with farm background */}
+          <div className="mb-6 relative rounded-2xl overflow-hidden">
+            <img src={farmWelcomeBg} alt="Lush green farm" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+            <div className="relative z-10 px-6 py-8">
+              <h1 className="font-display text-2xl font-bold text-white tracking-tight drop-shadow-md">
+                {t(lang, 'My Plots', 'Ladang Saya')}
+              </h1>
+              <p className="text-sm text-white/80 font-sans mt-1 drop-shadow-sm">
+                {t(lang, `Welcome, ${userName}!`, `Selamat datang, ${userName}!`)}
+              </p>
+            </div>
           </div>
 
           {/* Plot Cards */}
