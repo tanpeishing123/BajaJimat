@@ -81,9 +81,9 @@ function getTimingColor(timing: string): string {
   return timingColors.default;
 }
 
-/* Radial Gradient Glassmorphism */
-const glassCard = "bg-[radial-gradient(circle,_rgba(255,255,255,0.05)_0%,_rgba(255,255,255,0.4)_70%,_rgba(255,255,255,0.7)_100%)] backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_50px_rgba(0,0,0,0.2)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.5)_70%,_rgba(255,255,255,0.8)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_60px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300`;
+/* Vignette Radial Gradient Glassmorphism */
+const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.55)_60%,_rgba(255,255,255,0.8)_100%)] backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_60px_-10px_rgba(0,0,0,0.1)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0.6)_60%,_rgba(255,255,255,0.85)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_70px_-10px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all duration-300`;
 
 export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil, initialData, onDataLoaded }: Props) {
   const [data, setData] = useState<TreatmentData | null>(initialData ?? null);
@@ -186,7 +186,9 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
+    <div className="h-screen flex flex-col overflow-hidden relative" style={{ background: '#f0fdf4' }}>
+      {/* White mist overlay to purify background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-0" />
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
