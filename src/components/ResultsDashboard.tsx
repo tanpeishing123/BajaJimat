@@ -323,7 +323,20 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           </TabsList>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
+        <div className="flex-1 overflow-y-auto relative">
+          {/* Crop-type background image at 50% opacity */}
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <img
+              src={getCropBgImage(cropType)}
+              alt=""
+              className="w-full h-full object-cover opacity-50"
+              loading="lazy"
+              width={1024}
+              height={1024}
+            />
+            <div className="absolute inset-0 bg-background/60" />
+          </div>
+          <div className="relative z-10 px-4 md:px-8 py-5">
           {/* ========== TAB 1: Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-5">
             {/* Confidence Badge row */}
