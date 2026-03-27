@@ -548,10 +548,13 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 {t(lang, 'Download PDF', 'Muat Turun PDF')}
               </button>
             </motion.div>
+            </div>
           </TabsContent>
 
           {/* ========== TAB 3: Advice ========== */}
-          <TabsContent value="advice" className="mt-0 space-y-5">
+          <TabsContent value="advice" className="mt-0 relative">
+            <img src={bgAdvice} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none rounded-2xl" />
+            <div className="relative z-10 space-y-5">
             {/* Tab 3 speaker button */}
             <div className="flex justify-end">
               <SpeakerButton
