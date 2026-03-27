@@ -5,6 +5,9 @@ import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import bgSummary from '@/assets/bg-summary.jpg';
+import bgShopping from '@/assets/bg-shopping.jpg';
+import bgAdvice from '@/assets/bg-advice.jpg';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
