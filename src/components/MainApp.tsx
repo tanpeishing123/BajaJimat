@@ -328,7 +328,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Loading screen
   if (isLoading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-sm text-muted-foreground font-sans">
           {t('Calculating your prescription...', 'Mengira preskripsi anda...')}
@@ -340,14 +340,14 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Error state
   if (errorMsg) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4 px-6">
-        <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+        <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/60 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
         <p className="text-sm text-destructive font-sans text-center max-w-md">{errorMsg}</p>
         <button
           onClick={() => setErrorMsg(null)}
-          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm"
+          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm active:scale-[0.98]"
         >
           {t('Try Again', 'Cuba Lagi')}
         </button>
