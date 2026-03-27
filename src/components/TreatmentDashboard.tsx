@@ -355,7 +355,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                           <Package size={16} className="text-primary" />
                         </div>
                         <div>
-                          <p className="font-sans font-bold text-gray-900 text-lg">{item.product_name}</p>
+                          <p className="font-sans font-bold text-gray-900 text-lg">{item.product_name.replace(/\*\*/g, '')}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-sans font-bold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
                               {item.type}
@@ -438,12 +438,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                         </div>
                       <div className="ml-4 space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <p className="text-lg font-sans font-bold text-gray-900">{step.title.replace(/\*\*/g, '')}</p>
-                            <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing)}`}>
-                              {step.timing}
+                          <p className="text-lg font-sans font-bold text-gray-900">{step.title.replace(/\*\*/g, '')}</p>
+                            <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing.replace(/\*\*/g, ''))}`}>
+                              {step.timing.replace(/\*\*/g, '')}
                             </span>
                           </div>
-                          <p className="text-sm font-sans text-muted-foreground leading-snug font-medium line-clamp-2">{step.description}</p>
+                          <p className="text-sm font-sans text-muted-foreground leading-snug font-medium line-clamp-2">{step.description.replace(/\*\*/g, '')}</p>
                         </div>
                       </div>
                     );

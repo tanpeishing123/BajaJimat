@@ -343,6 +343,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         onBack={() => { setShowTreatment(false); setTreatmentIssue(null); setShowLeafAnalysis(true); }}
         onBackToPlots={onLogout}
         onToggleLang={onToggleLang}
+        onUploadSoil={() => { setShowTreatment(false); setTreatmentIssue(null); setShowLeafAnalysis(false); setLeafResult(null); setActiveTab('soil'); }}
       />
     );
   }
@@ -358,6 +359,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         onBack={onLogout}
         backLabel={t('Back to My Plots', 'Kembali ke Ladang Saya')}
         onToggleLang={onToggleLang}
+        onUploadSoil={() => { setShowResults(false); setResultData(null); setActiveTab('soil'); }}
       />
     );
   }

@@ -34,6 +34,7 @@ interface Props {
   onBack: () => void;
   backLabel?: string;
   onToggleLang?: () => void;
+  onUploadSoil?: () => void;
 }
 
 const fadeUp = {
@@ -89,7 +90,7 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
 const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
 const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
 
-export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang }: Props) {
+export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
@@ -221,7 +222,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">🌿 BajaJimat</h1>
-          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
         </div>
         <div className="mb-4 text-sm">
           <p><strong>{t(lang, 'Plot', 'Ladang')}:</strong> {plotName || '-'}</p>
@@ -257,7 +258,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         </table>
         <p className="text-sm font-semibold">💰 {t(lang, 'Saved', 'Jimat')}: RM{result.savings_rm} {t(lang, 'vs premium blends', 'vs baja premium')}</p>
         <div className="mt-8 pt-4 border-t text-center text-xs text-muted-foreground">
-          <p>BajaJimat — {t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p>BajaJimat — {t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
           <p>bajajimat.lovable.app</p>
         </div>
       </div>
@@ -398,7 +399,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* Soil Report Upsell */}
-            {result.input_mode !== 'soil_report' && (
+            {result.input_mode === 'leaf_photo' && (
               <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible"
                 className={`${glassCard} p-5`}
               >
@@ -416,8 +417,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     </p>
                     <button
                       onClick={() => {
-                        // Navigate back and switch to soil tab
-                        onBack();
+                        if (onUploadSoil) onUploadSoil();
+                        else onBack();
                       }}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-sans font-bold transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                     >
@@ -604,7 +605,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
                     <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">
-                      {result.seasonal_advice.advice}
+                      {result.seasonal_advice.advice.replace(/\*\*/g, '')}
                     </p>
                   </div>
                 </div>
@@ -632,7 +633,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">{farmTip}</p>
+                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
                   ) : (
                     <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
@@ -672,7 +673,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               >
                 <MapPin size={24} className="text-primary shrink-0" />
                 <span className="font-sans font-bold text-lg text-gray-900">
-                  {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
+                  {t(lang, '📍 Find Nearby Fertiliser Shops', '📍 Cari Kedai Baja Berdekatan')}
                 </span>
               </a>
             </motion.div>
