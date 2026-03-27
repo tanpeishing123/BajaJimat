@@ -4,6 +4,9 @@ import { Scan, BrainCircuit, Sprout, ChevronLeft, ChevronRight, ArrowRight, X } 
 import tabAnalyseBg from '@/assets/tab-analyse-bg.jpg';
 import tabOptimiseBg from '@/assets/tab-optimise-bg.jpg';
 import tabNourishBg from '@/assets/tab-nourish-bg.jpg';
+import cardDiagnoseBg from '@/assets/card-diagnose-bg.jpg';
+import cardOptimiseBg from '@/assets/card-optimise-bg.jpg';
+import cardNourishBg from '@/assets/card-nourish-bg.jpg';
 
 interface Props {
   lang: 'en' | 'bm';
