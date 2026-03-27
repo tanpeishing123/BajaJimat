@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowLeft, Globe } from 'lucide-react';
 import signupFarm from '@/assets/signup-farm.jpg';
-import signupPaddyBottom from '@/assets/signup-paddy-bottom.jpg';
 
 interface SignUpPageProps {
   lang: 'en' | 'bm';
@@ -112,12 +111,6 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
               {t(lang, 'Get Started', 'Mulakan')}
               <ArrowRight size={18} />
             </button>
-          </div>
-
-          {/* Bottom farm imagery */}
-          <div className="relative mt-8 rounded-2xl overflow-hidden h-36 md:h-44">
-            <img src={signupPaddyBottom} alt="Lush paddy field" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
-            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(40_33%_98%)] via-[hsl(40_33%_98%/0.8)] to-transparent" />
           </div>
         </div>
       </div>
