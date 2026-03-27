@@ -1,6 +1,7 @@
 import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
+import heroPaddyBottom from '@/assets/hero-paddy-bottom.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
 
 interface HeroLandingProps {
@@ -92,7 +93,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             Save on Fertiliser, Boost Your Yield
           </motion.p>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10 relative z-10">
             <button
               onClick={onGetStarted}
               className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
@@ -105,6 +106,19 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
             </button>
           </motion.div>
+        </div>
+
+        {/* Bottom paddy image with gradient blend */}
+        <div className="absolute bottom-0 left-0 right-0 h-[35%] z-[1]">
+          <img
+            src={heroPaddyBottom}
+            alt="Lush paddy terraces"
+            className="w-full h-full object-cover"
+            loading="lazy"
+            width={1920}
+            height={800}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-black/60 to-black/80" />
         </div>
       </section>
 

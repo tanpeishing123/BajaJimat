@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowLeft, Globe } from 'lucide-react';
 import signupFarm from '@/assets/signup-farm.jpg';
+import welcomeBanner from '@/assets/welcome-farm-banner.jpg';
 
 interface SignUpPageProps {
   lang: 'en' | 'bm';
@@ -48,19 +49,37 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
 
       {/* Right — Form */}
       <div className="w-full md:w-1/2 bg-cream-brand flex items-center justify-center p-6 md:p-12 relative overflow-y-auto">
-        <button onClick={onBack} className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-1.5 text-sm font-body text-muted-foreground hover:text-brown-brand transition-colors z-10">
+        <button onClick={onBack} className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-1.5 text-sm font-body text-muted-foreground hover:text-brown-brand transition-colors z-20">
           <ArrowLeft size={16} />
           {t(lang, 'Home', 'Utama')}
         </button>
 
-        <div className="w-full max-w-md">
-          <div className="mb-6">
-            <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-brown-brand leading-tight">
-              {t(lang, 'Welcome to BajaJimat', 'Selamat Datang ke BajaJimat')}
-            </h1>
-            <p className="mt-2 text-muted-foreground font-body text-sm">
-              {t(lang, 'Tell us your name to get started.', 'Beritahu nama anda untuk bermula.')}
-            </p>
+        <div className="w-full max-w-md relative z-10">
+          {/* Welcome banner with farm background */}
+          <div className="relative mb-6 rounded-2xl overflow-hidden">
+            <img
+              src={welcomeBanner}
+              alt="Lush farm field"
+              className="w-full h-32 sm:h-40 object-cover"
+              loading="lazy"
+              width={1920}
+              height={1080}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-5">
+              <h1
+                className="font-serif-display text-2xl md:text-3xl font-bold text-white leading-tight"
+                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
+              >
+                {t(lang, 'Welcome to BajaJimat', 'Selamat Datang ke BajaJimat')}
+              </h1>
+              <p
+                className="mt-1 text-white/85 font-body text-sm"
+                style={{ textShadow: '0 1px 8px rgba(0,0,0,0.3)' }}
+              >
+                {t(lang, 'Tell us your name to get started.', 'Beritahu nama anda untuk bermula.')}
+              </p>
+            </div>
           </div>
 
           <div className="bg-card rounded-3xl p-6 shadow-luxe border border-border/60">
