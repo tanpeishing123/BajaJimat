@@ -221,7 +221,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">🌿 BajaJimat</h1>
-          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
         </div>
         <div className="mb-4 text-sm">
           <p><strong>{t(lang, 'Plot', 'Ladang')}:</strong> {plotName || '-'}</p>
@@ -257,7 +257,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         </table>
         <p className="text-sm font-semibold">💰 {t(lang, 'Saved', 'Jimat')}: RM{result.savings_rm} {t(lang, 'vs premium blends', 'vs baja premium')}</p>
         <div className="mt-8 pt-4 border-t text-center text-xs text-muted-foreground">
-          <p>BajaJimat — {t(lang, 'Smart Fertilizer Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p>BajaJimat — {t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
           <p>bajajimat.lovable.app</p>
         </div>
       </div>
@@ -398,7 +398,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             </motion.div>
 
             {/* Soil Report Upsell */}
-            {result.input_mode !== 'soil_report' && (
+            {result.input_mode === 'leaf_photo' && (
               <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible"
                 className={`${glassCard} p-5`}
               >
@@ -672,7 +672,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               >
                 <MapPin size={24} className="text-primary shrink-0" />
                 <span className="font-sans font-bold text-lg text-gray-900">
-                  {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
+                  {t(lang, '📍 Find Nearby Fertiliser Shops', '📍 Cari Kedai Baja Berdekatan')}
                 </span>
               </a>
             </motion.div>
