@@ -417,8 +417,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     </p>
                     <button
                       onClick={() => {
-                        // Navigate back and switch to soil tab
-                        onBack();
+                        if (onUploadSoil) onUploadSoil();
+                        else onBack();
                       }}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-sans font-bold transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                     >
