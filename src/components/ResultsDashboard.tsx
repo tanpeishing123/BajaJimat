@@ -87,8 +87,8 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
 }
 
 /* Glassmorphism card class */
-const glassCard = "bg-white/40 backdrop-blur-md border border-gray-200/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-out`;
+const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
 
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
@@ -217,7 +217,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f5f5f4 40%, rgba(236,253,245,0.4) 100%)' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
@@ -264,10 +264,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </div>
 
       {/* Header */}
-      <header className="bg-white/40 backdrop-blur-md border-b border-gray-200/50 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-gray-200/50 bg-white/30 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -287,7 +287,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </span>
             </button>
             {onToggleLang && (
-              <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200/50 bg-white/30 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/50 transition-all duration-200 active:scale-95">
+              <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
                 <Globe size={12} />
                 {lang === 'en' ? 'BM' : 'EN'}
               </button>
@@ -299,14 +299,14 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200/50 p-1 gap-0">
-            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white/80 data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white/80 data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white/80 data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
