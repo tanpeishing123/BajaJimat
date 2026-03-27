@@ -540,25 +540,25 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background">
+    <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
       {/* Clean Header */}
-      <header className="bg-white border-b border-border/60 px-6 py-4 flex-shrink-0">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
             <div>
-              <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+              <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
               <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/80 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
-            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/50 text-xs text-muted-foreground hover:text-gray-900 hover:bg-white/80 font-sans transition-all active:scale-95">
               <LogOut size={12} />
               {t('Back', 'Kembali')}
             </button>
