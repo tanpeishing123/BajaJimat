@@ -202,7 +202,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             <span className="font-sans text-base font-bold text-white">BajaJimat</span>
           </div>
           {onToggleLang && (
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 text-xs font-sans font-medium text-white/70 hover:text-white hover:bg-white/20 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
@@ -213,14 +213,14 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
-            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/10 backdrop-blur-lg border border-white/15 p-1 gap-0">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-white/60 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-white/60 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm">
               {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-white/60 data-[state=active]:bg-white/20 data-[state=active]:text-white data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
