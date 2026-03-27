@@ -86,9 +86,9 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
   );
 }
 
-/* Vignette Radial Gradient Glassmorphism */
-const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.55)_60%,_rgba(255,255,255,0.8)_100%)] backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_60px_-10px_rgba(0,0,0,0.1)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0.6)_60%,_rgba(255,255,255,0.85)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_70px_-10px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all duration-300`;
+/* Vignette Radial Gradient Glassmorphism 2.0 */
+const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.6)_70%,_rgba(255,255,255,0.9)_100%)] backdrop-blur-xl border border-white/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_60px_-10px_rgba(6,78,59,0.1)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0.65)_70%,_rgba(255,255,255,0.95)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_70px_-10px_rgba(6,78,59,0.14)] hover:-translate-y-1 transition-all duration-300`;
 
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
@@ -217,9 +217,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden relative" style={{ background: '#f0fdf4' }}>
-      {/* White mist overlay to purify background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-0" />
+    <div className="h-screen flex flex-col overflow-hidden relative" style={{ background: 'linear-gradient(165deg, #ecfdf5 0%, #f0fdf4 30%, #d1fae5 70%, #ecfdf5 100%)' }}>
+      {/* Bright sunny overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/30 pointer-events-none z-0" style={{ filter: 'brightness(1.15)' }} />
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
