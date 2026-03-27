@@ -179,7 +179,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
         <ShieldCheck size={14} />
         🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
       </span>
-      <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full ${glassCard} text-sm font-semibold text-slate-950 font-sans`}>
+      <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full ${glassCard} text-sm font-semibold text-slate-900 font-sans`}>
         🌱 {plotName} · {cropType} · {farmSize} ha
       </span>
     </motion.div>
@@ -199,7 +199,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-slate-950">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-slate-900">BajaJimat</span>
           </div>
           {onToggleLang && (
             <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
@@ -214,13 +214,13 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
           <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
-            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
               {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -251,7 +251,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                 </div>
                 <div>
                   <p className="text-sm font-sans text-muted-foreground font-medium">{t(lang, 'Targeted Issue', 'Isu Sasaran')}</p>
-                  <p className="text-lg font-sans font-bold text-slate-950 capitalize">{data.issue_name}</p>
+                  <p className="text-lg font-sans font-bold text-slate-900 capitalize">{data.issue_name}</p>
                   <p className="text-sm font-sans text-muted-foreground mt-0.5">
                     {t(lang, 'Visual symptom detected. Remedial action recommended.', 'Gejala visual dikesan. Tindakan pemulihan disyorkan.')}
                   </p>
@@ -269,7 +269,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
 
               {data.expected_recovery_days > 0 && (
-                <div className="flex items-center gap-1.5 text-sm font-sans text-slate-950 font-bold">
+                <div className="flex items-center gap-1.5 text-sm font-sans text-slate-900 font-bold">
                   <span>⏱️</span>
                   {t(lang,
                     `Expected recovery: ~${data.expected_recovery_days} days`,
@@ -288,7 +288,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                   <Info size={18} className="text-sky-600" />
                 </div>
                 <div className="space-y-3">
-                  <p className="text-sm font-sans text-slate-950 leading-relaxed font-medium">
+                  <p className="text-sm font-sans text-slate-900 leading-relaxed font-medium">
                     <span className="font-bold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
                     {t(lang,
                       'Upload a soil test report for exact dosage calculations.',
@@ -312,7 +312,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             >
               <div className="flex items-start gap-2">
                 <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-sm font-sans text-slate-950 font-medium">
+                <p className="text-sm font-sans text-slate-900 font-medium">
                   <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
                     'AI-generated plan. Verify with an agronomist.',
@@ -347,7 +347,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                   <Package size={22} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-sans text-xl font-bold text-slate-950">
+                  <h3 className="font-sans text-xl font-bold text-slate-900">
                     {t(lang, 'Treatment Products', 'Produk Rawatan')}
                   </h3>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
@@ -367,7 +367,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                           <Package size={16} className="text-primary" />
                         </div>
                         <div>
-                          <p className="font-sans font-bold text-slate-950 text-lg">{item.product_name.replace(/\*\*/g, '')}</p>
+                          <p className="font-sans font-bold text-slate-900 text-lg">{item.product_name.replace(/\*\*/g, '')}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-sans font-bold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
                               {item.type}
@@ -378,7 +378,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                           </div>
                         </div>
                       </div>
-                      <p className="font-sans font-extrabold text-slate-950 text-xl tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
+                      <p className="font-sans font-extrabold text-slate-900 text-xl tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
                     </div>
                   );
                 })}
@@ -388,12 +388,12 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               <div className="mx-6 border-t-2 border-gray-900/10" />
               <div className="px-6 py-6 flex items-center justify-between">
                 <div>
-                  <p className="font-sans text-xl font-bold text-slate-950">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="font-sans text-xl font-bold text-slate-900">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
                     {t(lang, `${data.shopping_list.length} products × ${hectares} ha`, `${data.shopping_list.length} produk × ${hectares} ha`)}
                   </p>
                 </div>
-                <p className="text-3xl font-sans font-extrabold text-slate-950 tabular-nums">
+                <p className="text-3xl font-sans font-extrabold text-slate-900 tabular-nums">
                   RM{grandTotal.toFixed(2)}
                 </p>
               </div>
@@ -427,7 +427,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             >
               <div className="flex items-start gap-2">
                 <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-sm font-sans text-slate-950 font-medium">
+                <p className="text-sm font-sans text-slate-900 font-medium">
                   <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
                     'Prices are estimates. Verify with your local supplier.',
@@ -472,7 +472,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                         </div>
                       <div className="ml-4 space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-lg font-sans font-bold text-slate-950">{step.title.replace(/\*\*/g, '')}</p>
+                          <p className="text-lg font-sans font-bold text-slate-900">{step.title.replace(/\*\*/g, '')}</p>
                             <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing.replace(/\*\*/g, ''))}`}>
                               {step.timing.replace(/\*\*/g, '')}
                             </span>
