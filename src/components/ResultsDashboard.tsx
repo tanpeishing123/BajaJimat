@@ -222,7 +222,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">BajaJimat</h1>
-          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertiliser Optimiser', 'Pengoptimum Baja Pintar')}</p>
         </div>
         <div className="mb-4 text-sm">
           <p><strong>{t(lang, 'Plot', 'Ladang')}:</strong> {plotName || '-'}</p>
@@ -258,7 +258,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         </table>
         <p className="text-sm font-semibold">💰 {t(lang, 'Saved', 'Jimat')}: RM{result.savings_rm} {t(lang, 'vs premium blends', 'vs baja premium')}</p>
         <div className="mt-8 pt-4 border-t text-center text-xs text-muted-foreground">
-          <p>BajaJimat — {t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
+          <p>BajaJimat — {t(lang, 'Smart Fertiliser Optimiser', 'Pengoptimum Baja Pintar')}</p>
           <p>bajajimat.lovable.app</p>
         </div>
       </div>
