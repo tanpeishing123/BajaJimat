@@ -267,9 +267,9 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               )}
             </motion.div>
 
-            {/* Soil Test Upsell */}
+            {/* Soil Test Upsell — only for leaf photo analysis */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className={`${glassCard} p-5 space-y-3`}
+              className={`${glassCard} p-5`}
             >
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-sky-100/80 flex items-center justify-center shrink-0 mt-0.5">
@@ -283,15 +283,13 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                       'Muat naik laporan ujian tanah untuk pengiraan dos yang tepat.'
                     )}
                   </p>
-                  {onUploadSoil && (
-                    <button
-                      onClick={onUploadSoil}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-base font-sans font-bold transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
-                    >
-                      <Upload size={16} />
-                      {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
-                    </button>
-                  )}
+                  <button
+                    onClick={onUploadSoil || onBackToPlots}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-sans font-medium transition-transform duration-200 hover:scale-105 active:scale-95 mt-3"
+                  >
+                    <Upload size={15} />
+                    {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -454,27 +452,6 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
             </motion.div>
 
-            {/* Prevention Tips */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className={`${glassCard} p-6`}
-            >
-              <h4 className="font-sans text-sm font-bold text-primary mb-4 uppercase tracking-wider">
-                {t(lang, 'Prevention Tips', 'Petua Pencegahan')}
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {data.prevention_tips.map((tip, i) => {
-                  const shortTip = tip.length > 60 ? tip.slice(0, tip.indexOf('.', 20) + 1 || 60) || tip.slice(0, 60) + '…' : tip;
-                  return (
-                    <div key={i} className="relative flex items-start gap-3 bg-white/50 rounded-xl p-3 hover:bg-white/80 transition-all duration-200">
-                      <div className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 -mt-0.5 -ml-1">
-                        <CheckCircle2 size={14} className="text-emerald-500" />
-                      </div>
-                      <p className="text-sm font-sans text-gray-900 font-bold leading-snug">{shortTip}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
 
             {/* Disclaimer */}
             <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
