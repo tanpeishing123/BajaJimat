@@ -187,57 +187,70 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             </div>
           ) : (
             <div className="space-y-3 mb-6">
-              {plots.map(plot => (
-                <div key={plot.id} className="bg-card rounded-2xl p-4 border border-border/40 shadow-luxe hover:shadow-luxe-hover transition-all duration-300">
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <Leaf size={16} className="text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-display text-sm font-bold text-foreground">{plot.name}</h3>
-                        <p className="text-xs text-muted-foreground font-sans mt-0.5">
-                          {plot.crop_type} · {plot.farm_size_ha} ha · {soilLabel(plot.soil_type, lang)}
-                        </p>
-                        {plot.last_cost !== null && (
-                          <p className="text-xs font-sans font-semibold text-primary mt-1">
-                            {t(lang, 'Last cost', 'Kos terakhir')}: RM {plot.last_cost.toFixed(2)}
-                          </p>
-                        )}
-                      </div>
+              {plots.map(plot => {
+                const cropImg = getCropImage(plot.crop_type);
+                return (
+                <div key={plot.id} className="bg-card rounded-2xl overflow-hidden border border-border/40 shadow-luxe hover:shadow-luxe-hover transition-all duration-300">
+                  {/* Crop Thumbnail */}
+                  {cropImg && (
+                    <div className="h-28 w-full overflow-hidden">
+                      <img src={cropImg} alt={plot.crop_type} className="w-full h-full object-cover rounded-t-lg" loading="lazy" width={512} height={512} />
                     </div>
-                    <SpeakerButton
-                      text={`${plot.name}, ${plot.crop_type}, ${plot.farm_size_ha} ${lang === 'bm' ? 'hektar' : 'hectares'}`}
-                      lang={lang}
-                      size="sm"
-                    />
-                  </div>
-                  <div className="flex items-center gap-2 mt-3">
-                    <button
-                      onClick={() => onAnalyse(plot)}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
-                    >
-                      <FlaskConical size={14} />
-                      {t(lang, 'New Analysis', 'Analisis Baru')}
-                    </button>
-                    <button
-                      onClick={() => onViewHistory(plot)}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-all duration-200 active:scale-95"
-                    >
-                      {t(lang, 'View History', 'Lihat Sejarah')}
-                      {plot.history?.length ? (
-                        <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold">{plot.history.length}</span>
-                      ) : null}
-                    </button>
-                    <button
-                      onClick={() => handleDelete(plot.id)}
-                      className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-all duration-200 active:scale-95"
-                    >
-                      <Trash2 size={12} />
-                    </button>
+                  )}
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-start gap-3">
+                        {!cropImg && (
+                          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                            <Leaf size={16} className="text-primary" />
+                          </div>
+                        )}
+                        <div>
+                          <h3 className="font-display text-sm font-bold text-foreground">{plot.name}</h3>
+                          <p className="text-xs text-muted-foreground font-sans mt-0.5">
+                            {plot.crop_type} · {plot.farm_size_ha} ha · {soilLabel(plot.soil_type, lang)}
+                          </p>
+                          {plot.last_cost !== null && (
+                            <p className="text-xs font-sans font-semibold text-primary mt-1">
+                              {t(lang, 'Last cost', 'Kos terakhir')}: RM {plot.last_cost.toFixed(2)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <SpeakerButton
+                        text={`${plot.name}, ${plot.crop_type}, ${plot.farm_size_ha} ${lang === 'bm' ? 'hektar' : 'hectares'}`}
+                        lang={lang}
+                        size="sm"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 mt-3">
+                      <button
+                        onClick={() => onAnalyse(plot)}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl btn-gradient-primary font-sans text-xs font-semibold"
+                      >
+                        <FlaskConical size={14} />
+                        {t(lang, 'New Analysis', 'Analisis Baru')}
+                      </button>
+                      <button
+                        onClick={() => onViewHistory(plot)}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-primary/30 text-primary text-xs font-sans font-semibold hover:bg-primary/5 transition-all duration-200 active:scale-95"
+                      >
+                        {t(lang, 'View History', 'Lihat Sejarah')}
+                        {plot.history?.length ? (
+                          <span className="ml-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold">{plot.history.length}</span>
+                        ) : null}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(plot.id)}
+                        className="flex items-center justify-center px-2.5 py-2.5 rounded-xl border border-destructive/30 text-destructive text-xs font-sans font-medium hover:bg-destructive/5 transition-all duration-200 active:scale-95"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
