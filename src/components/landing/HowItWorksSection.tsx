@@ -4,6 +4,9 @@ import { Scan, BrainCircuit, Sprout, ChevronLeft, ChevronRight, ArrowRight, X } 
 import tabAnalyseBg from '@/assets/tab-analyse-bg.jpg';
 import tabOptimiseBg from '@/assets/tab-optimise-bg.jpg';
 import tabNourishBg from '@/assets/tab-nourish-bg.jpg';
+import cardDiagnoseBg from '@/assets/card-diagnose-bg.jpg';
+import cardOptimiseBg from '@/assets/card-optimise-bg.jpg';
+import cardNourishBg from '@/assets/card-nourish-bg.jpg';
 
 interface Props {
   lang: 'en' | 'bm';
@@ -28,6 +31,7 @@ const steps = [
     detail_en: 'Upload soil report, enter NPK manually, or photograph sick leaves. Our AI reads your data instantly.',
     detail_bm: 'Muat naik laporan tanah, masukkan NPK secara manual, atau foto daun yang sakit. AI kami membaca data anda serta-merta.',
     bg: tabAnalyseBg,
+    cardBg: cardDiagnoseBg,
   },
   {
     icon: BrainCircuit,
@@ -39,6 +43,7 @@ const steps = [
     detail_en: 'Our solver engine calculates the cheapest fertiliser blend that matches your soil\'s exact nutritional gap — no waste, no guesswork.',
     detail_bm: 'Enjin pengoptimum kami mengira campuran baja termurah yang sepadan dengan jurang nutrisi tanah anda — tiada pembaziran, tiada tekaan.',
     bg: tabOptimiseBg,
+    cardBg: cardOptimiseBg,
   },
   {
     icon: Sprout,
@@ -50,6 +55,7 @@ const steps = [
     detail_en: 'Apply precision-calculated nutrients. Watch yields grow while cutting costs by up to 40%. Stronger harvests, stronger Malaysia.',
     detail_bm: 'Gunakan nutrien yang dikira tepat. Lihat hasil bertambah sambil jimat sehingga 40%. Tuaian lebih kukuh, Malaysia lebih kuat.',
     bg: tabNourishBg,
+    cardBg: cardNourishBg,
   },
 ];
 
@@ -204,28 +210,43 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
                 className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
-                  bg-card border border-border/30
+                  overflow-hidden border border-border/30
                   shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                   hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                   active:scale-[0.97] transition-all duration-500"
               >
-                {/* Animated icon in pale mint circle */}
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
-                  <AnimIcon />
+                {/* Blurred background image */}
+                <img
+                  src={step.cardBg}
+                  alt=""
+                  loading="lazy"
+                  width={640}
+                  height={512}
+                  className="absolute inset-0 w-full h-full object-cover blur-[2px] scale-105 opacity-20 group-hover:opacity-30 group-hover:blur-[1px] transition-all duration-500"
+                />
+                {/* Overlay for readability */}
+                <div className="absolute inset-0 bg-card/80 group-hover:bg-card/70 transition-colors duration-500" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-center">
+                  {/* Animated icon in pale mint circle */}
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                    <AnimIcon />
+                  </div>
+                  <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
+                    {step.step}
+                  </span>
+                  <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                    {t(lang, step.title_en, step.title_bm)}
+                  </h3>
+                  <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
+                    {t(lang, step.desc_en, step.desc_bm)}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {t(lang, 'Learn more', 'Ketahui lagi')}
+                    <ArrowRight size={12} />
+                  </span>
                 </div>
-                <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
-                  {step.step}
-                </span>
-                <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-                  {t(lang, step.title_en, step.title_bm)}
-                </h3>
-                <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
-                  {t(lang, step.desc_en, step.desc_bm)}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {t(lang, 'Learn more', 'Ketahui lagi')}
-                  <ArrowRight size={12} />
-                </span>
               </motion.button>
             );
           })}
