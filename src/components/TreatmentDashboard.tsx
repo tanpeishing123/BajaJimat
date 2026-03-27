@@ -140,7 +140,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (loading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: '#f0fdf4' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
@@ -151,7 +151,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: '#f0fdf4' }}>
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
@@ -186,7 +186,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
