@@ -6,23 +6,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
-import bgOilPalm from '@/assets/bg-oil-palm.jpg';
-import bgRubber from '@/assets/bg-rubber.jpg';
-import bgRice from '@/assets/bg-rice.jpg';
-import bgDurian from '@/assets/bg-durian.jpg';
-import bgFarmGeneric from '@/assets/bg-farm-generic.jpg';
-
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
-
-const getCropBgImage = (cropType?: string): string => {
-  if (!cropType) return bgFarmGeneric;
-  const crop = cropType.toLowerCase();
-  if (crop.includes('kelapa sawit') || crop.includes('oil palm') || crop.includes('sawit')) return bgOilPalm;
-  if (crop.includes('getah') || crop.includes('rubber')) return bgRubber;
-  if (crop.includes('padi') || crop.includes('rice')) return bgRice;
-  if (crop.includes('durian')) return bgDurian;
-  return bgFarmGeneric;
-};
 
 interface ResultData {
   recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; is_mg?: boolean; reason?: string }[];
@@ -323,22 +307,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           </TabsList>
         </div>
 
-        <div className="flex-1 overflow-y-auto relative">
-          {/* Crop-type background image at 50% opacity */}
-          <div className="sticky top-0 w-full h-0 pointer-events-none z-0">
-            <div className="absolute inset-0 h-[100vh]">
-              <img
-                src={getCropBgImage(cropType)}
-                alt=""
-                className="w-full h-full object-cover opacity-50"
-                loading="lazy"
-                width={1024}
-                height={1024}
-              />
-              <div className="absolute inset-0 bg-background/60" />
-            </div>
-          </div>
-          <div className="relative z-10 px-4 md:px-8 py-5">
+        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
           {/* ========== TAB 1: Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-5">
             {/* Confidence Badge row */}
@@ -682,7 +651,6 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </p>
             </motion.div>
           </TabsContent>
-          </div>
         </div>
       </Tabs>
 
