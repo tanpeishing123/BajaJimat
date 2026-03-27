@@ -141,8 +141,8 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   if (loading) {
     return (
       <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(to bottom, #022c22, #064e3b 40%, #0f172a 100%)' }}>
-        <Loader2 className="animate-spin text-primary" size={40} />
-        <p className="text-base text-muted-foreground font-sans font-medium">
+        <Loader2 className="animate-spin text-emerald-400" size={40} />
+        <p className="text-base text-white/70 font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
         </p>
       </div>
