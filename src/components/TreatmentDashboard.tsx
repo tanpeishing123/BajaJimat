@@ -79,7 +79,7 @@ function getTimingColor(timing: string): string {
   return timingColors.default;
 }
 
-export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onToggleLang, onUploadSoil }: Props) {
+export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil }: Props) {
   const [data, setData] = useState<TreatmentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -486,6 +486,21 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
           </TabsContent>
         </div>
       </Tabs>
+
+      {/* Footer with Back to My Plots */}
+      {onBackToPlots && (
+        <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onBackToPlots}
+              className="flex-1 py-2.5 rounded-full font-sans font-semibold text-sm flex items-center justify-center gap-2 btn-secondary-outline border-primary/60"
+            >
+              <ArrowLeft size={14} />
+              {t(lang, 'Back to My Plots', 'Kembali ke Ladang Saya')}
+            </button>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }
