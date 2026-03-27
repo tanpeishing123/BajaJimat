@@ -210,28 +210,43 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
                 className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
-                  bg-card border border-border/30
+                  overflow-hidden border border-border/30
                   shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
                   hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                   active:scale-[0.97] transition-all duration-500"
               >
-                {/* Animated icon in pale mint circle */}
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
-                  <AnimIcon />
+                {/* Blurred background image */}
+                <img
+                  src={step.cardBg}
+                  alt=""
+                  loading="lazy"
+                  width={640}
+                  height={512}
+                  className="absolute inset-0 w-full h-full object-cover blur-[2px] scale-105 opacity-20 group-hover:opacity-30 group-hover:blur-[1px] transition-all duration-500"
+                />
+                {/* Overlay for readability */}
+                <div className="absolute inset-0 bg-card/80 group-hover:bg-card/70 transition-colors duration-500" />
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-center">
+                  {/* Animated icon in pale mint circle */}
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                    <AnimIcon />
+                  </div>
+                  <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
+                    {step.step}
+                  </span>
+                  <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                    {t(lang, step.title_en, step.title_bm)}
+                  </h3>
+                  <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
+                    {t(lang, step.desc_en, step.desc_bm)}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {t(lang, 'Learn more', 'Ketahui lagi')}
+                    <ArrowRight size={12} />
+                  </span>
                 </div>
-                <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
-                  {step.step}
-                </span>
-                <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-                  {t(lang, step.title_en, step.title_bm)}
-                </h3>
-                <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
-                  {t(lang, step.desc_en, step.desc_bm)}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {t(lang, 'Learn more', 'Ketahui lagi')}
-                  <ArrowRight size={12} />
-                </span>
               </motion.button>
             );
           })}
