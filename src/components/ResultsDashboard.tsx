@@ -217,7 +217,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom, #022c22, #064e3b 40%, #0f172a 100%)' }}>
+      {/* Subtle mesh overlay */}
+      <div className="fixed inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(4,120,87,0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(6,78,59,0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.08) 0%, transparent 70%)' }} />
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">

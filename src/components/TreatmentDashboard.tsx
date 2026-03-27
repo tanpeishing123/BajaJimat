@@ -140,7 +140,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (loading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: '#f0fdf4' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(to bottom, #022c22, #064e3b 40%, #0f172a 100%)' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
@@ -151,7 +151,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: '#f0fdf4' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(to bottom, #022c22, #064e3b 40%, #0f172a 100%)' }}>
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
@@ -186,7 +186,9 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom, #022c22, #064e3b 40%, #0f172a 100%)' }}>
+      {/* Subtle mesh overlay */}
+      <div className="fixed inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(4,120,87,0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(6,78,59,0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.08) 0%, transparent 70%)' }} />
       {/* Header */}
       <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
