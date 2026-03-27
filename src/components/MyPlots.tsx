@@ -260,7 +260,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
 
       {/* Add Plot Sheet */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto bg-white/80 backdrop-blur-2xl border-t border-white/60">
+        <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh] overflow-y-auto bg-white/50 backdrop-blur-xl border-t border-white/50">
           <SheetHeader className="mb-4">
             <SheetTitle className="font-sans text-lg font-bold text-gray-900">
               {t(lang, 'Add New Plot', 'Tambah Ladang Baru')}
