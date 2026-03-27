@@ -79,6 +79,10 @@ function getTimingColor(timing: string): string {
   return timingColors.default;
 }
 
+/* Glassmorphism card classes */
+const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
+
 export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil }: Props) {
   const [data, setData] = useState<TreatmentData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -126,7 +130,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (loading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
@@ -137,7 +141,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4 px-6">
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
@@ -165,28 +169,28 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
         <ShieldCheck size={14} />
         🟢 {t(lang, 'AI Confidence: 88%', 'Keyakinan AI: 88%')}
       </span>
-      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-semibold text-primary font-sans">
+      <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full ${glassCard} text-sm font-semibold text-gray-900 font-sans`}>
         🌱 {plotName} · {cropType} · {farmSize} ha
       </span>
     </motion.div>
   );
 
   return (
-    <div className="h-screen flex flex-col bg-agri-depth overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
       {/* Header */}
-      <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
           </div>
           {onToggleLang && (
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
@@ -196,15 +200,15 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
-        <div className="px-4 md:px-8 pt-3 flex-shrink-0 border-b-2 border-primary/30">
-          <TabsList className="w-full grid grid-cols-3 h-12 rounded-none bg-transparent gap-0 p-0">
-            <TabsTrigger value="summary" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
+        <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
-              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
+              {t(lang, '🛒 Shopping', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -227,7 +231,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Targeted Issue Alert */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-5 rounded-2xl bg-primary/5 border border-primary/20 space-y-3"
+              className={`${glassCard} p-5 space-y-3`}
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -235,9 +239,9 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                 </div>
                 <div>
                   <p className="text-sm font-sans text-muted-foreground font-medium">{t(lang, 'Targeted Issue', 'Isu Sasaran')}</p>
-                  <p className="text-lg font-sans font-bold text-foreground capitalize">{data.issue_name}</p>
+                  <p className="text-lg font-sans font-bold text-gray-900 capitalize">{data.issue_name}</p>
                   <p className="text-sm font-sans text-muted-foreground mt-0.5">
-                    {t(lang, 'Visual symptom detected. Standard remedial action recommended.', 'Gejala visual dikesan. Tindakan pemulihan standard disyorkan.')}
+                    {t(lang, 'Visual symptom detected. Remedial action recommended.', 'Gejala visual dikesan. Tindakan pemulihan disyorkan.')}
                   </p>
                 </div>
               </div>
@@ -253,7 +257,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
 
               {data.expected_recovery_days > 0 && (
-                <div className="flex items-center gap-1.5 text-sm font-sans text-muted-foreground font-medium">
+                <div className="flex items-center gap-1.5 text-sm font-sans text-gray-900 font-bold">
                   <span>⏱️</span>
                   {t(lang,
                     `Expected recovery: ~${data.expected_recovery_days} days`,
@@ -265,18 +269,18 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Soil Test Upsell */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-5 rounded-2xl bg-sky-50 border border-sky-200/60 space-y-3"
+              className={`${glassCard} p-5 space-y-3`}
             >
               <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-lg bg-sky-100 flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-lg bg-sky-100/80 flex items-center justify-center shrink-0 mt-0.5">
                   <Info size={18} className="text-sky-600" />
                 </div>
                 <div className="space-y-3">
-                  <p className="text-sm font-sans text-sky-900 leading-relaxed font-medium">
+                  <p className="text-sm font-sans text-gray-900 leading-relaxed font-medium">
                     <span className="font-bold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
                     {t(lang,
-                      'This is a baseline remedial estimate based on visual symptoms. For exact dosage calculations tailored to your field\'s pH and nutrient lockouts, upload a recent Soil Test Report.',
-                      'Ini ialah anggaran pemulihan asas berdasarkan gejala visual. Untuk pengiraan dos tepat yang disesuaikan dengan pH dan sekatan nutrien ladang anda, muat naik Laporan Ujian Tanah terkini.'
+                      'Upload a soil test report for exact dosage calculations.',
+                      'Muat naik laporan ujian tanah untuk pengiraan dos yang tepat.'
                     )}
                   </p>
                   {onUploadSoil && (
@@ -294,15 +298,15 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Disclaimer */}
             <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-xl bg-amber-50 border border-amber-200/60"
+              className={`${glassCard} p-4`}
             >
               <div className="flex items-start gap-2">
                 <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-sm font-sans text-amber-800 font-medium">
+                <p className="text-sm font-sans text-gray-900 font-medium">
                   <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
-                    'This AI-generated treatment plan is of medium accuracy. Verify with an agronomist.',
-                    'Pelan rawatan dijana AI ini mempunyai ketepatan sederhana. Sahkan dengan ahli agronomi.'
+                    'AI-generated plan. Verify with an agronomist.',
+                    'Pelan dijana AI. Sahkan dengan ahli agronomi.'
                   )}
                 </p>
               </div>
@@ -325,8 +329,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Unified Frosted Receipt Card */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden"
-              style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}
+              className={`${glassCard} overflow-hidden`}
             >
               {/* Receipt Header */}
               <div className="px-6 pt-6 pb-4 flex items-center gap-3">
@@ -334,7 +337,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                   <Package size={22} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-sans text-xl font-bold text-foreground">
+                  <h3 className="font-sans text-xl font-bold text-gray-900">
                     {t(lang, 'Treatment Products', 'Produk Rawatan')}
                   </h3>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
@@ -348,13 +351,13 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                 {data.shopping_list.map((item, i) => {
                   const totalPrice = item.price_per_ha_rm * hectares;
                   return (
-                    <div key={i} className={`flex items-center justify-between py-5 ${i < data.shopping_list.length - 1 ? 'border-b border-emerald-100' : ''}`}>
+                    <div key={i} className={`flex items-center justify-between py-5 ${i < data.shopping_list.length - 1 ? 'border-b border-white/40' : ''}`}>
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
                           <Package size={16} className="text-primary" />
                         </div>
                         <div>
-                          <p className="font-sans font-bold text-foreground text-lg">{item.product_name}</p>
+                          <p className="font-sans font-bold text-gray-900 text-lg">{item.product_name}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-sans font-bold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
                               {item.type}
@@ -365,22 +368,22 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                           </div>
                         </div>
                       </div>
-                      <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
+                      <p className="font-sans font-extrabold text-gray-900 text-xl tabular-nums shrink-0">RM{totalPrice.toFixed(2)}</p>
                     </div>
                   );
                 })}
               </div>
 
               {/* Grand Total */}
-              <div className="mx-6 border-t-2 border-foreground/20" />
+              <div className="mx-6 border-t-2 border-gray-900/10" />
               <div className="px-6 py-6 flex items-center justify-between">
                 <div>
-                  <p className="font-sans text-xl font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="font-sans text-xl font-bold text-gray-900">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
                     {t(lang, `${data.shopping_list.length} products × ${hectares} ha`, `${data.shopping_list.length} produk × ${hectares} ha`)}
                   </p>
                 </div>
-                <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
+                <p className="text-3xl font-sans font-extrabold text-gray-900 tabular-nums">
                   RM{grandTotal.toFixed(2)}
                 </p>
               </div>
@@ -388,15 +391,15 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
             {/* Disclaimer */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="p-4 rounded-xl bg-amber-50 border border-amber-200/60"
+              className={`${glassCard} p-4`}
             >
               <div className="flex items-start gap-2">
                 <AlertTriangle size={16} className="text-amber-600 mt-0.5 shrink-0" />
-                <p className="text-sm font-sans text-amber-800 font-medium">
+                <p className="text-sm font-sans text-gray-900 font-medium">
                   <span className="font-bold">{t(lang, 'Disclaimer', 'Penafian')}:</span>{' '}
                   {t(lang,
-                    'Prices are estimates. Verify availability and pricing at your local agricultural supply shop.',
-                    'Harga adalah anggaran. Sahkan ketersediaan dan harga di kedai bekalan pertanian tempatan anda.'
+                    'Prices are estimates. Verify with your local supplier.',
+                    'Harga adalah anggaran. Sahkan dengan pembekal tempatan.'
                   )}
                 </p>
               </div>
@@ -417,29 +420,27 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               />
             </div>
 
-            {/* Action Plan — Premium Insight Card with timeline */}
+            {/* Action Plan */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
+              className={`${glassCard} p-6`}
             >
               <h4 className="font-sans text-sm font-bold text-primary mb-5 uppercase tracking-wider">
                 {t(lang, 'Action Plan', 'Pelan Tindakan')}
               </h4>
               <div className="relative pl-8">
-                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-border rounded-full" />
+                <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-white/60 rounded-full" />
                 <div className="space-y-6">
                   {data.action_plan.map((step, i) => {
                     const IconComponent = stepIcons[i % stepIcons.length];
-                    const iconColors = ['bg-blue-50 text-blue-600', 'bg-cyan-50 text-cyan-600', 'bg-red-50 text-red-600', 'bg-emerald-50 text-emerald-600', 'bg-amber-50 text-amber-600'];
-                    const iconColor = iconColors[i % iconColors.length];
 
                     return (
                       <div key={i} className="relative">
-                        <div className={`absolute -left-8 w-8 h-8 rounded-full ${iconColor} flex items-center justify-center ring-2 ring-background`}>
-                          <IconComponent size={16} />
+                        <div className="absolute -left-8 w-8 h-8 rounded-full flex items-center justify-center ring-2 ring-white/80 shadow-sm text-white" style={{ background: 'linear-gradient(to bottom right, #34d399, #14b8a6)' }}>
+                          <span className="text-xs font-bold">{i + 1}</span>
                         </div>
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <p className="text-lg font-sans font-bold text-foreground">{step.title.replace(/\*\*/g, '')}</p>
+                            <p className="text-lg font-sans font-bold text-gray-900">{step.title.replace(/\*\*/g, '')}</p>
                             <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing)}`}>
                               {step.timing}
                             </span>
@@ -453,21 +454,22 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
             </motion.div>
 
-            {/* Prevention Tips — Premium Insight Card */}
+            {/* Prevention Tips */}
             <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
+              className={`${glassCard} p-6`}
             >
               <h4 className="font-sans text-sm font-bold text-primary mb-4 uppercase tracking-wider">
                 {t(lang, 'Prevention Tips', 'Petua Pencegahan')}
               </h4>
-              <div className="space-y-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {data.prevention_tips.map((tip, i) => {
-                  // Truncate long tips to first sentence
-                  const shortTip = tip.length > 100 ? tip.slice(0, tip.indexOf('.', 40) + 1 || 100) || tip.slice(0, 100) + '…' : tip;
+                  const shortTip = tip.length > 60 ? tip.slice(0, tip.indexOf('.', 20) + 1 || 60) || tip.slice(0, 60) + '…' : tip;
                   return (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
-                      <p className="text-sm font-sans text-foreground font-medium leading-snug">{shortTip}</p>
+                    <div key={i} className="relative flex items-start gap-3 bg-white/50 rounded-xl p-3 hover:bg-white/80 transition-all duration-200">
+                      <div className="w-7 h-7 rounded-full bg-white shadow-sm flex items-center justify-center shrink-0 -mt-0.5 -ml-1">
+                        <CheckCircle2 size={14} className="text-emerald-500" />
+                      </div>
+                      <p className="text-sm font-sans text-gray-900 font-bold leading-snug">{shortTip}</p>
                     </div>
                   );
                 })}
@@ -489,7 +491,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
       {/* Footer with Back to My Plots */}
       {onBackToPlots && (
-        <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0">
+        <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={onBackToPlots}
