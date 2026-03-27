@@ -355,7 +355,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                           <Package size={16} className="text-primary" />
                         </div>
                         <div>
-                          <p className="font-sans font-bold text-gray-900 text-lg">{item.product_name}</p>
+                          <p className="font-sans font-bold text-gray-900 text-lg">{item.product_name.replace(/\*\*/g, '')}</p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-sans font-bold capitalize ${typeColors[item.type] || 'bg-muted text-muted-foreground'}`}>
                               {item.type}

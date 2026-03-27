@@ -605,7 +605,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
                     <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">
-                      {result.seasonal_advice.advice}
+                      {result.seasonal_advice.advice.replace(/\*\*/g, '')}
                     </p>
                   </div>
                 </div>
@@ -633,7 +633,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">{farmTip}</p>
+                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
                   ) : (
                     <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
