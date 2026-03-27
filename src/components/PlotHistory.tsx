@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft, ChevronRight, FileText, TestTubes, Leaf, Calendar } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { ResultsDashboard } from './ResultsDashboard';
+import { TreatmentDashboard, type TreatmentData } from './TreatmentDashboard';
 import { motion } from 'framer-motion';
 
 export interface HistoryEntry {
@@ -22,6 +23,13 @@ export interface HistoryEntry {
   soil_type?: string;
   treatment_issue?: string;
   treatment_severity?: string;
+  treatment_visual_evidence?: string;
+  remedial_shopping_list?: TreatmentData['shopping_list'];
+  remedial_grand_total_rm?: number;
+  treatment_action_plan?: TreatmentData['action_plan'];
+  treatment_severity_assessment?: string;
+  treatment_expected_recovery_days?: number;
+  leaf_recommendation?: string;
 }
 
 interface PlotHistoryProps {
@@ -47,6 +55,33 @@ export function PlotHistory({ plotName, history, lang, cropType, farmSize, onBac
 
   // Show full 3-tab results for a selected entry
   if (selectedEntry) {
+    if (selectedEntry.treatment_issue) {
+      const treatmentData: TreatmentData = {
+        issue_name: selectedEntry.treatment_issue,
+        shopping_list: selectedEntry.remedial_shopping_list ?? [],
+        action_plan: selectedEntry.treatment_action_plan ?? [],
+        prevention_tips: [],
+        severity_assessment: selectedEntry.treatment_severity_assessment ?? '',
+        expected_recovery_days: selectedEntry.treatment_expected_recovery_days ?? 0,
+      };
+
+      return (
+        <TreatmentDashboard
+          lang={lang}
+          issueName={selectedEntry.treatment_issue}
+          severity={selectedEntry.treatment_severity || 'moderate'}
+          visualEvidence={selectedEntry.treatment_visual_evidence || selectedEntry.leaf_recommendation || ''}
+          cropType={cropType || ''}
+          farmSize={farmSize || ''}
+          plotName={plotName}
+          onBack={() => setSelectedEntry(null)}
+          onBackToPlots={onBack}
+          onToggleLang={onToggleLang}
+          initialData={treatmentData}
+        />
+      );
+    }
+
     const resultData = {
       recommendations: selectedEntry.recommendations,
       total_cost_rm: selectedEntry.total_cost_rm,
