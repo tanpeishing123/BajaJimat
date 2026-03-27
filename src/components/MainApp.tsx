@@ -409,15 +409,15 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
     };
 
     return (
-      <div className="h-screen flex flex-col bg-background">
-        <header className="bg-white border-b border-border/60 px-6 py-4 flex items-center justify-between">
+      <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+        <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
           </div>
-          <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-foreground font-sans transition-colors">
+          <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-gray-900 font-sans transition-colors">
             ← {t('Back', 'Kembali')}
           </button>
         </header>
@@ -427,7 +427,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-md bg-white rounded-3xl p-6 shadow-lg border border-border/40 space-y-4"
+            className="w-full max-w-md bg-white/60 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-6 space-y-4"
           >
             {/* Health + Confidence badges + Speaker */}
             <div className="flex items-center justify-between">
