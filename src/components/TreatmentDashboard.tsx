@@ -438,7 +438,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
                         <div className="absolute -left-8 w-8 h-8 rounded-full flex items-center justify-center ring-2 ring-white/80 shadow-sm text-white" style={{ background: 'linear-gradient(to bottom right, #34d399, #14b8a6)' }}>
                           <span className="text-xs font-bold">{i + 1}</span>
                         </div>
-                        <div className="space-y-1">
+                      <div className="ml-4 space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
                             <p className="text-lg font-sans font-bold text-gray-900">{step.title.replace(/\*\*/g, '')}</p>
                             <span className={`px-3 py-1 rounded-full text-xs font-sans font-bold ${getTimingColor(step.timing)}`}>

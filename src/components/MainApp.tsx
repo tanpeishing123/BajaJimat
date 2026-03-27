@@ -247,11 +247,16 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       }
 
       const data: ResultData = await res.json();
-      if (plotId) updatePlotLastCost(plotId, data.total_cost_rm, data);
+      // Save full leaf analysis result including shopping list to history
+      if (plotId) {
+        const leafHistoryData: ResultData = {
+          ...data,
+          input_mode: 'leaf_photo',
+        };
+        updatePlotLastCost(plotId, data.total_cost_rm, leafHistoryData);
+      }
       setResultData(data);
       setShowResults(true);
-
-      // Voice readout removed — user clicks speaker button manually
     } catch (err: any) {
       setErrorMsg(err.message || 'Something went wrong');
     } finally {
@@ -422,17 +427,30 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
                 <h3 className="text-xs font-sans font-semibold text-muted-foreground uppercase tracking-wider">
                   {t('Deficiencies Detected', 'Kekurangan Dikesan')}
                 </h3>
-                {leafResult.deficiencies.map((d, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-muted/30 border border-border/40 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-sans font-bold text-foreground capitalize">{d.nutrient}</span>
-                      <span className={`text-xs font-sans font-semibold capitalize ${severityColors[d.severity] || 'text-muted-foreground'}`}>
-                        {d.severity} ({d.estimated_deficit_pct}%)
-                      </span>
+                {leafResult.deficiencies.map((d, i) => {
+                  // Shorten visual_evidence to 1 punchy sentence
+                  const shortEvidence = d.visual_evidence.length > 80
+                    ? (d.visual_evidence.slice(0, d.visual_evidence.indexOf('.', 30) + 1) || d.visual_evidence.slice(0, 80) + '…')
+                    : d.visual_evidence;
+
+                  const severityBadgeColor: Record<string, string> = {
+                    mild: 'bg-amber-100 text-amber-800',
+                    moderate: 'bg-orange-100 text-orange-800',
+                    severe: 'bg-red-100 text-red-800',
+                  };
+
+                  return (
+                    <div key={i} className="bg-gray-50 rounded-xl p-4 mb-3 border border-gray-100 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-base font-sans font-bold text-foreground capitalize">{d.nutrient}</span>
+                        <span className={`px-3 py-1 rounded-full text-sm font-sans font-semibold capitalize ${severityBadgeColor[d.severity] || 'bg-muted text-muted-foreground'}`}>
+                          {d.severity} ({d.estimated_deficit_pct}%)
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground font-sans leading-snug">{shortEvidence}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground font-sans">{d.visual_evidence}</p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <p className="text-sm text-muted-foreground font-sans text-center py-2">
