@@ -5,6 +5,9 @@ import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import dashboardBgSummary from '@/assets/dashboard-bg-summary.jpg';
+import dashboardBgShopping from '@/assets/dashboard-bg-shopping.jpg';
+import dashboardBgAdvice from '@/assets/dashboard-bg-advice.jpg';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
@@ -307,7 +310,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
           </TabsList>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
+        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5 relative">
+          <img src={dashboardBgSummary} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none z-0" loading="lazy" />
+          <div className="relative z-10">
           {/* ========== TAB 1: Summary ========== */}
           <TabsContent value="summary" className="mt-0 space-y-5">
             {/* Confidence Badge row */}
@@ -651,6 +656,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </p>
             </motion.div>
           </TabsContent>
+          </div>
         </div>
       </Tabs>
 
