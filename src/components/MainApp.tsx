@@ -334,6 +334,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         farmSize={profile.farmSize}
         plotName={plotName || profile.crop}
         onBack={() => { setShowTreatment(false); setTreatmentIssue(null); setShowLeafAnalysis(true); }}
+        onBackToPlots={onLogout}
         onToggleLang={onToggleLang}
       />
     );

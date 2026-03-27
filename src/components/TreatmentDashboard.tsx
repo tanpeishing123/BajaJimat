@@ -39,6 +39,7 @@ interface Props {
   farmSize: string;
   plotName: string;
   onBack: () => void;
+  onBackToPlots?: () => void;
   onToggleLang?: () => void;
   onUploadSoil?: () => void;
 }
