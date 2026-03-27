@@ -186,13 +186,13 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Footer ── */}
       <footer className="relative bg-primary px-6 py-10 text-center overflow-hidden">
         <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" loading="lazy" width={1920} height={512} />
-        <p className="text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
+        <p className="relative z-10 text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
           {t(lang,
             'Join thousands of Malaysian farmers already saving on fertiliser costs.',
             'Sertai ribuan petani Malaysia yang sudah jimat kos baja.'
           )}
         </p>
-        <p className="text-[10px] text-primary-foreground/40 font-body mt-3">
+        <p className="relative z-10 text-[10px] text-primary-foreground/40 font-body mt-3">
           © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
