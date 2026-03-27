@@ -31,6 +31,7 @@ const steps = [
     detail_en: 'Upload soil report, enter NPK manually, or photograph sick leaves. Our AI reads your data instantly.',
     detail_bm: 'Muat naik laporan tanah, masukkan NPK secara manual, atau foto daun yang sakit. AI kami membaca data anda serta-merta.',
     bg: tabAnalyseBg,
+    cardBg: cardDiagnoseBg,
   },
   {
     icon: BrainCircuit,
@@ -42,6 +43,7 @@ const steps = [
     detail_en: 'Our solver engine calculates the cheapest fertiliser blend that matches your soil\'s exact nutritional gap — no waste, no guesswork.',
     detail_bm: 'Enjin pengoptimum kami mengira campuran baja termurah yang sepadan dengan jurang nutrisi tanah anda — tiada pembaziran, tiada tekaan.',
     bg: tabOptimiseBg,
+    cardBg: cardOptimiseBg,
   },
   {
     icon: Sprout,
@@ -53,6 +55,7 @@ const steps = [
     detail_en: 'Apply precision-calculated nutrients. Watch yields grow while cutting costs by up to 40%. Stronger harvests, stronger Malaysia.',
     detail_bm: 'Gunakan nutrien yang dikira tepat. Lihat hasil bertambah sambil jimat sehingga 40%. Tuaian lebih kukuh, Malaysia lebih kuat.',
     bg: tabNourishBg,
+    cardBg: cardNourishBg,
   },
 ];
 
