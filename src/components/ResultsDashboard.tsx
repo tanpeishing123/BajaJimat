@@ -86,9 +86,9 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
   );
 }
 
-/* Vignette Radial Gradient Glassmorphism 2.0 */
-const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.6)_70%,_rgba(255,255,255,0.9)_100%)] backdrop-blur-xl border border-white/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_60px_-10px_rgba(6,78,59,0.1)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0.65)_70%,_rgba(255,255,255,0.95)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_70px_-10px_rgba(6,78,59,0.14)] hover:-translate-y-1 transition-all duration-300`;
+/* Vignette Radial Gradient Glassmorphism */
+const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.55)_60%,_rgba(255,255,255,0.8)_100%)] backdrop-blur-xl border border-white/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_20px_60px_-10px_rgba(0,0,0,0.1)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_rgba(255,255,255,0.6)_60%,_rgba(255,255,255,0.85)_100%)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),_0_25px_70px_-10px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all duration-300`;
 
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
@@ -217,9 +217,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden relative" style={{ background: 'linear-gradient(165deg, #ecfdf5 0%, #f0fdf4 30%, #d1fae5 70%, #ecfdf5 100%)' }}>
-      {/* Bright sunny overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/30 pointer-events-none z-0" style={{ filter: 'brightness(1.15)' }} />
+    <div className="h-screen flex flex-col overflow-hidden relative" style={{ background: '#f0fdf4' }}>
+      {/* White mist overlay to purify background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-0" />
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
@@ -275,7 +275,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-slate-900">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-slate-950">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -302,13 +302,13 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
           <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
-            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
               {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-sm">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -340,7 +340,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             >
               <div className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full ${glassCard}`}>
                 <span className="text-sm">🌱</span>
-                <p className="text-sm font-semibold text-slate-900 font-sans">
+                <p className="text-sm font-semibold text-slate-950 font-sans">
                   {cropType || ''} · {farmSize || ''} ha · {result.soil_type || ''}
                 </p>
                 {result.crop_requirements_source === 'ai' && (
@@ -410,7 +410,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <Lightbulb size={18} className="text-sky-600" />
                   </div>
                   <div className="flex-1 space-y-3">
-                    <p className="text-sm font-sans text-slate-900 leading-relaxed font-medium">
+                    <p className="text-sm font-sans text-slate-950 leading-relaxed font-medium">
                       <span className="font-bold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
                       {t(lang,
                         'Upload a soil test report for exact dosage calculations.',
@@ -442,14 +442,14 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <AlertTriangle size={20} className="text-amber-700" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-lg font-bold text-slate-900 mb-1">
+                    <p className="font-sans text-lg font-bold text-slate-950 mb-1">
                       ⚠️ {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Pengapuran Diperlukan')}
                     </p>
                     {limingItems[0].reason && (
                       <p className="text-sm text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
                     )}
                     {limingItems.map((lim) => (
-                      <div key={lim.name} className="flex items-center gap-4 text-sm font-sans text-slate-900 mb-1">
+                      <div key={lim.name} className="flex items-center gap-4 text-sm font-sans text-slate-950 mb-1">
                         <span className="font-bold">{lim.name}</span>
                         <span>{lim.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{lim.price_per_bag}</span>
                         <span className="font-extrabold">= RM{lim.subtotal_rm}</span>
@@ -484,7 +484,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   <Package size={22} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-sans text-xl font-bold text-slate-900">
+                  <h3 className="font-sans text-xl font-bold text-slate-950">
                     {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
                   </h3>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
@@ -502,13 +502,13 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                         <Package size={16} className="text-primary" />
                       </div>
                       <div>
-                        <p className="font-sans font-bold text-slate-900 text-lg">{rec.name}</p>
+                        <p className="font-sans font-bold text-slate-950 text-lg">{rec.name}</p>
                         <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
                           {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
                         </p>
                       </div>
                     </div>
-                    <p className="font-sans font-extrabold text-slate-900 text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                    <p className="font-sans font-extrabold text-slate-950 text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
                   </div>
                 ))}
 
@@ -520,14 +520,14 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                         <span className="text-base">💊</span>
                       </div>
                       <div>
-                        <p className="font-sans font-bold text-slate-900 text-lg">{mg.name}</p>
+                        <p className="font-sans font-bold text-slate-950 text-lg">{mg.name}</p>
                         <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
                           {mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}
                           {mg.reason && <span className="ml-1 text-blue-500 font-semibold">· {t(lang, 'Optional', 'Pilihan')}</span>}
                         </p>
                       </div>
                     </div>
-                    <p className="font-sans font-extrabold text-slate-900 text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
+                    <p className="font-sans font-extrabold text-slate-950 text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
                   </div>
                 ))}
               </div>
@@ -536,12 +536,12 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               <div className="mx-6 border-t-2 border-gray-900/10" />
               <div className="px-6 py-6 flex items-center justify-between">
                 <div>
-                  <p className="font-sans text-xl font-bold text-slate-900">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="font-sans text-xl font-bold text-slate-950">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
                     {t(lang, `${[...fertItems, ...mgItems].length} products`, `${[...fertItems, ...mgItems].length} produk`)}
                   </p>
                 </div>
-                <p className="text-3xl font-sans font-extrabold text-slate-900 tabular-nums">
+                <p className="text-3xl font-sans font-extrabold text-slate-950 tabular-nums">
                   RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
@@ -556,7 +556,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 <p className="text-emerald-800 font-sans text-sm font-semibold">
                   {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
                 </p>
-                <p className="text-2xl font-sans font-extrabold text-slate-900 tabular-nums mt-1">
+                <p className="text-2xl font-sans font-extrabold text-slate-950 tabular-nums mt-1">
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                 </p>
               </div>
@@ -606,7 +606,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <p className="font-sans text-sm font-bold text-primary mb-2 uppercase tracking-wider">
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
-                    <p className="font-sans text-lg text-slate-900 leading-relaxed font-bold">
+                    <p className="font-sans text-lg text-slate-950 leading-relaxed font-bold">
                       {result.seasonal_advice.advice.replace(/\*\*/g, '')}
                     </p>
                   </div>
@@ -635,7 +635,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                       <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-lg text-slate-900 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
+                    <p className="font-sans text-lg text-slate-950 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
                   ) : (
                     <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
@@ -654,7 +654,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <p className="font-sans text-sm font-bold text-amber-600 mb-2 uppercase tracking-wider">
                       {t(lang, 'Liming Method', 'Cara Pengapuran')}
                     </p>
-                    <p className="font-sans text-lg text-slate-900 leading-relaxed font-bold">
+                    <p className="font-sans text-lg text-slate-950 leading-relaxed font-bold">
                       {t(lang,
                         'Spread lime evenly. Wait 2-4 weeks before fertilising.',
                         'Tabur kapur sekata. Tunggu 2-4 minggu sebelum membaja.'
@@ -674,7 +674,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 className={`flex items-center gap-4 ${glassCardHover} p-6`}
               >
                 <MapPin size={24} className="text-primary shrink-0" />
-                <span className="font-sans font-bold text-lg text-slate-900">
+                <span className="font-sans font-bold text-lg text-slate-950">
                   {t(lang, '📍 Find Nearby Fertiliser Shops', '📍 Cari Kedai Baja Berdekatan')}
                 </span>
               </a>
