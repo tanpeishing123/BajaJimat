@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Trash2, FlaskConical, Sprout, Globe, LogOut, MapPin, Leaf } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SpeakerButton } from './SpeakerButton';
-import farmWelcomeBg from '@/assets/farm-welcome-bg.jpg';
+import welcomeBannerBg from '@/assets/welcome-banner-bg.jpg';
 
 import cropOilPalm from '@/assets/crops/oil-palm.jpg';
 import cropPaddy from '@/assets/crops/paddy.jpg';
@@ -163,14 +163,14 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
         <div className="max-w-2xl mx-auto">
           {/* Greeting with farm background */}
           <div className="mb-6 relative rounded-2xl overflow-hidden">
-            <img src={farmWelcomeBg} alt="Lush green farm" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+            <img src={welcomeBannerBg} alt="Lush paddy farm landscape" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
+            <div className="absolute inset-0 bg-black/30" />
             <div className="relative z-10 px-6 py-8">
-              <h1 className="font-display text-2xl font-bold text-white tracking-tight drop-shadow-md">
-                {t(lang, 'My Plots', 'Ladang Saya')}
+              <h1 className="font-display text-2xl font-bold text-white tracking-tight" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}>
+                {t(lang, 'Welcome to BajaJimat', 'Selamat Datang ke BajaJimat')}
               </h1>
-              <p className="text-sm text-white/80 font-sans mt-1 drop-shadow-sm">
-                {t(lang, `Welcome, ${userName}!`, `Selamat datang, ${userName}!`)}
+              <p className="text-sm text-white/90 font-sans mt-1" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>
+                {t(lang, `Hello, ${userName}! Manage your plots below.`, `Hai, ${userName}! Urus ladang anda di bawah.`)}
               </p>
             </div>
           </div>
