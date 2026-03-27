@@ -5,6 +5,9 @@ import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import dashboardBgSummary from '@/assets/dashboard-bg-summary.jpg';
+import dashboardBgShopping from '@/assets/dashboard-bg-shopping.jpg';
+import dashboardBgAdvice from '@/assets/dashboard-bg-advice.jpg';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
