@@ -34,6 +34,7 @@ interface Props {
   onBack: () => void;
   backLabel?: string;
   onToggleLang?: () => void;
+  onUploadSoil?: () => void;
 }
 
 const fadeUp = {
@@ -89,7 +90,7 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
 const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
 const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
 
-export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang }: Props) {
+export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
