@@ -1,6 +1,8 @@
 import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroBg from '@/assets/hero-bg.jpg';
+import bgEmpower from '@/assets/bg-empower.jpg';
+import bgFooter from '@/assets/bg-footer.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
 
 interface HeroLandingProps {
@@ -112,7 +114,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       <HowItWorksSection lang={lang} onGetStarted={onGetStarted} />
 
       {/* ── Empowering Farmers — Bento Grid ── */}
-      <section className="relative px-6 md:px-12 py-24 md:py-36" style={{ background: '#FAFAF8' }}>
+      <section className="relative px-6 md:px-12 py-24 md:py-36 overflow-hidden" style={{ background: '#FAFAF8' }}>
+        <img src={bgEmpower} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none" loading="lazy" width={1920} height={1080} />
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={scrollReveal}
@@ -181,14 +184,15 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="bg-primary px-6 py-10 text-center">
-        <p className="text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
+      <footer className="relative bg-primary px-6 py-10 text-center overflow-hidden">
+        <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" loading="lazy" width={1920} height={512} />
+        <p className="relative z-10 text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
           {t(lang,
             'Join thousands of Malaysian farmers already saving on fertiliser costs.',
             'Sertai ribuan petani Malaysia yang sudah jimat kos baja.'
           )}
         </p>
-        <p className="text-[10px] text-primary-foreground/40 font-body mt-3">
+        <p className="relative z-10 text-[10px] text-primary-foreground/40 font-body mt-3">
           © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
