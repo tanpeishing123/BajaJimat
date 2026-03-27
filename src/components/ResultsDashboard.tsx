@@ -680,6 +680,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </p>
             </motion.div>
           </TabsContent>
+          </div>
         </div>
       </Tabs>
 
