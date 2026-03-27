@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle, Loader2, MapPin, Share2, Download, Droplets, ShieldAlert, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Volume2, Globe, Sprout, TrendingDown, Package, Banknote, AlertTriangle, Loader2, MapPin, Share2, Download, Droplets, ShieldAlert, Lightbulb, Leaf, Clock, Target, Sparkles, CheckCircle2, FlaskConical, CalendarDays, Store, Beaker } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -37,10 +37,10 @@ interface Props {
 }
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 12, filter: 'blur(4px)' },
+  hidden: { opacity: 0, y: 16, filter: 'blur(6px)' },
   visible: (i: number) => ({
     opacity: 1, y: 0, filter: 'blur(0px)',
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    transition: { delay: i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
@@ -82,6 +82,21 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
       </div>
       <span className="text-xs font-sans font-semibold" style={{ color }}>{label}</span>
     </div>
+  );
+}
+
+/* Bento Card wrapper */
+function BentoCard({ children, className = '', delay = 0, bgColor = 'bg-card' }: { children: React.ReactNode; className?: string; delay?: number; bgColor?: string }) {
+  return (
+    <motion.div
+      custom={delay}
+      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      className={`rounded-2xl p-6 shadow-sm border border-border/30 ${bgColor} ${className}`}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -299,7 +314,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
             <TabsTrigger value="shopping" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
-              {t(lang, '🛒 Shopping List', '🛒 Senarai Baja')}
+              {t(lang, '🛒 Shopping', '🛒 Belanja')}
             </TabsTrigger>
             <TabsTrigger value="advice" className="rounded-t-xl rounded-b-none text-sm sm:text-base font-sans font-bold transition-all duration-300 bg-card text-primary border border-border/40 border-b-0 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:tab-neon-active data-[state=active]:shadow-lg data-[state=active]:-translate-y-0.5">
               {t(lang, '💡 Advice', '💡 Nasihat')}
@@ -308,9 +323,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
-          {/* ========== TAB 1: Summary ========== */}
-          <TabsContent value="summary" className="mt-0 space-y-5">
-            {/* Confidence Badge row */}
+          {/* ========== TAB 1: Summary — Bento Grid ========== */}
+          <TabsContent value="summary" className="mt-0 space-y-4">
+            {/* Row 1: Confidence + Farm Info */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center justify-between">
               <div className="flex flex-wrap items-center gap-2">
                 <span className={`px-4 py-1.5 rounded-full text-sm font-sans font-bold ${confidenceColor}`}>
@@ -327,10 +342,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               />
             </motion.div>
 
-            {/* Farm Info Bar */}
-            <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="flex items-center gap-1.5 flex-wrap"
-            >
+            {/* Farm Info Pill */}
+            <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center gap-1.5 flex-wrap">
               <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
                 <span className="text-sm">🌱</span>
                 <p className="text-sm font-semibold text-primary font-sans">
@@ -344,22 +357,39 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
-            {/* Nutrient Deficit Section */}
+            {/* Bento Grid: NPK Deficit Cards */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { nutrient: 'N', label: t(lang, 'Nitrogen', 'Nitrogen'), value: result.n_deficit_kg, color: 'from-blue-500/10 to-blue-500/5', border: 'border-blue-200', text: 'text-blue-600', icon: 'bg-blue-100' },
+                { nutrient: 'P', label: t(lang, 'Phosphorus', 'Fosforus'), value: result.p_deficit_kg, color: 'from-amber-500/10 to-amber-500/5', border: 'border-amber-200', text: 'text-amber-600', icon: 'bg-amber-100' },
+                { nutrient: 'K', label: t(lang, 'Potassium', 'Kalium'), value: result.k_deficit_kg, color: 'from-emerald-500/10 to-emerald-500/5', border: 'border-emerald-200', text: 'text-emerald-600', icon: 'bg-emerald-100' },
+              ].map((d, i) => (
+                <BentoCard key={d.nutrient} delay={1 + i * 0.15} className={`bg-gradient-to-br ${d.color} border ${d.border} text-center`} bgColor="">
+                  <div className={`w-10 h-10 rounded-xl ${d.icon} flex items-center justify-center mx-auto mb-2`}>
+                    <span className={`text-base font-extrabold font-sans ${d.text}`}>{d.nutrient}</span>
+                  </div>
+                  <p className={`text-2xl sm:text-3xl font-extrabold font-sans tabular-nums ${d.text}`}>{d.value}</p>
+                  <p className="text-xs font-sans font-semibold text-muted-foreground mt-1">kg {t(lang, 'deficit', 'defisit')}</p>
+                  <p className="text-[10px] font-sans text-muted-foreground/70 mt-0.5">{d.label}</p>
+                </BentoCard>
+              ))}
+            </div>
+
+            {/* Radar Chart — Dark Elevated Card (spans full width) */}
             <motion.div
-              custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl p-6 relative overflow-hidden glass-dark-elevated"
+              custom={2} variants={fadeUp} initial="hidden" animate="visible"
+              className="rounded-2xl p-6 relative overflow-hidden"
               style={{ background: 'linear-gradient(160deg, rgba(10,31,26,0.95) 0%, rgba(13,43,35,0.9) 50%, rgba(6,26,21,0.95) 100%)' }}
             >
-              {/* Glowing pulse center */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="w-56 h-56 rounded-full animate-pulse-ring" style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.2) 0%, rgba(52,211,153,0.08) 40%, transparent 70%)' }} />
               </div>
               <div className="flex items-center gap-2 mb-3 relative z-10">
                 <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                  <TrendingDown size={16} className="text-emerald-400" />
+                  <Target size={16} className="text-emerald-400" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-emerald-50 tracking-tight">
-                  {t(lang, 'Nutrient Deficit', 'Defisit Nutrien')}
+                <h3 className="font-sans text-lg font-bold text-emerald-50 tracking-tight">
+                  {t(lang, 'Nutrient Profile', 'Profil Nutrien')}
                 </h3>
               </div>
               <div className="h-[210px] relative z-10">
@@ -378,26 +408,41 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              {/* N-P-K Deficit Pills — glossy finish, larger text */}
-              <div className="flex justify-center gap-2 sm:gap-3 mt-2 sm:mt-3 relative z-10 flex-wrap px-1">
-                {[
-                  { nutrient: 'N', value: result.n_deficit_kg, pill: 'pill-glossy-n', text: 'text-blue-300', border: 'border-blue-400/40' },
-                  { nutrient: 'P', value: result.p_deficit_kg, pill: 'pill-glossy-p', text: 'text-amber-300', border: 'border-amber-400/40' },
-                  { nutrient: 'K', value: result.k_deficit_kg, pill: 'pill-glossy-k', text: 'text-emerald-300', border: 'border-emerald-400/40' },
-                ].map(d => (
-                  <div key={d.nutrient} className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full ${d.pill} border ${d.border}`}>
-                    <span className={`text-[11px] sm:text-sm font-extrabold font-display ${d.text} tracking-wide`}>{d.nutrient}</span>
-                    <span className="text-sm sm:text-base font-bold text-white font-sans tabular-nums">{d.value}kg</span>
-                  </div>
-                ))}
-              </div>
             </motion.div>
+
+            {/* Bento Row: Cost + Savings side by side */}
+            <div className="grid grid-cols-2 gap-3">
+              <BentoCard delay={2.5} className="bg-gradient-to-br from-emerald-50 to-white border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                    <Banknote size={16} className="text-emerald-600" />
+                  </div>
+                  <p className="text-xs font-sans font-bold text-emerald-700 uppercase tracking-wider">
+                    {t(lang, 'Total Cost', 'Jumlah Kos')}
+                  </p>
+                </div>
+                <p className="text-2xl font-extrabold font-sans text-foreground tabular-nums">
+                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
+                </p>
+              </BentoCard>
+              <BentoCard delay={2.7} className="bg-gradient-to-br from-green-50 to-white border-green-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                    <Sparkles size={16} className="text-green-600" />
+                  </div>
+                  <p className="text-xs font-sans font-bold text-green-700 uppercase tracking-wider">
+                    {t(lang, 'Saved', 'Jimat')}
+                  </p>
+                </div>
+                <p className="text-2xl font-extrabold font-sans text-green-700 tabular-nums">
+                  RM{result.savings_rm}
+                </p>
+              </BentoCard>
+            </div>
 
             {/* pH Warning Card */}
             {result.liming_needed && limingItems.length > 0 && (
-              <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-5"
-              >
+              <BentoCard delay={3} className="bg-gradient-to-br from-amber-50 to-white border-amber-300">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
                     <AlertTriangle size={20} className="text-amber-700" />
@@ -424,127 +469,127 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </BentoCard>
             )}
           </TabsContent>
 
           {/* ========== TAB 2: Shopping List ========== */}
-          <TabsContent value="shopping" className="mt-0 space-y-5">
-            {/* Tab 2 speaker button */}
+          <TabsContent value="shopping" className="mt-0 space-y-4">
             <div className="flex justify-end">
               <SpeakerButton text={result.voice_summary} lang={lang} size="sm" />
             </div>
 
-            {/* Unified Frosted Receipt Card */}
-            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl shadow-lg border border-border/30 overflow-hidden"
-              style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}
-            >
-              {/* Receipt Header */}
-              <div className="px-6 pt-6 pb-4 flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Package size={22} className="text-primary" />
+            {/* Unified Receipt Card */}
+            <BentoCard delay={0} className="shadow-lg overflow-hidden !p-0" bgColor="">
+              <div style={{ background: 'linear-gradient(to bottom right, rgba(236,253,245,0.2), white, white)' }}>
+                {/* Receipt Header */}
+                <div className="px-6 pt-6 pb-4 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Package size={22} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-sans text-xl font-bold text-foreground">
+                      {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
+                    </h3>
+                    <p className="text-sm font-sans text-muted-foreground font-medium">
+                      {plotName || ''} · {cropType || ''} · {farmSize || ''} ha
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-sans text-xl font-bold text-foreground">
-                    {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
-                  </h3>
-                  <p className="text-sm font-sans text-muted-foreground font-medium">
-                    {plotName || ''} · {cropType || ''} · {farmSize || ''} ha
+
+                {/* Fertiliser Item Rows */}
+                <div className="px-6">
+                  {fertItems.map((rec, i) => (
+                    <div key={rec.name} className={`flex items-center justify-between py-5 ${i < fertItems.length - 1 ? 'border-b border-emerald-100' : ''}`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
+                          <Package size={16} className="text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-sans font-bold text-foreground text-lg">{rec.name}</p>
+                          <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
+                            {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                    </div>
+                  ))}
+
+                  {/* Magnesium items inline */}
+                  {mgItems.map((mg) => (
+                    <div key={mg.name} className="flex items-center justify-between py-5 border-t border-emerald-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                          <span className="text-base">💊</span>
+                        </div>
+                        <div>
+                          <p className="font-sans font-bold text-foreground text-lg">{mg.name}</p>
+                          <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
+                            {mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}
+                            {mg.reason && <span className="ml-1 text-blue-500 font-semibold">· {t(lang, 'Optional', 'Pilihan')}</span>}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Grand Total */}
+                <div className="mx-6 border-t-2 border-foreground/20" />
+                <div className="px-6 py-6 flex items-center justify-between">
+                  <div>
+                    <p className="font-sans text-xl font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                    <p className="text-sm font-sans text-muted-foreground font-medium">
+                      {t(lang, `${[...fertItems, ...mgItems].length} products`, `${[...fertItems, ...mgItems].length} produk`)}
+                    </p>
+                  </div>
+                  <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
+                    RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                   </p>
                 </div>
               </div>
+            </BentoCard>
 
-              {/* Fertiliser Item Rows */}
-              <div className="px-6">
-                {fertItems.map((rec, i) => (
-                  <div key={rec.name} className={`flex items-center justify-between py-5 ${i < fertItems.length - 1 ? 'border-b border-emerald-100' : ''}`}>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
-                        <Package size={16} className="text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-sans font-bold text-foreground text-lg">{rec.name}</p>
-                        <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
-                          {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
-                  </div>
-                ))}
-
-                {/* Magnesium items inline */}
-                {mgItems.map((mg) => (
-                  <div key={mg.name} className="flex items-center justify-between py-5 border-t border-emerald-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                        <span className="text-base">💊</span>
-                      </div>
-                      <div>
-                        <p className="font-sans font-bold text-foreground text-lg">{mg.name}</p>
-                        <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
-                          {mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}
-                          {mg.reason && <span className="ml-1 text-blue-500 font-semibold">· {t(lang, 'Optional', 'Pilihan')}</span>}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Grand Total */}
-              <div className="mx-6 border-t-2 border-foreground/20" />
-              <div className="px-6 py-6 flex items-center justify-between">
+            {/* Savings Banner */}
+            <BentoCard delay={1} className="bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-300 border-2">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-emerald-200 flex items-center justify-center shrink-0">
+                  <Sparkles size={22} className="text-emerald-700" />
+                </div>
                 <div>
-                  <p className="font-sans text-xl font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
-                  <p className="text-sm font-sans text-muted-foreground font-medium">
-                    {t(lang, `${[...fertItems, ...mgItems].length} products`, `${[...fertItems, ...mgItems].length} produk`)}
+                  <p className="text-emerald-800 font-sans text-sm font-semibold">
+                    {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
+                  </p>
+                  <p className="text-2xl font-sans font-extrabold text-emerald-900 tabular-nums mt-0.5">
+                    RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                   </p>
                 </div>
-                <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
-                  RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-                </p>
               </div>
-            </motion.div>
-
-            {/* Savings Banner — prominent emerald */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-xl px-6 py-5 bg-emerald-100 border-2 border-emerald-300 flex items-center justify-between"
-            >
-              <div>
-                <p className="text-emerald-800 font-sans text-sm font-semibold">
-                  {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
-                </p>
-                <p className="text-2xl font-sans font-extrabold text-emerald-900 tabular-nums mt-1">
-                  💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
-                </p>
-              </div>
-            </motion.div>
+            </BentoCard>
 
             {/* WhatsApp + PDF Buttons */}
-            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
+            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible" className="grid grid-cols-2 gap-3">
               <button
                 onClick={handleWhatsApp}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-base hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"
+                className="flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-[#25D366] text-white font-sans font-bold text-sm hover:bg-[#1fb855] transition-colors active:scale-97 shadow-sm"
               >
-                <Share2 size={18} />
-                {t(lang, 'Share to WhatsApp', 'Kongsi ke WhatsApp')}
+                <Share2 size={16} />
+                {t(lang, 'WhatsApp', 'WhatsApp')}
               </button>
               <button
                 onClick={() => window.print()}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-bold text-base hover:bg-primary/5 transition-colors active:scale-97"
+                className="flex items-center justify-center gap-2 py-3.5 rounded-2xl border-2 border-primary text-primary font-sans font-bold text-sm hover:bg-primary/5 transition-colors active:scale-97"
               >
-                <Download size={18} />
-                {t(lang, 'Download PDF', 'Muat Turun PDF')}
+                <Download size={16} />
+                {t(lang, 'Download', 'Muat Turun')}
               </button>
             </motion.div>
           </TabsContent>
 
-          {/* ========== TAB 3: Advice ========== */}
-          <TabsContent value="advice" className="mt-0 space-y-5">
-            {/* Tab 3 speaker button */}
+          {/* ========== TAB 3: Advice — Success Roadmap ========== */}
+          <TabsContent value="advice" className="mt-0 space-y-4">
             <div className="flex justify-end">
               <SpeakerButton
                 text={t(lang,
@@ -556,97 +601,119 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               />
             </div>
 
-            {/* Seasonal Advice — Premium Insight Card */}
+            {/* Roadmap Header */}
+            <BentoCard delay={0} className="bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center mx-auto mb-3">
+                <CheckCircle2 size={28} className="text-emerald-600" />
+              </div>
+              <h3 className="font-sans text-xl font-bold text-foreground">
+                {t(lang, 'Your Success Roadmap', 'Peta Kejayaan Anda')}
+              </h3>
+              <p className="text-sm font-sans text-muted-foreground mt-1">
+                {t(lang, 'Follow these steps for optimal results', 'Ikuti langkah ini untuk hasil optimum')}
+              </p>
+            </BentoCard>
+
+            {/* Step 1: Seasonal Advice — Green (Success) */}
             {result.seasonal_advice?.advice && (
-              <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
-              >
+              <BentoCard delay={0.5} className="bg-gradient-to-br from-emerald-50/80 to-white border-l-4 border-l-emerald-500 border-emerald-200">
                 <div className="flex items-start gap-4">
-                  <span className="text-3xl mt-0.5">📅</span>
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                    <CalendarDays size={20} className="text-emerald-600" />
+                  </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-sm font-bold text-primary mb-2 uppercase tracking-wider">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-bold">{t(lang, 'SEASONAL', 'MUSIMAN')}</span>
+                    </div>
+                    <p className="font-sans text-base font-bold text-foreground mb-1">
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
+                    <p className="font-sans text-sm text-muted-foreground leading-relaxed font-medium">
                       {result.seasonal_advice.advice}
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </BentoCard>
             )}
 
-            {/* Farm Tip Card — Premium Insight Card */}
-            <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6"
-            >
+            {/* Step 2: Farm Tip — Blue (Info) */}
+            <BentoCard delay={1} className="bg-gradient-to-br from-sky-50/80 to-white border-l-4 border-l-sky-500 border-sky-200">
               <div className="flex items-start gap-4">
-                <span className="text-3xl mt-0.5">💡</span>
+                <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
+                  <Lightbulb size={20} className="text-sky-600" />
+                </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <p className="font-sans text-sm font-bold text-primary uppercase tracking-wider">
-                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
-                    </p>
-                    <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-bold">
-                      ✨ {t(lang, 'AI Generated', 'Dijana AI')}
-                    </span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 text-xs font-sans font-bold">{t(lang, 'AI TIP', 'TIP AI')}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-sans font-bold">✨</span>
                   </div>
+                  <p className="font-sans text-base font-bold text-foreground mb-1">
+                    {t(lang, "Monthly Farm Tip", 'Tip Ladang Bulanan')}
+                  </p>
                   {tipLoading ? (
                     <div className="flex items-center gap-2 py-1">
                       <Loader2 size={16} className="animate-spin text-primary" />
-                      <span className="text-base text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                      <span className="text-sm text-muted-foreground font-sans font-medium">{t(lang, 'Loading...', 'Memuat...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">{farmTip}</p>
+                    <p className="font-sans text-sm text-muted-foreground leading-relaxed font-medium">{farmTip}</p>
                   ) : (
-                    <p className="font-sans text-base text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                    <p className="font-sans text-sm text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
                 </div>
               </div>
-            </motion.div>
+            </BentoCard>
 
-            {/* pH Liming Advice — Premium Insight Card */}
+            {/* Step 3: Liming — Amber (Warning/Action) */}
             {result.liming_needed && (
-              <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-amber-500 p-6"
-              >
+              <BentoCard delay={1.5} className="bg-gradient-to-br from-amber-50/80 to-white border-l-4 border-l-amber-500 border-amber-200">
                 <div className="flex items-start gap-4">
-                  <span className="text-3xl mt-0.5">🧪</span>
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+                    <Beaker size={20} className="text-amber-600" />
+                  </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-sm font-bold text-amber-600 mb-2 uppercase tracking-wider">
-                      {t(lang, 'Liming Method', 'Cara Pengapuran')}
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-xs font-sans font-bold">{t(lang, 'ACTION', 'TINDAKAN')}</span>
+                    </div>
+                    <p className="font-sans text-base font-bold text-foreground mb-1">
+                      {t(lang, 'Liming Required', 'Pengapuran Diperlukan')}
                     </p>
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
-                      {t(lang,
-                        'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
-                        'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
-                      )}
-                    </p>
+                    <ul className="font-sans text-sm text-muted-foreground leading-relaxed font-medium space-y-1">
+                      <li>• {t(lang, 'Spread lime evenly across the field', 'Tabur kapur secara sekata di ladang')}</li>
+                      <li>• {t(lang, 'Wait 2-4 weeks before fertilising', 'Tunggu 2-4 minggu sebelum membaja')}</li>
+                    </ul>
                   </div>
                 </div>
-              </motion.div>
+              </BentoCard>
             )}
 
-            {/* Nearby Shops — Premium Insight Card */}
-            <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible">
+            {/* Step 4: Nearby Shops — Green card */}
+            <BentoCard delay={2} className="bg-gradient-to-br from-emerald-50/60 to-white border-emerald-200 hover:shadow-md transition-shadow cursor-pointer">
               <a
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-card rounded-2xl shadow-md border border-border/20 border-l-[6px] border-l-primary p-6 hover:shadow-lg transition-shadow"
+                className="flex items-center gap-4"
               >
-                <MapPin size={24} className="text-primary shrink-0" />
-                <span className="font-sans font-bold text-lg text-foreground">
-                  {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
-                </span>
+                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                  <Store size={20} className="text-emerald-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-sans font-bold text-base text-foreground">
+                    {t(lang, 'Find Nearby Shops', 'Cari Kedai Berdekatan')}
+                  </p>
+                  <p className="text-xs font-sans text-muted-foreground">{t(lang, 'Opens Google Maps', 'Buka Google Maps')}</p>
+                </div>
+                <MapPin size={18} className="text-emerald-500 shrink-0" />
               </a>
-            </motion.div>
+            </BentoCard>
 
             {/* AI Disclaimer */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
-              <p className="text-center text-sm text-muted-foreground font-sans italic leading-relaxed">
+            <motion.div custom={2.5} variants={fadeUp} initial="hidden" animate="visible">
+              <p className="text-center text-xs text-muted-foreground font-sans italic leading-relaxed">
                 ⚠️ {t(lang,
-                  'Advice generated by AI, verify with agricultural expert',
-                  'Nasihat dijana oleh AI, sahkan dengan pakar pertanian'
+                  'AI-generated advice. Verify with an agricultural expert.',
+                  'Nasihat dijana AI. Sahkan dengan pakar pertanian.'
                 )}
               </p>
             </motion.div>
