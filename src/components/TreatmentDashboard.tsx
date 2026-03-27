@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, AlertTriangle, Loader2, CheckCircle2, ShieldCheck, Info, Upload, TestTube, Droplets, Bug, Leaf, Sun } from 'lucide-react';
+import { ArrowLeft, Globe, Sprout, ShieldAlert, Package, AlertTriangle, Loader2, CheckCircle2, ShieldCheck, Info, Upload, TestTube, Droplets, Bug, Leaf, Sun, Share2, Download } from 'lucide-react';
 import { SpeakerButton } from './SpeakerButton';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -216,7 +216,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
             <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
-              {t(lang, '🛒 Shopping', '🛒 Senarai')}
+              {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
             <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
@@ -397,8 +397,30 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               </div>
             </motion.div>
 
+            {/* WhatsApp + PDF Buttons */}
+            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
+              <button
+                onClick={() => {
+                  const items = data.shopping_list.map(item => `• ${item.product_name.replace(/\*\*/g, '')} — ${item.quantity_per_ha}/ha — RM${(item.price_per_ha_rm * hectares).toFixed(2)}`).join('\n');
+                  const text = `🌿 *BajaJimat Treatment Plan*\n📋 ${data.issue_name}\n🌱 ${plotName} · ${cropType} · ${hectares} ha\n\n${items}\n\n💰 *Grand Total: RM${grandTotal.toFixed(2)}*`;
+                  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-base hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"
+              >
+                <Share2 size={18} />
+                {t(lang, 'Share to WhatsApp', 'Kongsi ke WhatsApp')}
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/60 backdrop-blur-xl border border-white/80 text-primary font-sans font-bold text-base hover:bg-white/80 transition-all active:scale-97"
+              >
+                <Download size={18} />
+                {t(lang, 'Download PDF', 'Muat Turun PDF')}
+              </button>
+            </motion.div>
+
             {/* Disclaimer */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
+            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
               className={`${glassCard} p-4`}
             >
               <div className="flex items-start gap-2">

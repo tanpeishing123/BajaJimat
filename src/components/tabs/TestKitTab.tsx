@@ -128,7 +128,7 @@ export function TestKitTab({ lang, onSubmit }: TestKitTabProps) {
         onClick={() => canSubmit && onSubmit(Number(n), Number(p), Number(k), Number(ph), mg.trim() ? Number(mg) : null)}
         className="w-full mt-4 rounded-full py-2.5 font-sans font-semibold text-xs btn-gradient-primary"
       >
-        {t(lang, 'Confirm & Analyze', 'Sahkan & Analisis')}
+        {t(lang, 'Confirm & Analyse', 'Sahkan & Analisis')}
       </button>
     </div>
   );
