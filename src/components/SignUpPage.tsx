@@ -48,19 +48,21 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
       </div>
 
       {/* Right — Form */}
-      <div className="w-full md:w-1/2 bg-cream-brand flex items-center justify-center p-6 md:p-12 relative overflow-y-auto">
-        <img src={signupBajaBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none" loading="lazy" width={1920} height={1080} />
-        <button onClick={onBack} className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-1.5 text-sm font-body text-muted-foreground hover:text-brown-brand transition-colors z-10">
+      <div className="w-full md:w-1/2 flex flex-col relative overflow-y-auto">
+        <img src={signupBajaBg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="lazy" width={1920} height={1080} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/40 pointer-events-none" />
+        <button onClick={onBack} className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-1.5 text-sm font-body text-white/80 hover:text-white transition-colors z-10">
           <ArrowLeft size={16} />
           {t(lang, 'Home', 'Utama')}
         </button>
 
-        <div className="w-full max-w-md">
+        <div className="relative z-10 flex-1 flex items-end p-6 md:p-12 pb-8">
+          <div className="w-full max-w-md mx-auto">
           <div className="mb-6">
-            <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-brown-brand leading-tight">
+            <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-lg">
               {t(lang, 'Welcome to BajaJimat', 'Selamat Datang ke BajaJimat')}
             </h1>
-            <p className="mt-2 text-muted-foreground font-body text-sm">
+            <p className="mt-2 text-white/80 font-body text-sm">
               {t(lang, 'Tell us your name to get started.', 'Beritahu nama anda untuk bermula.')}
             </p>
           </div>
