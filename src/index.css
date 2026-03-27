@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 152 20% 98%;
+    --background: 40 33% 98%;
     --foreground: 24 30% 16%;
 
     --card: 0 0% 100%;
@@ -21,7 +21,7 @@
     --secondary: 152 81% 96%;
     --secondary-foreground: 164 90% 20%;
 
-    --muted: 152 15% 95%;
+    --muted: 40 60% 96%;
     --muted-foreground: 24 10% 46%;
 
     --accent: 38 92% 50%;
@@ -30,19 +30,19 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 152 12% 90%;
-    --input: 152 12% 90%;
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
     --ring: 164 90% 20%;
 
     --radius: 1.5rem;
 
-    --sidebar-background: 152 15% 97%;
+    --sidebar-background: 40 33% 97%;
     --sidebar-foreground: 24 30% 16%;
     --sidebar-primary: 164 90% 20%;
     --sidebar-primary-foreground: 152 81% 96%;
-    --sidebar-accent: 152 15% 95%;
+    --sidebar-accent: 40 60% 96%;
     --sidebar-accent-foreground: 24 30% 16%;
-    --sidebar-border: 152 12% 90%;
+    --sidebar-border: 40 20% 88%;
     --sidebar-ring: 164 90% 20%;
 
     /* Custom tokens */
@@ -52,11 +52,11 @@
     --brown-light: 24 15% 35%;
     --gold: 38 92% 50%;
     --gold-light: 45 100% 96%;
-    --beige: 152 20% 96%;
-    --cream: 152 20% 98%;
+    --beige: 40 100% 96%;
+    --cream: 40 33% 98%;
     --lavender: 280 40% 75%;
 
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
 
@@ -66,13 +66,11 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    background: linear-gradient(180deg, hsl(152 20% 98%) 0%, hsl(152 25% 97%) 50%, hsl(152 20% 98%) 100%);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', sans-serif;
     color: hsl(var(--brown));
     letter-spacing: -0.02em;
-    font-weight: 800;
   }
 }
 
