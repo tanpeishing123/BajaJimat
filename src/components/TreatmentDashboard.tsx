@@ -82,8 +82,8 @@ function getTimingColor(timing: string): string {
 }
 
 /* Glassmorphism card classes */
-const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
+const glassCard = "bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-out`;
 
 export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil, initialData, onDataLoaded }: Props) {
   const [data, setData] = useState<TreatmentData | null>(initialData ?? null);
@@ -140,7 +140,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (loading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-base text-muted-foreground font-sans font-medium">
           {t(lang, 'Generating treatment plan...', 'Menjana pelan rawatan...')}
@@ -151,7 +151,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
   if (error) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
         <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
@@ -186,9 +186,9 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(135deg, #6ee7b7 0%, #f0fdfa 40%, #86efac 70%, #ccfbf1 100%)' }}>
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
+      <header className="bg-white/40 backdrop-blur-md border-b border-white/50 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
