@@ -62,6 +62,37 @@ function savePlots(plots: Plot[]) {
   localStorage.setItem('plots', JSON.stringify(plots));
 }
 
+const CROP_IMAGES: Record<string, string> = {
+  'oil palm': cropOilPalm,
+  'kelapa sawit': cropOilPalm,
+  'paddy': cropPaddy,
+  'padi': cropPaddy,
+  'rice': cropPaddy,
+  'corn': cropCorn,
+  'jagung': cropCorn,
+  'durian': cropDurian,
+  'musang king': cropDurian,
+  'rubber': cropRubber,
+  'getah': cropRubber,
+  'vegetables': cropVegetables,
+  'sayur': cropVegetables,
+  'sayur-sayuran': cropVegetables,
+  'banana': cropBanana,
+  'pisang': cropBanana,
+  'coconut': cropCoconut,
+  'kelapa': cropCoconut,
+};
+
+function getCropImage(cropType: string): string | null {
+  const lower = cropType.toLowerCase().trim();
+  if (CROP_IMAGES[lower]) return CROP_IMAGES[lower];
+  // Partial match
+  for (const [key, val] of Object.entries(CROP_IMAGES)) {
+    if (lower.includes(key) || key.includes(lower)) return val;
+  }
+  return null;
+}
+
 export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onViewHistory }: MyPlotsProps) {
   const [plots, setPlots] = useState<Plot[]>(loadPlots);
 
