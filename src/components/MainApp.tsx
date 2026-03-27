@@ -581,7 +581,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         <div className="w-full px-6 md:px-20 py-4">
           {/* Plot Context Banner */}
           {plotName && (
-            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/[0.07] border border-primary/15">
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-white/50 backdrop-blur-lg border border-white/60">
               <p className="text-xs font-sans font-medium text-primary">
                 {t(
                   `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
@@ -605,7 +605,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
           </div>
 
           {/* Tabs - Premium Pill Style */}
-          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-muted/40">
+          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-white/40 backdrop-blur-lg border border-white/60">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
