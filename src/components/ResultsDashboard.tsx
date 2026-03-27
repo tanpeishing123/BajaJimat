@@ -6,7 +6,23 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
+import bgOilPalm from '@/assets/bg-oil-palm.jpg';
+import bgRubber from '@/assets/bg-rubber.jpg';
+import bgRice from '@/assets/bg-rice.jpg';
+import bgDurian from '@/assets/bg-durian.jpg';
+import bgFarmGeneric from '@/assets/bg-farm-generic.jpg';
+
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
+
+const getCropBgImage = (cropType?: string): string => {
+  if (!cropType) return bgFarmGeneric;
+  const crop = cropType.toLowerCase();
+  if (crop.includes('kelapa sawit') || crop.includes('oil palm') || crop.includes('sawit')) return bgOilPalm;
+  if (crop.includes('getah') || crop.includes('rubber')) return bgRubber;
+  if (crop.includes('padi') || crop.includes('rice')) return bgRice;
+  if (crop.includes('durian')) return bgDurian;
+  return bgFarmGeneric;
+};
 
 interface ResultData {
   recommendations: { name: string; bags: number; price_per_bag: number; subtotal_rm: number; is_liming?: boolean; is_mg?: boolean; reason?: string }[];
