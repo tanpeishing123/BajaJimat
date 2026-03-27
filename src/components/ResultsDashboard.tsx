@@ -217,7 +217,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
