@@ -56,7 +56,7 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
           {t(lang, 'Home', 'Utama')}
         </button>
 
-        <div className="relative z-10 flex-1 flex items-start p-6 md:p-12 pt-16 md:pt-20">
+        <div className="relative z-10 flex-1 flex items-end p-6 md:p-12 pb-8">
           <div className="w-full max-w-md mx-auto">
           <div className="mb-6">
             <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-lg">
