@@ -5,9 +5,6 @@ import { useSpeech } from '@/hooks/useSpeech';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import bgSummary from '@/assets/bg-summary.jpg';
-import bgShopping from '@/assets/bg-shopping.jpg';
-import bgAdvice from '@/assets/bg-advice.jpg';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
@@ -312,9 +309,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5">
           {/* ========== TAB 1: Summary ========== */}
-          <TabsContent value="summary" className="mt-0 relative">
-            <img src={bgSummary} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none rounded-2xl" />
-            <div className="relative z-10 space-y-5">
+          <TabsContent value="summary" className="mt-0 space-y-5">
             {/* Confidence Badge row */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="flex items-center justify-between">
               <div className="flex flex-wrap items-center gap-2">
@@ -431,13 +426,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 </div>
               </motion.div>
             )}
-            </div>
           </TabsContent>
 
           {/* ========== TAB 2: Shopping List ========== */}
-          <TabsContent value="shopping" className="mt-0 relative">
-            <img src={bgShopping} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none rounded-2xl" />
-            <div className="relative z-10 space-y-5">
+          <TabsContent value="shopping" className="mt-0 space-y-5">
             {/* Tab 2 speaker button */}
             <div className="flex justify-end">
               <SpeakerButton text={result.voice_summary} lang={lang} size="sm" />
@@ -548,13 +540,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 {t(lang, 'Download PDF', 'Muat Turun PDF')}
               </button>
             </motion.div>
-            </div>
           </TabsContent>
 
           {/* ========== TAB 3: Advice ========== */}
-          <TabsContent value="advice" className="mt-0 relative">
-            <img src={bgAdvice} alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none rounded-2xl" />
-            <div className="relative z-10 space-y-5">
+          <TabsContent value="advice" className="mt-0 space-y-5">
             {/* Tab 3 speaker button */}
             <div className="flex justify-end">
               <SpeakerButton
@@ -661,7 +650,6 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 )}
               </p>
             </motion.div>
-            </div>
           </TabsContent>
         </div>
       </Tabs>
