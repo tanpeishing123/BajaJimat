@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
-interface ShoppingItem {
+export interface ShoppingItem {
   product_name: string;
   type: string;
   quantity_per_ha: string;
@@ -14,14 +14,14 @@ interface ShoppingItem {
   application_method: string;
 }
 
-interface ActionStep {
+export interface ActionStep {
   step: number;
   title: string;
   description: string;
   timing: string;
 }
 
-interface TreatmentData {
+export interface TreatmentData {
   issue_name: string;
   shopping_list: ShoppingItem[];
   action_plan: ActionStep[];
@@ -42,6 +42,8 @@ interface Props {
   onBackToPlots?: () => void;
   onToggleLang?: () => void;
   onUploadSoil?: () => void;
+  initialData?: TreatmentData;
+  onDataLoaded?: (data: TreatmentData, grandTotal: number) => void;
 }
 
 const fadeUp = {
@@ -83,13 +85,19 @@ function getTimingColor(timing: string): string {
 const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
 const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
 
-export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil }: Props) {
-  const [data, setData] = useState<TreatmentData | null>(null);
-  const [loading, setLoading] = useState(true);
+export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, cropType, farmSize, plotName, onBack, onBackToPlots, onToggleLang, onUploadSoil, initialData, onDataLoaded }: Props) {
+  const [data, setData] = useState<TreatmentData | null>(initialData ?? null);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
   const hectares = parseFloat(farmSize) || 2;
 
   useEffect(() => {
+    if (initialData) {
+      setData(initialData);
+      setLoading(false);
+      return;
+    }
+
     const fetchTreatment = async () => {
       setLoading(true);
       setError(null);
@@ -118,6 +126,8 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
         const result = await res.json();
         setData(result);
+        const loadedGrandTotal = result.shopping_list.reduce((sum: number, item: ShoppingItem) => sum + (item.price_per_ha_rm * hectares), 0);
+        onDataLoaded?.(result, loadedGrandTotal);
       } catch (err: any) {
         setError(err.message || 'Something went wrong');
       } finally {
@@ -126,7 +136,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
     };
 
     fetchTreatment();
-  }, [issueName, severity, visualEvidence, cropType, hectares, lang]);
+  }, [issueName, severity, visualEvidence, cropType, hectares, lang, initialData, onDataLoaded]);
 
   if (loading) {
     return (

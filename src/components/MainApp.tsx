@@ -6,7 +6,7 @@ import { SoilReportTab } from './tabs/SoilReportTab';
 import { TestKitTab } from './tabs/TestKitTab';
 import { LeafPhotoTab, type LeafAnalysisResult } from './tabs/LeafPhotoTab';
 import { ResultsDashboard } from './ResultsDashboard';
-import { TreatmentDashboard } from './TreatmentDashboard';
+import { TreatmentDashboard, type TreatmentData } from './TreatmentDashboard';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NPK_NUTRIENTS = ['nitrogen', 'phosphorus', 'potassium'];
@@ -67,6 +67,30 @@ interface ResultData {
   soil_type?: string;
 }
 
+interface TreatmentHistoryEntry {
+  date: string;
+  input_mode: 'leaf_photo';
+  total_cost_rm: number;
+  n_deficit_kg: number;
+  p_deficit_kg: number;
+  k_deficit_kg: number;
+  recommendations: [];
+  confidence: 'medium';
+  savings_rm: number;
+  voice_summary: string;
+  treatment_issue: string;
+  treatment_severity: string;
+  treatment_visual_evidence: string;
+  remedial_shopping_list: TreatmentData['shopping_list'];
+  remedial_grand_total_rm: number;
+  treatment_action_plan: TreatmentData['action_plan'];
+  treatment_severity_assessment: string;
+  treatment_expected_recovery_days: number;
+  leaf_deficiencies: LeafAnalysisResult['deficiencies'];
+  leaf_overall_health?: string;
+  leaf_recommendation?: string;
+}
+
 function updatePlotLastCost(plotId: string, totalCost: number, resultData: ResultData) {
   try {
     const plots = JSON.parse(localStorage.getItem('plots') || '[]');
@@ -79,6 +103,56 @@ function updatePlotLastCost(plotId: string, totalCost: number, resultData: Resul
       const history = [historyEntry, ...(p.history || [])].slice(0, 5);
       return { ...p, last_cost: totalCost, history };
     });
+    localStorage.setItem('plots', JSON.stringify(updated));
+  } catch {}
+}
+
+function saveTreatmentHistory(plotId: string, issue: { name: string; severity: string; evidence: string }, leafResult: LeafAnalysisResult | null, treatmentData: TreatmentData, grandTotal: number) {
+  try {
+    const plots = JSON.parse(localStorage.getItem('plots') || '[]');
+    const historyEntry: TreatmentHistoryEntry = {
+      date: new Date().toISOString(),
+      input_mode: 'leaf_photo',
+      total_cost_rm: grandTotal,
+      n_deficit_kg: 0,
+      p_deficit_kg: 0,
+      k_deficit_kg: 0,
+      recommendations: [],
+      confidence: 'medium',
+      savings_rm: 0,
+      voice_summary: `Treatment for ${issue.name}`,
+      treatment_issue: issue.name,
+      treatment_severity: issue.severity,
+      treatment_visual_evidence: issue.evidence,
+      remedial_shopping_list: treatmentData.shopping_list,
+      remedial_grand_total_rm: grandTotal,
+      treatment_action_plan: treatmentData.action_plan,
+      treatment_severity_assessment: treatmentData.severity_assessment,
+      treatment_expected_recovery_days: treatmentData.expected_recovery_days,
+      leaf_deficiencies: leafResult?.deficiencies || [],
+      leaf_overall_health: leafResult?.overall_health,
+      leaf_recommendation: leafResult?.recommendation,
+    };
+
+    const updated = plots.map((p: any) => {
+      if (p.id !== plotId) return p;
+
+      const existing = p.history || [];
+      const recentIndex = existing.findIndex((h: any) =>
+        h.treatment_issue === issue.name &&
+        (Date.now() - new Date(h.date).getTime()) < 60000
+      );
+
+      const history = [...existing];
+      if (recentIndex >= 0) {
+        history[recentIndex] = historyEntry;
+      } else {
+        history.unshift(historyEntry);
+      }
+
+      return { ...p, last_cost: grandTotal, history: history.slice(0, 10) };
+    });
+
     localStorage.setItem('plots', JSON.stringify(updated));
   } catch {}
 }
@@ -283,41 +357,6 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
 
   // Treatment Dashboard for non-NPK issues
   if (showTreatment && treatmentIssue) {
-    // Save treatment entry to plot history
-    const saveTreatmentToHistory = () => {
-      if (!plotId) return;
-      try {
-        const plots = JSON.parse(localStorage.getItem('plots') || '[]');
-        const historyEntry = {
-          date: new Date().toISOString(),
-          input_mode: 'leaf_photo' as const,
-          total_cost_rm: 0,
-          n_deficit_kg: 0,
-          p_deficit_kg: 0,
-          k_deficit_kg: 0,
-          recommendations: [],
-          confidence: 'medium' as const,
-          savings_rm: 0,
-          voice_summary: `Treatment for ${treatmentIssue.name}`,
-          treatment_issue: treatmentIssue.name,
-          treatment_severity: treatmentIssue.severity,
-          leaf_deficiencies: leafResult?.deficiencies || [],
-          leaf_overall_health: leafResult?.overall_health,
-          leaf_recommendation: leafResult?.recommendation,
-        };
-        const updated = plots.map((p: any) => {
-          if (p.id !== plotId) return p;
-          const existing = p.history || [];
-          const recentDup = existing.find((h: any) => h.treatment_issue === treatmentIssue.name && (Date.now() - new Date(h.date).getTime()) < 60000);
-          if (recentDup) return p;
-          const history = [historyEntry, ...existing].slice(0, 10);
-          return { ...p, history };
-        });
-        localStorage.setItem('plots', JSON.stringify(updated));
-      } catch {}
-    };
-    saveTreatmentToHistory();
-
     return (
       <TreatmentDashboard
         lang={lang}
@@ -331,6 +370,10 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         onBackToPlots={onLogout}
         onToggleLang={onToggleLang}
         onUploadSoil={() => { setShowTreatment(false); setTreatmentIssue(null); setShowLeafAnalysis(false); setLeafResult(null); setActiveTab('soil'); }}
+        onDataLoaded={(data, grandTotal) => {
+          if (!plotId) return;
+          saveTreatmentHistory(plotId, treatmentIssue, leafResult, data, grandTotal);
+        }}
       />
     );
   }
