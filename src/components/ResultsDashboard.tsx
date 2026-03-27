@@ -397,6 +397,38 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
+            {/* Soil Report Upsell */}
+            {result.input_mode !== 'soil_report' && (
+              <motion.div custom={1.3} variants={fadeUp} initial="hidden" animate="visible"
+                className={`${glassCard} p-5`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-sky-100/80 flex items-center justify-center shrink-0 mt-0.5">
+                    <Lightbulb size={18} className="text-sky-600" />
+                  </div>
+                  <div className="flex-1 space-y-3">
+                    <p className="text-sm font-sans text-gray-900 leading-relaxed font-medium">
+                      <span className="font-bold">{t(lang, 'Want pinpoint precision?', 'Mahu ketepatan tepat?')}</span>{' '}
+                      {t(lang,
+                        'Upload a soil test report for exact dosage calculations.',
+                        'Muat naik laporan ujian tanah untuk pengiraan dos yang tepat.'
+                      )}
+                    </p>
+                    <button
+                      onClick={() => {
+                        // Navigate back and switch to soil tab
+                        onBack();
+                      }}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-sans font-bold transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                    >
+                      <Droplets size={15} />
+                      {t(lang, 'Upload Soil Report', 'Muat Naik Laporan Tanah')}
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             {/* pH Warning Card */}
             {result.liming_needed && limingItems.length > 0 && (
               <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
