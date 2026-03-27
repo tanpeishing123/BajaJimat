@@ -188,7 +188,6 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
           ) : (
             <div className="space-y-3 mb-6">
               {plots.map(plot => {
-                const cropImg = getCropImage(plot.crop_type);
                 return (
                 <div key={plot.id} className="bg-card rounded-xl overflow-hidden border border-border/20 shadow-sm hover:shadow-md transition-shadow duration-300">
                   <div className="p-5">
