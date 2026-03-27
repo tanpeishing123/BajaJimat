@@ -87,8 +87,8 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
 }
 
 /* Glassmorphism card class */
-const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
-const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
+const glassCard = "bg-white/40 backdrop-blur-lg border border-white/40 shadow-xl shadow-black/5 rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-white/60 hover:shadow-2xl hover:shadow-black/8 hover:-translate-y-1 transition-all duration-300`;
 
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
