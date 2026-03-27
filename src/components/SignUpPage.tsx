@@ -116,6 +116,7 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
               <ArrowRight size={18} />
             </button>
           </div>
+          </div>
         </div>
       </div>
     </div>
