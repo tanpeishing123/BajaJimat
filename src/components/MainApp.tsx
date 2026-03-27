@@ -328,7 +328,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Loading screen
   if (isLoading) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4">
+      <div className="h-screen flex flex-col items-center justify-center gap-4" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
         <Loader2 className="animate-spin text-primary" size={40} />
         <p className="text-sm text-muted-foreground font-sans">
           {t('Calculating your prescription...', 'Mengira preskripsi anda...')}
@@ -340,14 +340,14 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   // Error state
   if (errorMsg) {
     return (
-      <div className="h-screen flex flex-col items-center justify-center bg-background gap-4 px-6">
-        <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center">
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-6" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+        <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/60 flex items-center justify-center">
           <AlertTriangle className="text-destructive" size={32} />
         </div>
         <p className="text-sm text-destructive font-sans text-center max-w-md">{errorMsg}</p>
         <button
           onClick={() => setErrorMsg(null)}
-          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm"
+          className="px-6 py-2 rounded-full btn-gradient-primary font-sans font-semibold text-sm active:scale-[0.98]"
         >
           {t('Try Again', 'Cuba Lagi')}
         </button>
@@ -409,15 +409,15 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
     };
 
     return (
-      <div className="h-screen flex flex-col bg-background">
-        <header className="bg-white border-b border-border/60 px-6 py-4 flex items-center justify-between">
+      <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
+        <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
           </div>
-          <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-foreground font-sans transition-colors">
+          <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-gray-900 font-sans transition-colors">
             ← {t('Back', 'Kembali')}
           </button>
         </header>
@@ -427,7 +427,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-md bg-white rounded-3xl p-6 shadow-lg border border-border/40 space-y-4"
+            className="w-full max-w-md bg-white/60 backdrop-blur-xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-6 space-y-4"
           >
             {/* Health + Confidence badges + Speaker */}
             <div className="flex items-center justify-between">
@@ -474,9 +474,9 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
                   };
 
                   return (
-                    <div key={i} className="bg-gray-50 rounded-xl p-4 mb-3 border border-gray-100 space-y-2">
+                    <div key={i} className="bg-white/50 backdrop-blur-lg rounded-xl p-4 mb-3 border border-white/60 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-base font-sans font-bold text-foreground capitalize">{d.nutrient}</span>
+                        <span className="text-base font-sans font-bold text-gray-900 capitalize">{d.nutrient}</span>
                         <span className={`px-3 py-1 rounded-full text-sm font-sans font-semibold capitalize ${severityBadgeColor[d.severity] || 'bg-muted text-muted-foreground'}`}>
                           {d.severity} ({d.estimated_deficit_pct}%)
                         </span>
@@ -540,25 +540,25 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background">
+    <div className="h-screen flex flex-col" style={{ background: 'radial-gradient(ellipse at top right, rgba(167,243,208,0.5), #fafaf9, rgba(153,246,228,0.4))' }}>
       {/* Clean Header */}
-      <header className="bg-white border-b border-border/60 px-6 py-4 flex-shrink-0">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
             <div>
-              <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+              <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
               <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+            <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-gray-900 hover:bg-white/80 transition-all duration-200 active:scale-95">
               <Globe size={12} />
               {lang === 'en' ? 'BM' : 'EN'}
             </button>
-            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-muted-foreground hover:text-foreground font-sans transition-colors active:scale-95">
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/50 text-xs text-muted-foreground hover:text-gray-900 hover:bg-white/80 font-sans transition-all active:scale-95">
               <LogOut size={12} />
               {t('Back', 'Kembali')}
             </button>
@@ -581,7 +581,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         <div className="w-full px-6 md:px-20 py-4">
           {/* Plot Context Banner */}
           {plotName && (
-            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-primary/[0.07] border border-primary/15">
+            <div className="mb-3 px-4 py-2.5 rounded-2xl bg-white/50 backdrop-blur-lg border border-white/60">
               <p className="text-xs font-sans font-medium text-primary">
                 {t(
                   `Analysis for: ${plotName} (${profile.crop}, ${profile.farmSize}ha)`,
@@ -605,7 +605,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
           </div>
 
           {/* Tabs - Premium Pill Style */}
-          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-muted/40">
+          <div className="flex gap-1 mb-4 p-1 rounded-2xl bg-white/40 backdrop-blur-lg border border-white/60">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
               return (
