@@ -304,7 +304,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
             <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
-              {t(lang, '🛒 Shopping', '🛒 Senarai')}
+              {t(lang, '🛒 Shopping List', '🛒 Senarai')}
             </TabsTrigger>
             <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
