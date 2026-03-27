@@ -71,21 +71,8 @@ function updatePlotLastCost(plotId: string, totalCost: number, resultData: Resul
   try {
     const plots = JSON.parse(localStorage.getItem('plots') || '[]');
     const historyEntry = {
+      ...resultData,
       date: new Date().toISOString(),
-      input_mode: resultData.input_mode,
-      total_cost_rm: resultData.total_cost_rm,
-      n_deficit_kg: resultData.n_deficit_kg,
-      p_deficit_kg: resultData.p_deficit_kg,
-      k_deficit_kg: resultData.k_deficit_kg,
-      recommendations: resultData.recommendations,
-      confidence: resultData.confidence,
-      savings_rm: resultData.savings_rm,
-      voice_summary: resultData.voice_summary,
-      liming_needed: resultData.liming_needed,
-      liming_recommendation: resultData.liming_recommendation,
-      seasonal_advice: resultData.seasonal_advice,
-      crop_requirements_source: resultData.crop_requirements_source,
-      soil_type: resultData.soil_type,
     };
     const updated = plots.map((p: any) => {
       if (p.id !== plotId) return p;

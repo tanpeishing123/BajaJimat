@@ -221,7 +221,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold">🌿 BajaJimat</h1>
+          <h1 className="text-2xl font-bold">BajaJimat</h1>
           <p className="text-sm text-muted-foreground">{t(lang, 'Smart Fertiliser Optimizer', 'Pengoptimum Baja Pintar')}</p>
         </div>
         <div className="mb-4 text-sm">
