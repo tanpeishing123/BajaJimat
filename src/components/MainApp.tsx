@@ -314,11 +314,13 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
           voice_summary: `Treatment for ${treatmentIssue.name}`,
           treatment_issue: treatmentIssue.name,
           treatment_severity: treatmentIssue.severity,
+          leaf_deficiencies: leafResult?.deficiencies || [],
+          leaf_overall_health: leafResult?.overall_health,
+          leaf_recommendation: leafResult?.recommendation,
         };
         const updated = plots.map((p: any) => {
           if (p.id !== plotId) return p;
           const existing = p.history || [];
-          // Avoid duplicating if already saved for same issue in last minute
           const recentDup = existing.find((h: any) => h.treatment_issue === treatmentIssue.name && (Date.now() - new Date(h.date).getTime()) < 60000);
           if (recentDup) return p;
           const history = [historyEntry, ...existing].slice(0, 10);
