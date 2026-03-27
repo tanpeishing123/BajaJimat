@@ -85,6 +85,10 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
   );
 }
 
+/* Glassmorphism card class */
+const glassCard = "bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl";
+const glassCardHover = `${glassCard} hover:bg-white/80 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`;
+
 export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
@@ -212,7 +216,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   };
 
   return (
-    <div className="h-screen flex flex-col bg-muted/40 overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: 'linear-gradient(to bottom right, #ecfdf5, #f8fafc, rgba(204,251,241,0.3))' }}>
       {/* Print-only content */}
       <div className="hidden print:block p-8">
         <div className="text-center mb-6">
@@ -259,16 +263,16 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </div>
 
       {/* Header */}
-      <header className="bg-card border-b border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-gray-900">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -282,7 +286,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </span>
             </button>
             {onToggleLang && (
-              <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">
+              <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
                 <Globe size={12} />
                 {lang === 'en' ? 'BM' : 'EN'}
               </button>
@@ -294,14 +298,14 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       {/* Tabbed Content */}
       <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
-          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-muted/60 p-1 gap-0">
-            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+          <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
+            <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '📊 Summary', '📊 Ringkasan')}
             </TabsTrigger>
-            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            <TabsTrigger value="shopping" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '🛒 Shopping', '🛒 Senarai')}
             </TabsTrigger>
-            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            <TabsTrigger value="advice" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm">
               {t(lang, '💡 Advice', '💡 Nasihat')}
             </TabsTrigger>
           </TabsList>
@@ -331,9 +335,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className="flex items-center gap-1.5 flex-wrap"
             >
-              <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+              <div className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full ${glassCard}`}>
                 <span className="text-sm">🌱</span>
-                <p className="text-sm font-semibold text-primary font-sans">
+                <p className="text-sm font-semibold text-gray-900 font-sans">
                   {cropType || ''} · {farmSize || ''} ha · {result.soil_type || ''}
                 </p>
                 {result.crop_requirements_source === 'ai' && (
@@ -378,7 +382,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              {/* N-P-K Deficit Pills — glossy finish, larger text */}
+              {/* N-P-K Deficit Pills */}
               <div className="flex justify-center gap-2 sm:gap-3 mt-2 sm:mt-3 relative z-10 flex-wrap px-1">
                 {[
                   { nutrient: 'N', value: result.n_deficit_kg, pill: 'pill-glossy-n', text: 'text-blue-300', border: 'border-blue-400/40' },
@@ -396,21 +400,21 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
             {/* pH Warning Card */}
             {result.liming_needed && limingItems.length > 0 && (
               <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible"
-                className="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-5"
+                className={`${glassCard} px-5 py-5 border-amber-200/60`}
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-amber-200/80 flex items-center justify-center shrink-0 mt-0.5">
                     <AlertTriangle size={20} className="text-amber-700" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-sans text-lg font-bold text-amber-800 mb-1">
+                    <p className="font-sans text-lg font-bold text-gray-900 mb-1">
                       ⚠️ {t(lang, 'Low Soil pH — Liming Required', 'pH Tanah Rendah — Pengapuran Diperlukan')}
                     </p>
                     {limingItems[0].reason && (
                       <p className="text-sm text-amber-700 font-sans mb-2">{limingItems[0].reason}</p>
                     )}
                     {limingItems.map((lim) => (
-                      <div key={lim.name} className="flex items-center gap-4 text-sm font-sans text-amber-700 mb-1">
+                      <div key={lim.name} className="flex items-center gap-4 text-sm font-sans text-gray-900 mb-1">
                         <span className="font-bold">{lim.name}</span>
                         <span>{lim.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{lim.price_per_bag}</span>
                         <span className="font-extrabold">= RM{lim.subtotal_rm}</span>
@@ -437,7 +441,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
 
             {/* Unified Frosted Receipt Card */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-2xl shadow-md border border-border/10 overflow-hidden bg-card"
+              className={`${glassCard} overflow-hidden`}
             >
               {/* Receipt Header */}
               <div className="px-6 pt-6 pb-4 flex items-center gap-3">
@@ -445,7 +449,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   <Package size={22} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-sans text-xl font-bold text-foreground">
+                  <h3 className="font-sans text-xl font-bold text-gray-900">
                     {t(lang, 'NPK Fertiliser Cost', 'Kos Baja NPK')}
                   </h3>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
@@ -457,66 +461,67 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               {/* Fertiliser Item Rows */}
               <div className="px-6">
                 {fertItems.map((rec, i) => (
-                  <div key={rec.name} className={`flex items-center justify-between py-5 ${i < fertItems.length - 1 ? 'border-b border-emerald-100' : ''}`}>
+                  <div key={rec.name} className={`flex items-center justify-between py-5 ${i < fertItems.length - 1 ? 'border-b border-white/40' : ''}`}>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
                         <Package size={16} className="text-primary" />
                       </div>
                       <div>
-                        <p className="font-sans font-bold text-foreground text-lg">{rec.name}</p>
+                        <p className="font-sans font-bold text-gray-900 text-lg">{rec.name}</p>
                         <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
                           {rec.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{rec.price_per_bag}
                         </p>
                       </div>
                     </div>
-                    <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
+                    <p className="font-sans font-extrabold text-gray-900 text-xl tabular-nums shrink-0">RM{rec.subtotal_rm}</p>
                   </div>
                 ))}
 
                 {/* Magnesium items inline */}
                 {mgItems.map((mg) => (
-                  <div key={mg.name} className="flex items-center justify-between py-5 border-t border-emerald-100">
+                  <div key={mg.name} className="flex items-center justify-between py-5 border-t border-white/40">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-blue-50/80 flex items-center justify-center shrink-0">
                         <span className="text-base">💊</span>
                       </div>
                       <div>
-                        <p className="font-sans font-bold text-foreground text-lg">{mg.name}</p>
+                        <p className="font-sans font-bold text-gray-900 text-lg">{mg.name}</p>
                         <p className="text-sm text-muted-foreground font-sans font-medium mt-0.5">
                           {mg.bags} {t(lang, 'bags (25kg)', 'beg (25kg)')} × RM{mg.price_per_bag}
                           {mg.reason && <span className="ml-1 text-blue-500 font-semibold">· {t(lang, 'Optional', 'Pilihan')}</span>}
                         </p>
                       </div>
                     </div>
-                    <p className="font-sans font-extrabold text-foreground text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
+                    <p className="font-sans font-extrabold text-gray-900 text-xl tabular-nums shrink-0">RM{mg.subtotal_rm}</p>
                   </div>
                 ))}
               </div>
 
               {/* Grand Total */}
-              <div className="mx-6 border-t-2 border-foreground/20" />
+              <div className="mx-6 border-t-2 border-gray-900/10" />
               <div className="px-6 py-6 flex items-center justify-between">
                 <div>
-                  <p className="font-sans text-xl font-bold text-foreground">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
+                  <p className="font-sans text-xl font-bold text-gray-900">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</p>
                   <p className="text-sm font-sans text-muted-foreground font-medium">
                     {t(lang, `${[...fertItems, ...mgItems].length} products`, `${[...fertItems, ...mgItems].length} produk`)}
                   </p>
                 </div>
-                <p className="text-3xl font-sans font-extrabold text-foreground tabular-nums">
+                <p className="text-3xl font-sans font-extrabold text-gray-900 tabular-nums">
                   RM{displayTotalCost.toLocaleString('en-MY', { minimumFractionDigits: 2 })}
                 </p>
               </div>
             </motion.div>
 
-            {/* Savings Banner — prominent emerald */}
+            {/* Savings Banner */}
             <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-              className="rounded-xl px-6 py-5 bg-emerald-100 border-2 border-emerald-300 flex items-center justify-between"
+              className={`${glassCard} px-6 py-5 flex items-center justify-between border-emerald-200/60`}
+              style={{ background: 'rgba(236,253,245,0.7)', backdropFilter: 'blur(20px)' }}
             >
               <div>
                 <p className="text-emerald-800 font-sans text-sm font-semibold">
                   {t(lang, 'Savings vs Premium Blends', 'Penjimatan vs Baja Premium')}
                 </p>
-                <p className="text-2xl font-sans font-extrabold text-emerald-900 tabular-nums mt-1">
+                <p className="text-2xl font-sans font-extrabold text-gray-900 tabular-nums mt-1">
                   💰 RM{result.savings_rm} {t(lang, 'Saved!', 'Dijimat!')}
                 </p>
               </div>
@@ -533,7 +538,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </button>
               <button
                 onClick={() => window.print()}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-primary text-primary font-sans font-bold text-base hover:bg-primary/5 transition-colors active:scale-97"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/60 backdrop-blur-xl border border-white/80 text-primary font-sans font-bold text-base hover:bg-white/80 transition-all active:scale-97"
               >
                 <Download size={18} />
                 {t(lang, 'Download PDF', 'Muat Turun PDF')}
@@ -555,10 +560,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               />
             </div>
 
-            {/* Seasonal Advice — Premium Insight Card */}
+            {/* Seasonal Advice */}
             {result.seasonal_advice?.advice && (
               <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 transition-transform duration-300"
+                className={`${glassCardHover} p-6`}
               >
                 <div className="flex items-start gap-4">
                   <span className="text-3xl mt-0.5">📅</span>
@@ -566,7 +571,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <p className="font-sans text-sm font-bold text-primary mb-2 uppercase tracking-wider">
                       {t(lang, "This Season's Advice", 'Nasihat Musim Ini')}
                     </p>
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
+                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">
                       {result.seasonal_advice.advice}
                     </p>
                   </div>
@@ -574,9 +579,9 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </motion.div>
             )}
 
-            {/* Farm Tip Card — Premium Insight Card */}
+            {/* Farm Tip Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
-              className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 transition-transform duration-300"
+              className={`${glassCardHover} p-6`}
             >
               <div className="flex items-start gap-4">
                 <span className="text-3xl mt-0.5">💡</span>
@@ -592,21 +597,21 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                   {tipLoading ? (
                     <div className="flex items-center gap-2 py-1">
                       <Loader2 size={16} className="animate-spin text-primary" />
-                      <span className="text-base text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                      <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
                     </div>
                   ) : farmTip ? (
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">{farmTip}</p>
+                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">{farmTip}</p>
                   ) : (
-                    <p className="font-sans text-base text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                    <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
                   )}
                 </div>
               </div>
             </motion.div>
 
-            {/* pH Liming Advice — Premium Insight Card */}
+            {/* pH Liming Advice */}
             {result.liming_needed && (
               <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
-                className="bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-amber-500 p-6 hover:-translate-y-1 transition-transform duration-300"
+                className={`${glassCardHover} p-6`}
               >
                 <div className="flex items-start gap-4">
                   <span className="text-3xl mt-0.5">🧪</span>
@@ -614,10 +619,10 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                     <p className="font-sans text-sm font-bold text-amber-600 mb-2 uppercase tracking-wider">
                       {t(lang, 'Liming Method', 'Cara Pengapuran')}
                     </p>
-                    <p className="font-sans text-base text-foreground leading-relaxed font-medium">
+                    <p className="font-sans text-lg text-gray-900 leading-relaxed font-bold">
                       {t(lang,
-                        'Spread lime evenly across the field. Wait 2-4 weeks before applying fertiliser.',
-                        'Tabur kapur secara sekata di seluruh ladang. Biarkan selama 2-4 minggu sebelum membaja.'
+                        'Spread lime evenly. Wait 2-4 weeks before fertilising.',
+                        'Tabur kapur sekata. Tunggu 2-4 minggu sebelum membaja.'
                       )}
                     </p>
                   </div>
@@ -625,16 +630,16 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </motion.div>
             )}
 
-            {/* Nearby Shops — Premium Insight Card */}
+            {/* Nearby Shops */}
             <motion.div custom={1.5} variants={fadeUp} initial="hidden" animate="visible">
               <a
                 href="https://www.google.com/maps/search/kedai+baja+pertanian+near+me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 bg-card rounded-2xl shadow-md border border-border/10 border-l-[6px] border-l-primary p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                className={`flex items-center gap-4 ${glassCardHover} p-6`}
               >
                 <MapPin size={24} className="text-primary shrink-0" />
-                <span className="font-sans font-bold text-lg text-foreground">
+                <span className="font-sans font-bold text-lg text-gray-900">
                   {t(lang, '📍 Find Nearby Fertilizer Shops', '📍 Cari Kedai Baja Berdekatan')}
                 </span>
               </a>
@@ -654,7 +659,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </Tabs>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
+      <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
