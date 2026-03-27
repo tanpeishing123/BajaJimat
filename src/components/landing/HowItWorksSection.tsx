@@ -4,6 +4,7 @@ import { Scan, BrainCircuit, Sprout, ChevronLeft, ChevronRight, ArrowRight, X } 
 import tabAnalyseBg from '@/assets/tab-analyse-bg.jpg';
 import tabOptimiseBg from '@/assets/tab-optimise-bg.jpg';
 import tabNourishBg from '@/assets/tab-nourish-bg.jpg';
+import bgProcess from '@/assets/bg-process.jpg';
 
 interface Props {
   lang: 'en' | 'bm';
@@ -159,6 +160,8 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
 
   return (
     <section className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden">
+      {/* Background image with low opacity */}
+      <img src={bgProcess} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none" loading="lazy" width={1920} height={1080} />
       {/* Mint radial gradient bg */}
       <div className="absolute inset-0 bg-gradient-mint pointer-events-none" />
       {/* Circuit pattern */}
