@@ -190,16 +190,16 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       {/* Subtle mesh overlay */}
       <div className="fixed inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(4,120,87,0.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(6,78,59,0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.08) 0%, transparent 70%)' }} />
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
+      <header className="bg-white/10 backdrop-blur-xl border-b border-white/15 px-4 md:px-8 py-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/20 bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <Sprout className="text-primary-foreground" size={18} />
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/30 border border-emerald-400/30 flex items-center justify-center">
+              <Sprout className="text-emerald-300" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-slate-950">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-white">BajaJimat</span>
           </div>
           {onToggleLang && (
             <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">

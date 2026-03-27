@@ -266,16 +266,16 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
       </div>
 
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
+      <header className="bg-white/10 backdrop-blur-xl border-b border-white/15 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
+            <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/20 bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all active:scale-95">
               <ArrowLeft size={16} />
             </button>
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <Sprout className="text-primary-foreground" size={18} />
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/30 border border-emerald-400/30 flex items-center justify-center">
+              <Sprout className="text-emerald-300" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-slate-950">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-white">BajaJimat</span>
           </div>
           <div className="flex items-center gap-2">
             <button
