@@ -83,16 +83,18 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             Tingkat Hasil
           </motion.h1>
 
-          <motion.p
+          <motion.div
             custom={1}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-sans not-italic font-medium text-lg md:text-xl text-white/90 tracking-wide drop-shadow-md"
+            className="inline-flex items-center justify-center px-6 py-2.5 mt-4 mb-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)]"
           >
-            Empowering farmers with smart fertiliser decisions.
-          </motion.p>
+            <span className="font-sans text-sm md:text-base font-medium tracking-wider text-white">
+              Empowering farmers with smart fertiliser decisions.
+            </span>
+          </motion.div>
 
           <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
             <button
