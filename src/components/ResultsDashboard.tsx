@@ -25,6 +25,13 @@ interface ResultData {
   soil_type?: string;
 }
 
+interface LeafDeficiency {
+  nutrient: string;
+  severity: string;
+  estimated_deficit_pct: number;
+  visual_evidence: string;
+}
+
 interface Props {
   lang: 'en' | 'bm';
   result: ResultData;
@@ -35,6 +42,7 @@ interface Props {
   backLabel?: string;
   onToggleLang?: () => void;
   onUploadSoil?: () => void;
+  leafDeficiencies?: LeafDeficiency[];
 }
 
 const fadeUp = {
