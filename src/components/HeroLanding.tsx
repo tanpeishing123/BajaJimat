@@ -92,7 +92,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               viewport={{ once: false, amount: 0.2 }}
               className="font-serif italic text-xl md:text-2xl text-white/90 tracking-wide drop-shadow-md"
             >
-              Smart fertiliser decisions made easy.
+              Smart Fertiliser Decisions Made Easy.
             </motion.p>
 
             <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }}>
