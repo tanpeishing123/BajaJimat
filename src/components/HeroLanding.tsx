@@ -70,31 +70,33 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/60 via-black/20 to-transparent" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
-          <motion.h1
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
-          >
-            Jimat Baja,
-            <br />
-            Tingkat Hasil
-          </motion.h1>
+          <div className="flex flex-col items-center gap-4 md:gap-6">
+            <motion.h1
+              custom={0}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
+            >
+              Jimat Baja,
+              <br />
+              Tingkat Hasil
+            </motion.h1>
 
-          <motion.p
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            className="font-serif-display text-white/85 text-xl md:text-2xl whitespace-nowrap tracking-wide drop-shadow-md mt-6 mb-10"
-          >
-            Empowering farmers with smart fertiliser decisions.
-          </motion.p>
+            <motion.p
+              custom={1}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              className="font-serif-display text-white/85 text-xl md:text-2xl whitespace-nowrap tracking-wide drop-shadow-md"
+            >
+              Empowering farmers with smart fertiliser decisions.
+            </motion.p>
+          </div>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
+          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-8 md:mt-10">
             <button
               onClick={onGetStarted}
               className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
