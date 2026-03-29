@@ -89,7 +89,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-wide drop-shadow-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.5)]"
+            className="mt-6 font-sans not-italic font-medium text-lg md:text-xl text-white/90 tracking-wide drop-shadow-md"
           >
             Empowering farmers with smart fertiliser decisions.
           </motion.p>
