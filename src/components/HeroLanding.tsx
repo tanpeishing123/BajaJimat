@@ -89,9 +89,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-body text-xl sm:text-2xl md:text-3xl text-white/80 font-light tracking-wide drop-shadow-md"
+            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-white/80 font-medium tracking-wide"
           >
-            Smartest way to choose your fertiliser.
+            Save on Fertiliser, Boost Your Yield
           </motion.p>
 
           <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
