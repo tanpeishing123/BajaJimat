@@ -98,7 +98,7 @@ function SoilHealthRing({ score, label }: { score: number; label: string }) {
 const glassCard = "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0.6)_100%)] backdrop-blur-xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl";
 const glassCardHover = `${glassCard} hover:bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.2)_0%,_rgba(255,255,255,0.7)_100%)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.14)] hover:-translate-y-1 transition-all duration-300`;
 
-export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil }: Props) {
+export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, onBack, backLabel, onToggleLang, onUploadSoil, leafDeficiencies }: Props) {
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
