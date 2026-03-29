@@ -90,9 +90,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              className="font-serif-display text-white/85 text-xl md:text-2xl whitespace-nowrap tracking-wide drop-shadow-md"
+              className="font-sans italic text-white/90 text-lg md:text-xl font-medium tracking-wide drop-shadow-md"
             >
-              Empowering farmers with smart fertiliser decisions.
+              Smart fertiliser decisions made easy.
             </motion.p>
           </div>
 
