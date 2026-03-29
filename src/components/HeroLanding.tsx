@@ -70,45 +70,43 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/60 via-black/20 to-transparent" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
-          <div className="flex flex-col items-center gap-6 md:gap-8">
-            <motion.h1
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
-            >
-              Jimat Baja,
-              <br />
-              Tingkat Hasil
-            </motion.h1>
+          <motion.h1
+            custom={0}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
+          >
+            Jimat Baja,
+            <br />
+            Tingkat Hasil
+          </motion.h1>
 
-            <motion.p
-              custom={1}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              className="font-serif italic text-xl md:text-2xl text-white/90 tracking-wide drop-shadow-md"
-            >
-              Smart Fertiliser Decisions Made Easy.
-            </motion.p>
+          <motion.p
+            custom={1}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-white/80 font-medium tracking-wide"
+          >
+            Save on Fertiliser, Boost Your Yield
+          </motion.p>
 
-            <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }}>
-              <button
-                onClick={onGetStarted}
-                className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                  bg-primary text-primary-foreground
-                  shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
-                  hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
-                  active:scale-[0.97] transition-all duration-300"
-              >
-                {t(lang, 'Get Started', 'Mulakan')}
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
-            </motion.div>
-          </div>
+          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
+            <button
+              onClick={onGetStarted}
+              className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                bg-primary text-primary-foreground
+                shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
+                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
+                active:scale-[0.97] transition-all duration-300"
+            >
+              {t(lang, 'Get Started', 'Mulakan')}
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+            </button>
+          </motion.div>
         </div>
       </section>
 
