@@ -390,6 +390,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
         backLabel={t('Back to My Plots', 'Kembali ke Ladang Saya')}
         onToggleLang={onToggleLang}
         onUploadSoil={() => { setShowResults(false); setResultData(null); setActiveTab('soil'); }}
+        leafDeficiencies={leafResult?.deficiencies}
       />
     );
   }
