@@ -349,7 +349,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </div>
             </motion.div>
 
-            {/* Nutrient Deficit Section */}
+            {/* Nutrient Deficit Section — hidden for leaf_photo input */}
+            {result.input_mode !== 'leaf_photo' && (
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="visible"
               className="rounded-2xl p-6 relative overflow-hidden glass-dark-elevated"
@@ -397,6 +398,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 ))}
               </div>
             </motion.div>
+            )}
 
             {/* Soil Report Upsell */}
             {result.input_mode === 'leaf_photo' && (
