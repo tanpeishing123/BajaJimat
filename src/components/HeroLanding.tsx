@@ -70,7 +70,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/60 via-black/20 to-transparent" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl">
-          <div className="flex flex-col items-center gap-4 md:gap-6">
+          <div className="flex flex-col items-center gap-6 md:gap-8">
             <motion.h1
               custom={0}
               variants={fadeUp}
@@ -90,9 +90,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              className="font-serif-display text-white/85 text-xl md:text-2xl whitespace-nowrap tracking-wide drop-shadow-md"
+              className="font-sans italic text-white/90 text-lg md:text-xl font-medium tracking-wide drop-shadow-md"
             >
-              Empowering farmers with smart fertiliser decisions.
+              Smart fertiliser decisions made easy.
             </motion.p>
           </div>
 
