@@ -90,25 +90,25 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
-              className="font-sans italic text-white/90 text-lg md:text-xl font-medium tracking-wide drop-shadow-md"
+              className="font-serif italic text-xl md:text-2xl text-white/90 tracking-wide drop-shadow-md"
             >
               Smart fertiliser decisions made easy.
             </motion.p>
-          </div>
 
-          <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-8 md:mt-10">
-            <button
-              onClick={onGetStarted}
-              className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
-                bg-primary text-primary-foreground
-                shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
-                hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
-                active:scale-[0.97] transition-all duration-300"
-            >
-              {t(lang, 'Get Started', 'Mulakan')}
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
-          </motion.div>
+            <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }}>
+              <button
+                onClick={onGetStarted}
+                className="group px-10 py-4 rounded-full font-body font-bold text-base md:text-lg flex items-center gap-3
+                  bg-primary text-primary-foreground
+                  shadow-[0_4px_20px_-4px_hsla(164,90%,20%,0.5)]
+                  hover:scale-105 hover:shadow-[0_8px_30px_-4px_hsla(164,90%,20%,0.6)]
+                  active:scale-[0.97] transition-all duration-300"
+              >
+                {t(lang, 'Get Started', 'Mulakan')}
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </button>
+            </motion.div>
+          </div>
         </div>
       </section>
 
