@@ -398,6 +398,7 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
                 ))}
               </div>
             </motion.div>
+            )}
 
             {/* Soil Report Upsell */}
             {result.input_mode === 'leaf_photo' && (
