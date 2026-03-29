@@ -185,12 +185,12 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       const farmSize = parseFloat(profile.farmSize) || 2.0;
       const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/run-solver`, {
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
         },
         body: JSON.stringify({
           input_mode: 'manual',
@@ -230,12 +230,12 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       const farmSize = parseFloat(profile.farmSize) || 2.0;
       const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/run-solver`, {
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
         },
         body: JSON.stringify({
           input_mode: 'soil_report',
@@ -283,12 +283,12 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
       const farmSize = parseFloat(profile.farmSize) || 2.0;
       const soilType = propSoilType || localStorage.getItem('soil_type') || 'mineral';
 
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/run-solver`, {
+      const res = await fetch('https://pbcouxgyoprloqothcdg.supabase.co/functions/v1/run-solver', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiY291eGd5b3BybG9xb3RoY2RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMDU5MjksImV4cCI6MjA4OTU4MTkyOX0.qcGGpsdI3a6CJlffp8Jp12YqTrauwOQnIse7AyoM5wM',
         },
         body: JSON.stringify({
           input_mode: 'leaf_photo',
