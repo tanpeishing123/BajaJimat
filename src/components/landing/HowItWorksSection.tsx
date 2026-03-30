@@ -23,19 +23,19 @@ const steps = [
     icon: Scan,
     title_en: '🔍 Diagnose & Detect',
     title_bm: '🔍 Diagnosis & Kesan',
-    desc_en: 'Upload a soil report, enter NPK values manually, or snap a photo of a sick leaf.',
-    desc_bm: 'Muat naik laporan tanah, masukkan nilai NPK secara manual, atau tangkap foto daun yang sakit.',
+    desc_en: 'Identify plant health through reports, NPK entry, and a single photo.',
+    desc_bm: 'Kenal pasti kesihatan tanaman melalui laporan, kemasukan NPK, dan satu foto.',
     step: '01',
-    detail_en: 'Upload a soil report, enter NPK values manually, or snap a photo of a sick leaf. Our AI reads your data instantly.',
-    detail_bm: 'Muat naik laporan tanah, masukkan nilai NPK secara manual, atau tangkap foto daun yang sakit. AI kami membaca data anda serta-merta.',
+    detail_en: 'Upload a soil report, enter NPK values manually, or snap a photo of a sick leaf. Our AI reads your data instantly and identifies issues.',
+    detail_bm: 'Muat naik laporan tanah, masukkan nilai NPK secara manual, atau tangkap foto daun yang sakit. AI kami membaca data anda serta-merta dan mengenal pasti masalah.',
     bg: tabAnalyseBg,
   },
   {
     icon: BrainCircuit,
     title_en: '🧮 Optimise & Save',
     title_bm: '🧮 Optimum & Jimat',
-    desc_en: 'Our AI calculates your exact nutrient needs and generates a cost-saving fertiliser shopping list.',
-    desc_bm: 'AI kami mengira keperluan nutrisi tepat anda dan menjana senarai beli baja yang menjimatkan kos.',
+    desc_en: 'Get the exact, cost-optimised blend your soil needs.',
+    desc_bm: 'Dapatkan campuran tepat dan kos optimum yang diperlukan tanah anda.',
     step: '02',
     detail_en: 'Our AI calculates your exact nutrient needs and generates a cost-saving fertiliser shopping list — no waste, no guesswork.',
     detail_bm: 'AI kami mengira keperluan nutrisi tepat anda dan menjana senarai beli baja yang menjimatkan kos — tiada pembaziran, tiada tekaan.',
@@ -45,8 +45,8 @@ const steps = [
     icon: Sprout,
     title_en: '🌦️ Treat & Time',
     title_bm: '🌦️ Rawat & Masa',
-    desc_en: 'Get instant disease treatment plans and real-time weather advice on exactly when to apply them.',
-    desc_bm: 'Dapatkan pelan rawatan penyakit segera dan nasihat cuaca masa nyata tentang bila untuk menggunakannya.',
+    desc_en: 'Access precise, weather-optimised treatment and spraying plans.',
+    desc_bm: 'Akses pelan rawatan dan semburan yang tepat dan dioptimumkan mengikut cuaca.',
     step: '03',
     detail_en: 'Get instant disease treatment plans and real-time weather advice on exactly when to apply them. Stronger harvests, stronger Malaysia.',
     detail_bm: 'Dapatkan pelan rawatan penyakit segera dan nasihat cuaca masa nyata tentang bila untuk menggunakannya. Tuaian lebih kukuh, Malaysia lebih kuat.',
@@ -57,18 +57,15 @@ const steps = [
 function ScanAnim() {
   return (
     <div className="relative w-14 h-14 flex items-center justify-center">
-      {/* Leaf icon */}
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-primary" strokeWidth="1.5" stroke="currentColor">
         <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20c4 0 8.5-3.5 9.5-11.5" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M5.5 14.5S8 12 10 12c2 0 4 1 4 1" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      {/* Pulsing scan line */}
       <motion.div
         className="absolute left-2 right-2 h-[2px] rounded-full bg-primary/60"
         animate={{ top: ['20%', '80%', '20%'] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       />
-      {/* Outer pulse ring */}
       <motion.div
         className="absolute inset-0 rounded-full border border-primary/20"
         animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }}
@@ -160,11 +157,8 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
 
   return (
     <section className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden">
-      {/* Background image with low opacity */}
       <img src={bgProcess} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none" loading="lazy" width={1920} height={1080} />
-      {/* Mint radial gradient bg */}
       <div className="absolute inset-0 bg-gradient-mint pointer-events-none" />
-      {/* Circuit pattern */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
@@ -185,10 +179,10 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
           viewport={{ once: false, amount: 0.2 }}
           className="text-center mb-16 md:mb-20"
         >
-          <p className="font-body text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
+          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
             {t(lang, 'Simple Process', 'Proses Mudah')}
           </p>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
             {t(lang, 'How It Works', 'Cara Penggunaan')}
           </h2>
         </motion.div>
@@ -212,17 +206,16 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                   active:scale-[0.97] transition-all duration-500"
               >
-                {/* Animated icon in pale mint circle */}
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
                   <AnimIcon />
                 </div>
-                <span className="font-body text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
                   {step.step}
                 </span>
-                <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2">
                   {t(lang, step.title_en, step.title_bm)}
                 </h3>
-                <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
                   {t(lang, step.desc_en, step.desc_bm)}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -245,7 +238,6 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
               className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
               onClick={closeDetail}
             >
-              {/* Blurred background image */}
               <motion.div
                 key={`bg-${activeDetail}`}
                 initial={{ opacity: 0 }}
@@ -264,7 +256,6 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 <div className="absolute inset-0 bg-black/50 backdrop-blur-2xl" />
               </motion.div>
 
-              {/* Content card — glassmorphism */}
               <AnimatePresence mode="wait" custom={swipeDir}>
                 <motion.div
                   key={activeDetail}
@@ -280,7 +271,6 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                   onTouchStart={handleTouchStart}
                   onTouchEnd={handleTouchEnd}
                 >
-                  {/* Close button */}
                   <button
                     onClick={closeDetail}
                     className="absolute top-4 right-4 w-9 h-9 rounded-full bg-muted/60 flex items-center justify-center hover:bg-muted transition-colors"
@@ -288,31 +278,28 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                     <X size={16} className="text-muted-foreground" />
                   </button>
 
-                  {/* Step badge */}
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold mb-5">
                     {steps[activeDetail].step} · {t(lang, steps[activeDetail].title_en, steps[activeDetail].title_bm)}
                   </div>
 
-                  <h3 className="font-serif-display text-3xl md:text-4xl font-bold text-foreground mb-3">
+                  <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
                     {t(lang, steps[activeDetail].title_en, steps[activeDetail].title_bm)}
                   </h3>
-                  <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
                     {t(lang, steps[activeDetail].detail_en, steps[activeDetail].detail_bm)}
                   </p>
 
-                  {/* CTA */}
                   <button
                     onClick={() => {
                       closeDetail();
                       onGetStarted();
                     }}
-                    className="w-full py-3.5 rounded-xl btn-gradient-primary font-body font-bold text-base flex items-center justify-center gap-2"
+                    className="w-full py-3.5 rounded-xl btn-gradient-primary font-bold text-base flex items-center justify-center gap-2"
                   >
                     {t(lang, 'Get Started', 'Mulakan')}
                     <ArrowRight size={18} />
                   </button>
 
-                  {/* Dot indicators */}
                   <div className="flex items-center justify-center gap-2.5 mt-6">
                     {steps.map((_, i) => (
                       <button
@@ -332,7 +319,6 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Prev / Next arrows — interactive */}
               {activeDetail > 0 && (
                 <button
                   onClick={(e) => {
