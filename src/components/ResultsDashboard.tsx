@@ -94,6 +94,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
+  const [weather, setWeather] = useState<{ temp: number; code: number } | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(true);
 
   const limingItems = result.recommendations.filter(r => r.is_liming);
   const mgItems = result.recommendations.filter(r => r.is_mg);
