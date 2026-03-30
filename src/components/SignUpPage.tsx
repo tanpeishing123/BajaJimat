@@ -24,9 +24,9 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         <div className="relative z-10 flex flex-col justify-end p-10 pb-16">
           <h2 className="font-serif-display text-4xl lg:text-5xl font-bold text-white leading-[1.1] tracking-tight" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
-            {t(lang, 'Grow Smarter.', 'Tanam Pintar.')}
+            {t(lang, 'Farm Smarter,', 'Bertani Pintar,')}
             <br />
-            <span className="text-accent">{t(lang, 'Save More.', 'Lebih Jimat.')}</span>
+            <span className="text-accent">{t(lang, 'Harvest More', 'Tuai Lebih Banyak')}</span>
           </h2>
           <div className="mt-6 flex items-center gap-3">
             <div className="flex -space-x-2">

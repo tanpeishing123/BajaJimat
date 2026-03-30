@@ -208,8 +208,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" loading="lazy" width={1920} height={512} />
         <p className="relative z-10 text-primary-foreground/70 text-xs leading-relaxed max-w-md mx-auto">
           {t(lang,
-            'Join thousands of Malaysian farmers already saving on fertiliser costs.',
-            'Sertai ribuan petani Malaysia yang sudah jimat kos baja.'
+            'Experience the future of AI-powered precision agriculture today.',
+            'Rasai masa depan pertanian pintar berkuasa AI hari ini.'
           )}
         </p>
         <p className="relative z-10 text-[10px] text-primary-foreground/40 mt-3">
