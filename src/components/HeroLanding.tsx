@@ -60,31 +60,32 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
   return (
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
       {/* ── Hero Section — Full Immersive Centered ── */}
-      <section className="relative min-h-screen flex items-start justify-center overflow-hidden">
-        {/* Background image — low horizon, ample sky */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background image */}
         <img
           src={heroBg}
-          alt="Lush Malaysian paddy field under blue sky"
-          className="absolute inset-0 w-full h-full object-cover object-[center_70%]"
+          alt="Lush Malaysian paddy field at golden hour"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           width={1920}
           height={1080}
         />
-        {/* Very subtle overlay — just enough to soften sky for text */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/10" />
+        {/* Warm dark overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
-        {/* Content positioned high in the sky area */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-[12vh] sm:pt-[14vh] md:pt-[16vh]">
+        {/* Centered content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-20">
           <motion.h1
             custom={0}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="font-display-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight"
+            className="font-display-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight"
           >
-            {t(lang, 'AgroMate: Farm Smarter,', 'AgroMate: Bertani Lebih Bijak,')}
+            {t(lang, 'Farm Smarter,', 'Bertani Lebih Bijak,')}
             <br />
-            {t(lang, 'Harvest More', 'Tuai Lebih Banyak')}
+            {t(lang, 'Harvest More.', 'Tuai Lebih Banyak.')}
           </motion.h1>
 
           <motion.p
@@ -93,7 +94,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-display-serif text-base sm:text-lg md:text-xl text-slate-600 font-normal italic leading-relaxed max-w-2xl mx-auto"
+            className="mt-6 font-body text-base sm:text-lg md:text-xl text-white/80 font-normal leading-relaxed max-w-2xl mx-auto"
           >
             {t(lang, 'Precision farming from soil to harvest.', 'Pertanian tepat dari tanah ke tuaian.')}
           </motion.p>
@@ -109,9 +110,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             <button
               onClick={onGetStarted}
               className="group px-8 py-4 rounded-full font-body font-semibold text-base flex items-center gap-3
-                bg-emerald-600/60 backdrop-blur-md text-white border border-emerald-400/40
-                shadow-[0_8px_32px_rgba(16,185,129,0.25)]
-                hover:bg-emerald-600/75 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(16,185,129,0.35)]
+                bg-primary text-primary-foreground
+                shadow-[0_0_30px_hsla(164,90%,20%,0.35)]
+                hover:-translate-y-0.5 hover:shadow-[0_0_40px_hsla(164,90%,20%,0.5)]
                 active:scale-[0.97] transition-all duration-300"
             >
               {t(lang, 'Get Started', 'Mulakan')}
