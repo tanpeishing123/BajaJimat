@@ -94,6 +94,8 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
   const { speak, isSpeaking } = useSpeech(lang);
   const [farmTip, setFarmTip] = useState<string | null>(null);
   const [tipLoading, setTipLoading] = useState(false);
+  const [weather, setWeather] = useState<{ temp: number; code: number } | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(true);
 
   const limingItems = result.recommendations.filter(r => r.is_liming);
   const mgItems = result.recommendations.filter(r => r.is_mg);
@@ -136,6 +138,52 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
     };
     fetchTip();
   }, [cropType, lang]);
+
+  // Fetch real-time weather from Open-Meteo (no API key needed)
+  useEffect(() => {
+    const fetchWeather = async () => {
+      setWeatherLoading(true);
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=3.1390&longitude=101.6869&current_weather=true');
+        if (res.ok) {
+          const data = await res.json();
+          setWeather({ temp: data.current_weather.temperature, code: data.current_weather.weathercode });
+        }
+      } catch {
+        // silently fail
+      } finally {
+        setWeatherLoading(false);
+      }
+    };
+    fetchWeather();
+  }, []);
+
+  const getWeatherAdvice = (code: number): { emoji: string; text: { en: string; bm: string }; color: string } => {
+    if (code >= 95) return {
+      emoji: '⛈️',
+      text: {
+        en: 'Thunderstorm warning! Do NOT apply fertilisers today. High risk of chemical washing into waterways.',
+        bm: 'Amaran ribut petir! JANGAN gunakan baja hari ini. Risiko tinggi bahan kimia terbawa ke saluran air.'
+      },
+      color: 'text-red-600'
+    };
+    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return {
+      emoji: '🌧️',
+      text: {
+        en: 'Rain expected. Delay your fertiliser application by 24-48 hours to prevent nutrient runoff and save your money.',
+        bm: 'Hujan dijangka. Tangguhkan penggunaan baja selama 24-48 jam untuk mengelak nutrien terhakis dan menjimatkan wang anda.'
+      },
+      color: 'text-amber-600'
+    };
+    return {
+      emoji: '☀️',
+      text: {
+        en: 'Perfect weather conditions to apply your fertiliser today. Maximum soil absorption expected.',
+        bm: 'Cuaca sesuai untuk menggunakan baja hari ini. Penyerapan tanah maksimum dijangka.'
+      },
+      color: 'text-emerald-600'
+    };
+  };
 
   const radarData = [
     { nutrient: 'N', value: result.n_deficit_kg, fullMark: Math.max(result.n_deficit_kg, result.p_deficit_kg, result.k_deficit_kg, 1) },
@@ -614,30 +662,38 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </motion.div>
             )}
 
-            {/* Farm Tip Card */}
+            {/* Smart Application Timing Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className={`${glassCardHover} p-6`}
             >
               <div className="flex items-start gap-4">
-                <span className="text-3xl mt-0.5">💡</span>
+                <span className="text-3xl mt-0.5">🌤️</span>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-3">
                     <p className="font-sans text-sm font-bold text-primary uppercase tracking-wider">
-                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+                      {t(lang, 'Smart Application Timing', 'Masa Penggunaan Pintar')}
                     </p>
                     <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-bold">
                       ✨ {t(lang, 'AI Generated', 'Dijana AI')}
                     </span>
                   </div>
-                  {tipLoading ? (
+                  {weatherLoading ? (
                     <div className="flex items-center gap-2 py-1">
                       <Loader2 size={16} className="animate-spin text-primary" />
-                      <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                      <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Checking weather...', 'Menyemak cuaca...')}</span>
                     </div>
-                  ) : farmTip ? (
-                    <p className="font-sans text-lg text-slate-950 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
+                  ) : weather ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl font-extrabold text-slate-950 font-sans tabular-nums">{weather.temp}°C</span>
+                        <span className="text-2xl">{getWeatherAdvice(weather.code).emoji}</span>
+                      </div>
+                      <p className={`font-sans text-lg leading-relaxed font-bold ${getWeatherAdvice(weather.code).color}`}>
+                        {t(lang, getWeatherAdvice(weather.code).text.en, getWeatherAdvice(weather.code).text.bm)}
+                      </p>
+                    </div>
                   ) : (
-                    <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                    <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'Weather data unavailable', 'Data cuaca tidak tersedia')}</p>
                   )}
                 </div>
               </div>
