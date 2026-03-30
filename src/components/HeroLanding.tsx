@@ -32,22 +32,22 @@ const bentoBlocks = [
     icon: BadgeDollarSign,
     title_en: '💰 Cut Farming Costs',
     title_bm: '💰 Jimat Kos Pertanian',
-    desc_en: 'Find the lowest-cost, most effective fertiliser mix for your field.',
-    desc_bm: 'Cari campuran baja paling berkesan dan kos terendah untuk ladang anda.',
+    desc_en: 'Find the lowest-cost fertiliser mix instantly.',
+    desc_bm: 'Cari campuran baja kos terendah serta-merta.',
   },
   {
     icon: ShieldCheck,
     title_en: '🛡️ Save Cost, Protect Soil',
     title_bm: '🛡️ Jimat Kos, Lindungi Tanah',
-    desc_en: 'Use precise weather data to avoid spraying before a storm.',
-    desc_bm: 'Gunakan data cuaca tepat untuk elak menyembur sebelum ribut.',
+    desc_en: 'Avoid spraying before rain with live weather alerts.',
+    desc_bm: 'Elak menyembur sebelum hujan dengan amaran cuaca langsung.',
   },
   {
     icon: BarChart3,
     title_en: '🌱 Save Sick Crops',
     title_bm: '🌱 Selamatkan Tanaman Sakit',
-    desc_en: 'Identify diseases instantly and follow expert step-by-step treatment steps.',
-    desc_bm: 'Kenal pasti penyakit serta-merta dan ikuti langkah rawatan pakar.',
+    desc_en: 'Instant disease identification and expert recovery steps.',
+    desc_bm: 'Pengenalpastian penyakit segera dan langkah pemulihan pakar.',
   },
 ];
 
@@ -233,7 +233,7 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
   };
 
   return (
-    <section id="contact" className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden bg-background">
+    <section id="contact" className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden bg-gradient-to-br from-emerald-50/60 via-stone-50 to-amber-50/40">
       <div className="max-w-2xl mx-auto">
         <motion.div
           variants={scrollReveal}
