@@ -21,9 +21,9 @@ const sectionReveal = {
 const steps = [
   {
     icon: Scan,
-    title_en: '🔍 Diagnose & Detect',
-    title_bm: '🔍 Diagnosis & Kesan',
-    desc_en: 'Identify plant health through reports, NPK entry, and a single photo.',
+    title_en: 'Diagnose & Detect',
+    title_bm: 'Diagnosis & Kesan',
+    desc_en: 'Identify plant health through soil reports, NPK entry, and a single photo.',
     desc_bm: 'Kenal pasti kesihatan tanaman melalui laporan, kemasukan NPK, dan satu foto.',
     step: '01',
     detail_en: 'Upload a soil report, enter NPK values manually, or snap a photo of a sick leaf. Our AI reads your data instantly and identifies issues.',
@@ -32,9 +32,9 @@ const steps = [
   },
   {
     icon: BrainCircuit,
-    title_en: '🧮 Optimise & Save',
-    title_bm: '🧮 Optimum & Jimat',
-    desc_en: 'Get the exact, cost-optimised blend your soil needs.',
+    title_en: 'Optimise & Save',
+    title_bm: 'Optimum & Jimat',
+    desc_en: 'Get the exact, cost-optimised fertiliser blend your soil needs.',
     desc_bm: 'Dapatkan campuran tepat dan kos optimum yang diperlukan tanah anda.',
     step: '02',
     detail_en: 'Our AI calculates your exact nutrient needs and generates a cost-saving fertiliser shopping list — no waste, no guesswork.',
@@ -43,8 +43,8 @@ const steps = [
   },
   {
     icon: Sprout,
-    title_en: '🌦️ Treat & Time',
-    title_bm: '🌦️ Rawat & Masa',
+    title_en: 'Treat & Time',
+    title_bm: 'Rawat & Masa',
     desc_en: 'Access precise, weather-optimised treatment and spraying plans.',
     desc_bm: 'Akses pelan rawatan dan semburan yang tepat dan dioptimumkan mengikut cuaca.',
     step: '03',
@@ -57,10 +57,7 @@ const steps = [
 function ScanAnim() {
   return (
     <div className="relative w-14 h-14 flex items-center justify-center">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-primary" strokeWidth="1.5" stroke="currentColor">
-        <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20c4 0 8.5-3.5 9.5-11.5" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M5.5 14.5S8 12 10 12c2 0 4 1 4 1" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Scan size={28} className="text-primary" strokeWidth={1.5} />
       <motion.div
         className="absolute left-2 right-2 h-[2px] rounded-full bg-primary/60"
         animate={{ top: ['20%', '80%', '20%'] }}
@@ -93,12 +90,10 @@ function NourishAnim() {
     <div className="relative w-14 h-14 flex items-center justify-center">
       <Sprout size={28} className="text-primary" strokeWidth={1.5} />
       <motion.div
-        className="absolute bottom-0.5 text-xs font-bold text-accent"
-        animate={{ y: [0, -8, 0], opacity: [0.4, 1, 0.4] }}
-        transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        💰
-      </motion.div>
+        className="absolute inset-0 rounded-full border border-primary/20"
+        animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
+      />
     </div>
   );
 }
@@ -156,39 +151,28 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
   };
 
   return (
-    <section className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden">
-      <img src={bgProcess} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none" loading="lazy" width={1920} height={1080} />
-      <div className="absolute inset-0 bg-gradient-mint pointer-events-none" />
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-            <path d="M60 0v40M60 80v40M0 60h40M80 60h40M60 40a20 20 0 0120 20 20 20 0 01-20 20 20 20 0 01-20-20 20 20 0 0120-20z" fill="none" stroke="hsl(164,60%,30%)" strokeWidth="1" />
-            <circle cx="60" cy="60" r="3" fill="hsl(164,60%,30%)" />
-            <circle cx="60" cy="0" r="1.5" fill="hsl(164,60%,30%)" />
-            <circle cx="0" cy="60" r="1.5" fill="hsl(164,60%,30%)" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#circuit)" />
-      </svg>
+    <section className="relative px-6 md:px-12 py-28 md:py-36 overflow-hidden">
+      <img src={bgProcess} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.05] pointer-events-none" loading="lazy" width={1920} height={1080} />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/30 pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-6xl mx-auto">
         <motion.div
           variants={sectionReveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-16 md:mb-24"
         >
-          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
+          <p className="text-xs font-body font-semibold tracking-[0.3em] uppercase text-primary mb-4">
             {t(lang, 'Simple Process', 'Proses Mudah')}
           </p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
+          <h2 className="font-body text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground tracking-tight">
             {t(lang, 'How It Works', 'Cara Penggunaan')}
           </h2>
         </motion.div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {steps.map((step, i) => {
             const AnimIcon = animIcons[i];
             return (
@@ -200,25 +184,25 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
-                className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
-                  bg-card border border-border/30
-                  shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
-                  hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
+                className="group relative flex flex-col items-center text-center p-10 md:p-12 rounded-3xl cursor-pointer
+                  bg-card border border-border/20
+                  shadow-[0_4px_30px_-8px_rgba(0,0,0,0.08)]
+                  hover:-translate-y-3 hover:shadow-[0_20px_60px_-15px_hsla(164,60%,25%,0.15)]
                   active:scale-[0.97] transition-all duration-500"
               >
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/8 flex items-center justify-center mb-6 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-primary/8 flex items-center justify-center mb-7 group-hover:bg-primary/12 group-hover:scale-110 transition-all duration-500">
                   <AnimIcon />
                 </div>
-                <span className="text-[10px] font-bold tracking-[0.3em] text-muted-foreground/40 mb-2">
+                <span className="text-[10px] font-body font-bold tracking-[0.3em] text-muted-foreground/40 mb-3">
                   {step.step}
                 </span>
-                <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2">
+                <h3 className="font-body text-xl md:text-2xl font-bold text-foreground mb-3">
                   {t(lang, step.title_en, step.title_bm)}
                 </h3>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-[260px]">
+                <p className="text-sm md:text-base font-body text-muted-foreground leading-relaxed max-w-[280px]">
                   {t(lang, step.desc_en, step.desc_bm)}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-body font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {t(lang, 'Learn more', 'Ketahui lagi')}
                   <ArrowRight size={12} />
                 </span>
@@ -278,14 +262,14 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                     <X size={16} className="text-muted-foreground" />
                   </button>
 
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold mb-5">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-body font-bold mb-5">
                     {steps[activeDetail].step} · {t(lang, steps[activeDetail].title_en, steps[activeDetail].title_bm)}
                   </div>
 
-                  <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
+                  <h3 className="font-body text-3xl md:text-4xl font-bold text-foreground mb-3">
                     {t(lang, steps[activeDetail].title_en, steps[activeDetail].title_bm)}
                   </h3>
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+                  <p className="text-base md:text-lg font-body text-muted-foreground leading-relaxed mb-8">
                     {t(lang, steps[activeDetail].detail_en, steps[activeDetail].detail_bm)}
                   </p>
 
@@ -294,7 +278,7 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                       closeDetail();
                       onGetStarted();
                     }}
-                    className="w-full py-3.5 rounded-xl btn-gradient-primary font-bold text-base flex items-center justify-center gap-2"
+                    className="w-full py-3.5 rounded-xl btn-gradient-primary font-body font-bold text-base flex items-center justify-center gap-2"
                   >
                     {t(lang, 'Get Started', 'Mulakan')}
                     <ArrowRight size={18} />
