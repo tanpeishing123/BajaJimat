@@ -37,9 +37,9 @@ const bentoBlocks = [
   },
   {
     icon: ShieldCheck,
-    title_en: '🛡️ Prevent Chemical Runoff',
-    title_bm: '🛡️ Cegah Larian Kimia',
-    desc_en: 'Sync applications with live weather alerts to stop expensive fertiliser from washing away into waterways.',
+    title_en: '🛡️ Stop Chemical Runoff',
+    title_bm: '🛡️ Hentikan Larian Kimia',
+    desc_en: 'Time your spraying with live weather data to prevent washouts.',
     desc_bm: 'Selaraskan aplikasi dengan amaran cuaca langsung untuk mengelakkan baja mahal daripada hanyut ke saluran air.',
   },
   {
