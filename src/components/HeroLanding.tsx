@@ -1,6 +1,7 @@
-import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
-import heroBg from '@/assets/hero-bg.jpg';
+import { useState } from 'react';
+import heroBg from '@/assets/hero-bg-new.jpg';
 import bgEmpower from '@/assets/bg-empower.jpg';
 import bgFooter from '@/assets/bg-footer.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
@@ -58,8 +59,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
 
   return (
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
-      {/* ── Hero Section — Full Immersive ── */}
-      <section className="relative min-h-[90vh] flex items-end overflow-hidden">
+      {/* ── Hero Section — Full Immersive Centered ── */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background image */}
         <img
           src={heroBg}
@@ -68,61 +69,50 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        {/* Warm dark overlay for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
-          <motion.p
+        {/* Centered content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-20">
+          <motion.h1
             custom={0}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="text-sm font-semibold tracking-[0.25em] uppercase text-emerald-400 mb-5"
+            className="font-display-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight"
           >
-            {t(lang, 'Precision Agriculture', 'Pertanian Tepat')}
-          </motion.p>
+            {t(lang, 'Farm Smarter,', 'Bertani Lebih Bijak,')}
+            <br />
+            {t(lang, 'Harvest More.', 'Tuai Lebih Banyak.')}
+          </motion.h1>
 
-          <motion.h1
+          <motion.p
             custom={1}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-4xl"
-          >
-            AgroMate: Farm Smarter,
-            <br />
-            <span className="text-emerald-400">Harvest More.</span>
-          </motion.h1>
-
-          <motion.p
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 text-lg sm:text-xl md:text-2xl text-white/75 font-normal leading-relaxed max-w-xl"
+            className="mt-6 font-body text-base sm:text-lg md:text-xl text-white/80 font-normal leading-relaxed max-w-2xl mx-auto"
           >
             {t(lang, 'Precision farming from soil to harvest.', 'Pertanian tepat dari tanah ke tuaian.')}
           </motion.p>
 
           <motion.div
-            custom={3}
+            custom={2}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            className="mt-10 flex justify-center"
           >
             <button
               onClick={onGetStarted}
-              className="group px-8 py-4 rounded-full font-semibold text-base flex items-center gap-3
-                bg-emerald-500 text-white
-                shadow-[0_0_30px_rgba(16,185,129,0.35)]
-                hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(16,185,129,0.5)]
+              className="group px-8 py-4 rounded-full font-body font-semibold text-base flex items-center gap-3
+                bg-primary text-primary-foreground
+                shadow-[0_0_30px_hsla(164,90%,20%,0.35)]
+                hover:-translate-y-0.5 hover:shadow-[0_0_40px_hsla(164,90%,20%,0.5)]
                 active:scale-[0.97] transition-all duration-300"
             >
               {t(lang, 'Get Started', 'Mulakan')}
@@ -133,10 +123,12 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </section>
 
       {/* ── How It Works ── */}
-      <HowItWorksSection lang={lang} onGetStarted={onGetStarted} />
+      <div id="how-it-works">
+        <HowItWorksSection lang={lang} onGetStarted={onGetStarted} />
+      </div>
 
-      {/* ── Empowering Farmers — Bento Grid ── */}
-      <section className="relative px-6 md:px-12 py-24 md:py-36 overflow-hidden" style={{ background: '#FAFAF8' }}>
+      {/* ── Why AgroMate — Bento Grid ── */}
+      <section id="why-agromate" className="relative px-6 md:px-12 py-24 md:py-36 overflow-hidden" style={{ background: '#FAFAF8' }}>
         <img src={bgEmpower} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none" loading="lazy" width={1920} height={1080} />
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -208,6 +200,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </div>
       </section>
 
+      {/* ── Contact Us ── */}
+      <ContactSection lang={lang} />
+
       {/* ── Footer ── */}
       <footer className="relative bg-primary px-6 py-10 text-center overflow-hidden">
         <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" loading="lazy" width={1920} height={512} />
@@ -222,5 +217,106 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         </p>
       </footer>
     </div>
+  );
+}
+
+/* ── Contact Section Component ── */
+function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
+    setTimeout(() => setSent(false), 3000);
+    setForm({ name: '', email: '', message: '' });
+  };
+
+  return (
+    <section id="contact" className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden bg-background">
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          variants={scrollReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          className="text-center mb-12"
+        >
+          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
+            {t(lang, 'Get in Touch', 'Hubungi Kami')}
+          </p>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
+            {t(lang, 'Contact Us', 'Hubungi Kami')}
+          </h2>
+        </motion.div>
+
+        <motion.form
+          onSubmit={handleSubmit}
+          variants={scrollReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          className="rounded-2xl p-8 md:p-10
+            bg-white/60 backdrop-blur-xl border border-white/40
+            shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
+        >
+          <div className="space-y-5">
+            <div>
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
+                {t(lang, 'Name', 'Nama')}
+              </label>
+              <input
+                type="text"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground"
+                placeholder={t(lang, 'Your name', 'Nama anda')}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
+                {t(lang, 'Email', 'Emel')}
+              </label>
+              <input
+                type="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground"
+                placeholder={t(lang, 'your@email.com', 'emel@anda.com')}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
+                {t(lang, 'Message', 'Mesej')}
+              </label>
+              <textarea
+                required
+                rows={4}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground resize-none"
+                placeholder={t(lang, 'How can we help?', 'Bagaimana kami boleh membantu?')}
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="mt-6 w-full py-3.5 rounded-xl btn-gradient-primary font-body font-bold text-base flex items-center justify-center gap-2"
+          >
+            {sent ? (
+              t(lang, '✓ Message Sent!', '✓ Mesej Dihantar!')
+            ) : (
+              <>
+                {t(lang, 'Send Message', 'Hantar Mesej')}
+                <Send size={16} />
+              </>
+            )}
+          </button>
+        </motion.form>
+      </div>
+    </section>
   );
 }
