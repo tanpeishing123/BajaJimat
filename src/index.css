@@ -72,6 +72,9 @@
     color: hsl(var(--brown));
     letter-spacing: -0.02em;
   }
+  .font-display-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
 }
 
 @layer utilities {
