@@ -139,6 +139,52 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
     fetchTip();
   }, [cropType, lang]);
 
+  // Fetch real-time weather from Open-Meteo (no API key needed)
+  useEffect(() => {
+    const fetchWeather = async () => {
+      setWeatherLoading(true);
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=3.1390&longitude=101.6869&current_weather=true');
+        if (res.ok) {
+          const data = await res.json();
+          setWeather({ temp: data.current_weather.temperature, code: data.current_weather.weathercode });
+        }
+      } catch {
+        // silently fail
+      } finally {
+        setWeatherLoading(false);
+      }
+    };
+    fetchWeather();
+  }, []);
+
+  const getWeatherAdvice = (code: number): { emoji: string; text: { en: string; bm: string }; color: string } => {
+    if (code >= 95) return {
+      emoji: '⛈️',
+      text: {
+        en: 'Thunderstorm warning! Do NOT apply fertilisers today. High risk of chemical washing into waterways.',
+        bm: 'Amaran ribut petir! JANGAN gunakan baja hari ini. Risiko tinggi bahan kimia terbawa ke saluran air.'
+      },
+      color: 'text-red-600'
+    };
+    if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return {
+      emoji: '🌧️',
+      text: {
+        en: 'Rain expected. Delay your fertiliser application by 24-48 hours to prevent nutrient runoff and save your money.',
+        bm: 'Hujan dijangka. Tangguhkan penggunaan baja selama 24-48 jam untuk mengelak nutrien terhakis dan menjimatkan wang anda.'
+      },
+      color: 'text-amber-600'
+    };
+    return {
+      emoji: '☀️',
+      text: {
+        en: 'Perfect weather conditions to apply your fertiliser today. Maximum soil absorption expected.',
+        bm: 'Cuaca sesuai untuk menggunakan baja hari ini. Penyerapan tanah maksimum dijangka.'
+      },
+      color: 'text-emerald-600'
+    };
+  };
+
   const radarData = [
     { nutrient: 'N', value: result.n_deficit_kg, fullMark: Math.max(result.n_deficit_kg, result.p_deficit_kg, result.k_deficit_kg, 1) },
     { nutrient: 'P', value: result.p_deficit_kg, fullMark: Math.max(result.n_deficit_kg, result.p_deficit_kg, result.k_deficit_kg, 1) },
