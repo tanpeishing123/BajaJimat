@@ -143,7 +143,7 @@ export function MyPlots({ userName, lang, onToggleLang, onLogout, onAnalyse, onV
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-display text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-display text-base font-bold text-foreground">AgroMate</span>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200 active:scale-95">

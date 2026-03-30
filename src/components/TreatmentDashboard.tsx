@@ -197,7 +197,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-slate-950">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-slate-950">AgroMate</span>
           </div>
           {onToggleLang && (
             <button onClick={onToggleLang} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/80 bg-white/50 text-xs font-sans font-medium text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all duration-200 active:scale-95">
@@ -402,7 +402,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
               <button
                 onClick={() => {
                   const items = data.shopping_list.map(item => `• ${item.product_name.replace(/\*\*/g, '')} — ${item.quantity_per_ha}/ha — RM${(item.price_per_ha_rm * hectares).toFixed(2)}`).join('\n');
-                  const text = `🌿 *BajaJimat Treatment Plan*\n📋 ${data.issue_name}\n🌱 ${plotName} · ${cropType} · ${hectares} ha\n\n${items}\n\n💰 *Grand Total: RM${grandTotal.toFixed(2)}*`;
+                  const text = `🌿 *AgroMate Treatment Plan*\n📋 ${data.issue_name}\n🌱 ${plotName} · ${cropType} · ${hectares} ha\n\n${items}\n\n💰 *Grand Total: RM${grandTotal.toFixed(2)}*`;
                   window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
                 }}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#25D366] text-white font-sans font-bold text-base hover:bg-[#1fb855] transition-colors active:scale-97 shadow-md"

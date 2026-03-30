@@ -415,7 +415,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
             <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
               <Sprout className="text-primary-foreground" size={18} />
             </div>
-            <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+            <span className="font-sans text-base font-bold text-foreground">AgroMate</span>
           </div>
           <button onClick={() => { setShowLeafAnalysis(false); setLeafResult(null); }} className="text-sm text-muted-foreground hover:text-foreground font-sans transition-colors">
             ← {t('Back', 'Kembali')}
@@ -533,7 +533,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
               <Sprout className="text-primary-foreground" size={18} />
             </div>
             <div>
-              <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+              <span className="font-sans text-base font-bold text-foreground">AgroMate</span>
               <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>
