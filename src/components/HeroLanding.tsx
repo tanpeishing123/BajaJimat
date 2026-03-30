@@ -73,7 +73,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/10" />
 
         {/* Content positioned high in the sky area */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-[18vh] sm:pt-[20vh] md:pt-[22vh]">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-[12vh] sm:pt-[14vh] md:pt-[16vh]">
           <motion.h1
             custom={0}
             variants={fadeUp}
@@ -109,9 +109,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             <button
               onClick={onGetStarted}
               className="group px-8 py-4 rounded-full font-body font-semibold text-base flex items-center gap-3
-                bg-primary text-primary-foreground
-                shadow-[0_0_30px_hsla(164,90%,20%,0.35)]
-                hover:-translate-y-0.5 hover:shadow-[0_0_40px_hsla(164,90%,20%,0.5)]
+                bg-white/20 backdrop-blur-md text-slate-900 border border-white/50
+                shadow-[0_8px_32px_rgba(0,0,0,0.08)]
+                hover:bg-white/35 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]
                 active:scale-[0.97] transition-all duration-300"
             >
               {t(lang, 'Get Started', 'Mulakan')}
