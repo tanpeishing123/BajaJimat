@@ -82,7 +82,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             viewport={{ once: false, amount: 0.2 }}
             className="font-display-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight"
           >
-            {t(lang, 'Farm Smarter,', 'Bertani Lebih Bijak,')}
+            {t(lang, 'AgroMate: Farm Smarter,', 'AgroMate: Bertani Lebih Bijak,')}
             <br />
             {t(lang, 'Harvest More', 'Tuai Lebih Banyak')}
           </motion.h1>
@@ -93,7 +93,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-body text-base sm:text-lg md:text-xl text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto"
+            className="mt-6 font-display-serif text-base sm:text-lg md:text-xl text-slate-600 font-normal italic leading-relaxed max-w-2xl mx-auto"
           >
             {t(lang, 'Precision farming from soil to harvest.', 'Pertanian tepat dari tanah ke tuaian.')}
           </motion.p>
@@ -109,9 +109,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             <button
               onClick={onGetStarted}
               className="group px-8 py-4 rounded-full font-body font-semibold text-base flex items-center gap-3
-                bg-white/20 backdrop-blur-md text-slate-900 border border-white/50
-                shadow-[0_8px_32px_rgba(0,0,0,0.08)]
-                hover:bg-white/35 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]
+                bg-emerald-600/60 backdrop-blur-md text-white border border-emerald-400/40
+                shadow-[0_8px_32px_rgba(16,185,129,0.25)]
+                hover:bg-emerald-600/75 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(16,185,129,0.35)]
                 active:scale-[0.97] transition-all duration-300"
             >
               {t(lang, 'Get Started', 'Mulakan')}
