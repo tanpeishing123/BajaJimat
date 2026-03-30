@@ -533,7 +533,7 @@ export function MainApp({ profile, plotId, plotName, soilType: propSoilType, onL
               <Sprout className="text-primary-foreground" size={18} />
             </div>
             <div>
-              <span className="font-sans text-base font-bold text-foreground">BajaJimat</span>
+              <span className="font-sans text-base font-bold text-foreground">AgroMate</span>
               <p className="text-xs text-muted-foreground font-sans">{plotName || profile.crop} · {profile.farmSize} ha</p>
             </div>
           </div>

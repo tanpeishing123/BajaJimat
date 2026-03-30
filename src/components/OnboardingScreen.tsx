@@ -29,7 +29,7 @@ export function OnboardingScreen({ lang, onComplete, onBack }: OnboardingProps) 
           <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mx-auto mb-5 shadow-luxe">
             <Sprout className="text-primary-foreground" size={36} />
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif-display font-bold text-brown-brand tracking-tight">BajaJimat</h1>
+          <h1 className="text-4xl md:text-5xl font-serif-display font-bold text-brown-brand tracking-tight">AgroMate</h1>
           <p className="mt-2 text-gold-brand font-medium text-lg font-body">
             {t(lang, 'Smart Fertiliser Optimiser', 'Pengoptimum Baja Pintar')}
           </p>

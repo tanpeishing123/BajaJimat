@@ -56,7 +56,7 @@ export function SignUpPage({ lang: initialLang, onComplete, onBack }: SignUpPage
         <div className="w-full max-w-md">
           <div className="mb-6">
             <h1 className="font-serif-display text-3xl md:text-4xl font-bold text-brown-brand leading-tight">
-              {t(lang, 'Welcome to BajaJimat', 'Selamat Datang ke BajaJimat')}
+              {t(lang, 'Welcome to AgroMate', 'Selamat Datang ke AgroMate')}
             </h1>
             <p className="mt-2 text-muted-foreground font-body text-sm">
               {t(lang, 'Tell us your name to get started.', 'Beritahu nama anda untuk bermula.')}

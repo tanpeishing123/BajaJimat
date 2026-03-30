@@ -28,25 +28,25 @@ const scrollReveal = {
 
 const bentoBlocks = [
   {
-    icon: ShieldCheck,
-    title_en: 'Stop Chemical Runoff',
-    title_bm: 'Hentikan Larian Kimia',
-    desc_en: 'Apply only what the soil needs.',
-    desc_bm: 'Gunakan hanya apa yang tanah perlukan.',
+    icon: BadgeDollarSign,
+    title_en: '💰 Cut Farming Costs',
+    title_bm: '💰 Jimat Kos Pertanian',
+    desc_en: 'Stop guessing. Buy only the exact blend your soil needs at the lowest market prices.',
+    desc_bm: 'Berhenti meneka. Beli hanya campuran tepat yang diperlukan tanah anda pada harga pasaran terendah.',
   },
   {
-    icon: BadgeDollarSign,
-    title_en: 'Affordable Precision',
-    title_bm: 'Ketepatan Mampu Milik',
-    desc_en: 'Cut costs by up to 40%.',
-    desc_bm: 'Jimat kos sehingga 40%.',
+    icon: ShieldCheck,
+    title_en: '🛡️ Protect Soil & Prevent Runoff',
+    title_bm: '🛡️ Lindungi Tanah & Cegah Larian',
+    desc_en: 'Live weather tracking warns you of upcoming rain so your treatments never wash away.',
+    desc_bm: 'Penjejakan cuaca langsung memberi amaran hujan supaya rawatan anda tidak hanyut.',
   },
   {
     icon: BarChart3,
-    title_en: 'Boost National Supply',
-    title_bm: 'Tingkat Bekalan Negara',
-    desc_en: 'Higher yields for a stronger Malaysia.',
-    desc_bm: 'Hasil lebih tinggi untuk Malaysia lebih kukuh.',
+    title_en: '🌱 Save Sick Crops',
+    title_bm: '🌱 Selamatkan Tanaman Sakit',
+    desc_en: 'Advanced AI vision instantly identifies plant diseases and provides step-by-step recovery plans.',
+    desc_bm: 'Penglihatan AI canggih mengenal pasti penyakit tanaman serta-merta dan menyediakan pelan pemulihan.',
   },
 ];
 
@@ -78,9 +78,9 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             viewport={{ once: false, amount: 0.2 }}
             className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight"
           >
-            Jimat Baja,
+            AgroMate: Farm Smarter,
             <br />
-            Tingkat Hasil
+            Harvest More.
           </motion.h1>
 
           <motion.p
@@ -89,9 +89,10 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="mt-6 font-serif-display italic text-xl sm:text-2xl md:text-3xl text-white/80 font-medium tracking-wide"
+            className="mt-6 font-body text-xl sm:text-2xl md:text-3xl text-white/90 font-normal tracking-wide"
+            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
           >
-            Save on Fertiliser, Boost Your Yield
+            Precision farming from soil to harvest.
           </motion.p>
 
           <motion.div custom={2} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} className="mt-10">
@@ -193,7 +194,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           )}
         </p>
         <p className="relative z-10 text-[10px] text-primary-foreground/40 font-body mt-3">
-          © 2026 BajaJimat · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
+          © 2026 AgroMate · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
     </div>

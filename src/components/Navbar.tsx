@@ -15,7 +15,7 @@ export function Navbar({ lang, onToggleLang, onSignup }: NavbarProps) {
             <Sprout className="text-primary-foreground" size={20} />
           </div>
           <span className="font-serif-display text-xl font-bold text-white tracking-tight drop-shadow-md">
-            BajaJimat
+            AgroMate
           </span>
         </div>
 

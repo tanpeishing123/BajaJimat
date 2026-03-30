@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 type Lang = 'en' | 'bm';
 
 const dictionary: Record<string, Record<Lang, string>> = {
-  app_name: { en: 'BajaJimat', bm: 'BajaJimat' },
+  app_name: { en: 'AgroMate', bm: 'AgroMate' },
   tagline: { en: 'Smart Fertiliser Optimiser', bm: 'Pengoptimum Baja Pintar' },
   welcome: { en: 'Welcome', bm: 'Selamat Datang' },
   get_started: { en: 'Get Started →', bm: 'Mulakan →' },
