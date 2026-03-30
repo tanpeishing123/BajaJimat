@@ -662,30 +662,38 @@ export function ResultsDashboard({ lang, result, cropType, plotName, farmSize, o
               </motion.div>
             )}
 
-            {/* Farm Tip Card */}
+            {/* Smart Application Timing Card */}
             <motion.div custom={0.5} variants={fadeUp} initial="hidden" animate="visible"
               className={`${glassCardHover} p-6`}
             >
               <div className="flex items-start gap-4">
-                <span className="text-3xl mt-0.5">💡</span>
+                <span className="text-3xl mt-0.5">🌤️</span>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-3">
                     <p className="font-sans text-sm font-bold text-primary uppercase tracking-wider">
-                      {t(lang, "This Month's Farm Tip", 'Tip Ladang Bulan Ini')}
+                      {t(lang, 'Smart Application Timing', 'Masa Penggunaan Pintar')}
                     </p>
                     <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-sans font-bold">
                       ✨ {t(lang, 'AI Generated', 'Dijana AI')}
                     </span>
                   </div>
-                  {tipLoading ? (
+                  {weatherLoading ? (
                     <div className="flex items-center gap-2 py-1">
                       <Loader2 size={16} className="animate-spin text-primary" />
-                      <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Loading tip...', 'Memuatkan tip...')}</span>
+                      <span className="text-lg text-muted-foreground font-sans font-medium">{t(lang, 'Checking weather...', 'Menyemak cuaca...')}</span>
                     </div>
-                  ) : farmTip ? (
-                    <p className="font-sans text-lg text-slate-950 leading-relaxed font-bold">{farmTip.replace(/\*\*/g, '')}</p>
+                  ) : weather ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl font-extrabold text-slate-950 font-sans tabular-nums">{weather.temp}°C</span>
+                        <span className="text-2xl">{getWeatherAdvice(weather.code).emoji}</span>
+                      </div>
+                      <p className={`font-sans text-lg leading-relaxed font-bold ${getWeatherAdvice(weather.code).color}`}>
+                        {t(lang, getWeatherAdvice(weather.code).text.en, getWeatherAdvice(weather.code).text.bm)}
+                      </p>
+                    </div>
                   ) : (
-                    <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'No tip available', 'Tiada tip tersedia')}</p>
+                    <p className="font-sans text-lg text-muted-foreground italic">{t(lang, 'Weather data unavailable', 'Data cuaca tidak tersedia')}</p>
                   )}
                 </div>
               </div>
