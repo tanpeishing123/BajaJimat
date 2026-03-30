@@ -21,10 +21,10 @@ const sectionReveal = {
 const steps = [
   {
     icon: Scan,
-    title_en: '🔍 Diagnose & Detect',
-    title_bm: '🔍 Diagnosis & Kesan',
-    desc_en: 'Identify plant health from a single photo or soil report.',
-    desc_bm: 'Kenal pasti kesihatan tanaman dari satu foto atau laporan tanah.',
+    title_en: '🔍 Diagnose',
+    title_bm: '🔍 Diagnosis',
+    desc_en: 'Identify plant health from soil report or leaf photo.',
+    desc_bm: 'Kenal pasti kesihatan tanaman dari laporan tanah atau foto daun.',
     step: '01',
     detail_en: 'Upload a soil report, enter NPK values manually, or snap a photo of a sick leaf. Our AI reads your data instantly and identifies issues.',
     detail_bm: 'Muat naik laporan tanah, masukkan nilai NPK secara manual, atau tangkap foto daun yang sakit. AI kami membaca data anda serta-merta dan mengenal pasti masalah.',
@@ -37,16 +37,16 @@ const steps = [
     desc_en: 'Get the exact, cost-optimized fertiliser blend.',
     desc_bm: 'Dapatkan campuran baja tepat dan kos optimum.',
     step: '02',
-    detail_en: 'Our AI calculates your exact nutrient needs and generates a cost-saving fertiliser shopping list — no waste, no guesswork.',
-    detail_bm: 'AI kami mengira keperluan nutrisi tepat anda dan menjana senarai beli baja yang menjimatkan kos — tiada pembaziran, tiada tekaan.',
+    detail_en: 'Our AI and solver engine calculates your exact nutrient needs and generates a cost-saving fertiliser shopping list — no waste, no guesswork.',
+    detail_bm: 'AI dan enjin pengira kami mengira keperluan nutrisi tepat anda dan menjana senarai beli baja yang menjimatkan kos — tiada pembaziran, tiada tekaan.',
     bg: tabOptimiseBg,
   },
   {
     icon: Sprout,
-    title_en: '🌦️ Treat & Time',
-    title_bm: '🌦️ Rawat & Masa',
-    desc_en: 'Weather-synced treatment plans for your crops.',
-    desc_bm: 'Pelan rawatan diselaraskan cuaca untuk tanaman anda.',
+    title_en: '🌦️ Treat & Advice',
+    title_bm: '🌦️ Rawat & Nasihat',
+    desc_en: 'Weather-synced advice and treatment plans for your crops.',
+    desc_bm: 'Nasihat dan pelan rawatan diselaraskan cuaca untuk tanaman anda.',
     step: '03',
     detail_en: 'Get instant disease treatment plans and real-time weather advice on exactly when to apply them. Stronger harvests, stronger Malaysia.',
     detail_bm: 'Dapatkan pelan rawatan penyakit segera dan nasihat cuaca masa nyata tentang bila untuk menggunakannya. Tuaian lebih kukuh, Malaysia lebih kuat.',
@@ -200,9 +200,9 @@ export function HowItWorksSection({ lang, onGetStarted }: Props) {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ delay: i * 0.15 }}
                 onClick={() => openDetail(i)}
-                className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
-                  bg-card border border-border/30
-                  shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
+              className="group relative flex flex-col items-center text-center p-8 md:p-10 rounded-2xl cursor-pointer
+                  bg-white/40 backdrop-blur-lg border border-white/50
+                  shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)]
                   hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                   active:scale-[0.97] transition-all duration-500"
               >

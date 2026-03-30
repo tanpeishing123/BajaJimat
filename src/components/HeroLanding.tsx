@@ -32,20 +32,20 @@ const bentoBlocks = [
     icon: BadgeDollarSign,
     title_en: '💰 Cut Farming Costs',
     title_bm: '💰 Jimat Kos Pertanian',
-    desc_en: 'Find the lowest-cost fertiliser mix instantly.',
-    desc_bm: 'Cari campuran baja kos terendah serta-merta.',
+    desc_en: 'Calculate the exact nutrient blend your soil needs so you never overspend.',
+    desc_bm: 'Kira campuran nutrien tepat yang tanah anda perlukan supaya tidak berbelanja lebih.',
   },
   {
     icon: ShieldCheck,
-    title_en: '🛡️ Save Cost, Protect Soil',
-    title_bm: '🛡️ Jimat Kos, Lindungi Tanah',
-    desc_en: 'Avoid spraying before rain with live weather alerts.',
-    desc_bm: 'Elak menyembur sebelum hujan dengan amaran cuaca langsung.',
+    title_en: '🛡️ Prevent Chemical Runoff',
+    title_bm: '🛡️ Cegah Larian Kimia',
+    desc_en: 'Sync applications with live weather alerts to stop expensive fertiliser from washing away into waterways.',
+    desc_bm: 'Selaraskan aplikasi dengan amaran cuaca langsung untuk mengelakkan baja mahal daripada hanyut ke saluran air.',
   },
   {
     icon: BarChart3,
-    title_en: '🌱 Save Sick Crops',
-    title_bm: '🌱 Selamatkan Tanaman Sakit',
+    title_en: '🌱 Heal your Harvest',
+    title_bm: '🌱 Pulihkan Tuaian Anda',
     desc_en: 'Instant disease identification and expert recovery steps.',
     desc_bm: 'Pengenalpastian penyakit segera dan langkah pemulihan pakar.',
   },
@@ -179,8 +179,8 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   viewport={{ once: false, amount: 0.2 }}
                   transition={{ delay: i * 0.15 }}
                   className="relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
-                    bg-card border border-border/30
-                    shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
+                    bg-white/40 backdrop-blur-lg border border-white/50
+                    shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)]
                     hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                     transition-all duration-500 group"
                 >
