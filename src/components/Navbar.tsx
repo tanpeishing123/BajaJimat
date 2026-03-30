@@ -47,7 +47,7 @@ export function Navbar({ lang, onToggleLang, onSignup }: NavbarProps) {
         </div>
 
         {/* Right actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-1 justify-end">
           <button
             onClick={onToggleLang}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/30 text-sm font-body font-medium text-white/90 hover:text-white hover:border-white/60 transition-all duration-200 active:scale-95"
