@@ -1,10 +1,9 @@
-import { ArrowRight, ShieldCheck, BadgeDollarSign, Stethoscope, Send } from 'lucide-react';
+import { ArrowRight, ShieldCheck, BadgeDollarSign, BarChart3, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import heroBg from '@/assets/hero-bg-new.jpg';
 import bgEmpower from '@/assets/bg-empower.jpg';
 import bgFooter from '@/assets/bg-footer.jpg';
-import bgContact from '@/assets/bg-contact.jpg';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
 
 interface HeroLandingProps {
@@ -31,22 +30,22 @@ const scrollReveal = {
 const bentoBlocks = [
   {
     icon: BadgeDollarSign,
-    title_en: 'Cut Farming Costs',
-    title_bm: 'Jimat Kos Pertanian',
+    title_en: '💰 Cut Farming Costs',
+    title_bm: '💰 Jimat Kos Pertanian',
     desc_en: 'Find the lowest-cost, most effective fertiliser mix for your field.',
     desc_bm: 'Cari campuran baja paling berkesan dan kos terendah untuk ladang anda.',
   },
   {
     icon: ShieldCheck,
-    title_en: 'Save Cost, Protect Soil',
-    title_bm: 'Jimat Kos, Lindungi Tanah',
+    title_en: '🛡️ Save Cost, Protect Soil',
+    title_bm: '🛡️ Jimat Kos, Lindungi Tanah',
     desc_en: 'Use precise weather data to avoid spraying before a storm.',
     desc_bm: 'Gunakan data cuaca tepat untuk elak menyembur sebelum ribut.',
   },
   {
-    icon: Stethoscope,
-    title_en: 'Treat Crop Diseases',
-    title_bm: 'Rawat Penyakit Tanaman',
+    icon: BarChart3,
+    title_en: '🌱 Save Sick Crops',
+    title_bm: '🌱 Selamatkan Tanaman Sakit',
     desc_en: 'Identify diseases instantly and follow expert step-by-step treatment steps.',
     desc_bm: 'Kenal pasti penyakit serta-merta dan ikuti langkah rawatan pakar.',
   },
@@ -62,6 +61,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
     <div className="min-h-screen flex flex-col overflow-auto bg-background">
       {/* ── Hero Section — Full Immersive Centered ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background image */}
         <img
           src={heroBg}
           alt="Lush Malaysian paddy field at golden hour"
@@ -69,9 +69,11 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           width={1920}
           height={1080}
         />
+        {/* Warm dark overlay for contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
+        {/* Centered content */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center pt-20">
           <motion.h1
             custom={0}
@@ -79,7 +81,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight"
+            className="font-display-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight"
           >
             {t(lang, 'Farm Smarter,', 'Bertani Lebih Bijak,')}
             <br />
@@ -126,20 +128,20 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       </div>
 
       {/* ── Why AgroMate — Bento Grid ── */}
-      <section id="why-agromate" className="relative px-6 md:px-12 py-28 md:py-36 overflow-hidden bg-background">
-        <img src={bgEmpower} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.04] pointer-events-none" loading="lazy" width={1920} height={1080} />
+      <section id="why-agromate" className="relative px-6 md:px-12 py-24 md:py-36 overflow-hidden" style={{ background: '#FAFAF8' }}>
+        <img src={bgEmpower} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none" loading="lazy" width={1920} height={1080} />
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={scrollReveal}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="text-center mb-16 md:mb-24"
+            className="text-center mb-14 md:mb-20"
           >
-            <p className="text-xs font-body font-semibold tracking-[0.3em] uppercase text-primary mb-4">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
               {t(lang, 'Why AgroMate', 'Kenapa AgroMate')}
             </p>
-            <h2 className="font-body text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] text-foreground tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.1] text-foreground">
               {headerWords.map((word, i) => (
                 <motion.span
                   key={i}
@@ -165,7 +167,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {bentoBlocks.map((block, i) => {
               const Icon = block.icon;
               return (
@@ -176,19 +178,19 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
                   whileInView="visible"
                   viewport={{ once: false, amount: 0.2 }}
                   transition={{ delay: i * 0.15 }}
-                  className="relative overflow-hidden rounded-3xl p-10 md:p-12 cursor-default
-                    bg-card border border-border/20
-                    shadow-[0_4px_30px_-8px_rgba(0,0,0,0.08)]
-                    hover:-translate-y-3 hover:shadow-[0_20px_60px_-15px_hsla(164,60%,25%,0.15)]
+                  className="relative overflow-hidden rounded-2xl p-7 md:p-9 cursor-default
+                    bg-card border border-border/30
+                    shadow-[0_2px_20px_-6px_rgba(0,0,0,0.06)]
+                    hover:-translate-y-2 hover:shadow-[0_16px_50px_-12px_hsla(164,60%,25%,0.18)]
                     transition-all duration-500 group"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-500">
-                    <Icon size={28} className="text-primary" strokeWidth={1.5} />
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-500">
+                    <Icon size={26} className="text-primary" strokeWidth={1.5} />
                   </div>
-                  <h3 className="font-body text-xl md:text-2xl font-bold text-foreground mb-3">
+                  <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-2">
                     {t(lang, block.title_en, block.title_bm)}
                   </h3>
-                  <p className="text-sm md:text-base font-body text-muted-foreground leading-relaxed">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                     {t(lang, block.desc_en, block.desc_bm)}
                   </p>
                 </motion.div>
@@ -204,14 +206,14 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
       {/* ── Footer ── */}
       <footer className="relative bg-primary px-6 py-10 text-center overflow-hidden">
         <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none" loading="lazy" width={1920} height={512} />
-        <p className="relative z-10 text-primary-foreground/70 font-body text-xs leading-relaxed max-w-md mx-auto">
+        <p className="relative z-10 text-primary-foreground/70 text-xs leading-relaxed max-w-md mx-auto">
           {t(lang,
             'Join thousands of Malaysian farmers already saving on fertiliser costs.',
             'Sertai ribuan petani Malaysia yang sudah jimat kos baja.'
           )}
         </p>
-        <p className="relative z-10 font-body text-[10px] text-primary-foreground/40 mt-3">
-          © 2026 AgroMate · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')}
+        <p className="relative z-10 text-[10px] text-primary-foreground/40 mt-3">
+          © 2026 AgroMate · {t(lang, 'Built for Malaysian Farmers', 'Dibina untuk Petani Malaysia')} 🇲🇾
         </p>
       </footer>
     </div>
@@ -231,31 +233,8 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
   };
 
   return (
-    <section id="contact" className="relative px-6 md:px-12 py-28 md:py-36 overflow-hidden">
-      {/* Atmospheric background */}
-      <img
-        src={bgContact}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-        width={1920}
-        height={1080}
-      />
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-      {/* Subtle topographic pattern overlay */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="topo" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="white" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="60" fill="none" stroke="white" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="40" fill="none" stroke="white" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="20" fill="none" stroke="white" strokeWidth="0.5" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#topo)" />
-      </svg>
-
-      <div className="relative z-10 max-w-2xl mx-auto">
+    <section id="contact" className="relative px-6 md:px-12 py-24 md:py-32 overflow-hidden bg-background">
+      <div className="max-w-2xl mx-auto">
         <motion.div
           variants={scrollReveal}
           initial="hidden"
@@ -263,10 +242,10 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
           viewport={{ once: false, amount: 0.2 }}
           className="text-center mb-12"
         >
-          <p className="text-xs font-body font-semibold tracking-[0.3em] uppercase text-white/60 mb-4">
+          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">
             {t(lang, 'Get in Touch', 'Hubungi Kami')}
           </p>
-          <h2 className="font-body text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
             {t(lang, 'Contact Us', 'Hubungi Kami')}
           </h2>
         </motion.div>
@@ -277,13 +256,13 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
-          className="rounded-3xl p-8 md:p-10
-            bg-[hsl(200_10%_18%)] border border-white/10
-            shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]"
+          className="rounded-2xl p-8 md:p-10
+            bg-white/60 backdrop-blur-xl border border-white/40
+            shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
         >
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-body font-semibold text-white/80 mb-2">
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
                 {t(lang, 'Name', 'Nama')}
               </label>
               <input
@@ -291,13 +270,12 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 font-body text-sm text-white placeholder:text-white/30
-                  focus:bg-white/15 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all duration-200"
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground"
                 placeholder={t(lang, 'Your name', 'Nama anda')}
               />
             </div>
             <div>
-              <label className="block text-sm font-body font-semibold text-white/80 mb-2">
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
                 {t(lang, 'Email', 'Emel')}
               </label>
               <input
@@ -305,13 +283,12 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 font-body text-sm text-white placeholder:text-white/30
-                  focus:bg-white/15 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all duration-200"
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground"
                 placeholder={t(lang, 'your@email.com', 'emel@anda.com')}
               />
             </div>
             <div>
-              <label className="block text-sm font-body font-semibold text-white/80 mb-2">
+              <label className="block text-sm font-body font-semibold text-foreground mb-1.5">
                 {t(lang, 'Message', 'Mesej')}
               </label>
               <textarea
@@ -319,8 +296,7 @@ function ContactSection({ lang }: { lang: 'en' | 'bm' }) {
                 rows={4}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 font-body text-sm text-white placeholder:text-white/30 resize-none
-                  focus:bg-white/15 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all duration-200"
+                className="w-full px-4 py-3 rounded-xl input-premium font-body text-sm text-foreground resize-none"
                 placeholder={t(lang, 'How can we help?', 'Bagaimana kami boleh membantu?')}
               />
             </div>
