@@ -85,7 +85,7 @@ export function HeroLanding({ lang, onGetStarted }: HeroLandingProps) {
           >
             {t(lang, 'Farm Smarter,', 'Bertani Lebih Bijak,')}
             <br />
-            {t(lang, 'Harvest More', 'Tuai Lebih Banyak')}
+            <span className="text-accent">{t(lang, 'Harvest More', 'Tuai Lebih Banyak')}</span>
           </motion.h1>
 
           <motion.p
