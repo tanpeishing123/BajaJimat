@@ -24,7 +24,7 @@ export function Navbar({ lang, onToggleLang, onSignup }: NavbarProps) {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/60 to-transparent">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 flex-1">
           <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
             <Sprout className="text-primary-foreground" size={18} />
           </div>
