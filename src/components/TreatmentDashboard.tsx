@@ -559,7 +559,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
       {/* Footer with Back to My Plots */}
       {onBackToPlots && (
-        <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
+        <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
           <div className="flex items-center gap-3">
             <button
               onClick={onBackToPlots}
