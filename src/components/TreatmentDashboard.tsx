@@ -268,7 +268,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       </header>
 
       {/* Tabbed Content */}
-      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
+      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
           <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
             <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
