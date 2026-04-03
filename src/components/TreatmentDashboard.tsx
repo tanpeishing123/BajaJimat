@@ -185,10 +185,69 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
     </motion.div>
   );
 
+  const currentDate = new Date().toLocaleDateString(lang === 'bm' ? 'ms-MY' : 'en-MY', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return (
     <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#f0fdf4' }}>
+      {/* Print-only content for Leaf Analysis */}
+      <div className="hidden print:block p-8">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold">AgroMate</h1>
+          <p className="text-sm text-muted-foreground">{t(lang, 'AI Treatment Plan', 'Pelan Rawatan AI')}</p>
+        </div>
+        <div className="mb-4 text-sm">
+          <p><strong>{t(lang, 'Plot', 'Ladang')}:</strong> {plotName || '-'}</p>
+          <p><strong>{t(lang, 'Crop', 'Tanaman')}:</strong> {cropType || '-'}</p>
+          <p><strong>{t(lang, 'Farm Size', 'Saiz Ladang')}:</strong> {farmSize || '-'} {t(lang, 'ha', 'hektar')}</p>
+          <p><strong>{t(lang, 'Issue', 'Isu')}:</strong> {data.issue_name}</p>
+          <p><strong>{t(lang, 'Severity', 'Keterukan')}:</strong> {severity}</p>
+          <p><strong>{t(lang, 'Date', 'Tarikh')}:</strong> {currentDate}</p>
+        </div>
+        <table className="w-full border-collapse mb-4 text-sm">
+          <thead>
+            <tr className="border-b-2 border-foreground">
+              <th className="text-left py-2">{t(lang, 'Product', 'Produk')}</th>
+              <th className="text-center py-2">{t(lang, 'Type', 'Jenis')}</th>
+              <th className="text-center py-2">{t(lang, 'Qty/ha', 'Kuantiti/ha')}</th>
+              <th className="text-right py-2">{t(lang, 'Total (RM)', 'Jumlah (RM)')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.shopping_list.map((item, i) => (
+              <tr key={i} className="border-b border-muted">
+                <td className="py-2">{item.product_name.replace(/\*\*/g, '')}</td>
+                <td className="text-center py-2 capitalize">{item.type}</td>
+                <td className="text-center py-2">{item.quantity_per_ha}</td>
+                <td className="text-right py-2 font-semibold">RM{(item.price_per_ha_rm * hectares).toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t-2 border-foreground font-bold">
+              <td colSpan={3} className="py-2">{t(lang, 'Grand Total', 'Jumlah Keseluruhan')}</td>
+              <td className="text-right py-2">RM{grandTotal.toFixed(2)}</td>
+            </tr>
+          </tfoot>
+        </table>
+        {data.action_plan.length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-bold text-sm mb-2">{t(lang, 'Action Plan', 'Pelan Tindakan')}</h3>
+            {data.action_plan.map((step, i) => (
+              <div key={i} className="mb-2 text-sm">
+                <p><strong>{t(lang, 'Step', 'Langkah')} {i + 1}: {step.title.replace(/\*\*/g, '')}</strong> ({step.timing.replace(/\*\*/g, '')})</p>
+                <p className="ml-4 text-muted-foreground">{step.description.replace(/\*\*/g, '')}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="mt-8 pt-4 border-t text-center text-xs text-muted-foreground">
+          <p>AgroMate — {t(lang, 'AI Treatment Plan', 'Pelan Rawatan AI')}</p>
+          <p>agromate.lovable.app</p>
+        </div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button onClick={onBack} className="w-9 h-9 rounded-xl border border-white/80 bg-white/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/80 transition-all active:scale-95">
@@ -209,7 +268,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
       </header>
 
       {/* Tabbed Content */}
-      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden">
+      <Tabs defaultValue="summary" className="flex-1 flex flex-col overflow-hidden print:hidden">
         <div className="px-4 md:px-8 pt-4 pb-2 flex-shrink-0">
           <TabsList className="w-full grid grid-cols-3 h-11 rounded-xl bg-white/40 backdrop-blur-lg border border-white/60 p-1 gap-0">
             <TabsTrigger value="summary" className="rounded-lg text-sm font-sans font-semibold transition-all duration-200 text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-slate-950 data-[state=active]:shadow-sm">
@@ -500,7 +559,7 @@ export function TreatmentDashboard({ lang, issueName, severity, visualEvidence, 
 
       {/* Footer with Back to My Plots */}
       {onBackToPlots && (
-        <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0">
+        <footer className="bg-white/70 backdrop-blur-xl border-t border-white/60 px-4 md:px-8 py-3 flex-shrink-0 print:hidden">
           <div className="flex items-center gap-3">
             <button
               onClick={onBackToPlots}
