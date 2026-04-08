@@ -55,11 +55,14 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
   const handleBoxClick = () => {
     if (preview) return;
+
     if (isMobile) {
+      setShowDesktopMenu(false);
       mobileInputRef.current?.click();
-    } else {
-      setShowDesktopMenu(prev => !prev);
+      return;
     }
+
+    setShowDesktopMenu(prev => !prev);
   };
 
   const handleWebcamCapture = (capturedFile: File) => {
@@ -171,7 +174,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         />
         {/* Mobile input without capture so the native picker can offer camera or gallery */}
         <input
-          id="leaf-mobile-upload"
           ref={mobileInputRef}
           type="file"
           accept="image/*"
