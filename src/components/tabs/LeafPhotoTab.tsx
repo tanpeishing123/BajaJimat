@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { ImagePlus, Camera, AlertTriangle, Loader2, RotateCcw, Upload, MonitorUp } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ImagePlus, Camera, AlertTriangle, Loader2, RotateCcw, MonitorUp } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 import { WebcamCapture } from '../WebcamCapture';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -30,8 +30,15 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const isMobile = useIsMobile();
 
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
+      if (preview) URL.revokeObjectURL(preview);
       setFile(f);
       setPreview(URL.createObjectURL(f));
       setError(null);
@@ -40,15 +47,15 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   };
 
   const handleClear = () => {
+    if (preview) URL.revokeObjectURL(preview);
     setFile(null);
     setPreview(null);
+    setShowDesktopMenu(false);
   };
 
   const handleBoxClick = () => {
     if (preview) return;
-    if (isMobile) {
-      mobileInputRef.current?.click();
-    } else {
+    if (!isMobile) {
       setShowDesktopMenu(prev => !prev);
     }
   };
@@ -160,11 +167,13 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
-        {/* Mobile input — no capture attr so native OS shows Camera + Gallery sheet */}
+        {/* Mobile input for native camera flow */}
         <input
+          id="leaf-mobile-upload"
           ref={mobileInputRef}
           type="file"
           accept="image/*"
+          capture="environment"
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
@@ -187,31 +196,52 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           </div>
         ) : (
           <div className="relative">
-            <div
-              onClick={handleBoxClick}
-              className="rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-8 px-4 cursor-pointer hover:border-primary/40 hover:bg-primary/5 transition-colors"
-            >
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                  <ImagePlus size={24} className="text-primary" />
+            {isMobile ? (
+              <label
+                htmlFor="leaf-mobile-upload"
+                className="group block rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
+              >
+                <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
+                    <ImagePlus size={24} className="text-primary" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-sans text-sm font-semibold text-foreground">
+                      {t(lang, 'Click to upload or take photo', 'Klik untuk muat naik atau ambil gambar')}
+                    </p>
+                    <p className="mx-auto max-w-[260px] font-sans text-xs text-muted-foreground">
+                      {t(lang,
+                        'Snap a photo of your leaf or upload from gallery',
+                        'Tangkap foto daun anda atau muat naik dari galeri'
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="font-sans text-sm font-semibold text-foreground mb-1">
-                    {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
-                  </p>
-                  <p className="font-sans text-xs text-muted-foreground max-w-[260px]">
-                    {t(lang,
-                      'Snap a photo of your leaf or upload from gallery',
-                      'Tangkap foto daun anda atau muat naik dari galeri'
-                    )}
-                  </p>
+              </label>
+            ) : (
+              <button
+                type="button"
+                onClick={handleBoxClick}
+                className="group w-full rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 text-left cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
+              >
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
+                    <ImagePlus size={24} className="text-primary" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-sans text-sm font-semibold text-foreground">
+                      {t(lang, 'Click to upload or take photo', 'Klik untuk muat naik atau ambil gambar')}
+                    </p>
+                    <p className="mx-auto max-w-[260px] font-sans text-xs text-muted-foreground">
+                      {t(lang,
+                        'Snap a photo of your leaf or upload from gallery',
+                        'Tangkap foto daun anda atau muat naik dari galeri'
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-sans font-semibold pointer-events-none">
-                  <Upload size={14} />
-                  {t(lang, 'Upload Image', 'Muat Naik Imej')}
-                </span>
-              </div>
-            </div>
+              </button>
+            )}
 
             {/* Desktop popup menu */}
             {showDesktopMenu && !isMobile && (
@@ -227,7 +257,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
                     </div>
                     <div>
                       <p className="text-xs font-sans font-semibold text-foreground">
-                        {t(lang, 'Upload from Computer', 'Muat Naik dari Komputer')}
+                         {t(lang, 'Upload Image', 'Muat Naik Imej')}
                       </p>
                       <p className="text-[10px] font-sans text-muted-foreground">
                         {t(lang, 'Choose an image file', 'Pilih fail imej')}
@@ -243,7 +273,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
                     </div>
                     <div>
                       <p className="text-xs font-sans font-semibold text-foreground">
-                        {t(lang, 'Take Photo with Webcam', 'Ambil Gambar dengan Webcam')}
+                         {t(lang, 'Take Photo', 'Ambil Gambar')}
                       </p>
                       <p className="text-[10px] font-sans text-muted-foreground">
                         {t(lang, 'Use your device camera', 'Gunakan kamera peranti')}
