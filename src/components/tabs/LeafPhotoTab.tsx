@@ -129,7 +129,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         </div>
 
         {/* Hidden file input */}
-        {/* Hidden gallery input */}
+        
         <input
           ref={inputRef}
           type="file"
