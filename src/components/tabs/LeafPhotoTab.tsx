@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, ImagePlus, AlertTriangle, Loader2 } from 'lucide-react';
+import { Camera, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -23,7 +23,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
+  
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
@@ -128,16 +128,8 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden camera input */}
-        <input
-          ref={cameraRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
-        />
-        {/* Hidden gallery input */}
+        {/* Hidden file input */}
+        
         <input
           ref={inputRef}
           type="file"
@@ -146,47 +138,28 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
 
-        {preview ? (
-          <div
-            onClick={() => inputRef.current?.click()}
-            className="dropzone-premium rounded-xl p-6 text-center cursor-pointer"
-          >
+        <div
+          onClick={() => inputRef.current?.click()}
+          className="dropzone-premium rounded-xl p-6 text-center cursor-pointer"
+        >
+          {preview ? (
             <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain" />
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => cameraRef.current?.click()}
-              className="dropzone-premium rounded-xl p-5 text-center cursor-pointer flex flex-col items-center gap-2 hover:-translate-y-0.5 transition-transform"
-            >
+          ) : (
+            <div className="flex flex-col items-center gap-2 text-muted-foreground">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                 <Camera size={20} className="text-primary" />
               </div>
-              <p className="font-sans text-xs font-semibold text-foreground">
-                {t(lang, 'Take Photo', 'Ambil Gambar')}
-              </p>
-              <p className="font-sans text-[11px] text-muted-foreground">
-                {t(lang, 'Use camera', 'Guna kamera')}
-              </p>
-            </button>
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              className="dropzone-premium rounded-xl p-5 text-center cursor-pointer flex flex-col items-center gap-2 hover:-translate-y-0.5 transition-transform"
-            >
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <ImagePlus size={20} className="text-primary" />
+              <div>
+                <p className="font-sans text-xs font-semibold text-foreground">
+                  {t(lang, 'Take photo or upload from gallery', 'Ambil gambar atau muat naik dari galeri')}
+                </p>
+                <p className="font-sans text-[11px] text-muted-foreground mt-0.5">
+                  {t(lang, 'Supports clear leaf images', 'Menyokong gambar daun yang jelas')}
+                </p>
               </div>
-              <p className="font-sans text-xs font-semibold text-foreground">
-                {t(lang, 'Upload Photo', 'Muat Naik')}
-              </p>
-              <p className="font-sans text-[11px] text-muted-foreground">
-                {t(lang, 'From gallery', 'Dari galeri')}
-              </p>
-            </button>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
 
         <button
           disabled={!file || isAnalyzing}
