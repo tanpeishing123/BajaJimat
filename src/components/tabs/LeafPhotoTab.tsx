@@ -132,12 +132,21 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Unified dropzone via native label+input association */}
+        {/* Hidden file inputs */}
         <input
           id="leaf-photo-input"
           ref={inputRef}
           type="file"
           accept="image/*"
+          className="hidden"
+          onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
+        />
+        <input
+          id="leaf-camera-input"
+          ref={cameraRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
@@ -159,23 +168,39 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
             </button>
           </div>
         ) : (
-          <label
-            htmlFor="leaf-photo-input"
-            className="flex flex-col items-center justify-center py-8 px-4 gap-3 rounded-xl border-2 border-dashed border-border/60 bg-muted/30 cursor-pointer hover:border-primary/40 hover:bg-muted/50 transition-all"
-          >
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <ImagePlus size={22} className="text-primary" />
+          <div className="rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-6 px-4">
+            <div className="flex flex-col items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <ImagePlus size={22} className="text-primary" />
+              </div>
+              <p className="font-sans text-xs text-muted-foreground text-center max-w-[240px]">
+                {t(lang,
+                  'Snap a photo of your leaf or upload from gallery',
+                  'Tangkap foto daun anda atau muat naik dari galeri'
+                )}
+              </p>
             </div>
-            <p className="font-sans text-xs text-muted-foreground text-center max-w-[220px]">
-              {t(lang,
-                'Snap a photo of your leaf or upload from gallery',
-                'Tangkap foto daun anda atau muat naik dari galeri'
-              )}
-            </p>
-            <span className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-sans font-semibold text-primary-foreground pointer-events-none">
-              {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
-            </span>
-          </label>
+            <div className="flex items-center gap-2.5">
+              <label
+                htmlFor="leaf-camera-input"
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-2.5 cursor-pointer hover:bg-primary/90 transition-colors"
+              >
+                <Camera size={16} className="text-primary-foreground" />
+                <span className="text-xs font-sans font-semibold text-primary-foreground">
+                  {t(lang, 'Take Photo', 'Ambil Gambar')}
+                </span>
+              </label>
+              <label
+                htmlFor="leaf-photo-input"
+                className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-border bg-background py-2.5 cursor-pointer hover:bg-muted/50 transition-colors"
+              >
+                <ImagePlus size={16} className="text-muted-foreground" />
+                <span className="text-xs font-sans font-semibold text-foreground">
+                  {t(lang, 'Upload Photo', 'Muat Naik')}
+                </span>
+              </label>
+            </div>
+          </div>
         )}
 
         <button
