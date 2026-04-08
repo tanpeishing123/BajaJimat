@@ -167,8 +167,9 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
-        {/* Mobile input — no capture attr so native OS shows Camera + Gallery sheet */}
+        {/* Mobile input for native camera flow */}
         <input
+          id="leaf-mobile-upload"
           ref={mobileInputRef}
           type="file"
           accept="image/*"
@@ -200,15 +201,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
                 htmlFor="leaf-mobile-upload"
                 className="group block rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
               >
-                <input
-                  id="leaf-mobile-upload"
-                  ref={mobileInputRef}
-                  type="file"
-                  accept="image/*"
-                  capture="environment"
-                  className="hidden"
-                  onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
-                />
                 <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
                     <ImagePlus size={24} className="text-primary" />
