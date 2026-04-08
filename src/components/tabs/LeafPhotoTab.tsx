@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, ImagePlus, AlertTriangle, Loader2 } from 'lucide-react';
+import { ImagePlus, AlertTriangle, Loader2, RotateCcw } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -23,7 +23,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
@@ -31,6 +30,11 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
       setPreview(URL.createObjectURL(f));
       setError(null);
     }
+  };
+
+  const handleClear = () => {
+    setFile(null);
+    setPreview(null);
   };
 
   const handleAnalyze = async () => {
@@ -65,8 +69,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
       const data = await res.json();
 
       if (data.is_plant_photo === false) {
-        setFile(null);
-        setPreview(null);
+        handleClear();
         setError(
           t(lang,
             'Error: No leaf detected. Please reupload a clear image of a leaf.',
@@ -128,16 +131,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden camera input (capture=environment for rear camera) */}
-        <input
-          ref={cameraRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          className="hidden"
-          onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
-        />
-        {/* Hidden gallery input */}
+        {/* Hidden file input — no capture attr so mobile shows Camera/Gallery sheet */}
         <input
           ref={inputRef}
           type="file"
@@ -146,41 +140,43 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
 
-        <div className="dropzone-premium rounded-xl p-5 text-center">
+        {/* Unified dropzone container */}
+        <div
+          onClick={() => !preview && inputRef.current?.click()}
+          className={`relative rounded-xl border-2 border-dashed border-border/60 bg-muted/30 transition-all ${
+            !preview ? 'cursor-pointer hover:border-primary/40 hover:bg-muted/50' : ''
+          }`}
+        >
           {preview ? (
-            <div className="cursor-pointer" onClick={() => { setFile(null); setPreview(null); }}>
-              <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain mb-2" />
-              <p className="font-sans text-[11px] text-muted-foreground">{t(lang, 'Tap to retake', 'Ketik untuk ambil semula')}</p>
+            <div className="relative p-3">
+              <img
+                src={preview}
+                alt="Leaf preview"
+                className="w-full max-h-48 mx-auto rounded-lg object-contain"
+              />
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); handleClear(); }}
+                className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-background/90 backdrop-blur-sm border border-border/60 text-xs font-sans font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <RotateCcw size={12} />
+                {t(lang, 'Retake', 'Ambil Semula')}
+              </button>
             </div>
           ) : (
-            <div className="flex items-center justify-center gap-4">
-              <button
-                type="button"
-                onClick={() => cameraRef.current?.click()}
-                className="flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Camera size={20} className="text-primary" />
-                </div>
-                <p className="font-sans text-xs font-semibold text-foreground">
-                  {t(lang, 'Take Photo', 'Ambil Gambar')}
-                </p>
-              </button>
-
-              <div className="h-12 w-px bg-border/60" />
-
-              <button
-                type="button"
-                onClick={() => inputRef.current?.click()}
-                className="flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <ImagePlus size={20} className="text-primary" />
-                </div>
-                <p className="font-sans text-xs font-semibold text-foreground">
-                  {t(lang, 'Upload Photo', 'Muat Naik')}
-                </p>
-              </button>
+            <div className="flex flex-col items-center justify-center py-8 px-4 gap-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <ImagePlus size={22} className="text-primary" />
+              </div>
+              <p className="font-sans text-xs text-muted-foreground text-center max-w-[220px]">
+                {t(lang,
+                  'Snap a photo of your leaf or upload from gallery',
+                  'Tangkap foto daun anda atau muat naik dari galeri'
+                )}
+              </p>
+              <span className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-sans font-semibold text-primary-foreground">
+                {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
+              </span>
             </div>
           )}
         </div>
