@@ -55,9 +55,14 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
   const handleBoxClick = () => {
     if (preview) return;
-    if (!isMobile) {
-      setShowDesktopMenu(prev => !prev);
+
+    if (isMobile) {
+      setShowDesktopMenu(false);
+      mobileInputRef.current?.click();
+      return;
     }
+
+    setShowDesktopMenu(prev => !prev);
   };
 
   const handleWebcamCapture = (capturedFile: File) => {
@@ -169,7 +174,6 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
         />
         {/* Mobile input without capture so the native picker can offer camera or gallery */}
         <input
-          id="leaf-mobile-upload"
           ref={mobileInputRef}
           type="file"
           accept="image/*"
@@ -195,52 +199,28 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           </div>
         ) : (
           <div className="relative">
-            {isMobile ? (
-              <label
-                htmlFor="leaf-mobile-upload"
-                className="group block rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
-              >
-                <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
-                    <ImagePlus size={24} className="text-primary" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-sans text-sm font-semibold text-foreground">
-                      {t(lang, 'Click to upload or take photo', 'Klik untuk muat naik atau ambil gambar')}
-                    </p>
-                    <p className="mx-auto max-w-[260px] font-sans text-xs text-muted-foreground">
-                      {t(lang,
-                        'Snap a photo of your leaf or upload from gallery',
-                        'Tangkap foto daun anda atau muat naik dari galeri'
-                      )}
-                    </p>
-                  </div>
+            <button
+              type="button"
+              onClick={handleBoxClick}
+              className="group w-full rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 text-left cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
+            >
+              <div className="flex flex-col items-center gap-3 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
+                  <ImagePlus size={24} className="text-primary" />
                 </div>
-              </label>
-            ) : (
-              <button
-                type="button"
-                onClick={handleBoxClick}
-                className="group w-full rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-10 px-4 text-left cursor-pointer transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:shadow-luxe active:scale-[0.99]"
-              >
-                <div className="flex flex-col items-center gap-3 text-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
-                    <ImagePlus size={24} className="text-primary" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-sans text-sm font-semibold text-foreground">
-                      {t(lang, 'Click to upload or take photo', 'Klik untuk muat naik atau ambil gambar')}
-                    </p>
-                    <p className="mx-auto max-w-[260px] font-sans text-xs text-muted-foreground">
-                      {t(lang,
-                        'Snap a photo of your leaf or upload from gallery',
-                        'Tangkap foto daun anda atau muat naik dari galeri'
-                      )}
-                    </p>
-                  </div>
+                <div className="space-y-1">
+                  <p className="font-sans text-sm font-semibold text-foreground">
+                    {t(lang, 'Click to upload or take photo', 'Klik untuk muat naik atau ambil gambar')}
+                  </p>
+                  <p className="mx-auto max-w-[260px] font-sans text-xs text-muted-foreground">
+                    {t(lang,
+                      'Snap a photo of your leaf or upload from gallery',
+                      'Tangkap foto daun anda atau muat naik dari galeri'
+                    )}
+                  </p>
                 </div>
-              </button>
-            )}
+              </div>
+            </button>
 
             {/* Desktop popup menu */}
             {showDesktopMenu && !isMobile && (
