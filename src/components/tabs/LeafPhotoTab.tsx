@@ -131,8 +131,9 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden file input — no capture attr so mobile shows Camera/Gallery sheet */}
+        {/* Unified dropzone via native label+input association */}
         <input
+          id="leaf-photo-input"
           ref={inputRef}
           type="file"
           accept="image/*"
@@ -140,46 +141,41 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
 
-        {/* Unified dropzone container */}
-        <div
-          onClick={() => !preview && inputRef.current?.click()}
-          className={`relative rounded-xl border-2 border-dashed border-border/60 bg-muted/30 transition-all ${
-            !preview ? 'cursor-pointer hover:border-primary/40 hover:bg-muted/50' : ''
-          }`}
-        >
-          {preview ? (
-            <div className="relative p-3">
-              <img
-                src={preview}
-                alt="Leaf preview"
-                className="w-full max-h-48 mx-auto rounded-lg object-contain"
-              />
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); handleClear(); }}
-                className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-background/90 backdrop-blur-sm border border-border/60 text-xs font-sans font-semibold text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <RotateCcw size={12} />
-                {t(lang, 'Retake', 'Ambil Semula')}
-              </button>
+        {preview ? (
+          <div className="relative rounded-xl border-2 border-dashed border-border/60 bg-muted/30 p-3">
+            <img
+              src={preview}
+              alt="Leaf preview"
+              className="w-full max-h-48 mx-auto rounded-lg object-contain"
+            />
+            <button
+              type="button"
+              onClick={handleClear}
+              className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-background/90 backdrop-blur-sm border border-border/60 text-xs font-sans font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <RotateCcw size={12} />
+              {t(lang, 'Retake', 'Ambil Semula')}
+            </button>
+          </div>
+        ) : (
+          <label
+            htmlFor="leaf-photo-input"
+            className="flex flex-col items-center justify-center py-8 px-4 gap-3 rounded-xl border-2 border-dashed border-border/60 bg-muted/30 cursor-pointer hover:border-primary/40 hover:bg-muted/50 transition-all"
+          >
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <ImagePlus size={22} className="text-primary" />
             </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-8 px-4 gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <ImagePlus size={22} className="text-primary" />
-              </div>
-              <p className="font-sans text-xs text-muted-foreground text-center max-w-[220px]">
-                {t(lang,
-                  'Snap a photo of your leaf or upload from gallery',
-                  'Tangkap foto daun anda atau muat naik dari galeri'
-                )}
-              </p>
-              <span className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-sans font-semibold text-primary-foreground">
-                {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
-              </span>
-            </div>
-          )}
-        </div>
+            <p className="font-sans text-xs text-muted-foreground text-center max-w-[220px]">
+              {t(lang,
+                'Snap a photo of your leaf or upload from gallery',
+                'Tangkap foto daun anda atau muat naik dari galeri'
+              )}
+            </p>
+            <span className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-xs font-sans font-semibold text-primary-foreground pointer-events-none">
+              {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
+            </span>
+          </label>
+        )}
 
         <button
           disabled={!file || isAnalyzing}
