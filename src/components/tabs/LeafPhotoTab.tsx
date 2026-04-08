@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
-import { ImagePlus, Camera, AlertTriangle, Loader2, RotateCcw } from 'lucide-react';
+import { ImagePlus, Camera, AlertTriangle, Loader2, RotateCcw, Upload, MonitorUp } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
+import { WebcamCapture } from '../WebcamCapture';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
 
@@ -22,20 +24,38 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const [preview, setPreview] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showDesktopMenu, setShowDesktopMenu] = useState(false);
+  const [showWebcam, setShowWebcam] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
+  const mobileInputRef = useRef<HTMLInputElement>(null);
+  const isMobile = useIsMobile();
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
       setFile(f);
       setPreview(URL.createObjectURL(f));
       setError(null);
+      setShowDesktopMenu(false);
     }
   };
 
   const handleClear = () => {
     setFile(null);
     setPreview(null);
+  };
+
+  const handleBoxClick = () => {
+    if (preview) return;
+    if (isMobile) {
+      mobileInputRef.current?.click();
+    } else {
+      setShowDesktopMenu(prev => !prev);
+    }
+  };
+
+  const handleWebcamCapture = (capturedFile: File) => {
+    handleFile(capturedFile);
+    setShowWebcam(false);
   };
 
   const handleAnalyze = async () => {
@@ -134,19 +154,17 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
 
         {/* Hidden file inputs */}
         <input
-          id="leaf-photo-input"
           ref={inputRef}
           type="file"
           accept="image/*"
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
+        {/* Mobile input — no capture attr so native OS shows Camera + Gallery sheet */}
         <input
-          id="leaf-camera-input"
-          ref={cameraRef}
+          ref={mobileInputRef}
           type="file"
           accept="image/*"
-          capture="environment"
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
@@ -168,38 +186,73 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
             </button>
           </div>
         ) : (
-          <div className="rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-6 px-4">
-            <div className="flex flex-col items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <ImagePlus size={22} className="text-primary" />
+          <div className="relative">
+            <div
+              onClick={handleBoxClick}
+              className="rounded-xl border-2 border-dashed border-border/60 bg-muted/30 py-8 px-4 cursor-pointer hover:border-primary/40 hover:bg-primary/5 transition-colors"
+            >
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                  <ImagePlus size={24} className="text-primary" />
+                </div>
+                <div className="text-center">
+                  <p className="font-sans text-sm font-semibold text-foreground mb-1">
+                    {t(lang, 'Choose Leaf Photo', 'Pilih Foto Daun')}
+                  </p>
+                  <p className="font-sans text-xs text-muted-foreground max-w-[260px]">
+                    {t(lang,
+                      'Snap a photo of your leaf or upload from gallery',
+                      'Tangkap foto daun anda atau muat naik dari galeri'
+                    )}
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-sans font-semibold pointer-events-none">
+                  <Upload size={14} />
+                  {t(lang, 'Upload Image', 'Muat Naik Imej')}
+                </span>
               </div>
-              <p className="font-sans text-xs text-muted-foreground text-center max-w-[240px]">
-                {t(lang,
-                  'Snap a photo of your leaf or upload from gallery',
-                  'Tangkap foto daun anda atau muat naik dari galeri'
-                )}
-              </p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <label
-                htmlFor="leaf-camera-input"
-                className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-2.5 cursor-pointer hover:bg-primary/90 transition-colors"
-              >
-                <Camera size={16} className="text-primary-foreground" />
-                <span className="text-xs font-sans font-semibold text-primary-foreground">
-                  {t(lang, 'Take Photo', 'Ambil Gambar')}
-                </span>
-              </label>
-              <label
-                htmlFor="leaf-photo-input"
-                className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-border bg-background py-2.5 cursor-pointer hover:bg-muted/50 transition-colors"
-              >
-                <ImagePlus size={16} className="text-muted-foreground" />
-                <span className="text-xs font-sans font-semibold text-foreground">
-                  {t(lang, 'Upload Photo', 'Muat Naik')}
-                </span>
-              </label>
-            </div>
+
+            {/* Desktop popup menu */}
+            {showDesktopMenu && !isMobile && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowDesktopMenu(false)} />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-50 w-64 bg-card rounded-xl border border-border/60 shadow-xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200">
+                  <button
+                    onClick={() => { inputRef.current?.click(); }}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left border-b border-border/30"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <MonitorUp size={16} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-sans font-semibold text-foreground">
+                        {t(lang, 'Upload from Computer', 'Muat Naik dari Komputer')}
+                      </p>
+                      <p className="text-[10px] font-sans text-muted-foreground">
+                        {t(lang, 'Choose an image file', 'Pilih fail imej')}
+                      </p>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => { setShowDesktopMenu(false); setShowWebcam(true); }}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-muted/50 transition-colors text-left"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <Camera size={16} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-sans font-semibold text-foreground">
+                        {t(lang, 'Take Photo with Webcam', 'Ambil Gambar dengan Webcam')}
+                      </p>
+                      <p className="text-[10px] font-sans text-muted-foreground">
+                        {t(lang, 'Use your device camera', 'Gunakan kamera peranti')}
+                      </p>
+                    </div>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -218,6 +271,15 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           )}
         </button>
       </div>
+
+      {/* Webcam modal for desktop */}
+      {showWebcam && (
+        <WebcamCapture
+          lang={lang}
+          onCapture={handleWebcamCapture}
+          onClose={() => setShowWebcam(false)}
+        />
+      )}
     </div>
   );
 }
