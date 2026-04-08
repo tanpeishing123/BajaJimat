@@ -167,13 +167,12 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
-        {/* Mobile input for native camera flow */}
+        {/* Mobile input without capture so the native picker can offer camera or gallery */}
         <input
           id="leaf-mobile-upload"
           ref={mobileInputRef}
           type="file"
           accept="image/*"
-          capture="environment"
           className="hidden"
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
