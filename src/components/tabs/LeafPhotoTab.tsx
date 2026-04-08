@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, AlertTriangle, Loader2 } from 'lucide-react';
+import { Camera, ImagePlus, AlertTriangle, Loader2 } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
@@ -23,7 +23,7 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  
+  const cameraRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (f: File) => {
     if (f.type.startsWith('image/')) {
@@ -128,8 +128,16 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           <SpeakerButton text={t(lang, 'Upload a photo of your crop leaf for analysis', 'Muat naik foto daun tanaman anda untuk analisis')} lang={lang} size="sm" />
         </div>
 
-        {/* Hidden file input */}
-        
+        {/* Hidden camera input (capture=environment for rear camera) */}
+        <input
+          ref={cameraRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
+        />
+        {/* Hidden gallery input */}
         <input
           ref={inputRef}
           type="file"
@@ -138,25 +146,41 @@ export function LeafPhotoTab({ lang, onSubmit }: { lang: 'en' | 'bm'; onSubmit: 
           onChange={e => { e.target.files?.[0] && handleFile(e.target.files[0]); e.target.value = ''; }}
         />
 
-        <div
-          onClick={() => inputRef.current?.click()}
-          className="dropzone-premium rounded-xl p-6 text-center cursor-pointer"
-        >
+        <div className="dropzone-premium rounded-xl p-5 text-center">
           {preview ? (
-            <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain" />
+            <div className="cursor-pointer" onClick={() => { setFile(null); setPreview(null); }}>
+              <img src={preview} alt="Leaf preview" className="max-h-24 mx-auto rounded-lg object-contain mb-2" />
+              <p className="font-sans text-[11px] text-muted-foreground">{t(lang, 'Tap to retake', 'Ketik untuk ambil semula')}</p>
+            </div>
           ) : (
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Camera size={20} className="text-primary" />
-              </div>
-              <div>
+            <div className="flex items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => cameraRef.current?.click()}
+                className="flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Camera size={20} className="text-primary" />
+                </div>
                 <p className="font-sans text-xs font-semibold text-foreground">
-                  {t(lang, 'Take photo or upload from gallery', 'Ambil gambar atau muat naik dari galeri')}
+                  {t(lang, 'Take Photo', 'Ambil Gambar')}
                 </p>
-                <p className="font-sans text-[11px] text-muted-foreground mt-0.5">
-                  {t(lang, 'Supports clear leaf images', 'Menyokong gambar daun yang jelas')}
+              </button>
+
+              <div className="h-12 w-px bg-border/60" />
+
+              <button
+                type="button"
+                onClick={() => inputRef.current?.click()}
+                className="flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <ImagePlus size={20} className="text-primary" />
+                </div>
+                <p className="font-sans text-xs font-semibold text-foreground">
+                  {t(lang, 'Upload Photo', 'Muat Naik')}
                 </p>
-              </div>
+              </button>
             </div>
           )}
         </div>
