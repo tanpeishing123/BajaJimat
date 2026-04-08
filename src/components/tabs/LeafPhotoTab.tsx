@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ImagePlus, AlertTriangle, Loader2, RotateCcw } from 'lucide-react';
+import { ImagePlus, Camera, AlertTriangle, Loader2, RotateCcw } from 'lucide-react';
 import { SpeakerButton } from '../SpeakerButton';
 
 const t = (lang: 'en' | 'bm', en: string, bm: string) => lang === 'bm' ? bm : en;
