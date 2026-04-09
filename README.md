@@ -24,8 +24,8 @@ This project consists of a React frontend and a Supabase Edge Function backend. 
 
 **1. Clone the repository:**
 ```bash
-git clone [https://github.com/YOUR_USERNAME/agromate.git](https://github.com/YOUR_USERNAME/agromate.git)
-cd agromate
+git clone https://github.com/tanpeishing123/AgroMate.git
+cd AgroMate
 ```
 
 **2. Install dependencies:**
@@ -40,7 +40,7 @@ For security reasons, live API keys are not committed to this public repository.
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
-(Note to Judges: You can test the fully functional, authenticated application via our Live Deployment link at the top of this document).
+(Note: You can test the fully functional, authenticated application via our Live Deployment link at the top of this document).
 
 **4. Run the development server:**
 ```bash
