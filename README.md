@@ -1,14 +1,14 @@
-# 🌾 AgroMate - Precision Farming Powered by AI
+# 🌾 AgroMate - Farm Smarter, Harvest More
 
 **Team:** hoo lee not sheet  
 **Live Deployment:** https://agromate.lovable.app/  
-**Pitch Deck:** [Insert link to your PDF, or write "Included in repository"]
+**Pitch Deck:** https://drive.google.com/file/d/1yiaRhR_LPQxVE6bnNeuNuIPI7NWX8TOd/view?usp=sharing
 
 ***
 
 ## 📖 Project Overview
 
-Malaysian farmers are facing a crisis: soaring fertilizer prices and unpredictable crop diseases are devastating local yields. Currently, up to 39.5% of applied nutrients wash away due to improper application, and 60% of crop yields are threatened by undiagnosed diseases. 
+Malaysian farmers are facing a crisis: soaring fertiliser prices and unpredictable crop diseases are devastating local yields. Currently, up to 39.5% of applied nutrients wash away due to improper application, and 60% of crop yields are threatened by undiagnosed diseases. 
 **AgroMate** is a mobile-first, precision farming AI built to stop this guesswork. Designed specifically for the realities of the Malaysian *ladang* (fields), AgroMate combines Google Gemini's vision capabilities with a custom Linear Programming mathematical solver to give farmers exact, actionable, and cost-saving treatments.
 
 ### ✨ Key Features
@@ -81,7 +81,7 @@ ___
 AgroMate is designed to scale from a localized tool into a national asset for food security.
 
 * **Phase 1 (Current MVP):**
-  Web app, 3 input modes Bilingual + voice
+  Web app, 3 input modes, Bilingual + voice
 * **Phase 2 (Next 6 Months):**
   iOS/Android mobile app with weather push alerts.
   DOA API real-time soil data integration
